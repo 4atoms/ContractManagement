@@ -15,6 +15,8 @@ import cloneDeep from "lodash/cloneDeep";
 // Ducks
 import HomeDucks from "Ducks/home.ducks";
 import ConsultantDucks from "Ducks/consultant.ducks";
+import LoginDucks from "Ducks/Login.ducks";
+
 
 const history = createBrowserHistory();
 
@@ -27,6 +29,7 @@ function generateBuildingBlocks() {
   const ducks = {
     HomeDucks,
     ConsultantDucks,
+    LoginDucks,
   };
   const namespaces = [];
 
