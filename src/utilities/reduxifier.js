@@ -15,6 +15,8 @@ import cloneDeep from "lodash/cloneDeep";
 // Ducks
 import HomeDucks from "Ducks/home.ducks";
 import ConsultantDucks from "Ducks/consultant.ducks";
+import ContractDucks from "Ducks/contract.ducks";
+import SupplierDucks from "Ducks/supplier.ducks";
 import LoginDucks from "Ducks/Login.ducks";
 
 
@@ -30,6 +32,8 @@ function generateBuildingBlocks() {
     HomeDucks,
     ConsultantDucks,
     LoginDucks,
+    ContractDucks,
+    SupplierDucks,
   };
   const namespaces = [];
 
