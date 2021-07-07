@@ -17,7 +17,7 @@ import HomeDucks from "Ducks/home.ducks";
 import ConsultantDucks from "Ducks/consultant.ducks";
 import ContractDucks from "Ducks/contract.ducks";
 import SupplierDucks from "Ducks/supplier.ducks";
-import LoginDucks from "Ducks/Login.ducks";
+import LoginDucks from "Ducks/login.ducks";
 
 
 const history = createBrowserHistory();

@@ -13,7 +13,7 @@ const fetchRoutes = (containers) => {
         <Route exact path="/home" component={withRouter(Home)} />
         <Route exact path="/consultants" component={withRouter(ConsultantList)} />
         <Route exact path="/contracts" component={withRouter(ContractList)} />
-        <Route exact path="/suppliers" component={withRouter(SupplierList)} />
+        <Route exact path="/suppliers" component={withRouter(SupplierList)} /> 
         <Route exact path="/login" component={withRouter(Login)} />
 
 
