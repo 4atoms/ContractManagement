@@ -5,13 +5,14 @@ import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
 import Signuppage from "./Signuppage";
+import Header from "Components/Header";
 
 const Signup = (props) => {
-  const propShape = formStoreData(props, ["home"]);
+  const propShape = formStoreData(props, ["signup"]);
 
   useEffect(() => {
     return () => {
-      propShape.actions.resetHomeStore();
+      propShape.actions.resetSignupStore();
     };
   }, []);
 
@@ -19,6 +20,7 @@ const Signup = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
+          <Header/>
           <Signuppage />
         </RefErrorBoundary>
       </RefProvider>

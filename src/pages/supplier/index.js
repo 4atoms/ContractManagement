@@ -4,7 +4,7 @@ import { shape } from "prop-types";
 import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
-
+import Header from "Components/Header";
 import SuppliersData from './suppliersData';
 
 const SupplierList = (props) => {
@@ -12,7 +12,7 @@ const SupplierList = (props) => {
 
   useEffect(() => {
     return () => {
-      propShape.actions.resetHomeStore();
+      propShape.actions.resetSupplierStore();
     };
   }, []);
 
@@ -20,7 +20,7 @@ const SupplierList = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
-          <div>Hello Supplier</div>
+          <Header/>
           <SuppliersData />
         </RefErrorBoundary>
       </RefProvider>

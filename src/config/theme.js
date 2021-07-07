@@ -16,9 +16,11 @@ export const themeColors = {
   red100: "#3B0003",
   // Black
   black: "#000000",
+  //purple
+  purple : "#B37FEB",
 };
 
-export const primaryColor = themeColors.red70;
+export const primaryColor = themeColors.purple;
 
 // ************ BreakPoints ************
 export const BreakPoints = {

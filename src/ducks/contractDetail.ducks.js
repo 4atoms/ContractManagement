@@ -1,6 +1,6 @@
 import cloneDeep from "lodash/cloneDeep";
 import { setNamespace } from "Utilities/helpers";
-const namespace = "login";
+const namespace = "contractDetail";
 const createAction = setNamespace(namespace);
 
 // STORE
@@ -9,20 +9,20 @@ const initialState = {
 
 // ACTIONS
 
-const ASSIGN_TO_LOGIN_STORE = createAction("ASSIGN_TO_LOGIN_STORE");
-const RESET_LOGIN_STORE = createAction("RESET_LOGIN_STORE");
+const ASSIGN_TO_CONTRACT_DETAIL_STORE = createAction("ASSIGN_TO_CONTRACT_DETAIL_STORE");
+const RESET_CONTRACT_DETAIL_STORE = createAction("RESET_CONTRACT_DETAIL_STORE");
 
-const assignToLoginStore = (type, payload) => ({
-  type: ASSIGN_TO_LOGIN_STORE,
+const assignToContractDetailStore = (type, payload) => ({
+  type: ASSIGN_TO_CONTRACT_DETAIL_STORE,
   meta: {
     type,
     payload,
   },
 });
 
-const resetLoginStore = () => (dispatch) => {
+const resetContractDetailStore = () => (dispatch) => {
   dispatch({
-    type: RESET_LOGIN_STORE,
+    type: RESET_CONTRACT_DETAIL_STORE,
     meta: {
       payload: null,
     },
@@ -34,14 +34,14 @@ const resetLoginStore = () => (dispatch) => {
 // Routing
 
 // Reducers
-const loginReducer = (state = initialState, action) => {
+const contractReducer = (state = initialState, action) => {
   const localState = cloneDeep(state);
 
   switch (action.type) {
-    case ASSIGN_TO_LOGIN_STORE:
+    case ASSIGN_TO_CONTRACT_DETAIL_STORE:
       localState[action.meta.type] = action.meta.payload;
       return { ...localState };
-    case RESET_LOGIN_STORE:
+    case RESET_CONTRACT_DETAIL_STORE:
       return initialState;
     default:
       return localState;
@@ -51,9 +51,9 @@ const loginReducer = (state = initialState, action) => {
 export default {
   namespace,
   store: initialState,
-  reducer: loginReducer,
+  reducer: contractReducer,
   creators: {
-    assignToLoginStore,
-    resetLoginStore,
+    assignToContractDetailStore,
+    resetContractDetailStore,
   },
 };
