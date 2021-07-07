@@ -1,6 +1,6 @@
 import cloneDeep from "lodash/cloneDeep";
 import { setNamespace } from "Utilities/helpers";
-const namespace = "contract";
+const namespace = "supplier";
 const createAction = setNamespace(namespace);
 
 // STORE

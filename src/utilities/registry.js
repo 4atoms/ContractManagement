@@ -14,9 +14,9 @@ function Injector(component, name) {
 
 export default {
   Home: Injector(Home, "Home"),
-  Consultant: Injector(ConsultantList, "ConsultantList"),
+  ConsultantList: Injector(ConsultantList, "ConsultantList"),
   Login: Injector(Login, "Login"),
-  Supplier: Injector(SupplierList, "Supplier"),
-  Contract: Injector(ContractList, "ContractList"),
+  SupplierList: Injector(SupplierList, "SupplierList"),
+  ContractList: Injector(ContractList, "ContractList"),
 };
 
