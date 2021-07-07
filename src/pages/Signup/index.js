@@ -4,9 +4,9 @@ import { shape } from "prop-types";
 import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
-import Loginpage from "./Loginpage";
+import Signuppage from "./Signuppage";
 
-const Login = (props) => {
+const Signup = (props) => {
   const propShape = formStoreData(props, ["home"]);
 
   useEffect(() => {
@@ -19,18 +19,18 @@ const Login = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
-          <Loginpage />
+          <Signuppage />
         </RefErrorBoundary>
       </RefProvider>
     </>
   );
 };
 
-Login.propTypes = {
+Signup.propTypes = {
   store: shape({}).isRequired,
   actions: shape({}).isRequired,
   location: shape({}).isRequired,
   history: shape({}).isRequired,
 };
 
-export default Login;
+export default Signup;
