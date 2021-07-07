@@ -4,6 +4,7 @@ import { shape } from "prop-types";
 import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
+import Loginpage from "./loginpage";
 
 const Login = (props) => {
   const propShape = formStoreData(props, ["home"]);
@@ -18,7 +19,7 @@ const Login = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
-          <div>Login Page</div>
+          <Loginpage />
         </RefErrorBoundary>
       </RefProvider>
     </>
