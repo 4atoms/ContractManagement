@@ -9,20 +9,20 @@ const initialState = {
 
 // ACTIONS
 
-const ASSIGN_TO_HOME_STORE = createAction("ASSIGN_TO_HOME_STORE");
-const RESET_HOME_STORE = createAction("RESET_HOME_STORE");
+const ASSIGN_TO_SUPPLIER_STORE = createAction("ASSIGN_TO_SUPPLIER_STORE");
+const RESET_SUPPLIER_STORE = createAction("RESET_SUPPLIER_STORE");
 
-const assignToHomeStore = (type, payload) => ({
-  type: ASSIGN_TO_HOME_STORE,
+const assignToSupplierStore = (type, payload) => ({
+  type: ASSIGN_TO_SUPPLIER_STORE,
   meta: {
     type,
     payload,
   },
 });
 
-const resetHomeStore = () => (dispatch) => {
+const resetSupplierStore = () => (dispatch) => {
   dispatch({
-    type: RESET_HOME_STORE,
+    type: RESET_SUPPLIER_STORE,
     meta: {
       payload: null,
     },
@@ -34,14 +34,14 @@ const resetHomeStore = () => (dispatch) => {
 // Routing
 
 // Reducers
-const homeReducer = (state = initialState, action) => {
+const supplierReducer = (state = initialState, action) => {
   const localState = cloneDeep(state);
 
   switch (action.type) {
-    case ASSIGN_TO_HOME_STORE:
+    case ASSIGN_TO_SUPPLIER_STORE:
       localState[action.meta.type] = action.meta.payload;
       return { ...localState };
-    case RESET_HOME_STORE:
+    case RESET_SUPPLIER_STORE:
       return initialState;
     default:
       return localState;
@@ -51,9 +51,9 @@ const homeReducer = (state = initialState, action) => {
 export default {
   namespace,
   store: initialState,
-  reducer: homeReducer,
+  reducer: supplierReducer,
   creators: {
-    assignToHomeStore,
-    resetHomeStore,
+    assignToSupplierStore,
+    resetSupplierStore,
   },
 };
