@@ -5,7 +5,7 @@ import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
 
-const Contract = (props) => {
+const ContractList = (props) => {
   const propShape = formStoreData(props, ["contract"]);
 
   useEffect(() => {
@@ -25,11 +25,11 @@ const Contract = (props) => {
   );
 };
 
-Contract.propTypes = {
+ContractList.propTypes = {
   store: shape({}).isRequired,
   actions: shape({}).isRequired,
   location: shape({}).isRequired,
   history: shape({}).isRequired,
 };
 
-export default Contract;
+export default ContractList;

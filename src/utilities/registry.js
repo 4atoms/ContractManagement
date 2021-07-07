@@ -1,9 +1,9 @@
 // Controllers
 import Home from "Pages/home";
-import Consultant from "Pages/consultant"
+import ConsultantList from "Pages/consultant"
 import Login from "Pages/login";
-import Contract from "Pages/contract";
-import Supplier from "Pages/supplier";
+import ContractList from "Pages/contract";
+import SupplierList from "Pages/supplier";
 
 function Injector(component, name) {
   const hoc = component;
@@ -14,9 +14,9 @@ function Injector(component, name) {
 
 export default {
   Home: Injector(Home, "Home"),
-  Consultant: Injector(Consultant, "Consultant"),
+  Consultant: Injector(ConsultantList, "ConsultantList"),
   Login: Injector(Login, "Login"),
-  Supplier: Injector(Supplier, "Supplier"),
-  Contract: Injector(Contract, "Contract"),
+  Supplier: Injector(SupplierList, "Supplier"),
+  Contract: Injector(ContractList, "ContractList"),
 };
 
