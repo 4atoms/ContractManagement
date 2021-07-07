@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
 margin:50px;`;
 
-const ContractData = () =>{
+const ContractsData = () =>{
     const dataSource = [
         {
           key: '1',
@@ -125,4 +125,4 @@ const ContractData = () =>{
       );
 }
 
-export default ContractData;
+export default ContractsData;
