@@ -1,9 +1,8 @@
 import React from "react";
-import { Input } from 'antd';
-import "./Login.style.js";
-import { Login, LoginContainer, BTNContainer } from "./Login.style";
+import "../Login/Login.style";
+import { Login, LoginContainer, BTNContainer } from "../Login/Login.style";
 
-const Loginpage = () => {
+const Signuppage = () => {
   return (
         <Login>
             <LoginContainer>
@@ -12,12 +11,11 @@ const Loginpage = () => {
                 <label>Password</label>
                 <input type="password" required></input>
                 <BTNContainer>
-                    <button>Sign In</button>
-                    <p>Don't have an account ? <span>Sign Up</span></p>
+                    <button>Submit</button>
                 </BTNContainer>
             </LoginContainer>
         </Login>   
   );
 }
 
-export default Loginpage;
+export default Signuppage;
