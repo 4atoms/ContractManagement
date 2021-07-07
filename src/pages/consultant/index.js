@@ -5,7 +5,7 @@ import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
 
-const Consultant = (props) => {
+const ConsultantList = (props) => {
   const propShape = formStoreData(props, ["consultant"]);
 
   useEffect(() => {
@@ -25,11 +25,11 @@ const Consultant = (props) => {
   );
 };
 
-Consultant.propTypes = {
+ConsultantList.propTypes = {
   store: shape({}).isRequired,
   actions: shape({}).isRequired,
   location: shape({}).isRequired,
   history: shape({}).isRequired,
 };
 
-export default Consultant;
+export default ConsultantList;

@@ -3,7 +3,7 @@ import { Switch, withRouter, Route } from "react-router-dom";
 import { Result } from "antd";
 
 const fetchRoutes = (containers) => {
-  const { Home, Login, Consultant, Contract, Supplier} = containers;
+  const { Home, Login, ConsultantList, ContractList, SupplierList} = containers;
 
   return function Routes() {
     return (
@@ -11,9 +11,9 @@ const fetchRoutes = (containers) => {
         {/* Home */}
         <Route exact path="/" component={withRouter(Home)} />
         <Route exact path="/home" component={withRouter(Home)} />
-        <Route exact path="/consultant" component={withRouter(Consultant)} />
-        <Route exact path="/contract" component={withRouter(Contract)} />
-        <Route exact path="/supplier" component={withRouter(Supplier)} />
+        <Route exact path="/consultants" component={withRouter(ConsultantList)} />
+        <Route exact path="/contracts" component={withRouter(ContractList)} />
+        <Route exact path="/suppliers" component={withRouter(SupplierList)} />
         <Route exact path="/login" component={withRouter(Login)} />
 
 
