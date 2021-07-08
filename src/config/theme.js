@@ -17,7 +17,7 @@ export const themeColors = {
   // Black
   black: "#000000",
   //purple
-  purple : "#B37FEB",
+  purple : "#603bbb",
 };
 
 export const primaryColor = themeColors.purple;
