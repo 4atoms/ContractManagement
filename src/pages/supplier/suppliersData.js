@@ -44,7 +44,7 @@ const SuppliersData = () =>{
       ];
       return(
       <Wrapper>
-      <Table dataSource={dataSource} columns={columns} bordered >
+      <Table dataSource={dataSource} columns={columns} bordered title={()=>'SUPPLIERS'}>
        
     </Table>
       </Wrapper>
