@@ -94,7 +94,7 @@ const ConsultantsData = () =>{
       ];
       return(
       <Wrapper>
-      <Table dataSource={dataSource} columns={columns} bordered >
+      <Table dataSource={dataSource} columns={columns} bordered title={()=>'CONSULTANTS'}>
        
     </Table>
       </Wrapper>

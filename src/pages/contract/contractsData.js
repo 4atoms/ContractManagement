@@ -118,7 +118,7 @@ const ContractsData = () =>{
       ];
       return(
       <Wrapper>
-      <Table dataSource={dataSource} columns={columns} bordered >
+      <Table dataSource={dataSource} columns={columns} bordered  title={()=>'CONTRACTS'}>
        
     </Table>
       </Wrapper>
