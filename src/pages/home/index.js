@@ -5,7 +5,7 @@ import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
 
-import Header from "../../components/Header/index"
+import Header from "../../components/Header/index";
 
 const Home = (props) => {
   const propShape = formStoreData(props, ["home"]);

@@ -1,0 +1,56 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "commonjs": true
+    },
+    "plugins": [
+        "react",
+        "react-hooks",
+        "json",
+        "prettier"
+    ],
+    "extends": [
+        "plugin:react/recommended",
+        "eslint:recommended",
+        "plugin:json/recommended",
+        "plugin:prettier/recommended",
+        "prettier/flowtype",
+        "prettier/react"
+    ],
+    "rules": {
+        "react/prop-types": "off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "off",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "json/*": [
+            "error",
+            "allowComments"
+        ],
+        "quotes": [
+            0,
+            "single",
+            "avoid-escape"
+        ],
+         "prettier/prettier": [
+            "warn",
+            {
+                "endOfLine": "auto"
+            }
+        ],
+        "import/prefer-default-export": "off",
+        "no-underscore-dangle": "off",
+        "react/display-name": "off",
+        "react/no-children-prop": "off"
+    },
+    "parser": "babel-eslint"
+    
+}

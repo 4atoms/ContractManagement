@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { any, shape, bool } from "prop-types";
 import { ErrorBoundary } from "react-error-boundary";
 import { Result, Button } from "antd";
-import { Container } from "CommonStyles";
-
 const RefErrorBoundary = (props) => {
   const { children, history } = props;
 
@@ -16,7 +14,6 @@ const RefErrorBoundary = (props) => {
   // eslint-disable-next-line no-unused-vars
   const errorFallbackComponent = ({ error, resetErrorBoundary }) => {
     return (
-      <Container>
         <Result
           status="warning"
           title={"Oops, Something went wrong!"}
@@ -26,7 +23,6 @@ const RefErrorBoundary = (props) => {
             </Button>
           }
         />
-      </Container>
     );
   };
 

@@ -20,7 +20,7 @@ const ContractList = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
-          <Header/>
+          <Header />
           <ContractsData />
         </RefErrorBoundary>
       </RefProvider>
