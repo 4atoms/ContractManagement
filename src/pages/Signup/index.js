@@ -20,7 +20,7 @@ const Signup = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
-          <Header/>
+          <Header />
           <Signuppage />
         </RefErrorBoundary>
       </RefProvider>
