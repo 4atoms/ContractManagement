@@ -33,7 +33,7 @@ const ContractsData = () =>{
           costPHour: '668 kr',
         },
         {
-          key: '2',
+          key: '3',
           name: 'Drake',
           role: 'Product Specialist',
           costCenter: 'CC 1503',
