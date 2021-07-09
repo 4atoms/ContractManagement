@@ -16,8 +16,8 @@ export const LoginContainer = styled.div`
   padding: 60px;
   margin: auto;
   width: 100%;
-  max-width: 520px;
-  min-height: 600px;
+  max-width: 450px;
+  min-height: 510px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -33,7 +33,7 @@ export const LoginContainer = styled.div`
   color: white;
   margin: 14px 0;
   display: block;
-  font-size: 22px;
+  font-size: 16px;
   line-height: 1;
   }
 
@@ -42,11 +42,17 @@ export const LoginContainer = styled.div`
   border: none;
   outline: none;
   font-size: 19px;
-  padding: 10px;
+  padding: 4px;
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
   letter-spacing: 1px;
+
   }
+`;
+
+export const ImageWrap = styled.img`
+  width: 45%;
+  margin-left: 80px;
 `;
 
 export const BTNContainer = styled.div`
@@ -57,7 +63,7 @@ export const BTNContainer = styled.div`
    border: none;
    outline: none;
    width: 100%;
-   padding: 15px 0;
+   padding: 6px 0;
    color: #fff;
    font-size: 16px;
    letter-spacing: 1px;
