@@ -1,21 +1,28 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Table } from "antd";
 import styled from "styled-components";
+import RefContext from "Utilities/refContext";
 
 const Wrapper = styled.div`
   margin: 50px;
 `;
 
 const SuppliersData = () => {
-  const dataSource = [
-    {
-      key: "1",
-      supplier: "Accenture",
-      contactPersonNumber: "9999772311",
-      phoneNumber: "9999772300",
-      companyId: "625kr",
-    },
-  ];
+  const context = useContext(RefContext);
+  const {
+    store: data,
+    actions: { assignToSupplierStore, getSupplierData },
+  } = context;
+  // const dataSource = [
+  //   {
+  //     key: "1",
+  //     supplier: "Accenture",
+  //     contactPersonNumber: "9999772311",
+  //     phoneNumber: "9999772300",
+  //     companyId: "625kr",
+  //   },
+  // ];
+  assignToSupplierStore("data", getSupplierData());
 
   const columns = [
     {
@@ -42,7 +49,7 @@ const SuppliersData = () => {
   return (
     <Wrapper>
       <Table
-        dataSource={dataSource}
+        dataSource={data}
         columns={columns}
         bordered
         title={() => "SUPPLIERS"}

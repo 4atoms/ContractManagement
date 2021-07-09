@@ -1,10 +1,13 @@
 import cloneDeep from "lodash/cloneDeep";
 import { setNamespace } from "Utilities/helpers";
+import Network from "Utilities/network";
 const namespace = "supplier";
 const createAction = setNamespace(namespace);
+const nw = new Network();
 
 // STORE
 const initialState = {
+  data: null,
 };
 
 // ACTIONS
@@ -30,6 +33,13 @@ const resetSupplierStore = () => (dispatch) => {
 };
 
 // METHODS
+const getSupplierData = () => {
+  nw.api("supplierList")
+    .get()
+    .then((resp) => {
+      return resp;
+    });
+};
 
 // Routing
 
@@ -55,5 +65,6 @@ export default {
   creators: {
     assignToSupplierStore,
     resetSupplierStore,
+    getSupplierData,
   },
 };
