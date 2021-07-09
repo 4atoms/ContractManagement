@@ -8,7 +8,6 @@ import { formStoreData } from "Utilities/helpers";
 import ConsultantsData from "./consultantsData";
 import Header from "Components/Header";
 
-
 const ConsultantList = (props) => {
   const propShape = formStoreData(props, ["consultant"]);
 
@@ -22,7 +21,7 @@ const ConsultantList = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
-          <Header/>
+          <Header />
           <ConsultantsData />
         </RefErrorBoundary>
       </RefProvider>

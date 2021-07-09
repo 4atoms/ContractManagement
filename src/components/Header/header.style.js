@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { themeColors } from "Theme";
 
 export const PageHeader = styled.div`
   display: flex;
@@ -11,7 +12,7 @@ export const PageHeader = styled.div`
 export const Logo = styled.div`
   display: flex;
   justify-content: space-between;
-
+  padding: 10px;
   & > img {
     object-fit: contain;
   }
@@ -26,13 +27,26 @@ export const LinkComponent = styled.div`
 
 export const Link = styled.div`
   margin: 10px;
-  
+
   & > a {
     font-weight: 100px;
     font-size: 15px;
-    color: #603bbb;
+    color: ${themeColors.purple};
     &:hover {
-        color : black;
+      color: ${themeColors.gray70};
+    }
+  }
+`;
+
+export const Button = styled.div`
+  .ant-btn-primary {
+    background-color: ${themeColors.purple};
+    border-color: ${themeColors.purple};
+  }
+
+  .ant-input {
+    &:hover {
+      border-color: ${themeColors.purple};
     }
   }
 `;
