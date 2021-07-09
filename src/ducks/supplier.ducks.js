@@ -7,7 +7,15 @@ const nw = new Network();
 
 // STORE
 const initialState = {
-  data: null,
+  data: [
+    {
+      key: "5",
+      companyId: "625kr",
+      supplierName: "Accenture",
+      contactPerson: "9999772311",
+      phoneNo: "9999772300",
+    },
+  ],
 };
 
 // ACTIONS
@@ -33,11 +41,12 @@ const resetSupplierStore = () => (dispatch) => {
 };
 
 // METHODS
-const getSupplierData = () => {
+const getSupplierData = (request) => {
   nw.api("supplierList")
     .get()
     .then((resp) => {
-      return resp;
+      console.log(resp.data);
+      assignToSupplierStore("data", resp.data);
     });
 };
 

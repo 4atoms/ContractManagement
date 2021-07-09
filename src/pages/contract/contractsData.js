@@ -13,45 +13,45 @@ const ContractsData = () => {
     store: data,
     actions: { assignToContractStore, getContractData },
   } = context;
-  // const dataSource = [
-  //   {
-  //     key: "1",
-  //     name: "Mike",
-  //     role: "Product Specialist",
-  //     costCenter: "CC 1503",
-  //     projectNumber: "PJ_DAM",
-  //     startDate: "12-02-20",
-  //     endDate: "11-02-21",
-  //     ikeaResp: "Jonatan Soderdinf",
-  //     supplier: "Accenture",
-  //     costPHour: "625 kr",
-  //   },
-  //   {
-  //     key: "2",
-  //     name: "Drake",
-  //     role: "Product Specialist",
-  //     costCenter: "CC 1503",
-  //     projectNumber: "PJ_PIM",
-  //     startDate: "12-02-20",
-  //     endDate: "11-02-21",
-  //     ikeaResp: "Abhishek Kumar",
-  //     supplier: "Accenture",
-  //     costPHour: "668 kr",
-  //   },
-  //   {
-  //     key: "3",
-  //     name: "Drake",
-  //     role: "Product Specialist",
-  //     costCenter: "CC 1503",
-  //     projectNumber: "PJ_CMS",
-  //     startDate: "12-02-20",
-  //     endDate: "11-02-21",
-  //     ikeaResp: "Abhishek Kumar",
-  //     supplier: "Infosys",
-  //     costPHour: "575 kr",
-  //   },
-  // ];
-  assignToContractStore("data", getContractData());
+  const dataSource = [
+    {
+      key: "1",
+      name: "Mike",
+      role: "Product Specialist",
+      costCenter: "CC 1503",
+      projectNumber: "PJ_DAM",
+      startDate: "12-02-20",
+      endDate: "11-02-21",
+      ikeaResp: "Jonatan Soderdinf",
+      supplier: "Accenture",
+      costPHour: "625 kr",
+    },
+    {
+      key: "2",
+      name: "Drake",
+      role: "Product Specialist",
+      costCenter: "CC 1503",
+      projectNumber: "PJ_PIM",
+      startDate: "12-02-20",
+      endDate: "11-02-21",
+      ikeaResp: "Abhishek Kumar",
+      supplier: "Accenture",
+      costPHour: "668 kr",
+    },
+    {
+      key: "3",
+      name: "Drake",
+      role: "Product Specialist",
+      costCenter: "CC 1503",
+      projectNumber: "PJ_CMS",
+      startDate: "12-02-20",
+      endDate: "11-02-21",
+      ikeaResp: "Abhishek Kumar",
+      supplier: "Infosys",
+      costPHour: "575 kr",
+    },
+  ];
+  assignToContractStore("data", dataSource);
 
   const columns = [
     {

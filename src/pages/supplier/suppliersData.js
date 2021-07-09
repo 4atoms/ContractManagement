@@ -11,7 +11,7 @@ const SuppliersData = () => {
   const context = useContext(RefContext);
   const {
     store: data,
-    actions: { assignToSupplierStore, getSupplierData },
+    // actions: { assignToSupplierStore, getSupplierData },
   } = context;
   // const dataSource = [
   //   {
@@ -22,23 +22,24 @@ const SuppliersData = () => {
   //     companyId: "625kr",
   //   },
   // ];
-  assignToSupplierStore("data", getSupplierData());
+  // assignToSupplierStore("data", getSupplierData());
+  console.log(data.data[0]);
 
   const columns = [
     {
-      title: "Supplier",
-      dataIndex: "supplier",
-      key: "supplier",
+      title: "Supplier Name",
+      dataIndex: "supplierName",
+      key: "supplierName",
     },
     {
-      title: "Contact Person Number",
-      dataIndex: "contactPersonNumber",
-      key: "contactPersonNumber",
+      title: "Contact Person",
+      dataIndex: "contactPerson",
+      key: "contactPerson",
     },
     {
       title: "Phone Number",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
+      dataIndex: "phoneNo",
+      key: "phoneNo",
     },
     {
       title: "Company ID",
@@ -49,7 +50,7 @@ const SuppliersData = () => {
   return (
     <Wrapper>
       <Table
-        dataSource={data}
+        dataSource={data.data}
         columns={columns}
         bordered
         title={() => "SUPPLIERS"}
