@@ -8,7 +8,12 @@ export const Login = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 0 20px;
-  background: #e9e9e9;
+  background: radial-gradient(
+    ellipse at left bottom,
+    rgba(22, 24, 47, 1) 0%,
+    rgba(38, 20, 72, 0.9) 59%,
+    rgba(17, 27, 75, 0.9) 100%
+  );
   display: flex;
 `;
 
@@ -21,16 +26,11 @@ export const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: radial-gradient(
-    ellipse at left bottom,
-    rgba(22, 24, 47, 1) 0%,
-    rgba(38, 20, 72, 0.9) 59%,
-    rgba(17, 27, 75, 0.9) 100%
-  );
+  background: white;
   box-shadow: 0 50px 70px -20px rgba(0, 0, 0, 0.8);
 
   & > label {
-    color: white;
+    color: rgba(38, 20, 72, 0.9) 59%;
     margin: 14px 0;
     display: block;
     font-size: 16px;
@@ -39,12 +39,13 @@ export const LoginContainer = styled.div`
 
   & > input {
     width: 100%;
-    border: none;
+    border: 1px solid blue;
+    border-radius: 5px;
     outline: none;
-    font-size: 19px;
+    font-size: 13px;
     padding: 4px;
     background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+    color: rgba(38, 20, 72, 0.9) 59%;
     letter-spacing: 1px;
   }
 `;
@@ -73,7 +74,7 @@ export const BTNContainer = styled.div`
   & > p {
     margin: 14px 0 0 0;
     text-align: right;
-    color: #fff;
+    color: black;
   }
 
   & > p > span {
