@@ -33,7 +33,7 @@ const Loginpage = () => {
         <BTNContainer>
           <button onClick={login}>Log In</button>
           <p>
-            Don&apost have an account ?{" "}
+            Dont have an account ?
             <a href="Signup">
               <span>Sign Up</span>
             </a>

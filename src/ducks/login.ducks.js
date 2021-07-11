@@ -35,14 +35,14 @@ const resetLoginStore = () => (dispatch) => {
 };
 
 // METHODS
-const login = (request) =>{
+const login = (request) => {
   console.log(request);
 
   nw.api("login")
-  .get()
-  .then((resp)=>{
-    console.log(resp);
-  });
+    .post(request)
+    .then((resp) => {
+      console.log(resp.data);
+    });
 };
 // Routing
 

@@ -1,5 +1,5 @@
 const development = {
-  login:"/e9f7581e-9f74-4d13-ae02-b022383e56e3",
+  login: "/login",
 };
 
 export function getAllEndpoints() {
@@ -10,6 +10,6 @@ export function getAllEndpoints() {
 }
 
 export function getBaseURL() {
-  return "https://run.mocky.io/v3";
+  return "http://localhost:3000";
 }
 // https://run.mocky.io/v3/e9f7581e-9f74-4d13-ae02-b022383e56e3
