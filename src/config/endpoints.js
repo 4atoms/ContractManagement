@@ -1,5 +1,6 @@
 const development = {
   login: "/login",
+  signup: "/signup",
 };
 
 export function getAllEndpoints() {

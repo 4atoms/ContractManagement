@@ -35,13 +35,12 @@ const resetLoginStore = () => (dispatch) => {
 };
 
 // METHODS
-const login = (request) => {
-  console.log(request);
-
+const login = (request) => () => {
   nw.api("login")
     .post(request)
     .then((resp) => {
       console.log(resp.data);
+      // console.log(request);
     });
 };
 // Routing

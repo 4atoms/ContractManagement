@@ -8,6 +8,7 @@ const nwk = new Network();
 
 // STORE
 const initialState = {
+  name: null,
   username: null,
   password: null,
   rpassword: null,
@@ -36,9 +37,7 @@ const resetSignupStore = () => (dispatch) => {
 };
 
 // METHODS
-const signup = (request) => {
-  console.log(request);
-
+const signup = (request) => () => {
   nwk
     .api("signup")
     .post(request)
