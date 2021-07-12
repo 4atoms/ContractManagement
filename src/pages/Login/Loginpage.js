@@ -11,6 +11,11 @@ const Loginpage = () => {
     actions: { assignToLoginStore, login },
   } = Context;
 
+  const loginUser = () => {
+    const request = { username, password };
+    login(request);
+  };
+
   return (
     <Login>
       <LoginContainer>
@@ -31,7 +36,7 @@ const Loginpage = () => {
           onChange={(e) => assignToLoginStore("password", e.target.value)}
         ></input>
         <BTNContainer>
-          <button onClick={login}>Log In</button>
+          <button onClick={loginUser}>Log In</button>
           <p>
             Dont have an account ?
             <a href="Signup">
