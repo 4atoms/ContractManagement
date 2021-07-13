@@ -1,48 +1,53 @@
-import React from "react";
-import { Table } from "antd";
-import styled from "styled-components";
-
-const Wrapper = styled.div`
-  padding: 0px 90px;
-`;
+import React, { useContext, useEffect } from "react";
+import { Table, Space } from "antd";
+import RefContext from "Utilities/refContext";
+import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
 
 const ConsultantsData = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      role: "Product Specialist",
-      costCenter: "CC 1503",
-      projectNumber: "PJ_DAM",
-      email: "abc@xyz.com",
-      phoneNumber: "9999772311",
-      startDate: "12-02-20",
-      endDate: "11-02-21",
-      ikeaResp: "Jonatan Soderdinf",
-      supplier: "Accenture",
-      supplierTags: ["working"],
-    },
-    {
-      key: "2",
-      name: "Drake",
-      role: "Product Specialist",
-      costCenter: "CC 1503",
-      projectNumber: "PJ_DAM",
-      email: "abc@xyz.com",
-      phoneNumber: "9999772300",
-      startDate: "12-02-20",
-      endDate: "11-02-21",
-      ikeaResp: "Jonatan Soderdinf",
-      supplier: "Accenture",
-      supplierTags: ["working"],
-    },
-  ];
+  const context = useContext(RefContext);
+  const {
+    store: { consultantsList },
+    actions: { getConsultantsData },
+  } = context;
+  useEffect(() => {
+    getConsultantsData();
+  }, []);
+  // const dataSource = [
+  //   {
+  //     key: "1",
+  //     name: "Mike",
+  //     role: "Product Specialist",
+  //     costCenter: "CC 1503",
+  //     projectNumber: "PJ_DAM",
+  //     email: "abc@xyz.com",
+  //     phoneNumber: "9999772311",
+  //     startDate: "12-02-20",
+  //     endDate: "11-02-21",
+  //     ikeaResp: "Jonatan Soderdinf",
+  //     supplier: "Accenture",
+  //     supplierTags: ["working"],
+  //   },
+  //   {
+  //     key: "2",
+  //     name: "Drake",
+  //     role: "Product Specialist",
+  //     costCenter: "CC 1503",
+  //     projectNumber: "PJ_DAM",
+  //     email: "abc@xyz.com",
+  //     phoneNumber: "9999772300",
+  //     startDate: "12-02-20",
+  //     endDate: "11-02-21",
+  //     ikeaResp: "Jonatan Soderdinf",
+  //     supplier: "Accenture",
+  //     supplierTags: ["working"],
+  //   },
+  // ];
 
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "ConsultantName",
+      dataIndex: "consultantName",
+      key: "consultantName",
     },
     {
       title: "Role",
@@ -85,18 +90,27 @@ const ConsultantsData = () => {
       key: "ikeaResp",
     },
     {
-      title: "Supplier",
-      dataIndex: "supplier",
-      key: "supplier",
+      title: "Supplier Name",
+      dataIndex: "supplierName",
+      key: "supplierName",
+    },
+    {
+      title: "View",
+      key: "view",
+      render: (text, record) => (
+        <Space size="middle">
+          <a>View{record.name}</a>
+          <a>Delete</a>
+        </Space>
+      ),
     },
   ];
   return (
     <Wrapper>
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        title={() => "CONSULTANTS"}
-      ></Table>
+      <TableWrap>
+        <TableTitle>CONSULTANTS</TableTitle>
+        <Table dataSource={consultantsList} columns={columns}></Table>
+      </TableWrap>
     </Wrapper>
   );
 };
