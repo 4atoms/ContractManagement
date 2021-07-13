@@ -7,12 +7,12 @@ import { formStoreData } from "Utilities/helpers";
 
 import Header from "../../components/Header/index";
 
-const Home = (props) => {
-  const propShape = formStoreData(props, ["home"]);
+const Dashboard = (props) => {
+  const propShape = formStoreData(props, ["dashboard"]);
 
   useEffect(() => {
     return () => {
-      propShape.actions.resetHomeStore();
+      propShape.actions.resetDashboardStore();
     };
   }, []);
 
@@ -27,11 +27,11 @@ const Home = (props) => {
   );
 };
 
-Home.propTypes = {
+Dashboard.propTypes = {
   store: shape({}).isRequired,
   actions: shape({}).isRequired,
   location: shape({}).isRequired,
   history: shape({}).isRequired,
 };
 
-export default Home;
+export default Dashboard;
