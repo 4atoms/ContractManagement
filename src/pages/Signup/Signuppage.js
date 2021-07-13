@@ -13,23 +13,23 @@ const Signuppage = () => {
   const [disabled, setDisabled] = useState(true);
   const Context = useContext(RefContext);
   const {
-    store: { name, username, password, rpassword },
+    store: { name, username, password, confirmpassword },
     actions: { assignToSignupStore, signup },
   } = Context;
 
   const signupUser = () => {
-    const request = { name, username, password, rpassword };
+    const request = { name, username, password, confirmpassword };
     signup(request);
   };
 
   useEffect(() => {
-    console.log(password, rpassword);
-    if (password == rpassword) {
+    console.log(password, confirmpassword);
+    if (password == confirmpassword) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [password, rpassword]);
+  }, [password, confirmpassword]);
 
   return (
     <Login>
@@ -62,10 +62,12 @@ const Signuppage = () => {
         <label>Confirm Password</label>
         <input
           type="password"
-          value={rpassword}
+          value={confirmpassword}
           id="rpassword"
           required
-          onChange={(e) => assignToSignupStore("rpassword", e.target.value)}
+          onChange={(e) =>
+            assignToSignupStore("confirmpassword", e.target.value)
+          }
         ></input>
         <BTNContainer>
           <button id="submit" disabled={disabled} onClick={signupUser}>

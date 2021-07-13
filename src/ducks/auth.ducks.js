@@ -44,6 +44,15 @@ const login = (request) => () => {
       sessionStorage.setItem("accessToken", resp.data.accessToken);
     });
 };
+
+const signup = (request) => () => {
+  nwk
+    .api("signup")
+    .post(request)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
 // Routing
 
 // Reducers
@@ -69,5 +78,6 @@ export default {
     assignToLoginStore,
     resetLoginStore,
     login,
+    signup,
   },
 };

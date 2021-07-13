@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, withRouter, Route } from "react-router-dom";
 import { Result } from "antd";
+import AuthRoute from "./authRoute";
 
 const fetchRoutes = (containers) => {
   const { Home, Login, ConsultantList, ContractList, SupplierList, Signup} = containers;
@@ -9,14 +10,13 @@ const fetchRoutes = (containers) => {
     return (
       <Switch>
         {/* Home */}
-        <Route exact path="/" component={withRouter(Home)} />
-        <Route exact path="/home" component={withRouter(Home)} />
+        <AuthRoute exact path="/" component={withRouter(Home)} />
+        <AuthRoute exact path="/home" component={withRouter(Home)} />
         <Route exact path="/consultants" component={withRouter(ConsultantList)} />
         <Route exact path="/contracts" component={withRouter(ContractList)} />
-        <Route exact path="/suppliers" component={withRouter(SupplierList)} /> 
+        <Route exact path="/suppliers" component={withRouter(SupplierList)} />
         <Route exact path="/login" component={withRouter(Login)} />
         <Route exact path="/signup" component={withRouter(Signup)} />
-
 
         {/* Router No Match - 404 */}
         <Route path="*">
