@@ -10,36 +10,42 @@
   },
   "supplierList": [
     {
+      "key": "1",
       "companyId": 431,
       "supplierName": "Accenture",
       "contactPerson": "Johan",
       "phoneNo": 46798244766
     },
     {
+      "key": "2",
       "companyId": 983,
       "supplierName": "IKEA",
       "contactPerson": "Robert",
       "phoneNo": 46733298266
     },
     {
+      "key": "3",
       "companyId": 674,
       "supplierName": "SoundCloud",
       "contactPerson": "Johan",
       "phoneNo": 46733244766
     },
     {
+      "key": "4",
       "companyId": 231,
       "supplierName": "SAP",
       "contactPerson": "Matt",
       "phoneNo": 46733244766
     },
     {
+      "key": "5",
       "companyId": 349,
       "supplierName": "Target",
       "contactPerson": "John",
       "phoneNo": 46893244766
     },
     {
+      "key": "6",
       "companyId": 489,
       "supplierName": "Walmart",
       "contactPerson": "Dylan",
@@ -48,93 +54,29 @@
   ],
   "consultantList": [
     {
-      "id": 1,
+      "key": 1,
       "consultantName": "Dom McKinnon-Green",
-      "Role": "Product specialist",
+      "role": "Product specialist",
       "costCenter": "CC 1503",
       "projectNumber": "PJ_DAM",
       "startDate": "01-08-2020",
       "endDate": "31-10-2021",
-      "representative": "jonatan",
       "supplierName": "Accenture",
-      "prolongFY22": "No",
-      "period": "",
-      "costPerHour": "624 kr",
-      "extendContract": "No",
-      "contractValue": "1198080 kr"
-    },
-    {
-      "id": 2,
-      "consultantName": "Yuvraj Singh",
-      "Role": "Content management specialist ",
-      "costCenter": "CC 1503",
-      "projectNumber": "PJ_PIM",
-      "startDate": "01-11-2020",
-      "endDate": "31-08-2021",
-      "representative": "Abhishek Kumar",
-      "supplierName": "IKEA",
-      "prolongFY22": "No",
-      "period": "",
-      "costPerHour": "668 kr",
-      "extendContract": "No",
-      "contractValue": "1320960 kr"
-    },
-    {
-      "id": 3,
-      "consultantName": "Ravi Soren",
-      "Role": "System developer",
-      "costCenter": "CC 1581",
-      "projectNumber": "PJ_CMS",
-      "startDate": "01-10-2020",
-      "endDate": "30-09-2021",
-      "representative": "Abhishek Kumar",
-      "supplierName": "SAP",
-      "prolongFY22": "Yes",
-      "period": "6 months",
-      "costPerHour": "575 kr",
-      "extendContract": "Yes",
-      "contractValue": "1104000 kr"
+      "costPerHour": "624 kr"
     }
   ],
   "contractList": [
     {
-      "id": 1,
-      "consultantName": "Dom McKinnon-Green",
-      "Role": "Product specialist",
+      "key": "1",
+      "name": "Mike",
+      "role": "Product Specialist",
       "costCenter": "CC 1503",
       "projectNumber": "PJ_DAM",
-      "email": "dom@gmail.com",
-      "phoneNo": 4678236378,
-      "startDate": "01-08-2020",
-      "endDate": "31-10-2021",
-      "representative": "Jonatan Söderlind",
-      "supplierName": "Accenture"
-    },
-    {
-      "id": 2,
-      "consultantName": "Yuvraj Singh",
-      "Role": "Content management specialist ",
-      "costCenter": "CC 1503",
-      "projectNumber": "PJ_PIM",
-      "email": "yuvraj@gmail.com",
-      "phoneNo": 4682566378,
-      "startDate": "01-11-2020",
-      "endDate": "31-08-2021",
-      "representative": "Abhishek Kumar",
-      "supplierName": "IKEA"
-    },
-    {
-      "id": 3,
-      "consultantName": "Ravi Soren",
-      "Role": "System developer",
-      "costCenter": "CC 1581",
-      "projectNumber": "PJ_CMS",
-      "email": "ravi@gmail.com",
-      "phoneNo": 4678892358,
-      "startDate": "01-10-2020",
-      "endDate": "30-09-2021",
-      "representative": "Abhishek Kumar",
-      "supplierName": "SAP"
+      "startDate": "12-02-20",
+      "endDate": "11-02-21",
+      "ikeaResp": "Jonatan Soderdinf",
+      "supplier": "Accenture",
+      "costPHour": "625 kr"
     }
   ]
 }

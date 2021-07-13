@@ -1,52 +1,58 @@
-import React from "react";
-import { Table } from "antd";
-import styled from "styled-components";
-
-const Wrapper = styled.div`
-  margin: 50px;
-`;
+import React, { useContext, useEffect } from "react";
+import { Table, Space } from "antd";
+import RefContext from "Utilities/refContext";
+import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
 
 const SuppliersData = () => {
-  const dataSource = [
-    {
-      key: "1",
-      supplier: "Accenture",
-      contactPersonNumber: "9999772311",
-      phoneNumber: "9999772300",
-      companyId: "625kr",
-    },
-  ];
+  const context = useContext(RefContext);
+  const {
+    store: { suppliersList },
+    actions: { getSupplierData },
+  } = context;
+  useEffect(() => {
+    getSupplierData();
+  }, []);
+  // resetSupplierStore();
+  console.log("check", suppliersList);
 
   const columns = [
     {
-      title: "Supplier",
-      dataIndex: "supplier",
-      key: "supplier",
+      title: "Supplier Name",
+      dataIndex: "supplierName",
+      key: "supplierName",
     },
     {
-      title: "Contact Person Number",
-      dataIndex: "contactPersonNumber",
-      key: "contactPersonNumber",
+      title: "Contact Person",
+      dataIndex: "contactPerson",
+      key: "contactPerson",
     },
     {
       title: "Phone Number",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
+      dataIndex: "phoneNo",
+      key: "phoneNo",
     },
     {
       title: "Company ID",
       dataIndex: "companyId",
       key: "companyId",
     },
+    {
+      title: "View",
+      key: "view",
+      render: (text, record) => (
+        <Space size="middle">
+          <a>View{record.name}</a>
+          <a>Delete</a>
+        </Space>
+      ),
+    },
   ];
   return (
     <Wrapper>
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        bordered
-        title={() => "SUPPLIERS"}
-      ></Table>
+      <TableWrap>
+        <TableTitle>SUPPLIERS</TableTitle>
+        <Table dataSource={suppliersList} columns={columns}></Table>
+      </TableWrap>
     </Wrapper>
   );
 };
