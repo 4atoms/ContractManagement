@@ -1,37 +1,39 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Table } from "antd";
 import styled from "styled-components";
+import RefContext from "Utilities/refContext";
 
 const Wrapper = styled.div`
   margin: 50px;
 `;
 
 const SuppliersData = () => {
-  const dataSource = [
-    {
-      key: "1",
-      supplier: "Accenture",
-      contactPersonNumber: "9999772311",
-      phoneNumber: "9999772300",
-      companyId: "625kr",
-    },
-  ];
+  const context = useContext(RefContext);
+  const {
+    store: { suppliersList },
+    actions: { getSupplierData },
+  } = context;
+  useEffect(() => {
+    getSupplierData();
+  }, []);
+  // resetSupplierStore();
+  console.log("check", suppliersList);
 
   const columns = [
     {
-      title: "Supplier",
-      dataIndex: "supplier",
-      key: "supplier",
+      title: "Supplier Name",
+      dataIndex: "supplierName",
+      key: "supplierName",
     },
     {
-      title: "Contact Person Number",
-      dataIndex: "contactPersonNumber",
-      key: "contactPersonNumber",
+      title: "Contact Person",
+      dataIndex: "contactPerson",
+      key: "contactPerson",
     },
     {
       title: "Phone Number",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
+      dataIndex: "phoneNo",
+      key: "phoneNo",
     },
     {
       title: "Company ID",
@@ -42,7 +44,7 @@ const SuppliersData = () => {
   return (
     <Wrapper>
       <Table
-        dataSource={dataSource}
+        dataSource={suppliersList}
         columns={columns}
         bordered
         title={() => "SUPPLIERS"}
