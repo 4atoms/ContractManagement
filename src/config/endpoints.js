@@ -2,6 +2,8 @@ const development = {
   supplierList: "/supplierList",
   contractList: "/contractList",
   consultantList: "/consultantList",
+  login: "/login",
+  signup: "/signup",
 };
 
 export function getAllEndpoints() {
@@ -14,3 +16,4 @@ export function getAllEndpoints() {
 export function getBaseURL() {
   return "http://localhost:3000/";
 }
+// https://run.mocky.io/v3/e9f7581e-9f74-4d13-ae02-b022383e56e3

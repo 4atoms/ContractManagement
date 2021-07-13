@@ -1,19 +1,47 @@
-import React from "react";
+import React, { useContext } from "react";
+import RefContext from "Utilities/refContext";
 import "./Login.style.js";
-import { Login, LoginContainer, BTNContainer } from "./Login.style";
+import { Login, LoginContainer, BTNContainer, ImageWrap } from "./Login.style";
+import logo from "Assets/images/proton-logo.png";
 
 const Loginpage = () => {
+  const Context = useContext(RefContext);
+  const {
+    store: { username, password },
+    actions: { assignToLoginStore, login },
+  } = Context;
+
+  const loginUser = () => {
+    const request = { username, password };
+    login(request);
+  };
+
   return (
     <Login>
       <LoginContainer>
+        <ImageWrap src={logo} />
         <label>Email</label>
-        <input type="text" autoFocus required></input>
+        <input
+          type="text"
+          value={username}
+          autoFocus
+          required
+          onChange={(e) => assignToLoginStore("username", e.target.value)}
+        />
         <label>Password</label>
-        <input type="password" required></input>
+        <input
+          type="password"
+          value={password}
+          required
+          onChange={(e) => assignToLoginStore("password", e.target.value)}
+        ></input>
         <BTNContainer>
-          <button>Sign In</button>
+          <button onClick={loginUser}>Log In</button>
           <p>
-            Don&apost have an account ? <span>Sign Up</span>
+            Dont have an account ?
+            <a href="Signup">
+              <span>Sign Up</span>
+            </a>
           </p>
         </BTNContainer>
       </LoginContainer>

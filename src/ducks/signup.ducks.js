@@ -1,10 +1,17 @@
 import cloneDeep from "lodash/cloneDeep";
 import { setNamespace } from "Utilities/helpers";
+import Network from "Utilities/network";
+
 const namespace = "signup";
 const createAction = setNamespace(namespace);
+const nwk = new Network();
 
 // STORE
 const initialState = {
+  name: null,
+  username: null,
+  password: null,
+  rpassword: null,
 };
 
 // ACTIONS
@@ -30,6 +37,14 @@ const resetSignupStore = () => (dispatch) => {
 };
 
 // METHODS
+const signup = (request) => () => {
+  nwk
+    .api("signup")
+    .post(request)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
 
 // Routing
 
@@ -55,5 +70,6 @@ export default {
   creators: {
     assignToSignupStore,
     resetSignupStore,
+    signup,
   },
 };
