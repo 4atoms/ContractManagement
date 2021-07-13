@@ -11,7 +11,7 @@ const initialState = {
   name: null,
   username: null,
   password: null,
-  rpassword: null,
+  confirmpassword: null,
 };
 
 // ACTIONS

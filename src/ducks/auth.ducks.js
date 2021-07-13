@@ -36,13 +36,21 @@ const resetLoginStore = () => (dispatch) => {
 
 // METHODS
 const login = (request) => () => {
-  console.log(request);
   nw.api("login")
     .get()
     .then((resp) => {
       console.log(resp.data);
       // console.log(request);
       sessionStorage.setItem("accessToken", resp.data.accessToken);
+    });
+};
+
+const signup = (request) => () => {
+  nwk
+    .api("signup")
+    .post(request)
+    .then((resp) => {
+      console.log(resp.data);
     });
 };
 // Routing
@@ -70,5 +78,6 @@ export default {
     assignToLoginStore,
     resetLoginStore,
     login,
+    signup,
   },
 };

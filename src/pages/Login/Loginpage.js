@@ -3,6 +3,7 @@ import RefContext from "Utilities/refContext";
 import "./Login.style.js";
 import { Login, LoginContainer, BTNContainer, ImageWrap } from "./Login.style";
 import logo from "Assets/images/proton-logo.png";
+import LinkButton from "../../components/Linkbutton";
 
 const Loginpage = () => {
   const Context = useContext(RefContext);
@@ -36,7 +37,9 @@ const Loginpage = () => {
           onChange={(e) => assignToLoginStore("password", e.target.value)}
         ></input>
         <BTNContainer>
-          <button onClick={loginUser}>Log In</button>
+          <LinkButton to="/home" onClick={loginUser}>
+            Log In
+          </LinkButton>
           <p>
             Dont have an account ?
             <a href="Signup">

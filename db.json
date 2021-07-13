@@ -1,13 +1,12 @@
 {
   "login": {
-    "username": "asa",
-    "password": "sas"
+    "accessToken": "123456"
   },
   "signup": {
-    "name": "ab",
-    "username": "ab",
-    "password": "ab",
-    "rpassword": "ab"
+    "name": "a",
+    "username": "a",
+    "password": "a",
+    "confirmpassword": "a"
   },
   "supplierList": [
     {
