@@ -7,6 +7,7 @@ const nw = new Network();
 
 // STORE
 const initialState = {
+  contractsList: [],
 };
 
 // ACTIONS
@@ -32,11 +33,11 @@ const resetContractStore = () => (dispatch) => {
 };
 
 // METHODS
-const getContractData = () => {
-  nw.api("supplierList")
+const getContractsData = () => (dispatch) => {
+  nw.api("contractList")
     .get()
     .then((resp) => {
-      return resp;
+      dispatch(assignToContractStore("contractsList", resp.data));
     });
 };
 
@@ -64,6 +65,6 @@ export default {
   creators: {
     assignToContractStore,
     resetContractStore,
-    getContractData,
+    getContractsData,
   },
 };

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Table } from "antd";
 import styled from "styled-components";
 import RefContext from "Utilities/refContext";
@@ -10,20 +10,14 @@ const Wrapper = styled.div`
 const SuppliersData = () => {
   const context = useContext(RefContext);
   const {
-    store: data,
-    // actions: { assignToSupplierStore, getSupplierData },
+    store: { suppliersList },
+    actions: { getSupplierData },
   } = context;
-  // const dataSource = [
-  //   {
-  //     key: "1",
-  //     supplier: "Accenture",
-  //     contactPersonNumber: "9999772311",
-  //     phoneNumber: "9999772300",
-  //     companyId: "625kr",
-  //   },
-  // ];
-  // assignToSupplierStore("data", getSupplierData());
-  console.log(data.data[0]);
+  useEffect(() => {
+    getSupplierData();
+  }, []);
+  // resetSupplierStore();
+  console.log("check", suppliersList);
 
   const columns = [
     {
@@ -50,7 +44,7 @@ const SuppliersData = () => {
   return (
     <Wrapper>
       <Table
-        dataSource={data.data}
+        dataSource={suppliersList}
         columns={columns}
         bordered
         title={() => "SUPPLIERS"}
