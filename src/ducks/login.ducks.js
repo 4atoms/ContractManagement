@@ -36,8 +36,9 @@ const resetLoginStore = () => (dispatch) => {
 
 // METHODS
 const login = (request) => () => {
+  console.log(request);
   nw.api("login")
-    .post(request)
+    .get()
     .then((resp) => {
       console.log(resp.data);
       // console.log(request);

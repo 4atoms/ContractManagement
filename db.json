@@ -6,11 +6,10 @@
   "signup": {
     "name": "ab",
     "username": "ab",
-    "password": "ab",
-    "rpassword": "ab"
+    "password": "er",
+    "rpassword": "er"
   },
-  "supplierList": 
-  [
+  "supplierList": [
     {
       "key": "1",
       "companyId": 431,
@@ -54,8 +53,7 @@
       "phoneNo": 46735624766
     }
   ],
-  "consultantList":
-  [
+  "consultantList": [
     {
       "key": 1,
       "consultantName": "Dom McKinnon-Green",
@@ -68,8 +66,7 @@
       "costPerHour": "624 kr"
     }
   ],
-  "contractList": 
-  [
+  "contractList": [
     {
       "key": "1",
       "name": "Mike",

@@ -1,11 +1,7 @@
 import React, { useContext, useEffect } from "react";
-import { Table } from "antd";
-import styled from "styled-components";
+import { Table, Space } from "antd";
 import RefContext from "Utilities/refContext";
-
-const Wrapper = styled.div`
-  margin: 50px;
-`;
+import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
 
 const ContractsData = () => {
   const context = useContext(RefContext);
@@ -83,15 +79,23 @@ const ContractsData = () => {
       dataIndex: "contractValue",
       key: "contractValue",
     },
+    {
+      title: "View",
+      key: "view",
+      render: (text, record) => (
+        <Space size="middle">
+          <a>View{record.name}</a>
+          <a>Delete</a>
+        </Space>
+      ),
+    },
   ];
   return (
     <Wrapper>
-      <Table
-        dataSource={contractsList}
-        columns={columns}
-        bordered
-        title={() => "CONTRACTS"}
-      ></Table>
+      <TableWrap>
+        <TableTitle>CONTRACTS</TableTitle>
+        <Table dataSource={contractsList} columns={columns}></Table>
+      </TableWrap>
     </Wrapper>
   );
 };

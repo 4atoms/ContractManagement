@@ -29,6 +29,19 @@ module.exports = {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: "asset/resource",
       },
+      // {
+      //   test: /\.(css|scss)$/i,
+      //   use: ["less-loader"],
+      //   options: {
+      //     lessOptions: {
+      //       // If you are using less-loader@5 please spread the lessOptions to options directly
+      //       modifyVars: {
+      //         "primary-color": "#6041B8",
+      //       },
+      //       javascriptEnabled: true,
+      //     },
+      //   },
+      // },
     ],
   },
   resolve: {

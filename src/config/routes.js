@@ -3,15 +3,21 @@ import { Switch, withRouter, Route } from "react-router-dom";
 import { Result } from "antd";
 
 const fetchRoutes = (containers) => {
-  const { Home, Login, ConsultantList, ContractList, SupplierList, Signup } =
-    containers;
+  const {
+    Dashboard,
+    Login,
+    ConsultantList,
+    ContractList,
+    SupplierList,
+    Signup,
+  } = containers;
 
   return function Routes() {
     return (
       <Switch>
         {/* Home */}
-        <Route exact path="/" component={withRouter(Home)} />
-        <Route exact path="/home" component={withRouter(Home)} />
+        <Route exact path="/" component={withRouter(Dashboard)} />
+        <Route exact path="/dashboard" component={withRouter(Dashboard)} />
         <Route
           exact
           path="/consultants"
