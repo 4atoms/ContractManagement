@@ -2,13 +2,16 @@ import React from "react";
 import { Progress } from "antd";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const Wrapperc = styled.div`
   padding-top: 30px;
   display: flex;
-  width: 100%;
+  flex-wrap: wrap;
+  flex: 100%;
+  height: 150px;
 `;
 const Container = styled.div`
   flex: 28%;
+  height: 150px;
 `;
 const Space = styled.div`
   flex: 4%;
@@ -17,7 +20,7 @@ const Space = styled.div`
 const CircularBar = () => {
   return (
     <>
-      <Wrapper>
+      <Wrapperc>
         <Space></Space>
         <Container>
           <Progress type="circle" percent={75} />
@@ -31,7 +34,7 @@ const CircularBar = () => {
           <Progress type="circle" percent={75} />
         </Container>
         <Space></Space>
-      </Wrapper>
+      </Wrapperc>
     </>
   );
 };

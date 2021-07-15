@@ -16,6 +16,7 @@ export const TableTitle = styled.div`
 
 export const Wrapper = styled.div`
   padding: 0px 90px;
+  flex: 100%;
 `;
 export const TitleDiv = styled.div`
   display: flex;
@@ -30,15 +31,13 @@ export const DisplayBody = styled.div`
   background-color: rgba(235, 241, 245, 0);
 `;
 export const DisplayLeft = styled.div`
-  display: flex;
-  flex: 55%;
-  height: 500px;
+  flex: 54%;
+  height: auto;
   background-color: rgba(235, 241, 245, 1);
 `;
 export const DisplayRight = styled.div`
-  display: flex;
   flex: 45%;
-  height: 500px;
+  height: auto;
   background-color: rgba(235, 241, 245, 1);
     &> div{
       padding: 80px 80px;
@@ -54,3 +53,26 @@ export const DisplayRight = styled.div`
     }
   }
   `;
+
+export const Break = styled.div`
+  flex-basis: 100%;
+  flex: 100%;
+  height: 10 px;
+  background-color: red;
+`;
+
+export const WrapperD = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  background-color: rgba(235, 241, 245, 1);
+`;
+
+export const CardWrapper = styled.div`
+  padding: 50px 210px;
+  & > div {
+    flex: 49%;
+  }
+  & > div > div > div > tr > td {
+  }
+`;
