@@ -4,7 +4,14 @@ import { Result } from "antd";
 import AuthRoute from "./authRoute";
 
 const fetchRoutes = (containers) => {
-  const { Dashboard, Login, ConsultantList, ContractList, SupplierList } = containers;
+  const {
+    Dashboard,
+    Login,
+    ConsultantList,
+    ContractList,
+    SupplierList,
+    ContractDetail,
+  } = containers;
 
   return function Routes() {
     return (
@@ -26,6 +33,7 @@ const fetchRoutes = (containers) => {
           component={withRouter(ConsultantList)}
         />
         <Route exact path="/contracts" component={withRouter(ContractList)} />
+        <Route exact path="/contract1" component={withRouter(ContractDetail)} />
         <Route exact path="/suppliers" component={withRouter(SupplierList)} />
         <Route exact path="/login" component={withRouter(Login)} />
 

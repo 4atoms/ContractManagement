@@ -5,9 +5,10 @@ import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
 import Header from "Components/Header";
+import ContractDetails from "./contractDetails";
 
 const ContractDetail = (props) => {
-  const propShape = formStoreData(props, ["contractDetail"]);
+  const propShape = formStoreData(props, ["contract"]);
 
   useEffect(() => {
     return () => {
@@ -20,6 +21,7 @@ const ContractDetail = (props) => {
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
           <Header />
+          <ContractDetails />
         </RefErrorBoundary>
       </RefProvider>
     </>

@@ -84,6 +84,20 @@
       "ikeaResp": "Jonatan Soderdinf",
       "supplier": "Accenture",
       "costPHour": "625 kr"
+    } 
+  ],
+  "contractDetails":[
+    {
+      "key": "1",
+      "name": "Mike",
+      "role": "Product Specialist",
+      "costCenter": "CC 1503",
+      "projectNumber": "PJ_DAM",
+      "startDate": "12-02-20",
+      "endDate": "11-02-21",
+      "ikeaResp": "Jonatan Soderdinf",
+      "supplier": "Accenture",
+      "costPHour": "625 kr"
     }
   ]
 }

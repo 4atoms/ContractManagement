@@ -8,6 +8,7 @@ const nw = new Network();
 // STORE
 const initialState = {
   contractsList: [],
+  contractDetails: [],
 };
 
 // ACTIONS
@@ -40,6 +41,13 @@ const getContractsData = () => (dispatch) => {
       dispatch(assignToContractStore("contractsList", resp.data));
     });
 };
+const getContractDetail = () => (dispatch) => {
+  nw.api("contractDetail")
+    .get()
+    .then((resp) => {
+      dispatch(assignToContractStore("contractDetail", resp.data));
+    });
+};
 
 // Routing
 
@@ -66,5 +74,6 @@ export default {
     assignToContractStore,
     resetContractStore,
     getContractsData,
+    getContractDetail,
   },
 };
