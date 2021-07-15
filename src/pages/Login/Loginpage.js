@@ -3,18 +3,18 @@ import RefContext from "Utilities/refContext";
 import "./Login.style.js";
 import { Login, LoginContainer, BTNContainer, ImageWrap } from "./Login.style";
 import logo from "Assets/images/proton-logo.png";
-import LinkButton from "../../components/Linkbutton";
 
 const Loginpage = () => {
   const Context = useContext(RefContext);
   const {
     store: { username, password },
     actions: { assignToLoginStore, login },
+    history,
   } = Context;
 
   const loginUser = () => {
     const request = { username, password };
-    login(request);
+    login(request, history);
   };
 
   return (
@@ -37,15 +37,13 @@ const Loginpage = () => {
           onChange={(e) => assignToLoginStore("password", e.target.value)}
         ></input>
         <BTNContainer>
-          <LinkButton to="/home" onClick={loginUser}>
-            Log In
-          </LinkButton>
-          <p>
+          <button onClick={loginUser}>Log In</button>
+          {/* <p>
             Dont have an account ?
             <a href="Signup">
               <span>Sign Up</span>
             </a>
-          </p>
+          </p> */}
         </BTNContainer>
       </LoginContainer>
     </Login>

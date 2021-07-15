@@ -8,26 +8,25 @@ const nw = new Network();
 
 // STORE
 const initialState = {
-  username: null,
-  password: null,
+  loginRequest: { username: null, password: null },
 };
 
 // ACTIONS
 
-const ASSIGN_TO_LOGIN_STORE = createAction("ASSIGN_TO_LOGIN_STORE");
-const RESET_LOGIN_STORE = createAction("RESET_LOGIN_STORE");
+const ASSIGN_TO_AUTH_STORE = createAction("ASSIGN_TO_AUTH_STORE");
+const RESET_AUTH_STORE = createAction("RESET_AUTH_STORE");
 
-const assignToLoginStore = (type, payload) => ({
-  type: ASSIGN_TO_LOGIN_STORE,
+const assignToAuthStore = (type, payload) => ({
+  type: ASSIGN_TO_AUTH_STORE,
   meta: {
     type,
     payload,
   },
 });
 
-const resetLoginStore = () => (dispatch) => {
+const resetAuthStore = () => (dispatch) => {
   dispatch({
-    type: RESET_LOGIN_STORE,
+    type: RESET_AUTH_STORE,
     meta: {
       payload: null,
     },
@@ -35,35 +34,27 @@ const resetLoginStore = () => (dispatch) => {
 };
 
 // METHODS
-const login = (request) => () => {
+const login = (request, history) => () => {
   nw.api("login")
     .get()
     .then((resp) => {
       console.log(resp.data);
       // console.log(request);
       sessionStorage.setItem("accessToken", resp.data.accessToken);
-    });
-};
-
-const signup = (request) => () => {
-  nwk
-    .api("signup")
-    .post(request)
-    .then((resp) => {
-      console.log(resp.data);
+      history.push("/home");
     });
 };
 // Routing
 
 // Reducers
-const loginReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
   const localState = cloneDeep(state);
 
   switch (action.type) {
-    case ASSIGN_TO_LOGIN_STORE:
+    case ASSIGN_TO_AUTH_STORE:
       localState[action.meta.type] = action.meta.payload;
       return { ...localState };
-    case RESET_LOGIN_STORE:
+    case RESET_AUTH_STORE:
       return initialState;
     default:
       return localState;
@@ -73,11 +64,10 @@ const loginReducer = (state = initialState, action) => {
 export default {
   namespace,
   store: initialState,
-  reducer: loginReducer,
+  reducer: authReducer,
   creators: {
-    assignToLoginStore,
-    resetLoginStore,
+    assignToAuthStore,
+    resetAuthStore,
     login,
-    signup,
   },
 };

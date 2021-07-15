@@ -4,23 +4,20 @@ import { Result } from "antd";
 import AuthRoute from "./authRoute";
 
 const fetchRoutes = (containers) => {
-  const {
-    Dashboard,
-    Login,
-    ConsultantList,
-    ContractList,
-    SupplierList,
-    Signup,
-  } = containers;
+  const { Dashboard, Login, ConsultantList, ContractList, SupplierList } = containers;
 
   return function Routes() {
     return (
       <Switch>
         {/* Home */}
 
-        <AuthRoute exact path="/" component={withRouter(Home)} />
-        <AuthRoute exact path="/home" component={withRouter(Home)} />
-        <Route exact path="/consultants" component={withRouter(ConsultantList)} />
+        <AuthRoute exact path="/" component={withRouter(Dashboard)} />
+        <AuthRoute exact path="/home" component={withRouter(Dashboard)} />
+        <Route
+          exact
+          path="/consultants"
+          component={withRouter(ConsultantList)}
+        />
         <Route exact path="/" component={withRouter(Dashboard)} />
         <Route exact path="/dashboard" component={withRouter(Dashboard)} />
         <Route
@@ -31,7 +28,6 @@ const fetchRoutes = (containers) => {
         <Route exact path="/contracts" component={withRouter(ContractList)} />
         <Route exact path="/suppliers" component={withRouter(SupplierList)} />
         <Route exact path="/login" component={withRouter(Login)} />
-        <Route exact path="/signup" component={withRouter(Signup)} />
 
         {/* Router No Match - 404 */}
         <Route path="*">

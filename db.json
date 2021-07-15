@@ -8,6 +8,13 @@
     "password": "a",
     "confirmpassword": "a"
   },
+  "supplier": {
+    "key": "1",
+    "companyId": 431,
+    "supplierName": "Accenture",
+    "contactPerson": "Johan",
+    "phoneNo": 46798244766
+  },
   "supplierList": [
     {
       "key": "1",

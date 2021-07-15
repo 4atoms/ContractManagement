@@ -4,8 +4,7 @@ const namespace = "dashboard";
 const createAction = setNamespace(namespace);
 
 // STORE
-const initialState = {
-};
+const initialState = {};
 
 // ACTIONS
 
