@@ -4,7 +4,7 @@ import Login from "Pages/login";
 import ContractList from "Pages/contract";
 import SupplierList from "Pages/supplier";
 import Signup from "Pages/Signup";
-import ContractDetail from "Pages/ContractDetail";
+import ContractDetail from "Pages/contract/contractDetail";
 import Dashboard from "../pages/dashboard";
 
 function Injector(component, name) {

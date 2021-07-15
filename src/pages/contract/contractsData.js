@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Table, Space } from "antd";
 import RefContext from "Utilities/refContext";
 import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
@@ -9,10 +10,13 @@ const ContractsData = () => {
     store: { contractsList },
     actions: { getContractsData },
   } = context;
+  let history = useHistory();
+  const handleClick = () => {
+    history.push("/contract1");
+  };
   useEffect(() => {
     getContractsData();
   }, []);
-
   const columns = [
     {
       title: "Name",
@@ -82,10 +86,9 @@ const ContractsData = () => {
     {
       title: "View",
       key: "view",
-      render: (text, record) => (
+      render: () => (
         <Space size="middle">
-          <a>View{record.name}</a>
-          <a>Delete</a>
+          <a onClickCapture={handleClick}>View</a>
         </Space>
       ),
     },

@@ -8,7 +8,7 @@ import Header from "Components/Header";
 import ContractDetails from "./contractDetails";
 
 const ContractDetail = (props) => {
-  const propShape = formStoreData(props, ["contractDetail"]);
+  const propShape = formStoreData(props, ["contract"]);
 
   useEffect(() => {
     return () => {
