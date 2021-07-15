@@ -17,8 +17,7 @@ import HomeDucks from "Ducks/home.ducks";
 import ConsultantDucks from "Ducks/consultant.ducks";
 import ContractDucks from "Ducks/contract.ducks";
 import SupplierDucks from "Ducks/supplier.ducks";
-import LoginDucks from "Ducks/login.ducks";
-import SignupDucks from "Ducks/signup.ducks";
+import AuthDucks from "Ducks/auth.ducks";
 
 const history = createBrowserHistory();
 
@@ -31,10 +30,9 @@ function generateBuildingBlocks() {
   const ducks = {
     HomeDucks,
     ConsultantDucks,
-    LoginDucks,
     ContractDucks,
     SupplierDucks,
-    SignupDucks,
+    AuthDucks,
   };
   const namespaces = [];
 

@@ -9,11 +9,12 @@ const Loginpage = () => {
   const {
     store: { username, password },
     actions: { assignToLoginStore, login },
+    history,
   } = Context;
 
   const loginUser = () => {
     const request = { username, password };
-    login(request);
+    login(request, history);
   };
 
   return (
@@ -37,12 +38,12 @@ const Loginpage = () => {
         ></input>
         <BTNContainer>
           <button onClick={loginUser}>Log In</button>
-          <p>
+          {/* <p>
             Dont have an account ?
             <a href="Signup">
               <span>Sign Up</span>
             </a>
-          </p>
+          </p> */}
         </BTNContainer>
       </LoginContainer>
     </Login>
