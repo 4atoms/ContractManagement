@@ -10,6 +10,7 @@ const nw = new Network();
 // STORE
 const initialState = {
   loginRequest: { email: null, password: null },
+  accessToken: null,
 };
 
 // ACTIONS
@@ -40,7 +41,7 @@ const login = (request, history) => () => {
     .post(request)
     .then((resp) => {
       console.log(resp.data.data.accessToken);
-      cookie.save("accessToken", resp.data.data.accessToken);
+      cookie.save("access_token", resp.data.data.accessToken);
       // sessionStorage.setItem("accessToken", resp.data.accessToken);
       history.push("/home");
     });
