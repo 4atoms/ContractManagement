@@ -15,8 +15,7 @@ const SupplierDetails = () => {
   const context = useContext(RefContext);
   const {} = context;
 
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   return (
     <>
       <TitleDiv>CONTRACT DETAILS</TitleDiv>
