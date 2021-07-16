@@ -21,24 +21,23 @@ export const Wrapper = styled.div`
 export const TitleDiv = styled.div`
   display: flex;
   width: 100%;
-  height: 50px;
+  font-size: 40px;
+  padding: 0 80px;
+  color: rgba(96, 65, 184, 1);
 `;
 
 export const DisplayBody = styled.div`
   display: flex;
   width: 100%;
   height: 60px;
-  background-color: rgba(235, 241, 245, 0);
 `;
 export const DisplayLeft = styled.div`
   flex: 54%;
   height: auto;
-  background-color: rgba(235, 241, 245, 1);
 `;
 export const DisplayRight = styled.div`
   flex: 45%;
   height: auto;
-  background-color: rgba(235, 241, 245, 1);
     &> div{
       padding: 80px 80px;
       width:100%;
@@ -65,11 +64,10 @@ export const WrapperD = styled.div`
   display: flex;
   flex-wrap: wrap;
   text-align: center;
-  background-color: rgba(235, 241, 245, 1);
 `;
 
 export const CardWrapper = styled.div`
-  padding: 50px 210px;
+  padding: 50px 150px;
   & > div {
     flex: 49%;
   }
