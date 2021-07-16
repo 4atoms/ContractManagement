@@ -97,10 +97,9 @@ const ConsultantsData = () => {
     {
       title: "View",
       key: "view",
-      render: (text, record) => (
+      render: () => (
         <Space size="middle">
-          <a>View{record.name}</a>
-          <a>Delete</a>
+          <a>View</a>
         </Space>
       ),
     },
