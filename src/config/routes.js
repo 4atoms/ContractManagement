@@ -11,6 +11,7 @@ const fetchRoutes = (containers) => {
     ContractList,
     SupplierList,
     ContractDetail,
+    SupplierDetail,
   } = containers;
 
   return function Routes() {
@@ -34,6 +35,7 @@ const fetchRoutes = (containers) => {
         />
         <Route exact path="/contracts" component={withRouter(ContractList)} />
         <Route exact path="/contract1" component={withRouter(ContractDetail)} />
+        <Route exact path="/supplier1" component={withRouter(SupplierDetail)} />
         <Route exact path="/suppliers" component={withRouter(SupplierList)} />
         <Route exact path="/login" component={withRouter(Login)} />
 

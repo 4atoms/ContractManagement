@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Table, Space } from "antd";
 import RefContext from "Utilities/refContext";
+import { useHistory } from "react-router-dom";
 import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
 
 const SuppliersData = () => {
@@ -9,6 +10,10 @@ const SuppliersData = () => {
     store: { suppliersList },
     actions: { getSupplierData },
   } = context;
+  let history = useHistory();
+  const handleClick = () => {
+    history.push("/supplier1");
+  };
   useEffect(() => {
     getSupplierData();
   }, []);
@@ -41,7 +46,7 @@ const SuppliersData = () => {
       key: "view",
       render: () => (
         <Space size="middle">
-          <a>View</a>
+          <a onClickCapture={handleClick}>View</a>
         </Space>
       ),
     },

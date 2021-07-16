@@ -117,7 +117,13 @@ Network.prototype.apiWithPathAndQuery = function (
 
 Network.prototype.get = function (params) {
   const instance = cloneDeep(this.instance);
-  return instance.get(this.url, { params });
+  return instance.get(
+    this.url,
+    { params },
+    {
+      headers: { ...headers, ...instance.defaults.headers }
+    }
+  );
 };
 
 Network.prototype.post = function (data, headers) {
