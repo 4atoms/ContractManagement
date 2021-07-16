@@ -23,23 +23,18 @@ const SuppliersData = () => {
   const columns = [
     {
       title: "Supplier Name",
-      dataIndex: "supplierName",
-      key: "supplierName",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: "Contact Person",
-      dataIndex: "contactPerson",
-      key: "contactPerson",
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
     },
     {
       title: "Phone Number",
-      dataIndex: "phoneNo",
-      key: "phoneNo",
-    },
-    {
-      title: "Company ID",
-      dataIndex: "companyId",
-      key: "companyId",
+      dataIndex: "phone",
+      key: "phone",
     },
     {
       title: "View",

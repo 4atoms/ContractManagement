@@ -11,7 +11,7 @@ const Login = (props) => {
 
   useEffect(() => {
     return () => {
-      propShape.actions.resetLoginStore();
+      propShape.actions.resetAuthStore();
     };
   }, []);
 
