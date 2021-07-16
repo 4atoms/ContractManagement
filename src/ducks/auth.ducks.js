@@ -1,14 +1,15 @@
 import cloneDeep from "lodash/cloneDeep";
 import { setNamespace } from "Utilities/helpers";
 import Network from "Utilities/network";
+import cookie from "react-cookies";
 
-const namespace = "login";
+const namespace = "auth";
 const createAction = setNamespace(namespace);
 const nw = new Network();
 
 // STORE
 const initialState = {
-  loginRequest: { username: null, password: null },
+  loginRequest: { email: null, password: null },
 };
 
 // ACTIONS
@@ -36,11 +37,11 @@ const resetAuthStore = () => (dispatch) => {
 // METHODS
 const login = (request, history) => () => {
   nw.api("login")
-    .get()
+    .post(request)
     .then((resp) => {
-      console.log(resp.data);
-      // console.log(request);
-      sessionStorage.setItem("accessToken", resp.data.accessToken);
+      console.log(resp.data.data.accessToken);
+      cookie.save("accessToken", resp.data.data.accessToken);
+      // sessionStorage.setItem("accessToken", resp.data.accessToken);
       history.push("/home");
     });
 };

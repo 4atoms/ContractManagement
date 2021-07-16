@@ -7,13 +7,13 @@ import logo from "Assets/images/proton-logo.png";
 const Loginpage = () => {
   const Context = useContext(RefContext);
   const {
-    store: { username, password },
-    actions: { assignToLoginStore, login },
+    store: { email, password },
+    actions: { assignToAuthStore, login },
     history,
   } = Context;
 
   const loginUser = () => {
-    const request = { username, password };
+    const request = { email, password };
     login(request, history);
   };
 
@@ -24,17 +24,17 @@ const Loginpage = () => {
         <label>Email</label>
         <input
           type="text"
-          value={username}
+          value={email}
           autoFocus
           required
-          onChange={(e) => assignToLoginStore("username", e.target.value)}
+          onChange={(e) => assignToAuthStore("email", e.target.value)}
         />
         <label>Password</label>
         <input
           type="password"
           value={password}
           required
-          onChange={(e) => assignToLoginStore("password", e.target.value)}
+          onChange={(e) => assignToAuthStore("password", e.target.value)}
         ></input>
         <BTNContainer>
           <button onClick={loginUser}>Log In</button>
