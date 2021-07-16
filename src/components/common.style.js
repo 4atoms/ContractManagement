@@ -11,6 +11,8 @@ export const TableWrap = styled.div`
 `;
 
 export const TableTitle = styled.div`
+  font-size: 40px;
+  padding: 0 80px;
   color: rgba(96, 65, 184, 1);
 `;
 
