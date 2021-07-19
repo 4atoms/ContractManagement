@@ -9,13 +9,19 @@ import {
 } from "../../../components/common.style";
 import CircularBar from "../../../components/circularBar";
 import { Progress, Card } from "antd";
+import { useParams } from "react-router-dom";
 
 const ConsultantDetails = () => {
   const context = useContext(RefContext);
-  const {} = context;
 
+  const {
+    store: { detailOfConsultant },
+    actions: { getDetailOfConsulant },
+  } = context;
+
+  const { consultantId } = useParams();
   useEffect(() => {
-    // getConsultantDetail();
+    getDetailOfConsulant(consultantId);
   }, []);
   return (
     <>
@@ -37,23 +43,25 @@ const ConsultantDetails = () => {
             >
               <tr>
                 <td>Name</td>
-                <td>Julian</td>
+                <td>{detailOfConsultant.name}</td>
               </tr>
               <tr>
                 <td></td>
               </tr>
               <tr>
                 <td>Role</td>
-                <td>Product Specialist</td>
+                <td>{detailOfConsultant.role}</td>
               </tr>
               <tr></tr>
               <tr>
-                <td>Supplier</td>
-                <td>Accenture</td>
+                <td>Email</td>
+                <td>{detailOfConsultant.email}</td>
               </tr>
-              {/* <p>Card content</p>
-              <p>Card content</p>
-              <p>Card content</p> */}
+              <tr></tr>
+              <tr>
+                <td>Phone No</td>
+                <td>{detailOfConsultant.phone}</td>
+              </tr>
             </Card>
           </div>
         </CardWrapper>

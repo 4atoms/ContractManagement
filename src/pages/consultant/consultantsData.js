@@ -1,14 +1,23 @@
 import React, { useContext, useEffect } from "react";
 import { Table, Space } from "antd";
 import RefContext from "Utilities/refContext";
+import { useHistory } from "react-router-dom";
 import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
 
 const ConsultantsData = () => {
   const context = useContext(RefContext);
   const {
     store: { consultantsList },
-    actions: { getConsultantsData },
+    actions: { getConsultantsData, setId },
   } = context;
+
+  let history = useHistory();
+
+  const handleClick = (num) => {
+    setId(num);
+    history.push(`/consultant/${num}`);
+  };
+
   useEffect(() => {
     getConsultantsData();
   }, []);
@@ -24,21 +33,21 @@ const ConsultantsData = () => {
       dataIndex: "role",
       key: "role",
     },
-    // {
-    //   title: "Cost Center",
-    //   dataIndex: "costCenter",
-    //   key: "costCenter",
-    // },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+    },
     // {
     //   title: "Project Number",
     //   dataIndex: "projectNumber",
     //   key: "projectNumber",
     // },
-    // {
-    //   title: "Email Address",
-    //   dataIndex: "email",
-    //   key: "email",
-    // },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
     // {
     //   title: "Phone Number",
     //   dataIndex: "phoneNumber",
@@ -69,7 +78,7 @@ const ConsultantsData = () => {
       key: "view",
       render: (consultantsList) => (
         <Space size="middle">
-          <a href={"/consultant/" + consultantsList.id}>View</a>
+          <a onClickCapture={() => handleClick(consultantsList.id)}>View</a>
         </Space>
       ),
     },
