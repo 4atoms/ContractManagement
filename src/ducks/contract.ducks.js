@@ -8,7 +8,8 @@ const nw = new Network();
 // STORE
 const initialState = {
   contractsList: [],
-  contractDetails: [],
+  detailOfContract: [],
+  id: null,
 };
 
 // ACTIONS
@@ -41,11 +42,11 @@ const getContractsData = () => (dispatch) => {
       dispatch(assignToContractStore("contractsList", resp.data.data));
     });
 };
-const getContractDetail = () => (dispatch) => {
-  nw.api("contractList")
+const getDetailOfcontract = (contract_id) => (dispatch) => {
+  nw.apiWithPath("contractList", [contract_id])
     .get()
     .then((resp) => {
-      dispatch(assignToContractStore("contractDetail", resp.data));
+      dispatch(assignToContractStore("detailOfContract", resp.data.data));
     });
 };
 
@@ -74,6 +75,6 @@ export default {
     assignToContractStore,
     resetContractStore,
     getContractsData,
-    getContractDetail,
+    getDetailOfcontract,
   },
 };
