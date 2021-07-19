@@ -38,7 +38,7 @@ const getContractsData = () => (dispatch) => {
   nw.api("contractList")
     .get()
     .then((resp) => {
-      dispatch(assignToContractStore("contractsList", resp.data));
+      dispatch(assignToContractStore("contractsList", resp.data.data));
     });
 };
 const getContractDetail = () => (dispatch) => {

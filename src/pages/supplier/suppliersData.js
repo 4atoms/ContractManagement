@@ -11,42 +11,36 @@ const SuppliersData = () => {
     actions: { getSupplierData },
   } = context;
   let history = useHistory();
-  const handleClick = () => {
-    history.push("/supplier1");
+  const handleClick = (num) => {
+    console.log(num);
+    history.push(`/supplier/${num}`);
   };
   useEffect(() => {
     getSupplierData();
   }, []);
-  // resetSupplierStore();
-  console.log("check", suppliersList);
 
   const columns = [
     {
       title: "Supplier Name",
-      dataIndex: "supplierName",
-      key: "supplierName",
+      dataIndex: "name",
+      key: "name",
     },
     {
-      title: "Contact Person",
-      dataIndex: "contactPerson",
-      key: "contactPerson",
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
     },
     {
       title: "Phone Number",
-      dataIndex: "phoneNo",
-      key: "phoneNo",
-    },
-    {
-      title: "Company ID",
-      dataIndex: "companyId",
-      key: "companyId",
+      dataIndex: "phone",
+      key: "phone",
     },
     {
       title: "View",
       key: "view",
-      render: () => (
+      render: (supplierList) => (
         <Space size="middle">
-          <a onClickCapture={handleClick}>View</a>
+          <a onClickCapture={() => handleClick(supplierList.id)}>View</a>
         </Space>
       ),
     },

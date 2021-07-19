@@ -37,8 +37,8 @@ const getSupplierData = (request) => (dispatch) => {
   nw.api("supplierList")
     .get()
     .then((resp) => {
-      console.log(resp.data);
-      dispatch(assignToSupplierStore("suppliersList", resp.data));
+      console.log(resp.data.data);
+      dispatch(assignToSupplierStore("suppliersList", resp.data.data));
     });
 };
 

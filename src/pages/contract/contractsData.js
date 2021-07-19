@@ -11,8 +11,8 @@ const ContractsData = () => {
     actions: { getContractsData },
   } = context;
   let history = useHistory();
-  const handleClick = () => {
-    history.push("/contract1");
+  const handleClick = (num) => {
+    history.push(`/contract/${num}`);
   };
   useEffect(() => {
     getContractsData();
@@ -23,35 +23,30 @@ const ContractsData = () => {
       dataIndex: "name",
       key: "name",
     },
-    {
-      title: "Role",
-      dataIndex: "role",
-      key: "role",
-    },
+    // {
+    //   title: "Role",
+    //   dataIndex: "role",
+    //   key: "role",
+    // },
     {
       title: "Cost Center",
-      dataIndex: "costCenter",
-      key: "costCenter",
+      dataIndex: "cost_center",
+      key: "cost_center",
     },
     {
       title: "Project Number",
-      dataIndex: "projectNumber",
-      key: "projectNumber",
+      dataIndex: "project",
+      key: "project",
     },
     {
       title: "Start Date",
-      dataIndex: "startDate",
-      key: "startDate",
+      dataIndex: "start_date",
+      key: "start_date",
     },
     {
       title: "End Date",
-      dataIndex: "endDate",
-      key: "endDate",
-    },
-    {
-      title: "IKEA Resp.",
-      dataIndex: "ikeaResp",
-      key: "ikeaResp",
+      dataIndex: "end_date",
+      key: "end_date",
     },
     {
       title: "Supplier",
@@ -60,8 +55,8 @@ const ContractsData = () => {
     },
     {
       title: "Prolong FY22",
-      dataIndex: "prolongFY22",
-      key: "prolongFY22",
+      dataIndex: "prolong_FY22",
+      key: "prolong_FY22",
     },
     {
       title: "Period",
@@ -70,25 +65,15 @@ const ContractsData = () => {
     },
     {
       title: "Cost/ hour SEK",
-      dataIndex: "costPHour",
-      key: "costPHour",
-    },
-    {
-      title: "Extend Contract",
-      dataIndex: "extendContract",
-      key: "extendContract",
-    },
-    {
-      title: "Contract Value",
-      dataIndex: "contractValue",
-      key: "contractValue",
+      dataIndex: "cost_hour",
+      key: "cost_hour",
     },
     {
       title: "View",
       key: "view",
-      render: () => (
+      render: (contractList) => (
         <Space size="middle">
-          <a onClickCapture={handleClick}>View</a>
+          <a onClickCapture={() => handleClick(contractList.id)}>View</a>
         </Space>
       ),
     },
