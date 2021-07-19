@@ -9,16 +9,20 @@ import {
 } from "../../../components/common.style";
 import CircularBar from "../../../components/circularBar";
 import { Progress, Card } from "antd";
+import { useParams } from "react-router-dom";
 
 const ContractDetails = () => {
   const context = useContext(RefContext);
   const {
-    store: { contractDetails },
-    actions: { getContractDetail },
+    store: { detailOfContract },
+    actions: { getDetailOfcontract},
   } = context;
 
+  const { contractId } = useParams();
+  console.log(contractId);
+
   useEffect(() => {
-    getContractDetail();
+    getDetailOfcontract(contractId);
   }, []);
   return (
     <>
@@ -40,7 +44,7 @@ const ContractDetails = () => {
             >
               <tr>
                 <td>Name</td>
-                <td>Julian</td>
+                <td>{detailOfContract.id}</td>
               </tr>
               <tr>
                 <td></td>
@@ -65,3 +69,4 @@ const ContractDetails = () => {
   );
 };
 export default ContractDetails;
+
