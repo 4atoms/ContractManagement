@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from "react";
 import RefContext from "Utilities/refContext";
-
 import {
   DisplayLeft,
   DisplayRight,
@@ -10,12 +9,20 @@ import {
 } from "../../../components/common.style";
 import CircularBar from "../../../components/circularBar";
 import { Progress, Card } from "antd";
+import { useParams } from "react-router-dom";
 
 const SupplierDetails = () => {
   const context = useContext(RefContext);
-  const {} = context;
+  const {
+    store: { detailOfSupplier },
+    actions: { getDetailOfSupplier },
+  } = context;
 
-  useEffect(() => {}, []);
+  const { supplierId } = useParams();
+  console.log(supplierId);
+  useEffect(() => {
+    getDetailOfSupplier(supplierId);
+  }, []);
   return (
     <>
       <TitleDiv>CONTRACT DETAILS</TitleDiv>
@@ -36,20 +43,25 @@ const SupplierDetails = () => {
             >
               <tr>
                 <td>Name</td>
-                <td>Julian</td>
+                <td>{detailOfSupplier.name}</td>
               </tr>
               <tr>
                 <td></td>
               </tr>
-              <tr>
-                <td>Role</td>
-                <td>Product Specialist</td>
+              {/* <tr>
+                <td>Point of Contact</td>
+                <td>{detailOfSupplier.point_of_contacts[0].name}</td>
               </tr>
               <tr></tr>
               <tr>
-                <td>Supplier</td>
-                <td>Accenture</td>
+                <td>Email</td>
+                <td>{detailOfSupplier.point_of_contacts[0].email}</td>
               </tr>
+              <tr>
+                <td>Phone</td>
+                <td>{detailOfSupplier.point_of_contacts[0].phone}</td>
+              </tr> */}
+
               {/* <p>Card content</p>
               <p>Card content</p>
               <p>Card content</p> */}

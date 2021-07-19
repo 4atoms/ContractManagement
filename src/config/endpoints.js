@@ -1,5 +1,8 @@
+const supplierId = "60f1295cbeb3bb141f0051aa";
+
 const development = {
   supplierList: "/suppliers",
+  supplierDetail: `/suppliers/${supplierId}`,
   contractList: "/contracts",
   consultantList: "/consultants",
   login: "/auth/login",
