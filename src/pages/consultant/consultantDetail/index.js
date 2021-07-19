@@ -4,14 +4,15 @@ import { shape } from "prop-types";
 import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
-import Loginpage from "./Loginpage";
+import Header from "Components/Header";
+import ConsultantDetails from "./consultantDetails";
 
-const Login = (props) => {
-  const propShape = formStoreData(props, ["auth"]);
+const ConsultantDetail = (props) => {
+  const propShape = formStoreData(props, ["consultant"]);
 
   useEffect(() => {
     return () => {
-      propShape.actions.resetAuthStore();
+      propShape.actions.resetContractDetailStore();
     };
   }, []);
 
@@ -19,18 +20,19 @@ const Login = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
-          <Loginpage />
+          <Header />
+          <ConsultantDetails />
         </RefErrorBoundary>
       </RefProvider>
     </>
   );
 };
 
-Login.propTypes = {
+ConsultantDetail.propTypes = {
   store: shape({}).isRequired,
   actions: shape({}).isRequired,
   location: shape({}).isRequired,
   history: shape({}).isRequired,
 };
 
-export default Login;
+export default ConsultantDetail;
