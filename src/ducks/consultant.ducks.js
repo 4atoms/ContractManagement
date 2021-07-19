@@ -9,6 +9,8 @@ const nw = new Network();
 // STORE
 const initialState = {
   consultantsList: [],
+  detailOfConsultant: [],
+  id: null,
 };
 
 // ACTIONS
@@ -34,12 +36,26 @@ const resetConsultantStore = () => (dispatch) => {
 };
 
 // METHODS
+const setId = (num) => (dispatch) => {
+  dispatch(assignToConsultantStore("id", num));
+  console.log(num);
+};
+
 const getConsultantsData = () => (dispatch) => {
   nw.api("consultantList")
     .get()
     .then((resp) => {
       console.log(resp.data.data);
       dispatch(assignToConsultantStore("consultantsList", resp.data.data));
+    });
+};
+
+const getDetailOfConsulant = (consultant_id) => (dispatch) => {
+  nw.apiWithPath("consultantList", [consultant_id])
+    .get()
+    .then((resp) => {
+      console.log("test", resp.data.data);
+      dispatch(assignToConsultantStore("detailOfConsultant", resp.data.data));
     });
 };
 
@@ -68,5 +84,7 @@ export default {
     assignToConsultantStore,
     resetConsultantStore,
     getConsultantsData,
+    getDetailOfConsulant,
+    setId,
   },
 };
