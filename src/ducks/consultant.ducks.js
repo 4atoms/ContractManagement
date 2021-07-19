@@ -38,7 +38,8 @@ const getConsultantsData = () => (dispatch) => {
   nw.api("consultantList")
     .get()
     .then((resp) => {
-      dispatch(assignToConsultantStore("consultantsList", resp.data));
+      console.log(resp.data.data);
+      dispatch(assignToConsultantStore("consultantsList", resp.data.data));
     });
 };
 

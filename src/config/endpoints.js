@@ -1,7 +1,7 @@
 const development = {
   supplierList: "/suppliers",
   contractList: "/contracts",
-  consultantList: "/consultantList",
+  consultantList: "/consultants",
   login: "/auth/login",
   signup: "/signup",
 };

@@ -4,6 +4,7 @@ import Login from "Pages/login";
 import ContractList from "Pages/contract";
 import SupplierList from "Pages/supplier";
 import ContractDetail from "Pages/contract/contractDetail";
+import ConsultantDetail from "Pages/consultant/consultantDetail";
 import SupplierDetail from "Pages/supplier/supplierDetail";
 import Dashboard from "../pages/dashboard";
 
@@ -22,4 +23,5 @@ export default {
   ContractList: Injector(ContractList, "ContractList"),
   ContractDetail: Injector(ContractDetail, "ContractDetail"),
   SupplierDetail: Injector(SupplierDetail, "SupplierDetail"),
+  ConsultantDetail: Injector(ConsultantDetail, "ConsultantDetail"),
 };
