@@ -8,11 +8,12 @@ const SuppliersData = () => {
   const context = useContext(RefContext);
   const {
     store: { suppliersList },
-    actions: { getSupplierData },
+    actions: { getSupplierData, setId },
   } = context;
   let history = useHistory();
+
   const handleClick = (num) => {
-    console.log(num);
+    setId(num);
     history.push(`/supplier/${num}`);
   };
   useEffect(() => {
@@ -38,9 +39,9 @@ const SuppliersData = () => {
     {
       title: "View",
       key: "view",
-      render: (supplierList) => (
+      render: (supplierssList) => (
         <Space size="middle">
-          <a onClickCapture={() => handleClick(supplierList.id)}>View</a>
+          <a onClickCapture={() => handleClick(supplierssList.id)}>View</a>
         </Space>
       ),
     },

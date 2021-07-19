@@ -10,6 +10,7 @@ const fetchRoutes = (containers) => {
     ConsultantList,
     ContractList,
     SupplierList,
+    ConsultantDetail,
     ContractDetail,
     SupplierDetail,
   } = containers;
@@ -30,14 +31,18 @@ const fetchRoutes = (containers) => {
         <Route exact path="/dashboard" component={withRouter(Dashboard)} />
         <Route
           exact
-          path="/consultants"
-          component={withRouter(ConsultantList)}
+          path="/consultant/:consultantId"
+          component={withRouter(ConsultantDetail)}
         />
         <Route exact path="/contracts" component={withRouter(ContractList)} />
-        <Route exact path="/contract1" component={withRouter(ContractDetail)} />
         <Route
           exact
-          path="/supplier/*"
+          path="/contract/:contractId"
+          component={withRouter(ContractDetail)}
+        />
+        <Route
+          exact
+          path="/supplier/:supplierId"
           component={withRouter(SupplierDetail)}
         />
         <Route exact path="/suppliers" component={withRouter(SupplierList)} />

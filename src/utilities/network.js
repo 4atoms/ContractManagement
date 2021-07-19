@@ -121,7 +121,7 @@ Network.prototype.get = function (params) {
     this.url,
     { params },
     {
-      headers: { ...headers, ...instance.defaults.headers }
+      headers: { ...headers, ...instance.defaults.headers },
     }
   );
 };

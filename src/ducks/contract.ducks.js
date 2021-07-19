@@ -42,7 +42,7 @@ const getContractsData = () => (dispatch) => {
     });
 };
 const getContractDetail = () => (dispatch) => {
-  nw.api("contractDetail")
+  nw.api("contractList")
     .get()
     .then((resp) => {
       dispatch(assignToContractStore("contractDetail", resp.data));

@@ -8,6 +8,8 @@ const nw = new Network();
 // STORE
 const initialState = {
   suppliersList: [],
+  detailOfSupplier: [],
+  id: null,
 };
 
 // ACTIONS
@@ -33,12 +35,28 @@ const resetSupplierStore = () => (dispatch) => {
 };
 
 // METHODS
+const setId = (num) => (dispatch) => {
+  dispatch(assignToSupplierStore("id", num));
+  console.log(num);
+};
+
 const getSupplierData = (request) => (dispatch) => {
   nw.api("supplierList")
     .get()
     .then((resp) => {
       console.log(resp.data.data);
       dispatch(assignToSupplierStore("suppliersList", resp.data.data));
+    });
+};
+// function mapStateToProps() {
+//   return {};
+// }
+const getDetailOfSupplier = (supplier_id) => (dispatch) => {
+  nw.apiWithPath("supplierList", [supplier_id])
+    .get()
+    .then((resp) => {
+      console.log("test", resp.data.data.point_of_contacts[0].name);
+      dispatch(assignToSupplierStore("detailOfSupplier", resp.data.data));
     });
 };
 
@@ -67,5 +85,7 @@ export default {
     assignToSupplierStore,
     resetSupplierStore,
     getSupplierData,
+    getDetailOfSupplier,
+    setId,
   },
 };
