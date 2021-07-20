@@ -13,6 +13,7 @@ const fetchRoutes = (containers) => {
     ConsultantDetail,
     ContractDetail,
     SupplierDetail,
+    SupplierNew,
   } = containers;
 
   return function Routes() {
@@ -46,6 +47,7 @@ const fetchRoutes = (containers) => {
           component={withRouter(SupplierDetail)}
         />
         <Route exact path="/suppliers" component={withRouter(SupplierList)} />
+        <Route exact path="/suppliersnew" component={withRouter(SupplierNew)} />
         <Route exact path="/login" component={withRouter(Login)} />
 
         {/* Router No Match - 404 */}
