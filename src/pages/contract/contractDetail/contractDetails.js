@@ -8,7 +8,6 @@ import {
   CardWrapper,
 } from "../../../components/common.style";
 import CircularBar from "../../../components/circularBar";
-import { Progress, Card } from "antd";
 import { useParams } from "react-router-dom";
 import { dateFormat } from "../../../utilities/helpers";
 
