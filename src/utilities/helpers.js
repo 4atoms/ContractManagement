@@ -1,5 +1,6 @@
 import { ROLES } from "Constants";
 import DOMPurify from "dompurify";
+import moment from "moment";
 
 const setNamespace = (namespace) => (constant) => {
   return `${namespace}/${constant}`;
@@ -69,6 +70,10 @@ const isAdminLoggedIn = (store) => {
   return currentUser && currentUser.roles.indexOf(ROLES.admin) > -1;
 };
 
+const dateFormat = (string) => {
+  return moment(string).format("Do MMM  YYYY");
+};
+
 export {
   setNamespace,
   uniqKey,
@@ -80,4 +85,5 @@ export {
   formStoreData,
   isUserLoggedIn,
   isAdminLoggedIn,
+  dateFormat,
 };

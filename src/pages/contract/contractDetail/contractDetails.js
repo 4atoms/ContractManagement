@@ -15,7 +15,7 @@ const ContractDetails = () => {
   const context = useContext(RefContext);
   const {
     store: { detailOfContract },
-    actions: { getDetailOfcontract},
+    actions: { getDetailOfcontract },
   } = context;
 
   const { contractId } = useParams();

@@ -12,7 +12,7 @@ const ContractsData = () => {
   } = context;
   let history = useHistory();
   const handleClick = (num) => {
-    history.push(`/contract/${num}`);
+    history.push(`/consultant/${num}`);
   };
   useEffect(() => {
     getContractsData();
@@ -73,7 +73,7 @@ const ContractsData = () => {
       key: "view",
       render: (contractList) => (
         <Space size="middle">
-          <a onClickCapture={() => handleClick(contractList.id)}>View</a>
+          <a onClickCapture={() => handleClick(contractList.consultant)}>View</a>
         </Space>
       ),
     },
