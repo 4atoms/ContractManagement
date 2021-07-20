@@ -1,6 +1,7 @@
 import cloneDeep from "lodash/cloneDeep";
 import { setNamespace } from "Utilities/helpers";
 import Network from "Utilities/network";
+import { dateFormat } from "../utilities/helpers";
 const namespace = "contract";
 const createAction = setNamespace(namespace);
 const nw = new Network();
@@ -8,6 +9,7 @@ const nw = new Network();
 // STORE
 const initialState = {
   contractsList: [],
+  contractListDraft: [],
   detailOfContract: [],
   id: null,
 };
@@ -39,6 +41,11 @@ const getContractsData = () => (dispatch) => {
   nw.api("contractList")
     .get()
     .then((resp) => {
+      resp.data.data.forEach((x) => {
+        x.start_date = dateFormat(x.start_date);
+        x.end_date = dateFormat(x.end_date);
+      });
+      // dispatch(assignToContractStore("contractsListDraft", resp.data.data));
       dispatch(assignToContractStore("contractsList", resp.data.data));
     });
 };
