@@ -10,12 +10,13 @@ import {
 import CircularBar from "../../../components/circularBar";
 import { Progress, Card } from "antd";
 import { useParams } from "react-router-dom";
+import { dateFormat } from "../../../utilities/helpers";
 
 const ContractDetails = () => {
   const context = useContext(RefContext);
   const {
     store: { detailOfContract },
-    actions: { getDetailOfcontract},
+    actions: { getDetailOfcontract },
   } = context;
 
   const { contractId } = useParams();
@@ -56,7 +57,7 @@ const ContractDetails = () => {
               <tr></tr>
               <tr>
                 <td>Supplier</td>
-                <td>Accenture</td>
+                <td>{dateFormat("2021-08-20T00:00:00.000Z")}</td>
               </tr>
               {/* <p>Card content</p>
               <p>Card content</p>
@@ -69,4 +70,3 @@ const ContractDetails = () => {
   );
 };
 export default ContractDetails;
-

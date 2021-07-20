@@ -1,5 +1,6 @@
 import { ROLES } from "Constants";
 import DOMPurify from "dompurify";
+import moment from "moment";
 
 const setNamespace = (namespace) => (constant) => {
   return `${namespace}/${constant}`;
@@ -19,6 +20,10 @@ const setApiError = (dispatch, callback, error) => {
   setTimeout(() => {
     dispatch(callback("apiError", null));
   });
+};
+//get requiered date format
+const dateFormat = (string) => {
+  return moment(string).format("Do MMM  YYYY");
 };
 
 // make the first letter caps
@@ -80,4 +85,5 @@ export {
   formStoreData,
   isUserLoggedIn,
   isAdminLoggedIn,
+  dateFormat,
 };
