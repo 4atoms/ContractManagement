@@ -74,10 +74,6 @@ const isAdminLoggedIn = (store) => {
   return currentUser && currentUser.roles.indexOf(ROLES.admin) > -1;
 };
 
-const dateFormat = (string) => {
-  return moment(string).format("Do MMM  YYYY");
-};
-
 export {
   setNamespace,
   uniqKey,
