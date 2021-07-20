@@ -7,7 +7,7 @@ import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
 const ContractsData = () => {
   const context = useContext(RefContext);
   const {
-    store: { contractsList },
+    store: { contractsList, upcomingContractsList, expiredContractsList },
     actions: { getContractsData },
   } = context;
   let history = useHistory();
@@ -73,7 +73,7 @@ const ContractsData = () => {
       key: "view",
       render: (contractList) => (
         <Space size="middle">
-          <a onClickCapture={() => handleClick(contractList.consultant)}>
+          <a onClickCapture={() => handleClick(contractList.consultant.id)}>
             View
           </a>
         </Space>
@@ -84,7 +84,12 @@ const ContractsData = () => {
     <Wrapper>
       <TableWrap>
         <TableTitle>CONTRACTS</TableTitle>
+        <div>Ongoing</div>
         <Table dataSource={contractsList} columns={columns}></Table>
+        <div>Upcoming</div>
+        <Table dataSource={upcomingContractsList} columns={columns}></Table>
+        <div>Expired</div>
+        <Table dataSource={expiredContractsList} columns={columns}></Table>
       </TableWrap>
       <div>{console.log("test", context.store)}</div>
     </Wrapper>

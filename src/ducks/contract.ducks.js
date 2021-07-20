@@ -9,6 +9,8 @@ const nw = new Network();
 // STORE
 const initialState = {
   contractsList: [],
+  upcomingContractsList: [],
+  expiredContractsList: [],
   contractListDraft: [],
   detailOfContract: [],
   id: null,
@@ -41,12 +43,18 @@ const getContractsData = () => (dispatch) => {
   nw.api("contractList")
     .get()
     .then((resp) => {
-      resp.data.data.forEach((x) => {
+      resp.data.data.ongoing.forEach((x) => {
         x.start_date = dateFormat(x.start_date);
         x.end_date = dateFormat(x.end_date);
       });
       // dispatch(assignToContractStore("contractsListDraft", resp.data.data));
-      dispatch(assignToContractStore("contractsList", resp.data.data));
+      dispatch(assignToContractStore("contractsList", resp.data.data.ongoing));
+      dispatch(
+        assignToContractStore("upcomingContractsList", resp.data.data.upcoming)
+      );
+      dispatch(
+        assignToContractStore("expiredContractsList", resp.data.data.expired)
+      );
     });
 };
 const getDetailOfcontract = (contract_id) => (dispatch) => {

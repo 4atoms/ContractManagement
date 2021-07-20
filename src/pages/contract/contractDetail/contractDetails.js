@@ -33,9 +33,7 @@ const ContractDetails = () => {
         <DisplayLeft>
           <CircularBar />
         </DisplayLeft>
-        <DisplayRight>
-          <Progress percent={77} style={{ height: "50px" }} />
-        </DisplayRight>
+        <DisplayRight></DisplayRight>
         <CardWrapper>
           <div className="site-card-border-less-wrapper">
             <Card
