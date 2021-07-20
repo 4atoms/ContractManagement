@@ -3,7 +3,6 @@ import { useHistory } from "react-router-dom";
 import { Table, Space } from "antd";
 import RefContext from "Utilities/refContext";
 import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
-import { dateFormat } from "../../utilities/helpers";
 
 const ContractsData = () => {
   const context = useContext(RefContext);
@@ -17,7 +16,6 @@ const ContractsData = () => {
   };
   useEffect(() => {
     getContractsData();
-    
   }, []);
   const columns = [
     {
@@ -75,7 +73,9 @@ const ContractsData = () => {
       key: "view",
       render: (contractList) => (
         <Space size="middle">
-          <a onClickCapture={() => handleClick(contractList.consultant)}>View</a>
+          <a onClickCapture={() => handleClick(contractList.consultant)}>
+            View
+          </a>
         </Space>
       ),
     },
