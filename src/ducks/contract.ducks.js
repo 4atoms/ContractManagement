@@ -47,6 +47,14 @@ const getContractsData = () => (dispatch) => {
         x.start_date = dateFormat(x.start_date);
         x.end_date = dateFormat(x.end_date);
       });
+      resp.data.data.upcoming.forEach((x) => {
+        x.start_date = dateFormat(x.start_date);
+        x.end_date = dateFormat(x.end_date);
+      });
+      resp.data.data.expired?.forEach((x) => {
+        x.start_date = dateFormat(x.start_date);
+        x.end_date = dateFormat(x.end_date);
+      });
       // dispatch(assignToContractStore("contractsListDraft", resp.data.data));
       dispatch(assignToContractStore("contractsList", resp.data.data.ongoing));
       dispatch(
