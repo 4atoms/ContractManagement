@@ -20,7 +20,7 @@ const Header = () => {
           <Link>
             <a href="contracts">Contracts</a>
           </Link>
-          <Link>
+          {/* <Link>
             <AutoComplete dropdownMatchSelectWidth={100} style={{ width: 200 }}>
               <Button>
                 <Input.Search
@@ -30,7 +30,7 @@ const Header = () => {
                 />
               </Button>
             </AutoComplete>
-          </Link>
+          </Link> */}
         </LinkComponent>
       </PageHeader>
     </>
