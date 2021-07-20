@@ -4,7 +4,7 @@ import { themeColors } from "Theme";
 export const PageHeader = styled.div`
   display: flex;
   vertical-align: bottom;
-  justify-content: space-between;
+  // justify-content: space-between;
   height: 60px;
   margin: 10px;
 `;

@@ -55,7 +55,6 @@ const getDetailOfConsulant = (consultant_id) => (dispatch) => {
   nw.apiWithPath("consultantList", [consultant_id])
     .get()
     .then((resp) => {
-      console.log("test", resp.data.data.contracts?.[0].id);
       const contract_id = resp.data.data.contracts?.[0].id;
       nw.apiWithPath("contractList", [contract_id])
         .get()
@@ -64,6 +63,7 @@ const getDetailOfConsulant = (consultant_id) => (dispatch) => {
           dispatch(assignToConsultantStore("detailOfContract", resp2.data.data));
         });
       dispatch(assignToConsultantStore("detailOfConsultant", resp.data.data));
+      console.log(resp.data.data);
     });
 };
 // Routing
