@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Table, Space } from "antd";
 import RefContext from "Utilities/refContext";
 import { useHistory } from "react-router-dom";
-import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
+import { TableTitle, TableWrap, Wrapper } from "Components/common.style";
 
 const ConsultantsData = () => {
   const context = useContext(RefContext);

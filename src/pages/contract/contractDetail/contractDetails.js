@@ -1,15 +1,16 @@
 import React, { useContext, useEffect } from "react";
 import RefContext from "Utilities/refContext";
+import { Card } from "antd";
 import {
   DisplayLeft,
   DisplayRight,
   TitleDiv,
   WrapperD,
   CardWrapper,
-} from "../../../components/common.style";
-import CircularBar from "../../../components/circularBar";
+} from "Components/common.style";
+import CircularBar from "Components/circularBar";
 import { useParams } from "react-router-dom";
-import { dateFormat } from "../../../utilities/helpers";
+import { dateFormat } from "Utilities/helpers";
 
 const ContractDetails = () => {
   const context = useContext(RefContext);
