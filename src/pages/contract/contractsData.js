@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Table, Space } from "antd";
 import RefContext from "Utilities/refContext";
 import { TableTitle, TableWrap, Wrapper } from "../../components/common.style";
+import { dateFormat } from "../../utilities/helpers";
 
 const ContractsData = () => {
   const context = useContext(RefContext);
@@ -12,10 +13,11 @@ const ContractsData = () => {
   } = context;
   let history = useHistory();
   const handleClick = (num) => {
-    history.push(`/contract/${num}`);
+    history.push(`/consultant/${num}`);
   };
   useEffect(() => {
     getContractsData();
+    
   }, []);
   const columns = [
     {
@@ -73,7 +75,7 @@ const ContractsData = () => {
       key: "view",
       render: (contractList) => (
         <Space size="middle">
-          <a onClickCapture={() => handleClick(contractList.id)}>View</a>
+          <a onClickCapture={() => handleClick(contractList.consultant)}>View</a>
         </Space>
       ),
     },
@@ -84,6 +86,7 @@ const ContractsData = () => {
         <TableTitle>CONTRACTS</TableTitle>
         <Table dataSource={contractsList} columns={columns}></Table>
       </TableWrap>
+      <div>{console.log("test", context.store)}</div>
     </Wrapper>
   );
 };

@@ -48,19 +48,19 @@ const SupplierDetails = () => {
               <tr>
                 <td></td>
               </tr>
-              {/* <tr>
+              <tr>
                 <td>Point of Contact</td>
-                <td>{detailOfSupplier.point_of_contacts[0].name}</td>
+                <td>{detailOfSupplier.point_of_contacts?.[0]?.name}</td>
               </tr>
               <tr></tr>
               <tr>
                 <td>Email</td>
-                <td>{detailOfSupplier.point_of_contacts[0].email}</td>
+                <td>{detailOfSupplier.point_of_contacts?.[0]?.email}</td>
               </tr>
               <tr>
                 <td>Phone</td>
-                <td>{detailOfSupplier.point_of_contacts[0].phone}</td>
-              </tr> */}
+                <td>{detailOfSupplier.point_of_contacts?.[0]?.phone}</td>
+              </tr>
 
               {/* <p>Card content</p>
               <p>Card content</p>

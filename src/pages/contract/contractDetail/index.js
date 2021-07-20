@@ -12,7 +12,7 @@ const ContractDetail = (props) => {
 
   useEffect(() => {
     return () => {
-      propShape.actions.resetContractDetailStore();
+      propShape.actions.resetContractStore();
     };
   }, []);
 
