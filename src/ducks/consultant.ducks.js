@@ -10,6 +10,7 @@ const nw = new Network();
 const initialState = {
   consultantsList: [],
   detailOfConsultant: [],
+  detailOfContract: [],
   id: null,
 };
 
@@ -54,11 +55,17 @@ const getDetailOfConsulant = (consultant_id) => (dispatch) => {
   nw.apiWithPath("consultantList", [consultant_id])
     .get()
     .then((resp) => {
-      console.log("test", resp.data.data);
+      console.log("test", resp.data.data.contracts?.[0].id);
+      const contract_id = resp.data.data.contracts?.[0].id;
+      nw.apiWithPath("contractList", [contract_id])
+        .get()
+        .then((resp2) => {
+          console.log(resp2.data.data);
+          dispatch(assignToConsultantStore("detailOfContract", resp2.data.data));
+        });
       dispatch(assignToConsultantStore("detailOfConsultant", resp.data.data));
     });
 };
-
 // Routing
 
 // Reducers

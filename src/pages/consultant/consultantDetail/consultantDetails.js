@@ -10,12 +10,13 @@ import {
 import CircularBar from "../../../components/circularBar";
 import { Progress, Card } from "antd";
 import { useParams } from "react-router-dom";
+import { dateFormat } from "../../../utilities/helpers";
 
 const ConsultantDetails = () => {
   const context = useContext(RefContext);
 
   const {
-    store: { detailOfConsultant },
+    store: { detailOfConsultant, detailOfContract },
     actions: { getDetailOfConsulant },
   } = context;
 
@@ -37,7 +38,7 @@ const ConsultantDetails = () => {
         <CardWrapper>
           <div className="site-card-border-less-wrapper">
             <Card
-              title="Contract Summary"
+              title="Consultant Summary"
               bordered={false}
               style={{ width: 400 }}
             >
@@ -61,6 +62,35 @@ const ConsultantDetails = () => {
               <tr>
                 <td>Phone No</td>
                 <td>{detailOfConsultant.phone}</td>
+              </tr>
+            </Card>
+          </div>
+          <div className="site-card-border-less-wrapper">
+            <Card
+              title="Contract Summary"
+              bordered={false}
+              style={{ width: 400 }}
+            >
+              <tr>
+                <td>Cost Center</td>
+                <td>{detailOfContract.cost_center}</td>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Start Date</td>
+                <td>{dateFormat(detailOfContract.start_date)}</td>
+              </tr>
+              <tr></tr>
+              <tr>
+                <td>End Date</td>
+                <td>{dateFormat(detailOfContract.end_date)}</td>
+              </tr>
+              <tr></tr>
+              <tr>
+                <td>Cost Hour</td>
+                <td>{detailOfContract.cost_hour}</td>
               </tr>
             </Card>
           </div>

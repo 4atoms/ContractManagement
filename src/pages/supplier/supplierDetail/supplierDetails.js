@@ -53,7 +53,7 @@ const SupplierDetails = () => {
                 <td>{detailOfSupplier.point_of_contacts?.[0]?.name}</td>
               </tr>
               <tr></tr>
-              <tr>
+              {/* <tr>
                 <td>Email</td>
                 <td>{detailOfSupplier.point_of_contacts?.[0]?.email}</td>
               </tr>
