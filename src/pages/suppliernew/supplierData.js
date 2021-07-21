@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Table, Space, Card, Badge, Button } from "antd";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons"; 
 import RefContext from "Utilities/refContext";
 import { useHistory } from "react-router-dom";
 import {
@@ -7,6 +8,7 @@ import {
   CardLeft,
   WrapperCard,
   TableWrap,
+  Card1Header,
 } from "Components/common.style";
 
 const SupplierData = () => {
@@ -38,16 +40,6 @@ const SupplierData = () => {
         <Space size="middle">{suppliersList[0].consultants.length}</Space>
       ),
     },
-    // {
-    //   title: "Email",
-    //   dataIndex: "email",
-    //   key: "email",
-    // },
-    // {
-    //   title: "Phone Number",
-    //   dataIndex: "phone",
-    //   key: "phone",
-    // },
     {
       title: "Contract Status",
       key: "contractstatus",
@@ -64,7 +56,9 @@ const SupplierData = () => {
       key: "view",
       render: (supplierssList) => (
         <Space size="middle">
-          <a onClickCapture={() => handleClick(supplierssList.id)}>View</a>
+          <EditOutlined onClickCapture={() => handleClick(supplierssList.id)}/>
+          <DeleteOutlined onClick={() => console.log("Delete Clicked")} />
+          {/* <a onClickCapture={() => handleClick(supplierssList.id)}>View</a> */}
         </Space>
       ),
     },
@@ -74,11 +68,13 @@ const SupplierData = () => {
       <WrapperCard>
         <CardLeft>
           <div className="site-card-border-less-wrapper">
-            <Card style={{ width: 800 }}>
-              <text>Suppliers</text>
-              <Button type="primary" shape="circle">
-                +
-              </Button>
+            <Card>
+              <Card1Header>
+                <text>Suppliers</text>
+                <Button type="primary" shape="circle">
+                  +
+                </Button>
+              </Card1Header>
               {/* title="SUPPLIERS" bordered={true} */}
               {/* <TableWrap></TableWrap> */}
               {/* <TableTitle>SUPPLIERS</TableTitle> */}

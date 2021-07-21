@@ -107,3 +107,10 @@ export const CardRight = styled.div`
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
 `;
+export const Card1Header = styled.div`
+  & > button {
+    left: 646.33px;
+  }
+  border-bottom: 1px solid #9e9e9e;
+  padding-bottom: 15px;
+`;
