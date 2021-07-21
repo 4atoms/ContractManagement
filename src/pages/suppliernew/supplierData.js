@@ -25,7 +25,7 @@ const SupplierData = () => {
         <CardRight>
           <div>Supplier</div>
           <div>CompanyId</div>
-          <
+          <div>Contracts</div>
           <CircularBarsContainer>
             <SpaceBar />
             <Progress

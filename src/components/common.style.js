@@ -107,3 +107,13 @@ export const CardRight = styled.div`
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
 `;
+export const CircularBarsContainer = styled.div`
+  display: flex;
+  .ant-progress-circle.ant-progress-status-success .ant-progress-text {
+    color: rgba(0, 0, 0, 1);
+    font-size: 15px;
+  }
+`;
+export const SpaceBar = styled.div`
+  width: 10px;
+`;
