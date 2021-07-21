@@ -77,15 +77,17 @@ export const CardWrapper = styled.div`
   }
 `;
 export const WrapperCard = styled.div`
-  gap: 30px;
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 export const CardLeft = styled.div`
-  position: absolute;
-  width: 800px;
-  height: 744.4px;
-  left: 51px;
-  top: 120px;
+  // position: absolute;
+  // width: 800px;
+  // height: 744.4px;
+  // left: 51px;
+  // top: 120px;
+  padding: 30px;
 
   /* White */
 
@@ -95,17 +97,27 @@ export const CardLeft = styled.div`
 `;
 
 export const CardRight = styled.div`
-  position: absolute;
-  width: 512px;
-  height: 744.4px;
-  right: 47px;
-  top: 120px;
+  // position: absolute;
+  // width: 512px;
+  // height: 744.4px;
+  // right: 47px;
+  // top: 120px;
 
   /* White */
 
   background: #ffffff;
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
+`;
+
+export const CardLeftWrapper = styled.div`
+  flex: 40%;
+  padding: 0px 15px 0px 51px;
+`;
+
+export const CardRightWrapper = styled.div`
+  flex: 30%;
+  padding: 0px 47px 0px 15px;
 `;
 export const CircularBarsContainer = styled.div`
   display: flex;
@@ -160,10 +172,19 @@ export const SupplierName = styled.div`
 
   color: #6041b8;
 `;
-
 export const Card1Header = styled.div`
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24.08px;
+
+  /* Proton - Primary */
+
+  color: #6041b8;
+
   & > button {
-    left: 646.33px;
+    left: 506.33px;
   }
   border-bottom: 1px solid #9e9e9e;
   padding-bottom: 15px;

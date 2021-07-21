@@ -4,7 +4,7 @@ import { themeColors } from "Theme";
 export const PageHeader = styled.div`
   display: flex;
   vertical-align: bottom;
-  // justify-content: space-between;
+  justify-content: space-between;
   height: 60px;
   margin: 10px;
 `;
@@ -20,9 +20,11 @@ export const Logo = styled.div`
 
 export const LinkComponent = styled.div`
   display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
-  vertical-align: bottom;
+  // align-items: flex-end;
+  // justify-content: flex-end;
+  // vertical-align: bottom;
+  flex: 10%;
+  padding-top: 14px;
 `;
 
 export const Link = styled.div`
@@ -36,6 +38,15 @@ export const Link = styled.div`
       color: ${themeColors.gray70};
     }
   }
+`;
+
+export const UserProfile = styled.div`
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  vertical-align: bottom;
+  padding-bottom: 14px;
+  color: ${themeColors.purple};
 `;
 
 export const Button = styled.div`
