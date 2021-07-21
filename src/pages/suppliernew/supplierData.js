@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import { Progress } from "antd";
 import { Table, Space, Card, Badge, Button } from "antd";
 import RefContext from "Utilities/refContext";
-import { useHistory } from "react-router-dom";
 import {
   CardRight,
   CardLeft,
@@ -66,7 +65,7 @@ const SupplierData = () => {
       key: "view",
       render: (supplierssList) => (
         <Space size="middle">
-          <a onClickCapture={() => handleClick(supplierssList.id)}>View</a>
+          <a onClickCapture={() => console.log(supplierssList.id)}>View</a>
         </Space>
       ),
     },
@@ -74,8 +73,7 @@ const SupplierData = () => {
   return (
     <>
       <WrapperCard>
-
-      <CardLeft>
+        <CardLeft>
           <div className="site-card-border-less-wrapper">
             <Card style={{ width: 800 }}>
               <text>Suppliers</text>
