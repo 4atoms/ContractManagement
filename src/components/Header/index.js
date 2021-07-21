@@ -1,7 +1,7 @@
 import React from "react";
-// import { AutoComplete, Input } from "antd";
+import { AutoComplete, Input, Button } from "antd";
 import logo from "Assets/images/proton-logo.png";
-import { PageHeader, LinkComponent, Link, Logo } from "./header.style";
+import { PageHeader, LinkComponent, Link, Logo, UserProfile } from "./header.style";
 
 const Header = () => {
   return (
@@ -23,18 +23,8 @@ const Header = () => {
           <Link>
             <a href="contracts">Contracts</a>
           </Link>
-          {/* <Link>
-            <AutoComplete dropdownMatchSelectWidth={100} style={{ width: 200 }}>
-              <Button>
-                <Input.Search
-                  size="medium"
-                  placeholder="search here"
-                  enterButton
-                />
-              </Button>
-            </AutoComplete>
-          </Link> */}
         </LinkComponent>
+        <UserProfile>Welcome, User</UserProfile>
       </PageHeader>
     </>
   );

@@ -15,6 +15,8 @@ import {
   SupplierName,
   TableWrap,
   Card1Header,
+  CardLeftWrapper,
+  CardRightWrapper,
 } from "Components/common.style";
 
 const SupplierData = () => {
@@ -43,8 +45,6 @@ const SupplierData = () => {
       dataIndex: "name",
       key: "name",
     },
-    
-
     {
       title: "ID",
       dataIndex: "id",
@@ -62,12 +62,12 @@ const SupplierData = () => {
       key: "contractstatus",
       render: () => (
         <Space size="middle">
-          <Badge count={0} className="site-badge-count-4" />
+          <Badge count={4} className="site-badge-count-4" />
           <Badge
             count={detailOfSupplier.summary?.upcoming?.length}
             className="site-badge-count-4"
           />
-          <Badge count={0} className="site-badge-count-4" />
+          <Badge count={4} className="site-badge-count-4" />
         </Space>
       ),
     },
@@ -104,83 +104,80 @@ const SupplierData = () => {
   return (
     <>
       <WrapperCard>
-        <CardLeft>
-          <div className="site-card-border-less-wrapper">
-            <Card>
-              <Card1Header>
-                <text>Suppliers</text>
-                <Button type="primary" shape="circle">
-                  +
-                </Button>
-              </Card1Header>
-              {/* title="SUPPLIERS" bordered={true} */}
-              {/* <TableWrap></TableWrap> */}
-              {/* <TableTitle>SUPPLIERS</TableTitle> */}
-              <Table dataSource={suppliersList} columns={columns}></Table>
-            </Card>
-          </div>
-        </CardLeft>
-        <CardRight>
-          <DisplayCardRight displayDetails={displayDetails}>
-            <SupplierName>{detailOfSupplier.name}</SupplierName>
-            <div>{detailOfSupplier.id}</div>
-            <div>Contracts</div>
-            <CircularBarsContainer>
-              <SpaceBar />
-              <Progress
-                type="circle"
-                percent={100}
-                width={110}
-                format={() =>
-                  `${detailOfSupplier?.summary?.ongoing?.length}  Ongoing`
-                }
-                strokeColor={"#8FC827"}
-              />
-              <SpaceBar />
-              <Progress
-                type="circle"
-                percent={100}
-                width={110}
-                format={() => "2  To Renew"}
-                strokeColor={"#FF7A00"}
-              />
-              <SpaceBar />
-              <Progress
-                type="circle"
-                percent={100}
-                width={110}
-                format={() =>
-                  `${detailOfSupplier?.summary?.upcoming?.length} Upcoming`
-                }
-                strokeColor={"#6CC1FF"}
-              />
-              <SpaceBar />
-              <Progress
-                type="circle"
-                percent={100}
-                width={110}
-                format={() =>
-                  `${detailOfSupplier?.summary?.expired?.length}  Expired`
-                }
-                strokeColor={"#DB303F"}
-              />
-              <SpaceBar />
-            </CircularBarsContainer>
-            <Consultants>
-              <div>Consultants ({detailOfSupplier.consultants?.length})</div>
-              <p>
-                {detailOfSupplier.consultants?.map((x) => {
-                  return <span key={x.id}>{x.name}</span>;
-                })}
-              </p>
-            </Consultants>
-            <div>Point of Contacts</div>
-            <Table
-              dataSource={detailOfSupplier.point_of_contacts}
-              columns={columns2}
-            ></Table>
-          </DisplayCardRight>
-        </CardRight>
+        <CardLeftWrapper>
+          <CardLeft>
+            <Card1Header>
+              <text>Suppliers</text>
+              <Button type="primary" shape="circle">
+                +
+              </Button>
+            </Card1Header>
+            <Table dataSource={suppliersList} columns={columns}></Table>
+          </CardLeft>
+        </CardLeftWrapper>
+        <CardRightWrapper>
+          <CardRight>
+            <DisplayCardRight displayDetails={displayDetails}>
+              <SupplierName>{detailOfSupplier.name}</SupplierName>
+              <div>{detailOfSupplier.id}</div>
+              <div>Contracts</div>
+              <CircularBarsContainer>
+                <SpaceBar />
+                <Progress
+                  type="circle"
+                  percent={100}
+                  width={110}
+                  format={() =>
+                    `${detailOfSupplier?.summary?.ongoing?.length}  Ongoing`
+                  }
+                  strokeColor={"#8FC827"}
+                />
+                <SpaceBar />
+                <Progress
+                  type="circle"
+                  percent={100}
+                  width={110}
+                  format={() => "2  To Renew"}
+                  strokeColor={"#FF7A00"}
+                />
+                <SpaceBar />
+                <Progress
+                  type="circle"
+                  percent={100}
+                  width={110}
+                  format={() =>
+                    `${detailOfSupplier?.summary?.upcoming?.length} Upcoming`
+                  }
+                  strokeColor={"#6CC1FF"}
+                />
+                <SpaceBar />
+                <Progress
+                  type="circle"
+                  percent={100}
+                  width={110}
+                  format={() =>
+                    `${detailOfSupplier?.summary?.expired?.length}  Expired`
+                  }
+                  strokeColor={"#DB303F"}
+                />
+                <SpaceBar />
+              </CircularBarsContainer>
+              <Consultants>
+                <div>Consultants ({detailOfSupplier.consultants?.length})</div>
+                <p>
+                  {detailOfSupplier.consultants?.map((x) => {
+                    return <span key={x.id}>{x.name}</span>;
+                  })}
+                </p>
+              </Consultants>
+              <div>Point of Contacts</div>
+              <Table
+                dataSource={detailOfSupplier.point_of_contacts}
+                columns={columns2}
+              ></Table>
+            </DisplayCardRight>
+          </CardRight>
+        </CardRightWrapper>
       </WrapperCard>
     </>
   );
