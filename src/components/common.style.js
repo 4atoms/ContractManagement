@@ -76,5 +76,34 @@ export const CardWrapper = styled.div`
   & > div > div > div > tr > td {
   }
 `;
-//box-sizing: border-box;
-//padding: 0;
+export const WrapperCard = styled.div`
+  gap: 30px;
+`;
+
+export const CardLeft = styled.div`
+  position: absolute;
+  width: 800px;
+  height: 744.4px;
+  left: 51px;
+  top: 120px;
+
+  /* White */
+
+  background: #ffffff;
+  box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+`;
+
+export const CardRight = styled.div`
+  position: absolute;
+  width: 460.8px;
+  height: 744.4px;
+  right: 47px;
+  top: 120px;
+
+  /* White */
+
+  background: #ffffff;
+  box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+`;
