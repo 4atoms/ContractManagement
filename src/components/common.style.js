@@ -77,16 +77,19 @@ export const CardWrapper = styled.div`
   }
 `;
 export const WrapperCard = styled.div`
-  background-color: #FAFAFF;
-
+  background-color: #fafaff;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 1200px:
 `;
 
 export const CardLeft = styled.div`
-  position: absolute;
-  width: 800px;
-  height: 744.4px;
-  left: 51px;
-  top: 120px;
+  // position: absolute;
+  // width: 800px;
+  height: 600px
+  // left: 51px;
+  // top: 120px;
+  padding: 30px;
 
   /* White */
 
@@ -96,17 +99,27 @@ export const CardLeft = styled.div`
 `;
 
 export const CardRight = styled.div`
-  position: absolute;
-  width: 512px;
-  height: 744.4px;
-  right: 47px;
-  top: 120px;
+  // position: absolute;
+  // width: 512px;
+  height: auto;
+  // right: 47px;
+  // top: 120px;
 
   /* White */
 
   background: #ffffff;
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
+`;
+
+export const CardLeftWrapper = styled.div`
+  flex: 48%;
+  padding: 40px 8px 0px 31px;
+`;
+
+export const CardRightWrapper = styled.div`
+  flex: 25%;
+  padding: 40px 47px 0px 8px;
 `;
 export const CircularBarsContainer = styled.div`
   display: flex;
@@ -125,37 +138,42 @@ export const DisplayCardRight = styled.div`
 `;
 
 export const Consultants = styled.div`
+  padding-top: 40px;
+  padding-bottom: 15px;
+`;
+export const CTitle = styled.div`
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+
+  /* Proton - Secondary */
+
+  color: #3c3c3c;
+`;
+
+export const Tags = styled.div`
+  display: flex;
+  padding-top: 15px;
+  flex-direction: row;
+  gap: 10px;
   & > div {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-  }
-  & > div > div {
     border: 1px solid #9e9e9e;
 
     align-items: center;
     padding: 2px 12px;
     border-radius: 8px;
   }
-  & > div {
-    font-family: Varela Round;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
-
-    /* Proton - Secondary */
-
-    color: #3c3c3c;
-  }
 `;
 
 export const Contracts = styled.div`
-  width: 147px;
-  height: 26px;
-  right: 381px;
-  top: 235px;
-
+  // width: 147px;
+  // height: 26px;
+  // right: 381px;
+  // top: 235px;
+  padding-top: 19.89px;
+  padding-bottom: 15px;
   /* Proton - text body */
 
   font-family: Varela Round;
@@ -169,10 +187,12 @@ export const Contracts = styled.div`
   color: #3c3c3c;
 `;
 export const SupplierName = styled.div`
-  width: 147px;
-  height: 26px;
-  right: 381px;
-  top: 150px;
+  // width: 147px;
+  // height: 26px;
+  // right: 381px;
+  // top: 150px;
+  padding-top: 30px;
+  padding-bottom: 5px;
   font-family: Varela Round;
   font-style: normal;
   font-weight: normal;
@@ -183,21 +203,30 @@ export const SupplierName = styled.div`
 
   color: #6041b8;
 `;
-
 export const Card1Header = styled.div`
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24.08px;
+
+  /* Proton - Primary */
+
+  color: #6041b8;
+
   & > button {
-    left: 646.33px;
+    left: 406.33px;
   }
   border-bottom: 1px solid #9e9e9e;
   padding-bottom: 15px;
 `;
 
 export const SupplierId = styled.div`
-  width: 77px;
-  height: 17px;
-  left: 912px;
-  top: 181px;
-
+  // width: 77px;
+  // height: 17px;
+  // left: 912px;
+  // top: 181px;
+  padding-bottom: 12.6px;
   /* Proton - Table content text */
 
   font-family: Varela Round;
@@ -208,21 +237,16 @@ export const SupplierId = styled.div`
   /* identical to box height */
 
   /* Proton - Tertiary color */
-
   color: #9e9e9e;
 `;
 export const Line1 = styled.div`
-  width: 512px;
   height: 1px;
-  left: 900px;
-  top: 223.11px;
-
-  /* Proton - Tertiary color */
-
   border: 1px solid #9e9e9e;
 `;
 
 export const PointOfContacts = styled.div`
+  padding-top: 42px;
+  padding-bottom: 15px;
   font-family: Varela Round;
   font-style: normal;
   font-weight: normal;
@@ -232,4 +256,5 @@ export const PointOfContacts = styled.div`
 
 export const RightCardContent = styled.div`
   padding: 5px 31px;
+  position: relative;
 `;
