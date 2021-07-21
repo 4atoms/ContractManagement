@@ -109,11 +109,54 @@ export const CardRight = styled.div`
 `;
 export const CircularBarsContainer = styled.div`
   display: flex;
+  top: 577px;
   .ant-progress-circle.ant-progress-status-success .ant-progress-text {
     color: rgba(0, 0, 0, 1);
     font-size: 15px;
   }
 `;
 export const SpaceBar = styled.div`
-  width: 10px;
+  width: 18px;
+`;
+
+export const DisplayCardRight = styled.div`
+  display: ${(props) => (props.displayDetails ? "block" : "none")};
+`;
+
+export const Consultants = styled.div`
+  & > p > span {
+    border: 1px solid #9e9e9e;
+    padding: 2px, 12px, 2px, 12px;
+  }
+`;
+
+export const Contracts = styled.div`
+  position: absolute;
+  width: 147px;
+  height: 26px;
+  right: 381px;
+  top: 235px;
+
+  /* Proton - text body */
+
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+
+  /* Proton - Secondary */
+
+  color: #3c3c3c;
+`;
+export const SupplierName = styled.div`
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+
+  /* Proton - Primary */
+
+  color: #6041b8;
 `;

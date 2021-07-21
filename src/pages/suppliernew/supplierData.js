@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Progress } from "antd";
 import { Table, Space, Card, Badge, Button } from "antd";
 import RefContext from "Utilities/refContext";
@@ -8,24 +8,47 @@ import {
   WrapperCard,
   SpaceBar,
   CircularBarsContainer,
+  DisplayCardRight,
+  Consultants,
+  Contracts,
+  SupplierName,
 } from "Components/common.style";
 
 const SupplierData = () => {
   const context = useContext(RefContext);
   const {
-    store: { suppliersList },
-    actions: { getSupplierData, setId },
+    store: { suppliersList, detailOfSupplier },
+    actions: { getSupplierData, setId, getDetailOfSupplier },
   } = context;
+  const [displayDetails, setDisplayDetails] = useState(false);
 
   useEffect(() => {
     getSupplierData();
   }, []);
+
+  const showDetails = () => {
+    setDisplayDetails(true);
+  };
+  const handleClick = (num) => {
+    getDetailOfSupplier(num);
+    console.log(detailOfSupplier.consultants);
+    showDetails();
+  };
 
   const columns = [
     {
       title: "Supplier Name",
       dataIndex: "name",
       key: "name",
+    },
+    {
+      title: "View",
+      key: "view",
+      render: (supplierssList) => (
+        <Space size="middle">
+          <a onClickCapture={() => handleClick(supplierssList.id)}>View</a>
+        </Space>
+      ),
     },
     {
       title: "ID",
@@ -60,16 +83,25 @@ const SupplierData = () => {
         </Space>
       ),
     },
+  ];
+  const columns2 = [
     {
-      title: "View",
-      key: "view",
-      render: (supplierssList) => (
-        <Space size="middle">
-          <a onClickCapture={() => console.log(supplierssList.id)}>View</a>
-        </Space>
-      ),
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
+    },
+    {
+      title: "Number",
+      dataIndex: "phone",
+      key: "phone",
     },
   ];
+
   return (
     <>
       <WrapperCard>
@@ -88,44 +120,65 @@ const SupplierData = () => {
           </div>
         </CardLeft>
         <CardRight>
-          <div>Supplier</div>
-          <div>CompanyId</div>
-          <div>Contracts</div>
-          <CircularBarsContainer>
-            <SpaceBar />
-            <Progress
-              type="circle"
-              percent={100}
-              width={110}
-              format={() => "2  Ongoing"}
-              strokeColor={"#8FC827"}
-            />
-            <SpaceBar />
-            <Progress
-              type="circle"
-              percent={100}
-              width={110}
-              format={() => "2  To Renew"}
-              strokeColor={"#FF7A00"}
-            />
-            <SpaceBar />
-            <Progress
-              type="circle"
-              percent={100}
-              width={110}
-              format={() => "1  Upcoming"}
-              strokeColor={"#6CC1FF"}
-            />
-            <SpaceBar />
-            <Progress
-              type="circle"
-              percent={100}
-              width={110}
-              format={() => "4  Expired"}
-              strokeColor={"#DB303F"}
-            />
-            <SpaceBar />
-          </CircularBarsContainer>
+          <DisplayCardRight displayDetails={displayDetails}>
+            <SupplierName>{detailOfSupplier.name}</SupplierName>
+            <div>{detailOfSupplier.id}</div>
+            <div>Contracts</div>
+            <CircularBarsContainer>
+              <SpaceBar />
+              <Progress
+                type="circle"
+                percent={100}
+                width={110}
+                format={() =>
+                  `${detailOfSupplier?.summary?.ongoing?.length}  Ongoing`
+                }
+                strokeColor={"#8FC827"}
+              />
+              <SpaceBar />
+              <Progress
+                type="circle"
+                percent={100}
+                width={110}
+                format={() => "2  To Renew"}
+                strokeColor={"#FF7A00"}
+              />
+              <SpaceBar />
+              <Progress
+                type="circle"
+                percent={100}
+                width={110}
+                format={() =>
+                  `${detailOfSupplier?.summary?.upcoming?.length} Upcoming`
+                }
+                strokeColor={"#6CC1FF"}
+              />
+              <SpaceBar />
+              <Progress
+                type="circle"
+                percent={100}
+                width={110}
+                format={() =>
+                  `${detailOfSupplier?.summary?.expired?.length}  Expired`
+                }
+                strokeColor={"#DB303F"}
+              />
+              <SpaceBar />
+            </CircularBarsContainer>
+            <Consultants>
+              <div>Consultants ({detailOfSupplier.consultants?.length})</div>
+              <p>
+                {detailOfSupplier.consultants?.map((x) => {
+                  return <span key={x.id}>{x.name}</span>;
+                })}
+              </p>
+            </Consultants>
+            <div>Point of Contacts</div>
+            <Table
+              dataSource={detailOfSupplier.point_of_contacts}
+              columns={columns2}
+            ></Table>
+          </DisplayCardRight>
         </CardRight>
       </WrapperCard>
     </>
