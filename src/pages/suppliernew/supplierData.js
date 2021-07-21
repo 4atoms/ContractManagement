@@ -10,9 +10,13 @@ import {
   SpaceBar,
   CircularBarsContainer,
   DisplayCardRight,
+  RightCardContent,
   Consultants,
   Contracts,
   SupplierName,
+  SupplierId,
+  Line1,
+  PointOfContacts,
   TableWrap,
   Card1Header,
 } from "Components/common.style";
@@ -43,7 +47,17 @@ const SupplierData = () => {
       dataIndex: "name",
       key: "name",
     },
-    
+    {
+      title: "Action",
+      key: "view",
+      render: (supplierssList) => (
+        <Space size="middle">
+          <EditOutlined onClickCapture={() => handleClick(supplierssList.id)} />
+          <DeleteOutlined onClick={() => console.log("Delete Clicked")} />
+          {/* <a onClickCapture={() => handleClick(supplierssList.id)}>View</a> */}
+        </Space>
+      ),
+    },
 
     {
       title: "ID",
@@ -68,17 +82,6 @@ const SupplierData = () => {
             className="site-badge-count-4"
           />
           <Badge count={0} className="site-badge-count-4" />
-        </Space>
-      ),
-    },
-    {
-      title: "Action",
-      key: "view",
-      render: (supplierssList) => (
-        <Space size="middle">
-          <EditOutlined onClickCapture={() => handleClick(supplierssList.id)} />
-          <DeleteOutlined onClick={() => console.log("Delete Clicked")} />
-          {/* <a onClickCapture={() => handleClick(supplierssList.id)}>View</a> */}
         </Space>
       ),
     },
@@ -122,63 +125,66 @@ const SupplierData = () => {
         </CardLeft>
         <CardRight>
           <DisplayCardRight displayDetails={displayDetails}>
-            <SupplierName>{detailOfSupplier.name}</SupplierName>
-            <div>{detailOfSupplier.id}</div>
-            <div>Contracts</div>
-            <CircularBarsContainer>
-              <SpaceBar />
-              <Progress
-                type="circle"
-                percent={100}
-                width={110}
-                format={() =>
-                  `${detailOfSupplier?.summary?.ongoing?.length}  Ongoing`
-                }
-                strokeColor={"#8FC827"}
-              />
-              <SpaceBar />
-              <Progress
-                type="circle"
-                percent={100}
-                width={110}
-                format={() => "2  To Renew"}
-                strokeColor={"#FF7A00"}
-              />
-              <SpaceBar />
-              <Progress
-                type="circle"
-                percent={100}
-                width={110}
-                format={() =>
-                  `${detailOfSupplier?.summary?.upcoming?.length} Upcoming`
-                }
-                strokeColor={"#6CC1FF"}
-              />
-              <SpaceBar />
-              <Progress
-                type="circle"
-                percent={100}
-                width={110}
-                format={() =>
-                  `${detailOfSupplier?.summary?.expired?.length}  Expired`
-                }
-                strokeColor={"#DB303F"}
-              />
-              <SpaceBar />
-            </CircularBarsContainer>
-            <Consultants>
-              <div>Consultants ({detailOfSupplier.consultants?.length})</div>
-              <p>
-                {detailOfSupplier.consultants?.map((x) => {
-                  return <span key={x.id}>{x.name}</span>;
-                })}
-              </p>
-            </Consultants>
-            <div>Point of Contacts</div>
-            <Table
-              dataSource={detailOfSupplier.point_of_contacts}
-              columns={columns2}
-            ></Table>
+            <RightCardContent>
+              <SupplierName>{detailOfSupplier.name}</SupplierName>
+              <SupplierId>{detailOfSupplier.id}</SupplierId>
+              <Line1 />
+              <Contracts>Contracts</Contracts>
+              <CircularBarsContainer>
+                <SpaceBar />
+                <Progress
+                  type="circle"
+                  percent={100}
+                  width={110}
+                  format={() =>
+                    `${detailOfSupplier?.summary?.ongoing?.length}  Ongoing`
+                  }
+                  strokeColor={"#8FC827"}
+                />
+                <SpaceBar />
+                <Progress
+                  type="circle"
+                  percent={100}
+                  width={110}
+                  format={() => "2  To Renew"}
+                  strokeColor={"#FF7A00"}
+                />
+                <SpaceBar />
+                <Progress
+                  type="circle"
+                  percent={100}
+                  width={110}
+                  format={() =>
+                    `${detailOfSupplier?.summary?.upcoming?.length} Upcoming`
+                  }
+                  strokeColor={"#6CC1FF"}
+                />
+                <SpaceBar />
+                <Progress
+                  type="circle"
+                  percent={100}
+                  width={110}
+                  format={() =>
+                    `${detailOfSupplier?.summary?.expired?.length}  Expired`
+                  }
+                  strokeColor={"#DB303F"}
+                />
+                <SpaceBar />
+              </CircularBarsContainer>
+              <Consultants>
+                <div>Consultants ({detailOfSupplier.consultants?.length})</div>
+                <div>
+                  {detailOfSupplier.consultants?.map((x) => {
+                    return <div key={x.id}>{x.name}</div>;
+                  })}
+                </div>
+              </Consultants>
+              <PointOfContacts>Point of Contacts</PointOfContacts>
+              <Table
+                dataSource={detailOfSupplier.point_of_contacts}
+                columns={columns2}
+              ></Table>
+            </RightCardContent>
           </DisplayCardRight>
         </CardRight>
       </WrapperCard>
