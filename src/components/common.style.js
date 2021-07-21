@@ -96,7 +96,7 @@ export const CardLeft = styled.div`
 
 export const CardRight = styled.div`
   position: absolute;
-  width: 460.8px;
+  width: 512px;
   height: 744.4px;
   right: 47px;
   top: 120px;
