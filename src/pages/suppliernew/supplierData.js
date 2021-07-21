@@ -5,6 +5,11 @@ import { useHistory } from "react-router-dom";
 import { CardRight, CardLeft, WrapperCard } from "Components/common.style";
 
 const SupplierData = () => {
+  const context = useContext(RefContext);
+  const {
+    store: { suppliersList },
+    actions: { getSupplierData, setId },
+  } = context;
   return (
     <>
       <WrapperCard>
