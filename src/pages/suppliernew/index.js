@@ -5,6 +5,7 @@ import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
 import Header from "Components/Header";
+import SupplierData from "./supplierData";
 
 const SupplierNew = (props) => {
   const propShape = formStoreData(props, ["supplier"]);
@@ -20,6 +21,7 @@ const SupplierNew = (props) => {
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
           <Header />
+          <SupplierData />
         </RefErrorBoundary>
       </RefProvider>
     </>
