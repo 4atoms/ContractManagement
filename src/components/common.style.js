@@ -160,3 +160,11 @@ export const SupplierName = styled.div`
 
   color: #6041b8;
 `;
+
+export const Card1Header = styled.div`
+  & > button {
+    left: 646.33px;
+  }
+  border-bottom: 1px solid #9e9e9e;
+  padding-bottom: 15px;
+`;
