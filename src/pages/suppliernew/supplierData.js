@@ -131,7 +131,6 @@ const SupplierData = () => {
                 <Contracts>Contracts</Contracts>
 
                 <CircularBarsContainer>
-                  <SpaceBar />
                   <Progress
                     type="circle"
                     percent={100}
@@ -169,7 +168,6 @@ const SupplierData = () => {
                     }
                     strokeColor={"#DB303F"}
                   />
-                  <SpaceBar />
                 </CircularBarsContainer>
                 <Consultants>
                   <CTitle>
