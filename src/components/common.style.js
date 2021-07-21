@@ -77,7 +77,8 @@ export const CardWrapper = styled.div`
   }
 `;
 export const WrapperCard = styled.div`
-  gap: 30px;
+  background-color: #FAFAFF;
+
 `;
 
 export const CardLeft = styled.div`
@@ -124,14 +125,32 @@ export const DisplayCardRight = styled.div`
 `;
 
 export const Consultants = styled.div`
-  & > p > span {
+  & > div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  & > div > div {
     border: 1px solid #9e9e9e;
-    padding: 2px, 12px, 2px, 12px;
+
+    align-items: center;
+    padding: 2px 12px;
+    border-radius: 8px;
+  }
+  & > div {
+    font-family: Varela Round;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+
+    /* Proton - Secondary */
+
+    color: #3c3c3c;
   }
 `;
 
 export const Contracts = styled.div`
-  position: absolute;
   width: 147px;
   height: 26px;
   right: 381px;
@@ -150,6 +169,10 @@ export const Contracts = styled.div`
   color: #3c3c3c;
 `;
 export const SupplierName = styled.div`
+  width: 147px;
+  height: 26px;
+  right: 381px;
+  top: 150px;
   font-family: Varela Round;
   font-style: normal;
   font-weight: normal;
@@ -167,4 +190,46 @@ export const Card1Header = styled.div`
   }
   border-bottom: 1px solid #9e9e9e;
   padding-bottom: 15px;
+`;
+
+export const SupplierId = styled.div`
+  width: 77px;
+  height: 17px;
+  left: 912px;
+  top: 181px;
+
+  /* Proton - Table content text */
+
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Proton - Tertiary color */
+
+  color: #9e9e9e;
+`;
+export const Line1 = styled.div`
+  width: 512px;
+  height: 1px;
+  left: 900px;
+  top: 223.11px;
+
+  /* Proton - Tertiary color */
+
+  border: 1px solid #9e9e9e;
+`;
+
+export const PointOfContacts = styled.div`
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+`;
+
+export const RightCardContent = styled.div`
+  padding: 5px 31px;
 `;
