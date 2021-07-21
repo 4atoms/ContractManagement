@@ -76,3 +76,5 @@ export const CardWrapper = styled.div`
   & > div > div > div > tr > td {
   }
 `;
+//box-sizing: border-box;
+//padding: 0;
