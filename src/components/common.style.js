@@ -86,16 +86,12 @@ export const WrapperCard = styled.div`
   background-color: #fafaff;
   display: flex;
   flex-wrap: nowrap;
-  height: 1200px:
 `;
 
 export const CardLeft = styled.div`
-  // position: absolute;
-  // width: 800px;
-  height: 600px
-  // left: 51px;
-  // top: 120px;
+  height: 600px;
   padding: 30px;
+  //max-width: 100%;
 
   /* White */
 
@@ -105,12 +101,6 @@ export const CardLeft = styled.div`
 `;
 
 export const CardRight = styled.div`
-  // position: absolute;
-  // width: 512px;
-  height: auto;
-  // right: 47px;
-  // top: 120px;
-
   /* White */
 
   background: #ffffff;
@@ -119,14 +109,15 @@ export const CardRight = styled.div`
 `;
 
 export const CardLeftWrapper = styled.div`
-  flex: 60%;
-  max-width:60%
+  flex: 58%;
+  flex-wrap: wrap;
+  //max-width: 40%;
   padding: 40px 8px 0px 31px;
 `;
 
 export const CardRightWrapper = styled.div`
-  flex: 40%;
-  max-width: 40%;
+  flex: 30%;
+  //max-width: 40%;
   padding: 40px 47px 0px 8px;
 `;
 export const CircularBarsContainer = styled.div`
@@ -176,10 +167,6 @@ export const Tags = styled.div`
 `;
 
 export const Contracts = styled.div`
-  // width: 147px;
-  // height: 26px;
-  // right: 381px;
-  // top: 235px;
   padding-top: 19.89px;
   padding-bottom: 15px;
   /* Proton - text body */
@@ -195,10 +182,6 @@ export const Contracts = styled.div`
   color: #3c3c3c;
 `;
 export const SupplierName = styled.div`
-  // width: 147px;
-  // height: 26px;
-  // right: 381px;
-  // top: 150px;
   padding-top: 30px;
   padding-bottom: 5px;
   font-family: Varela Round;
@@ -230,10 +213,6 @@ export const Card1Header = styled.div`
 `;
 
 export const SupplierId = styled.div`
-  // width: 77px;
-  // height: 17px;
-  // left: 912px;
-  // top: 181px;
   padding-bottom: 12.6px;
   /* Proton - Table content text */
 
