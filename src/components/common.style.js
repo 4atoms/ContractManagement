@@ -78,15 +78,10 @@ export const CardWrapper = styled.div`
 `;
 export const WrapperCard = styled.div`
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 `;
 
 export const CardLeft = styled.div`
-  // position: absolute;
-  // width: 800px;
-  // height: 744.4px;
-  // left: 51px;
-  // top: 120px;
   padding: 30px;
 
   /* White */
@@ -97,12 +92,6 @@ export const CardLeft = styled.div`
 `;
 
 export const CardRight = styled.div`
-  // position: absolute;
-  // width: 512px;
-  // height: 744.4px;
-  // right: 47px;
-  // top: 120px;
-
   /* White */
 
   background: #ffffff;

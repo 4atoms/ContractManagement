@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Progress } from "antd";
-import { Table, Space, Card, Badge, Button } from "antd";
+import { Table, Space, Badge, Button } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import RefContext from "Utilities/refContext";
+import {} from "@material-ui/icons";
 import {
   CardRight,
   CardLeft,
@@ -13,7 +14,6 @@ import {
   Consultants,
   Contracts,
   SupplierName,
-  TableWrap,
   Card1Header,
   CardLeftWrapper,
   CardRightWrapper,
@@ -77,6 +77,7 @@ const SupplierData = () => {
       render: (supplierssList) => (
         <Space size="middle">
           <EditOutlined onClickCapture={() => handleClick(supplierssList.id)} />
+          {/* <span className="material-icons">asbsabn</span> */}
           <DeleteOutlined onClick={() => console.log("Delete Clicked")} />
           {/* <a onClickCapture={() => handleClick(supplierssList.id)}>View</a> */}
         </Space>
@@ -112,7 +113,17 @@ const SupplierData = () => {
                 +
               </Button>
             </Card1Header>
-            <Table dataSource={suppliersList} columns={columns}></Table>
+            <Table
+              dataSource={suppliersList}
+              columns={columns}
+              onRow={(record, rowIndex) => {
+                return {
+                  onClick: (event) => {
+                    handleClick(record.id);
+                  },
+                };
+              }}
+            ></Table>
           </CardLeft>
         </CardLeftWrapper>
         <CardRightWrapper>
