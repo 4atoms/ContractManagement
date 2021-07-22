@@ -1,5 +1,7 @@
 import React from "react";
 import { Progress, Table } from "antd";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
   DisplayCardRight,
@@ -41,7 +43,13 @@ const CardRightComp = (props) => {
     <CardRight>
       <DisplayCardRight displayDetails={props.displayDetails}>
         <RightCardContent>
-          <SupplierName>{props.detailOfSupplier.name}</SupplierName>
+          <SupplierName>
+            {props.detailOfSupplier.name}
+            <span style={{ marginLeft: "320px", top: "20px" }}>
+              <EditIcon style={{ height: "18px" }} />
+              <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
+            </span>
+          </SupplierName>
           <SupplierId>xxyyzzzz01</SupplierId>
           <Line1 />
           <Contracts>Contracts</Contracts>
