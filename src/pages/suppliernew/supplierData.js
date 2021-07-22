@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Progress } from "antd";
-import { Table, Space, Card, Badge, Button } from "antd";
+import { Table, Space, Badge, Button } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import RefContext from "Utilities/refContext";
 import {
@@ -10,20 +10,26 @@ import {
   SpaceBar,
   CircularBarsContainer,
   DisplayCardRight,
+  RightCardContent,
   Consultants,
+  CTitle,
   Contracts,
   SupplierName,
-  TableWrap,
+  SupplierId,
+  Line1,
+  PointOfContacts,
   Card1Header,
   CardLeftWrapper,
   CardRightWrapper,
+  Tags,
 } from "Components/common.style";
+import { themeColors } from "Config/theme";
 
 const SupplierData = () => {
   const context = useContext(RefContext);
   const {
     store: { suppliersList, detailOfSupplier },
-    actions: { getSupplierData, setId, getDetailOfSupplier },
+    actions: { getSupplierData, getDetailOfSupplier },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
 
@@ -45,6 +51,7 @@ const SupplierData = () => {
       dataIndex: "name",
       key: "name",
     },
+
     {
       title: "ID",
       dataIndex: "id",
@@ -58,16 +65,16 @@ const SupplierData = () => {
       ),
     },
     {
-      title: "Contract Status",
+      title: <div style={{color:"red"}}>Status</div>,
       key: "contractstatus",
       render: () => (
         <Space size="middle">
-          <Badge count={4} className="site-badge-count-4" />
+          <Badge count={0} showZero />
           <Badge
-            count={detailOfSupplier.summary?.upcoming?.length}
+            count={detailOfSupplier.summary?.upcoming?.length} showZero
             className="site-badge-count-4"
           />
-          <Badge count={4} className="site-badge-count-4" />
+          <Badge count={4} showZero className="site-badge-count-4" />
         </Space>
       ),
     },
@@ -115,66 +122,72 @@ const SupplierData = () => {
             <Table dataSource={suppliersList} columns={columns}></Table>
           </CardLeft>
         </CardLeftWrapper>
+
         <CardRightWrapper>
           <CardRight>
             <DisplayCardRight displayDetails={displayDetails}>
-              <SupplierName>{detailOfSupplier.name}</SupplierName>
-              <div>{detailOfSupplier.id}</div>
-              <div>Contracts</div>
-              <CircularBarsContainer>
-                <SpaceBar />
-                <Progress
-                  type="circle"
-                  percent={100}
-                  width={110}
-                  format={() =>
-                    `${detailOfSupplier?.summary?.ongoing?.length}  Ongoing`
-                  }
-                  strokeColor={"#8FC827"}
-                />
-                <SpaceBar />
-                <Progress
-                  type="circle"
-                  percent={100}
-                  width={110}
-                  format={() => "2  To Renew"}
-                  strokeColor={"#FF7A00"}
-                />
-                <SpaceBar />
-                <Progress
-                  type="circle"
-                  percent={100}
-                  width={110}
-                  format={() =>
-                    `${detailOfSupplier?.summary?.upcoming?.length} Upcoming`
-                  }
-                  strokeColor={"#6CC1FF"}
-                />
-                <SpaceBar />
-                <Progress
-                  type="circle"
-                  percent={100}
-                  width={110}
-                  format={() =>
-                    `${detailOfSupplier?.summary?.expired?.length}  Expired`
-                  }
-                  strokeColor={"#DB303F"}
-                />
-                <SpaceBar />
-              </CircularBarsContainer>
-              <Consultants>
-                <div>Consultants ({detailOfSupplier.consultants?.length})</div>
-                <p>
-                  {detailOfSupplier.consultants?.map((x) => {
-                    return <span key={x.id}>{x.name}</span>;
-                  })}
-                </p>
-              </Consultants>
-              <div>Point of Contacts</div>
-              <Table
-                dataSource={detailOfSupplier.point_of_contacts}
-                columns={columns2}
-              ></Table>
+              <RightCardContent>
+                <SupplierName>{detailOfSupplier.name}</SupplierName>
+                <SupplierId>{detailOfSupplier.id}</SupplierId>
+                <Line1 />
+                <Contracts>Contracts</Contracts>
+
+                <CircularBarsContainer>
+                  <Progress
+                    type="circle"
+                    percent={100}
+                    width={110}
+                    format={() =>
+                      `${detailOfSupplier?.summary?.ongoing?.length}  Ongoing`
+                    }
+                    strokeColor={themeColors.greenSuccess}
+                  />
+                  <SpaceBar />
+                  <Progress
+                    type="circle"
+                    percent={100}
+                    width={110}
+                    format={() => "2  To Renew"}
+                    strokeColor={themeColors.orangeWarning}
+                  />
+                  <SpaceBar />
+                  <Progress
+                    type="circle"
+                    percent={100}
+                    width={110}
+                    format={() =>
+                      `${detailOfSupplier?.summary?.upcoming?.length} Upcoming`
+                    }
+                    strokeColor={themeColors.blueInfo}
+                  />
+                  <SpaceBar />
+                  <Progress
+                    type="circle"
+                    percent={100}
+                    width={110}
+                    format={() =>
+                      `${detailOfSupplier?.summary?.expired?.length}  Expired`
+                    }
+                    strokeColor={themeColors.redDanger}
+                  />
+                </CircularBarsContainer>
+                <Consultants>
+                  <CTitle>
+                    Consultants ({detailOfSupplier.consultants?.length})
+                  </CTitle>
+                  <Tags>
+                    {detailOfSupplier.consultants?.map((x) => {
+                      return <div key={x.id}>{x.name}</div>;
+                    })}
+                  </Tags>
+                </Consultants>
+                <PointOfContacts>Point of Contacts</PointOfContacts>
+                <Table
+                  dataSource={detailOfSupplier.point_of_contacts}
+                  pagination={{ position: ["none", "none"] }}
+                  columns={columns2}
+                ></Table>
+              </RightCardContent>
             </DisplayCardRight>
           </CardRight>
         </CardRightWrapper>

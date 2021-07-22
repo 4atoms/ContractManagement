@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mdResStyles } from "Config/theme";
 
 export const TableWrap = styled.div`
   overflow-x: scroll;
@@ -32,13 +33,18 @@ export const DisplayBody = styled.div`
   display: flex;
   width: 100%;
   height: 60px;
+  ${() =>
+    mdResStyles(`
+  height: 100px;`)}
 `;
 export const DisplayLeft = styled.div`
-  flex: 54%;
+  flex: 65%;
   height: auto;
+  max-width: 65%;
 `;
 export const DisplayRight = styled.div`
-  flex: 45%;
+  flex: 35%;
+  max-width: 35%;
   height: auto;
     &> div{
       padding: 80px 80px;
@@ -77,14 +83,16 @@ export const CardWrapper = styled.div`
   }
 `;
 export const WrapperCard = styled.div`
+  background-color: #fafaff;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  height: 1200px:
 `;
 
 export const CardLeft = styled.div`
   // position: absolute;
   // width: 800px;
-  // height: 744.4px;
+  height: 600px
   // left: 51px;
   // top: 120px;
   padding: 30px;
@@ -99,7 +107,7 @@ export const CardLeft = styled.div`
 export const CardRight = styled.div`
   // position: absolute;
   // width: 512px;
-  // height: 744.4px;
+  height: auto;
   // right: 47px;
   // top: 120px;
 
@@ -111,13 +119,15 @@ export const CardRight = styled.div`
 `;
 
 export const CardLeftWrapper = styled.div`
-  flex: 40%;
-  padding: 0px 15px 0px 51px;
+  flex: 60%;
+  max-width:60%
+  padding: 40px 8px 0px 31px;
 `;
 
 export const CardRightWrapper = styled.div`
-  flex: 30%;
-  padding: 0px 47px 0px 15px;
+  flex: 40%;
+  max-width: 40%;
+  padding: 40px 47px 0px 8px;
 `;
 export const CircularBarsContainer = styled.div`
   display: flex;
@@ -136,19 +146,42 @@ export const DisplayCardRight = styled.div`
 `;
 
 export const Consultants = styled.div`
-  & > p > span {
+  padding-top: 40px;
+  padding-bottom: 15px;
+`;
+export const CTitle = styled.div`
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+
+  /* Proton - Secondary */
+
+  color: #3c3c3c;
+`;
+
+export const Tags = styled.div`
+  display: flex;
+  padding-top: 15px;
+  flex-direction: row;
+  gap: 10px;
+  & > div {
     border: 1px solid #9e9e9e;
-    padding: 2px, 12px, 2px, 12px;
+
+    align-items: center;
+    padding: 2px 12px;
+    border-radius: 8px;
   }
 `;
 
 export const Contracts = styled.div`
-  position: absolute;
-  width: 147px;
-  height: 26px;
-  right: 381px;
-  top: 235px;
-
+  // width: 147px;
+  // height: 26px;
+  // right: 381px;
+  // top: 235px;
+  padding-top: 19.89px;
+  padding-bottom: 15px;
   /* Proton - text body */
 
   font-family: Varela Round;
@@ -162,6 +195,12 @@ export const Contracts = styled.div`
   color: #3c3c3c;
 `;
 export const SupplierName = styled.div`
+  // width: 147px;
+  // height: 26px;
+  // right: 381px;
+  // top: 150px;
+  padding-top: 30px;
+  padding-bottom: 5px;
   font-family: Varela Round;
   font-style: normal;
   font-weight: normal;
@@ -184,8 +223,46 @@ export const Card1Header = styled.div`
   color: #6041b8;
 
   & > button {
-    left: 506.33px;
+    left: 406.33px;
   }
   border-bottom: 1px solid #9e9e9e;
   padding-bottom: 15px;
+`;
+
+export const SupplierId = styled.div`
+  // width: 77px;
+  // height: 17px;
+  // left: 912px;
+  // top: 181px;
+  padding-bottom: 12.6px;
+  /* Proton - Table content text */
+
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Proton - Tertiary color */
+  color: #9e9e9e;
+`;
+export const Line1 = styled.div`
+  height: 1px;
+  border: 1px solid #9e9e9e;
+`;
+
+export const PointOfContacts = styled.div`
+  padding-top: 42px;
+  padding-bottom: 15px;
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+`;
+
+export const RightCardContent = styled.div`
+  padding: 5px 31px;
+  position: relative;
 `;
