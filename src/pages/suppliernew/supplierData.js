@@ -66,7 +66,7 @@ const SupplierData = () => {
       ),
     },
     {
-      title: <div style={{color:"red"}}>Status</div>,
+      title: <div style={{ color: "red" }}>Status</div>,
       key: "contractstatus",
       render: () => (
         <Space size="middle">
