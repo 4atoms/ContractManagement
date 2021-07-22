@@ -85,13 +85,11 @@ export const CardWrapper = styled.div`
 export const WrapperCard = styled.div`
   background-color: #fafaff;
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 `;
 
 export const CardLeft = styled.div`
-  height: 600px;
   padding: 30px;
-  //max-width: 100%;
 
   /* White */
 
@@ -101,6 +99,7 @@ export const CardLeft = styled.div`
 `;
 
 export const CardRight = styled.div`
+  padding: 0px;
   /* White */
 
   background: #ffffff;
@@ -109,16 +108,15 @@ export const CardRight = styled.div`
 `;
 
 export const CardLeftWrapper = styled.div`
-  flex: 58%;
-  flex-wrap: wrap;
-  //max-width: 40%;
+  flex: 60%;
+  max-width: 60%;
   padding: 40px 8px 0px 31px;
 `;
 
 export const CardRightWrapper = styled.div`
-  flex: 30%;
-  //max-width: 40%;
-  padding: 40px 47px 0px 8px;
+  flex: 38%;
+  max-width: 38%;
+  padding: 40px 27px 0px 8px;
 `;
 export const CircularBarsContainer = styled.div`
   display: flex;
