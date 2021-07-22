@@ -23,7 +23,7 @@ import {
   CardRightWrapper,
   Tags,
 } from "Components/common.style";
-import { themeColors } from "../../config/theme";
+import { themeColors } from "Config/theme";
 
 const SupplierData = () => {
   const context = useContext(RefContext);
@@ -65,16 +65,16 @@ const SupplierData = () => {
       ),
     },
     {
-      title: "Contract Status",
+      title: <div style={{color:"red"}}>Status</div>,
       key: "contractstatus",
       render: () => (
         <Space size="middle">
-          <Badge count={4} className="site-badge-count-4" />
+          <Badge count={0} showZero />
           <Badge
-            count={detailOfSupplier.summary?.upcoming?.length}
+            count={detailOfSupplier.summary?.upcoming?.length} showZero
             className="site-badge-count-4"
           />
-          <Badge count={4} className="site-badge-count-4" />
+          <Badge count={4} showZero className="site-badge-count-4" />
         </Space>
       ),
     },
@@ -122,6 +122,7 @@ const SupplierData = () => {
             <Table dataSource={suppliersList} columns={columns}></Table>
           </CardLeft>
         </CardLeftWrapper>
+
         <CardRightWrapper>
           <CardRight>
             <DisplayCardRight displayDetails={displayDetails}>

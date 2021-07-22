@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { mdResStyles } from "Config/theme";
 
 export const TableWrap = styled.div`
   overflow-x: scroll;
@@ -32,13 +33,18 @@ export const DisplayBody = styled.div`
   display: flex;
   width: 100%;
   height: 60px;
+  ${() =>
+    mdResStyles(`
+  height: 100px;`)}
 `;
 export const DisplayLeft = styled.div`
-  flex: 54%;
+  flex: 65%;
   height: auto;
+  max-width: 65%;
 `;
 export const DisplayRight = styled.div`
-  flex: 45%;
+  flex: 35%;
+  max-width: 35%;
   height: auto;
     &> div{
       padding: 80px 80px;
@@ -113,12 +119,14 @@ export const CardRight = styled.div`
 `;
 
 export const CardLeftWrapper = styled.div`
-  flex: 48%;
+  flex: 60%;
+  max-width:60%
   padding: 40px 8px 0px 31px;
 `;
 
 export const CardRightWrapper = styled.div`
-  flex: 25%;
+  flex: 40%;
+  max-width: 40%;
   padding: 40px 47px 0px 8px;
 `;
 export const CircularBarsContainer = styled.div`
