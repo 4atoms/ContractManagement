@@ -120,14 +120,42 @@ export const CardRightWrapper = styled.div`
 `;
 export const CircularBarsContainer = styled.div`
   display: flex;
+  flex: 100%;
+  max-width: 100%;
   top: 577px;
+  flex-wrap: wrap;
+  flex-direction: row;
   .ant-progress-circle.ant-progress-status-success .ant-progress-text {
     color: rgba(0, 0, 0, 1);
     font-size: 15px;
   }
 `;
+export const Circle = styled.div`
+  flex: 21%;
+  max-width: 21%;
+`;
+export const CircleText = styled.div`
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #3c3c3c;
+`;
+export const CircleNumber = styled.div`
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 26px;
+  text-align: center;
+  color: #3c3c3c;
+`;
+
 export const SpaceBar = styled.div`
-  width: 18px;
+  flex: 5%;
+  max-width: 5%;
 `;
 
 export const DisplayCardRight = styled.div`
@@ -233,13 +261,18 @@ export const Line1 = styled.div`
 `;
 
 export const PointOfContacts = styled.div`
-  padding-top: 42px;
-  padding-bottom: 15px;
-  font-family: Varela Round;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 22px;
+  & > div {
+    padding-top: 42px;
+    padding-bottom: 15px;
+    font-family: Varela Round;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+  }
+  .ant-table table {
+    font-size: 12px;
+  }
 `;
 
 export const RightCardContent = styled.div`
