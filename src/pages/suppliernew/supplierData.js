@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Table, Space, Badge, Button } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import RefContext from "Utilities/refContext";
-import {} from "@material-ui/icons";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardLeft,
   WrapperCard,
@@ -53,7 +53,19 @@ const SupplierData = () => {
       ),
     },
     {
-      title: <div style={{ color: "red" }}>Status</div>,
+      title: (
+        <>
+          <div style={{ color: "red" }}>Contract Status</div>
+          <div
+            style={{
+              width: "150px",
+              fontSize: "10px",
+            }}
+          >
+            Ongoing/To renew/Upcoming
+          </div>
+        </>
+      ),
       key: "contractstatus",
       render: () => (
         <Space size="middle">
@@ -72,10 +84,8 @@ const SupplierData = () => {
       key: "view",
       render: (supplierssList) => (
         <Space size="middle">
-          <EditOutlined onClickCapture={() => handleClick(supplierssList.id)} />
-          {/* <span className="material-icons">asbsabn</span> */}
-          <DeleteOutlined onClick={() => console.log("Delete Clicked")} />
-          {/* <a onClickCapture={() => handleClick(supplierssList.id)}>View</a> */}
+          <EditIcon onClickCapture={() => handleClick(supplierssList.id)} />
+          <DeleteForeverIcon onClick={() => console.log("Delete Clicked")} />
         </Space>
       ),
     },
@@ -88,7 +98,11 @@ const SupplierData = () => {
           <CardLeft>
             <Card1Header>
               <text>Suppliers</text>
-              <Button type="primary" shape="circle">
+              <Button
+                type="primary"
+                shape="circle"
+                onClick={() => setdisplayCreateSupplier(true)}
+              >
                 +
               </Button>
             </Card1Header>

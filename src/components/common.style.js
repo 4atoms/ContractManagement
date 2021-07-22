@@ -89,7 +89,7 @@ export const WrapperCard = styled.div`
 `;
 
 export const CardLeft = styled.div`
-  padding: 30px;
+  padding: 20px;
 
   /* White */
 
@@ -108,15 +108,15 @@ export const CardRight = styled.div`
 `;
 
 export const CardLeftWrapper = styled.div`
-  flex: 60%;
-  max-width: 60%;
-  padding: 40px 8px 0px 31px;
+  flex: 62%;
+  max-width: 62%;
+  padding: 40px 0px 0px 31px;
 `;
 
 export const CardRightWrapper = styled.div`
-  flex: 38%;
-  max-width: 38%;
-  padding: 40px 27px 0px 8px;
+  flex: 36%;
+  max-width: 36%;
+  padding: 40px 27px 0px 14px;
 `;
 export const CircularBarsContainer = styled.div`
   display: flex;
@@ -160,6 +160,9 @@ export const SpaceBar = styled.div`
 
 export const DisplayCardRight = styled.div`
   display: ${(props) => (props.displayDetails ? "block" : "none")};
+`;
+export const DisplayCardRight2 = styled.div`
+  display: ${(props) => (props.displayCreateSupplier ? "block" : "none")};
 `;
 
 export const Consultants = styled.div`
@@ -232,7 +235,7 @@ export const Card1Header = styled.div`
   color: #6041b8;
 
   & > button {
-    left: 406.33px;
+    float: right;
   }
   border-bottom: 1px solid #9e9e9e;
   padding-bottom: 15px;
