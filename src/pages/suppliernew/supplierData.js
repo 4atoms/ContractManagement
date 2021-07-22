@@ -1,30 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Progress } from "antd";
 import { Table, Space, Badge, Button } from "antd";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import RefContext from "Utilities/refContext";
 import {} from "@material-ui/icons";
 import {
-  CardRight,
   CardLeft,
   WrapperCard,
-  SpaceBar,
-  CircularBarsContainer,
-  DisplayCardRight,
-  RightCardContent,
-  Consultants,
-  CTitle,
-  Contracts,
-  SupplierName,
-  SupplierId,
-  Line1,
-  PointOfContacts,
   Card1Header,
   CardLeftWrapper,
   CardRightWrapper,
-  Tags,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
+import CardRightComp from "./cardRightComp";
 
 const SupplierData = () => {
   const context = useContext(RefContext);
@@ -72,7 +59,8 @@ const SupplierData = () => {
         <Space size="middle">
           <Badge count={0} showZero />
           <Badge
-            count={detailOfSupplier.summary?.upcoming?.length} showZero
+            count={detailOfSupplier.summary?.upcoming?.length}
+            showZero
             className="site-badge-count-4"
           />
           <Badge count={4} showZero className="site-badge-count-4" />
@@ -90,23 +78,6 @@ const SupplierData = () => {
           {/* <a onClickCapture={() => handleClick(supplierssList.id)}>View</a> */}
         </Space>
       ),
-    },
-  ];
-  const columns2 = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-    },
-    {
-      title: "Number",
-      dataIndex: "phone",
-      key: "phone",
     },
   ];
 
@@ -136,72 +107,10 @@ const SupplierData = () => {
         </CardLeftWrapper>
 
         <CardRightWrapper>
-          <CardRight>
-            <DisplayCardRight displayDetails={displayDetails}>
-              <RightCardContent>
-                <SupplierName>{detailOfSupplier.name}</SupplierName>
-                <SupplierId>{detailOfSupplier.id}</SupplierId>
-                <Line1 />
-                <Contracts>Contracts</Contracts>
-
-                <CircularBarsContainer>
-                  <Progress
-                    type="circle"
-                    percent={100}
-                    width={110}
-                    format={() =>
-                      `${detailOfSupplier?.summary?.ongoing?.length}  Ongoing`
-                    }
-                    strokeColor={themeColors.greenSuccess}
-                  />
-                  <SpaceBar />
-                  <Progress
-                    type="circle"
-                    percent={100}
-                    width={110}
-                    format={() => "2  To Renew"}
-                    strokeColor={themeColors.orangeWarning}
-                  />
-                  <SpaceBar />
-                  <Progress
-                    type="circle"
-                    percent={100}
-                    width={110}
-                    format={() =>
-                      `${detailOfSupplier?.summary?.upcoming?.length} Upcoming`
-                    }
-                    strokeColor={themeColors.blueInfo}
-                  />
-                  <SpaceBar />
-                  <Progress
-                    type="circle"
-                    percent={100}
-                    width={110}
-                    format={() =>
-                      `${detailOfSupplier?.summary?.expired?.length}  Expired`
-                    }
-                    strokeColor={themeColors.redDanger}
-                  />
-                </CircularBarsContainer>
-                <Consultants>
-                  <CTitle>
-                    Consultants ({detailOfSupplier.consultants?.length})
-                  </CTitle>
-                  <Tags>
-                    {detailOfSupplier.consultants?.map((x) => {
-                      return <div key={x.id}>{x.name}</div>;
-                    })}
-                  </Tags>
-                </Consultants>
-                <PointOfContacts>Point of Contacts</PointOfContacts>
-                <Table
-                  dataSource={detailOfSupplier.point_of_contacts}
-                  pagination={{ position: ["none", "none"] }}
-                  columns={columns2}
-                ></Table>
-              </RightCardContent>
-            </DisplayCardRight>
-          </CardRight>
+          <CardRightComp
+            detailOfSupplier={detailOfSupplier}
+            displayDetails={displayDetails}
+          />
         </CardRightWrapper>
       </WrapperCard>
     </>
