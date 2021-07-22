@@ -254,23 +254,6 @@ const SupplierData = () => {
                 ></Table>
               </RightCardContent>
             </DisplayCardRight>
-
-            {/* Create Supplier Card */}
-            <DisplayCardRight2 displayCreateSupplier={displayCreateSupplier}>
-              <RightCardContent>
-                <SupplierName>
-                  <text>Create Supplier</text>
-                </SupplierName>
-                <Line1 />
-                Name
-                <Input placeholder="Name" />
-                Company ID
-                <Input placeholder="xxyyzz##" />
-                {/* Point of Contacts
-                <div></div>
-                <div></div> */}
-              </RightCardContent>
-            </DisplayCardRight2>
           </CardRight>
         </CardRightWrapper>
       </WrapperCard>
