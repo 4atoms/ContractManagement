@@ -2,6 +2,7 @@ import React from "react";
 import { AutoComplete, Input, Button } from "antd";
 import logo from "Assets/images/proton-logo.png";
 import { PageHeader, LinkComponent, Link, Logo, UserProfile } from "./header.style";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Header = () => {
   return (
@@ -24,7 +25,9 @@ const Header = () => {
             <a href="contracts">Contracts</a>
           </Link>
         </LinkComponent>
-        <UserProfile>Welcome, User</UserProfile>
+        <UserProfile>
+          Welcome, User <AccountCircleIcon />
+        </UserProfile>
       </PageHeader>
     </>
   );

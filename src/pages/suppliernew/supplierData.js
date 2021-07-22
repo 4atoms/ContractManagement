@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Progress } from "antd";
-import { Table, Space, Badge, Button } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Table, Space, Badge, Button, Input } from "antd";
 import RefContext from "Utilities/refContext";
-import {} from "@material-ui/icons";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
   CardLeft,
@@ -11,6 +11,7 @@ import {
   SpaceBar,
   CircularBarsContainer,
   DisplayCardRight,
+  DisplayCardRight2,
   RightCardContent,
   Consultants,
   CTitle,
@@ -33,6 +34,7 @@ const SupplierData = () => {
     actions: { getSupplierData, getDetailOfSupplier },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
+  const [displayCreateSupplier, setdisplayCreateSupplier] = useState(false);
 
   useEffect(() => {
     getSupplierData();
@@ -66,28 +68,75 @@ const SupplierData = () => {
       ),
     },
     {
-      title: <div style={{ color: "red" }}>Status</div>,
+      title: (
+        <>
+          <div style={{ color: "red" }}>Contract Status</div>
+          <div
+            style={{
+              width: "150px",
+              fontSize: "10px",
+            }}
+          >
+            Ongoing/To renew/Upcoming
+          </div>
+        </>
+      ),
       key: "contractstatus",
       render: () => (
         <Space size="middle">
           <Badge count={0} showZero />
           <Badge
-            count={detailOfSupplier.summary?.upcoming?.length} showZero
+            count={detailOfSupplier.summary?.upcoming?.length}
+            showZero
             className="site-badge-count-4"
           />
           <Badge count={4} showZero className="site-badge-count-4" />
         </Space>
       ),
     },
+    // {
+    //   title: "Status",
+    //   children: [
+    //     {
+    //       title: "Ongoing",
+    //       key: "ongoing",
+    //       render: () => (
+    //         <Space size="middle">
+    //           <Badge count={0} showZero />
+    //         </Space>
+    //       ),
+    //     },
+    //     {
+    //       title: "ToRenew",
+    //       key: "torenew",
+    //       render: () => (
+    //         <Space size="middle">
+    //           <Badge count={0} showZero />
+    //         </Space>
+    //       ),
+    //     },
+    //     {
+    //       title: "Upcoming",
+    //       key: "upcoming",
+    //       render: () => (
+    //         <Space size="middle">
+    //           <Badge
+    //             count={detailOfSupplier.summary?.upcoming?.length}
+    //             showZero
+    //             className="site-badge-count-4"
+    //           />
+    //         </Space>
+    //       ),
+    //     },
+    //   ],
+    // },
     {
       title: "Action",
       key: "view",
       render: (supplierssList) => (
         <Space size="middle">
-          <EditOutlined onClickCapture={() => handleClick(supplierssList.id)} />
-          {/* <span className="material-icons">asbsabn</span> */}
-          <DeleteOutlined onClick={() => console.log("Delete Clicked")} />
-          {/* <a onClickCapture={() => handleClick(supplierssList.id)}>View</a> */}
+          <EditIcon onClickCapture={() => handleClick(supplierssList.id)} />
+          <DeleteForeverIcon onClick={() => console.log("Delete Clicked")} />
         </Space>
       ),
     },
@@ -117,7 +166,11 @@ const SupplierData = () => {
           <CardLeft>
             <Card1Header>
               <text>Suppliers</text>
-              <Button type="primary" shape="circle">
+              <Button
+                type="primary"
+                shape="circle"
+                onClick={() => setdisplayCreateSupplier(true)}
+              >
                 +
               </Button>
             </Card1Header>
@@ -201,6 +254,23 @@ const SupplierData = () => {
                 ></Table>
               </RightCardContent>
             </DisplayCardRight>
+
+            {/* Create Supplier Card */}
+            <DisplayCardRight2 displayCreateSupplier={displayCreateSupplier}>
+              <RightCardContent>
+                <SupplierName>
+                  <text>Create Supplier</text>
+                </SupplierName>
+                <Line1 />
+                Name
+                <Input placeholder="Name" />
+                Company ID
+                <Input placeholder="xxyyzz##" />
+                {/* Point of Contacts
+                <div></div>
+                <div></div> */}
+              </RightCardContent>
+            </DisplayCardRight2>
           </CardRight>
         </CardRightWrapper>
       </WrapperCard>
