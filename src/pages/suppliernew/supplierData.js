@@ -23,6 +23,7 @@ import {
   CardRightWrapper,
   Tags,
 } from "Components/common.style";
+import { themeColors } from "../../config/theme";
 
 const SupplierData = () => {
   const context = useContext(RefContext);
@@ -138,7 +139,7 @@ const SupplierData = () => {
                     format={() =>
                       `${detailOfSupplier?.summary?.ongoing?.length}  Ongoing`
                     }
-                    strokeColor={"#8FC827"}
+                    strokeColor={themeColors.greenSuccess}
                   />
                   <SpaceBar />
                   <Progress
@@ -146,7 +147,7 @@ const SupplierData = () => {
                     percent={100}
                     width={110}
                     format={() => "2  To Renew"}
-                    strokeColor={"#FF7A00"}
+                    strokeColor={themeColors.orangeWarning}
                   />
                   <SpaceBar />
                   <Progress
@@ -156,7 +157,7 @@ const SupplierData = () => {
                     format={() =>
                       `${detailOfSupplier?.summary?.upcoming?.length} Upcoming`
                     }
-                    strokeColor={"#6CC1FF"}
+                    strokeColor={themeColors.blueInfo}
                   />
                   <SpaceBar />
                   <Progress
@@ -166,7 +167,7 @@ const SupplierData = () => {
                     format={() =>
                       `${detailOfSupplier?.summary?.expired?.length}  Expired`
                     }
-                    strokeColor={"#DB303F"}
+                    strokeColor={themeColors.redDanger}
                   />
                 </CircularBarsContainer>
                 <Consultants>
