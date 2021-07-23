@@ -6,7 +6,8 @@ export const PageHeader = styled.div`
   vertical-align: bottom;
   justify-content: space-between;
   height: 60px;
-  margin: 10px;
+  margin: 6px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 `;
 
 export const Logo = styled.div`

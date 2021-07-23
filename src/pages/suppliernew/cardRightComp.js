@@ -1,5 +1,7 @@
 import React from "react";
 import { Progress, Table } from "antd";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
   DisplayCardRight,
@@ -41,8 +43,14 @@ const CardRightComp = (props) => {
     <CardRight>
       <DisplayCardRight displayDetails={props.displayDetails}>
         <RightCardContent>
-          <SupplierName>{props.detailOfSupplier.name}</SupplierName>
-          <SupplierId>xxyyzzzz01</SupplierId>
+          <SupplierName>
+            {props.detailOfSupplier.name}
+            <span style={{ position: "absolute", right: "20px", top: "20px" }}>
+              <EditIcon style={{ height: "18px" }} />
+              <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
+            </span>
+          </SupplierName>
+          <SupplierId>{props.detailOfSupplier.organization_no}</SupplierId>
           <Line1 />
           <Contracts>Contracts</Contracts>
 
@@ -56,7 +64,7 @@ const CardRightComp = (props) => {
                 format={() => (
                   <div>
                     <CircleNumber>
-                      {props.detailOfSupplier?.summary?.ongoing?.length}
+                      {props.detailOfSupplier?.contract_summary?.ongoing}
                     </CircleNumber>
                     <CircleText>Ongoing</CircleText>
                   </div>
@@ -73,7 +81,9 @@ const CardRightComp = (props) => {
                 style={{ maxWidth: "100%" }}
                 format={() => (
                   <div>
-                    <CircleNumber>2</CircleNumber>
+                    <CircleNumber>
+                      {props.detailOfSupplier?.contract_summary?.to_be_renew}
+                    </CircleNumber>
                     <CircleText>To Renew</CircleText>
                   </div>
                 )}
@@ -90,7 +100,7 @@ const CardRightComp = (props) => {
                 format={() => (
                   <div>
                     <CircleNumber>
-                      {props.detailOfSupplier?.summary?.upcoming?.length}
+                      {props.detailOfSupplier?.contract_summary?.upcoming}
                     </CircleNumber>
                     <CircleText>Upcoming</CircleText>
                   </div>
@@ -107,7 +117,7 @@ const CardRightComp = (props) => {
                 format={() => (
                   <div>
                     <CircleNumber>
-                      {props.detailOfSupplier?.summary?.expired?.length}
+                      {props.detailOfSupplier?.contract_summary?.expired}
                     </CircleNumber>
                     <CircleText>Expired</CircleText>
                   </div>
@@ -126,12 +136,14 @@ const CardRightComp = (props) => {
               })}
             </Tags>
           </Consultants>
-          <PointOfContacts>Point of Contacts</PointOfContacts>
-          <Table
-            dataSource={props.detailOfSupplier.point_of_contacts}
-            pagination={{ position: ["none", "none"] }}
-            columns={columns2}
-          ></Table>
+          <PointOfContacts>
+            <div>Point of Contacts</div>
+            <Table
+              dataSource={props.detailOfSupplier.point_of_contacts}
+              pagination={{ position: ["none", "none"] }}
+              columns={columns2}
+            ></Table>
+          </PointOfContacts>
         </RightCardContent>
       </DisplayCardRight>
     </CardRight>

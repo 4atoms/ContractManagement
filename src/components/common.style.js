@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mdResStyles } from "Config/theme";
+import { mdResStyles, lgResStyles } from "Config/theme";
 
 export const TableWrap = styled.div`
   overflow-x: scroll;
@@ -92,7 +92,8 @@ export const CardLeft = styled.div`
   padding: 20px;
 
   /* White */
-
+  max-height: 594px;
+  height: 500px;
   background: #ffffff;
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -100,8 +101,7 @@ export const CardLeft = styled.div`
 
 export const CardRight = styled.div`
   padding: 0px;
-  /* White */
-
+  height: 500px;
   background: #ffffff;
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
@@ -110,13 +110,13 @@ export const CardRight = styled.div`
 export const CardLeftWrapper = styled.div`
   flex: 62%;
   max-width: 62%;
-  padding: 40px 0px 0px 31px;
+  padding: 20px 0px 0px 31px;
 `;
 
 export const CardRightWrapper = styled.div`
   flex: 36%;
   max-width: 36%;
-  padding: 40px 27px 0px 14px;
+  padding: 20px 27px 0px 14px;
 `;
 export const CircularBarsContainer = styled.div`
   display: flex;
@@ -166,8 +166,10 @@ export const DisplayCardRight2 = styled.div`
 `;
 
 export const Consultants = styled.div`
-  padding-top: 40px;
-  padding-bottom: 15px;
+  // padding-top: 40px;
+  // padding-bottom: 15px;
+  padding-top: 19.89px;
+  padding-bottom: 10px;
 `;
 export const CTitle = styled.div`
   font-family: Varela Round;
@@ -175,17 +177,16 @@ export const CTitle = styled.div`
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
-
-  /* Proton - Secondary */
-
   color: #3c3c3c;
 `;
 
 export const Tags = styled.div`
   display: flex;
-  padding-top: 15px;
+  // padding-top: 15px;
+  padding-top: 10px;
   flex-direction: row;
-  gap: 10px;
+  // gap: 10px;
+  gap: 5px;
   & > div {
     border: 1px solid #9e9e9e;
 
@@ -196,23 +197,21 @@ export const Tags = styled.div`
 `;
 
 export const Contracts = styled.div`
-  padding-top: 19.89px;
-  padding-bottom: 15px;
-  /* Proton - text body */
-
+  // padding-top: 19.89px;
+  // padding-bottom: 15px;
+  padding-top: 12.89px;
+  padding-bottom: 10px;
   font-family: Varela Round;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
-
-  /* Proton - Secondary */
-
   color: #3c3c3c;
 `;
 export const SupplierName = styled.div`
-  padding-top: 30px;
-  padding-bottom: 5px;
+  // padding-top: 30px;
+  padding-top: 15px;
+  padding-bottom: 3px;
   font-family: Varela Round;
   font-style: normal;
   font-weight: normal;
@@ -242,17 +241,13 @@ export const Card1Header = styled.div`
 `;
 
 export const SupplierId = styled.div`
-  padding-bottom: 12.6px;
-  /* Proton - Table content text */
-
+  // padding-bottom: 12.6px;
+  padding-bottom: 10px;
   font-family: Varela Round;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  /* identical to box height */
-
-  /* Proton - Tertiary color */
   color: #9e9e9e;
 `;
 export const Line1 = styled.div`
@@ -262,8 +257,13 @@ export const Line1 = styled.div`
 
 export const PointOfContacts = styled.div`
   & > div {
-    padding-top: 42px;
-    padding-bottom: 15px;
+    ${() =>
+      lgResStyles(`
+      padding-top: 42px;
+      padding-bottom: 15px;
+      `)}
+    padding-top: 10px;
+    padding-bottom: 5px;
     font-family: Varela Round;
     font-style: normal;
     font-weight: normal;
