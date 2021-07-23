@@ -139,7 +139,7 @@ const SupplierData = () => {
               columns={columns}
               onRow={(record, rowIndex) => {
                 return {
-                  onClick: (event) => {
+                  onClick: () => {
                     handleClick(record.id);
                   },
                 };
