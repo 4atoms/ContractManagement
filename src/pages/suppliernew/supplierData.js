@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Table, Space, Badge, Button } from "antd";
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -98,13 +99,10 @@ const SupplierData = () => {
           <CardLeft>
             <Card1Header>
               <text>Suppliers</text>
-              <Button
-                type="primary"
-                shape="circle"
+              <AddCircleIcon
+                style={{ float: "right" }}
                 onClick={() => setdisplayCreateSupplier(true)}
-              >
-                +
-              </Button>
+              ></AddCircleIcon>
             </Card1Header>
             <Table
               dataSource={suppliersList}
