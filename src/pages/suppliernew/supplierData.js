@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Badge, Button } from "antd";
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import { Table, Space, Badge } from "antd";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -10,6 +10,9 @@ import {
   Card1Header,
   CardLeftWrapper,
   CardRightWrapper,
+  BadgeGreen,
+  BadgeOrange,
+  BadgeBlue,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import CardRightComp from "./cardRightComp";
@@ -42,41 +45,68 @@ const SupplierData = () => {
     },
 
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
+      title: "Organization No",
+      dataIndex: "organization_no",
+      key: "organization_no",
     },
     {
       title: "Total Consultants",
       key: "totalconsultants",
-      render: () => (
-        <Space size="middle">{suppliersList[0].consultants.length}</Space>
+      render: (suppliersList) => (
+        <Space size="middle">{suppliersList.consultants}</Space>
       ),
     },
     {
       title: (
         <>
-          <div style={{ color: "red" }}>Contract Status</div>
-          <div
+          <div>Contract Status</div>
+          <span
             style={{
-              width: "150px",
-              fontSize: "10px",
+              color: "rgb(82, 196, 26)",
             }}
           >
-            Ongoing/To renew/Upcoming
-          </div>
+            Ongoing/
+          </span>
+          <span
+            style={{
+              color: "rgb(255, 122, 0)",
+            }}
+          >
+            To renew/
+          </span>
+          <span
+            style={{
+              color: "rgb(108, 193, 255)",
+            }}
+          >
+            Upcoming
+          </span>
         </>
       ),
-      key: "contractstatus",
-      render: () => (
+      key: "contract_summary",
+      render: (suppliersList) => (
         <Space size="middle">
-          <Badge count={0} showZero />
-          <Badge
-            count={detailOfSupplier.summary?.upcoming?.length}
-            showZero
-            className="site-badge-count-4"
-          />
-          <Badge count={4} showZero className="site-badge-count-4" />
+          <BadgeGreen>
+            <Badge
+              count={suppliersList.contract_summary?.ongoing}
+              showZero
+              className="site-badge-count-4"
+            />
+          </BadgeGreen>
+          <BadgeOrange>
+            <Badge
+              count={suppliersList.contract_summary?.to_be_renew}
+              showZero
+              className="site-badge-count-4"
+            />
+          </BadgeOrange>
+          <BadgeBlue>
+            <Badge
+              count={suppliersList.contract_summary?.upcoming}
+              showZero
+              className="site-badge-count-4"
+            />
+          </BadgeBlue>
         </Space>
       ),
     },

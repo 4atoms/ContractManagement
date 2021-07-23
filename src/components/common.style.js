@@ -279,3 +279,20 @@ export const RightCardContent = styled.div`
   padding: 5px 31px;
   position: relative;
 `;
+export const Green = styled.span`themeColors.greenSuccess`;
+
+export const BadgeGreen = styled.div`
+  & > span > sup {
+    background: rgb(82, 196, 26);
+  }
+`;
+export const BadgeOrange = styled.div`
+  & > span > sup {
+    background: rgb(255, 122, 0);
+  }
+`;
+export const BadgeBlue = styled.div`
+  & > span > sup {
+    background: rgb(108, 193, 255);
+  }
+`;
