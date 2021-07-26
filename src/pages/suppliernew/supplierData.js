@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Badge, Button } from "antd";
+import { Table, Space, Badge, Button, Input } from "antd";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -10,9 +10,9 @@ import {
   CardLeftWrapper,
   CardRightWrapper,
 } from "Components/common.style";
+import CreateCard from "./createCard";
 import { themeColors } from "Config/theme";
 import CardRightComp from "./cardRightComp";
-
 const SupplierData = () => {
   const context = useContext(RefContext);
   const {
@@ -20,6 +20,7 @@ const SupplierData = () => {
     actions: { getSupplierData, getDetailOfSupplier },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
+  const [displayCreateSupplier, setDisplayCreateSupplier] = useState(false);
 
   useEffect(() => {
     getSupplierData();
@@ -27,7 +28,13 @@ const SupplierData = () => {
 
   const showDetails = () => {
     setDisplayDetails(true);
+    setDisplayCreateSupplier(false);
   };
+  const showCreate = () => {
+    setDisplayDetails(false);
+    setDisplayCreateSupplier(true);
+  };
+
   const handleClick = (num) => {
     getDetailOfSupplier(num);
     showDetails();
@@ -98,11 +105,7 @@ const SupplierData = () => {
           <CardLeft>
             <Card1Header>
               <text>Suppliers</text>
-              <Button
-                type="primary"
-                shape="circle"
-                onClick={() => setdisplayCreateSupplier(true)}
-              >
+              <Button type="primary" shape="circle" onClick={showCreate}>
                 +
               </Button>
             </Card1Header>
@@ -124,7 +127,13 @@ const SupplierData = () => {
           <CardRightComp
             detailOfSupplier={detailOfSupplier}
             displayDetails={displayDetails}
+            displayCreateSupplier={displayCreateSupplier}
           />
+          {/* <CreateCard
+            detailOfSupplier={detailOfSupplier}
+            displayCreateSupplier={displayCreateSupplier}
+            displayDetails={displayDetails}
+          /> */}
         </CardRightWrapper>
       </WrapperCard>
     </>

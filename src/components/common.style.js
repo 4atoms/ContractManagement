@@ -161,7 +161,7 @@ export const SpaceBar = styled.div`
 export const DisplayCardRight = styled.div`
   display: ${(props) => (props.displayDetails ? "block" : "none")};
 `;
-export const DisplayCardRight2 = styled.div`
+export const CreateCardComp = styled.div`
   display: ${(props) => (props.displayCreateSupplier ? "block" : "none")};
 `;
 
@@ -278,4 +278,33 @@ export const PointOfContacts = styled.div`
 export const RightCardContent = styled.div`
   padding: 5px 31px;
   position: relative;
+`;
+
+export const PointOfContactsDiv = styled.div`
+
+  display: flex;
+  &>div{
+    max-width: 100%;
+    display: inline-flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    gap: 30px;
+}
+  }
+
+`;
+
+export const PointOfContactsInput = styled.input`
+  max-width: 22%;
+  border-radius: 5px;
+`;
+
+export const ButtonsDiv = styled.div`
+  position: absolute;
+  top: 380px;
+  right: 80px;
+  gap: 20px;
+  & > button {
+    margin-right: 16px;
+  }
 `;
