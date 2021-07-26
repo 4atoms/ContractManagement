@@ -51,6 +51,7 @@ const CardRightComp = (props) => {
     FormForAdd.email = pocEmail;
     FormForAdd.phone = pocNum;
     console.log(FormForAdd);
+    props.addSupplier(FormForAdd);
   };
   const columns2 = [
     {
@@ -214,7 +215,7 @@ const CardRightComp = (props) => {
             </div>
           </PointOfContactsDiv>
           <ButtonsDiv>
-            <button onClick={addSupplier}>Add</button>
+            <button onClick={addSupplierTry}>Add</button>
             <button>Cancel</button>
           </ButtonsDiv>
         </RightCardContent>

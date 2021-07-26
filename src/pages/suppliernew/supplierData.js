@@ -17,7 +17,7 @@ const SupplierData = () => {
   const context = useContext(RefContext);
   const {
     store: { suppliersList, detailOfSupplier },
-    actions: { getSupplierData, getDetailOfSupplier },
+    actions: { getSupplierData, getDetailOfSupplier,addSupplier },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
   const [displayCreateSupplier, setDisplayCreateSupplier] = useState(false);
@@ -128,6 +128,7 @@ const SupplierData = () => {
             detailOfSupplier={detailOfSupplier}
             displayDetails={displayDetails}
             displayCreateSupplier={displayCreateSupplier}
+            addSupplier={addSupplier}
           />
           {/* <CreateCard
             detailOfSupplier={detailOfSupplier}
