@@ -60,6 +60,14 @@ const getDetailOfSupplier = (supplier_id) => (dispatch) => {
     });
 };
 
+const addSupplier = (supplierInfo) => () => {
+  nw.api("supplierList")
+    .post(supplierInfo)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
+
 // Routing
 
 // Reducers
@@ -87,5 +95,6 @@ export default {
     getSupplierData,
     getDetailOfSupplier,
     setId,
+    addSupplier,
   },
 };

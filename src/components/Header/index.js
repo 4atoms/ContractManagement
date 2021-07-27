@@ -12,20 +12,14 @@ const Header = () => {
           <img src={logo} />
         </Logo>
         <LinkComponent>
-          <Link>
-            <a href="consultants">Consultants</a>
+        <Link>
+            <a href="dashboard">Dashboard</a>
           </Link>
           <Link>
             <a href="suppliers">Suppliers</a>
           </Link>
           <Link>
-            <a href="suppliersnew">SuppliersNew</a>
-          </Link>
-          <Link>
             <a href="consultantsnew">ConsultantsNew</a>
-          </Link>
-          <Link>
-            <a href="contracts">Contracts</a>
           </Link>
         </LinkComponent>
         <UserProfile>

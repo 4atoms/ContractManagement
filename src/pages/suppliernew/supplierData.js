@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Badge } from "antd";
+import { Table, Space, Badge, Button, Input } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
@@ -16,14 +16,14 @@ import {
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import CardRightComp from "./cardRightComp";
-
 const SupplierData = () => {
   const context = useContext(RefContext);
   const {
     store: { suppliersList, detailOfSupplier },
-    actions: { getSupplierData, getDetailOfSupplier },
+    actions: { getSupplierData, getDetailOfSupplier, addSupplier },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
+  const [displayCreateSupplier, setDisplayCreateSupplier] = useState(false);
 
   useEffect(() => {
     getSupplierData();
@@ -31,7 +31,13 @@ const SupplierData = () => {
 
   const showDetails = () => {
     setDisplayDetails(true);
+    setDisplayCreateSupplier(false);
   };
+  const showCreate = () => {
+    setDisplayDetails(false);
+    setDisplayCreateSupplier(true);
+  };
+
   const handleClick = (num) => {
     getDetailOfSupplier(num);
     showDetails();
@@ -113,7 +119,7 @@ const SupplierData = () => {
     {
       title: "Action",
       key: "view",
-      render: (supplierssList) => (
+      render: () => (
         <Space size="middle">
           <EditIcon style={{ fill: "#6041b8", height: "18px" }} />
           <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
@@ -131,7 +137,7 @@ const SupplierData = () => {
               <text>Suppliers</text>
               <AddCircleIcon
                 style={{ float: "right" }}
-                onClick={() => setdisplayCreateSupplier(true)}
+                onClick={showCreate}
               ></AddCircleIcon>
             </Card1Header>
             <Table
@@ -152,7 +158,14 @@ const SupplierData = () => {
           <CardRightComp
             detailOfSupplier={detailOfSupplier}
             displayDetails={displayDetails}
+            displayCreateSupplier={displayCreateSupplier}
+            addSupplier={addSupplier}
           />
+          {/* <CreateCard
+            detailOfSupplier={detailOfSupplier}
+            displayCreateSupplier={displayCreateSupplier}
+            displayDetails={displayDetails}
+          /> */}
         </CardRightWrapper>
       </WrapperCard>
     </>

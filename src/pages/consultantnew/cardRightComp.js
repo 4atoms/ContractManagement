@@ -102,7 +102,7 @@ const CardRightComp = (props) => {
                 <text>Client</text>
               </LightColor>
               <div>
-                <text>{ props.detailOfConsultant.contracts?.active?.[0].client.name }</text>
+                <text>{ props.detailOfConsultant?.contracts?.active?.[0]?.client?.name }</text>
               </div>
             </ActiveContractSubParts>
             <ActiveContractSubParts>
