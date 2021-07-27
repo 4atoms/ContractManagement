@@ -1,6 +1,7 @@
 import React from "react";
-import { Progress, Table, Input, Badge } from "antd";
+import { Table, Input, Badge, Dropdown, Button, Menu, Select } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
+import { DownOutlined, UserOutlined } from "@ant-design/icons";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
@@ -30,9 +31,41 @@ import {
   UpcomingContractParts,
   UpcomingContractSubParts,
   LightColor,
+  CreateConsultantCardComp,
+  NameEmail,
+  MobileSupplier,
+  Flex50,
+  ButtonsDiv,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import { dateFormatStandard } from "../../utilities/helpers";
+
+const { Option } = Select;
+const onChange = (value) => {
+  console.log(`selected ${value}`);
+};
+
+const onFocus = () => {
+  console.log("focus");
+};
+
+const onSearch = (val) => {
+  console.log("search:", val);
+};
+
+const NoExpiredContractButton = (props) => {
+  if (props.detailOfConsultant.contracts?.expired?.length == 0) {
+    console.log("Expired");
+    <button>No expired contracts </button>;
+  }
+};
+const NoUpcomingContractButton = (props) => {
+  if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
+    console.log("Upcoming");
+    <button>No upcoming contracts</button>;
+  }
+};
+
 const CardRightComp = (props) => {
   const columns2 = [
     {
@@ -51,6 +84,7 @@ const CardRightComp = (props) => {
       key: "organization_no",
     },
   ];
+
   return (
     <CardRight>
       <DisplayCardRight3 displayConsultDetails={props.displayConsultDetails}>
@@ -102,7 +136,12 @@ const CardRightComp = (props) => {
                 <text>Client</text>
               </LightColor>
               <div>
-                <text>{ props.detailOfConsultant?.contracts?.active?.[0]?.client?.name }</text>
+                <text>
+                  {
+                    props.detailOfConsultant?.contracts?.active?.[0]?.client
+                      ?.name
+                  }
+                </text>
               </div>
             </ActiveContractSubParts>
             <ActiveContractSubParts>
@@ -112,7 +151,7 @@ const CardRightComp = (props) => {
               <div>
                 <text>
                   {
-                    props.detailOfConsultant.contracts?.active?.[0].project
+                    props.detailOfConsultant.contracts?.active?.[0]?.project
                       ?.project_name
                   }
                 </text>
@@ -124,7 +163,7 @@ const CardRightComp = (props) => {
               </LightColor>
               <div>
                 <text>
-                  {props.detailOfConsultant.contracts?.active?.[0].role}
+                  {props.detailOfConsultant.contracts?.active?.[0]?.role}
                 </text>
               </div>
             </ActiveContractSubParts>
@@ -142,7 +181,9 @@ const CardRightComp = (props) => {
               </LightColor>
               <div>
                 <text>
-                  {dateFormatStandard(props.detailOfConsultant.contracts?.active?.[0].start_date)}
+                  {dateFormatStandard(
+                    props.detailOfConsultant.contracts?.active?.[0]?.start_date
+                  )}
                 </text>
               </div>
             </ActiveContractSubParts>
@@ -153,7 +194,7 @@ const CardRightComp = (props) => {
               <div>
                 <text>
                   {dateFormatStandard(
-                    props.detailOfConsultant.contracts?.active?.[0].end_date
+                    props.detailOfConsultant.contracts?.active?.[0]?.end_date
                   )}
                 </text>
               </div>
@@ -163,7 +204,12 @@ const CardRightComp = (props) => {
                 <text>Cost/hr</text>
               </LightColor>
               <div>
-                <text>{props.detailOfConsultant.contracts?.active?.[0].cost_per_hour}</text>
+                <text>
+                  {
+                    props.detailOfConsultant.contracts?.active?.[0]
+                      ?.cost_per_hour
+                  }
+                </text>
               </div>
             </ActiveContractSubParts>
             <ActiveContractSubParts></ActiveContractSubParts>
@@ -242,6 +288,7 @@ const CardRightComp = (props) => {
           <ActiveUpcomingExpiredContract>
             <Badge status="error" />
             <text>Expired Contract</text>
+
             <Table
               dataSource={props.detailOfConsultant.contracts?.expired}
               pagination={{ position: ["none", "none"] }}
@@ -251,6 +298,161 @@ const CardRightComp = (props) => {
           </ActiveUpcomingExpiredContract>
         </RightCardContent>
       </DisplayCardRight3>
+
+      {/* Create Consultant Card */}
+      <CreateConsultantCardComp
+        displayCreateConsultant={props.displayCreateConsultant}
+      >
+        <RightCardContent>
+          <SupplierName>Create Consultant</SupplierName>
+          <Line1 />
+          <NameEmail>
+            <Flex50>
+              <text>Name</text>
+              <Input placeholder="Name" />
+            </Flex50>
+            <Flex50>
+              <text>Email</text>
+              <Input placeholder="Email" />
+            </Flex50>
+          </NameEmail>
+          <MobileSupplier>
+            <Flex50>
+              <text>Mobile</text>
+              <Input placeholder="Mobile" />
+            </Flex50>
+            <Flex50>
+              <text>Supplier</text>
+              <br></br>
+              <Select
+                showSearch
+                style={{ width: 180 }}
+                placeholder="Select a person"
+                optionFilterProp="children"
+                onChange={onChange}
+                onFocus={onFocus}
+                onSearch={onSearch}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="tom">Tom</Option>
+              </Select>
+            </Flex50>
+          </MobileSupplier>
+          Create Contract(Optional)
+          <MobileSupplier>
+            <Flex50>
+              <text>Client</text>
+              <Select
+                showSearch
+                style={{ width: 180 }}
+                placeholder="Select Client"
+                optionFilterProp="children"
+                onChange={onChange}
+                onFocus={onFocus}
+                onSearch={onSearch}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="tom">Tom</Option>
+              </Select>
+            </Flex50>
+            <Flex50>
+              <text>Project</text>
+              <Select
+                showSearch
+                style={{ width: 180 }}
+                placeholder="Select Project"
+                optionFilterProp="children"
+                onChange={onChange}
+                onFocus={onFocus}
+                onSearch={onSearch}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="tom">Tom</Option>
+              </Select>
+            </Flex50>
+            <Flex50>
+              <text>Project ID</text>
+              <Input placeholder="Project ID" />
+            </Flex50>
+            <Flex50>
+              <text>Role</text>
+              <Input placeholder="Role" />
+            </Flex50>
+            <Flex50>
+              <text>Start Date</text>
+              <Input placeholder="Mobile" />
+            </Flex50>
+            <Flex50>
+              <text>Period</text>
+              <Select
+                showSearch
+                style={{ width: 180 }}
+                placeholder="Select Period"
+                optionFilterProp="children"
+                onChange={onChange}
+                onFocus={onFocus}
+                onSearch={onSearch}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="tom">Tom</Option>
+              </Select>
+            </Flex50>
+            <Flex50>
+              <text>Cost Center</text>
+              <Input placeholder="Cost Center" />
+            </Flex50>
+            <Flex50>
+              <text>Currency</text>
+              <Select
+                showSearch
+                style={{ width: 180 }}
+                placeholder="Select Currency"
+                optionFilterProp="children"
+                onChange={onChange}
+                onFocus={onFocus}
+                onSearch={onSearch}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                  0
+                }
+              >
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="tom">Tom</Option>
+              </Select>
+            </Flex50>
+            <Flex50>
+              <text>Cost/hr</text>
+              <Input placeholder="Mobile" />
+            </Flex50>
+            <Flex50></Flex50>
+          </MobileSupplier>
+          {/* <ButtonsDiv>
+            <button>Save</button>
+            <button>Cancel</button>
+          </ButtonsDiv> */}
+        </RightCardContent>
+      </CreateConsultantCardComp>
     </CardRight>
   );
 };
