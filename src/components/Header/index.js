@@ -19,6 +19,12 @@ const Header = () => {
             <a href="suppliers">Suppliers</a>
           </Link>
           <Link>
+            <a href="suppliersnew">SuppliersNew</a>
+          </Link>
+          <Link>
+            <a href="consultantsnew">ConsultantsNew</a>
+          </Link>
+          <Link>
             <a href="contracts">Contracts</a>
           </Link>
         </LinkComponent>

@@ -7,11 +7,10 @@ const fetchRoutes = (containers) => {
   const {
     Dashboard,
     Login,
-    ConsultantList,
     ContractList,
-    ConsultantDetail,
     ContractDetail,
     SupplierNew,
+    ConsultantNew,
   } = containers;
 
   return function Routes() {
@@ -29,7 +28,15 @@ const fetchRoutes = (containers) => {
           path="/contract/:contractId"
           component={withRouter(ContractDetail)}
         />
+
         <Route exact path="/suppliers" component={withRouter(SupplierNew)} />
+
+        <Route
+          exact
+          path="/consultantsnew"
+          component={withRouter(ConsultantNew)}
+        />
+
         <Route exact path="/login" component={withRouter(Login)} />
         {/* Router No Match - 404 */}
         <Route path="*">

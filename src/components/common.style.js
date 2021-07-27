@@ -164,6 +164,9 @@ export const DisplayCardRight = styled.div`
 export const CreateCardComp = styled.div`
   display: ${(props) => (props.displayCreateSupplier ? "block" : "none")};
 `;
+export const DisplayCardRight3 = styled.div`
+  display: ${(props) => (props.displayConsultDetails ? "block" : "none")};
+`;
 
 export const Consultants = styled.div`
   // padding-top: 40px;
@@ -307,4 +310,119 @@ export const ButtonsDiv = styled.div`
   & > button {
     margin-right: 16px;
   }
+`;
+export const Green = styled.span`themeColors.greenSuccess`;
+
+export const BadgeGreen = styled.div`
+  & > span > sup {
+    background: rgb(82, 196, 26);
+  }
+`;
+export const BadgeOrange = styled.div`
+  & > span > sup {
+    background: rgb(255, 122, 0);
+  }
+`;
+export const BadgeBlue = styled.div`
+  & > span > sup {
+    background: rgb(108, 193, 255);
+  }
+`;
+
+export const EmailMobileSupplier = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 354px;
+  align-items: center;
+`;
+
+export const Email = styled.div`
+  flex: 33%;
+  & > div > text {
+    font-size: 12px;
+    letter: -2%;
+  }
+`;
+
+export const Mobile = styled.div`
+  flex: 33%;
+  & > div > text {
+    font-size: 12px;
+    letter: -2%;
+  }
+`;
+
+export const Supplier = styled.div`
+  flex: 33%;
+  & > div > text {
+    font-size: 12px;
+    letter: -2%;
+  }
+`;
+export const ConsultantName = styled.div`
+  padding-top: 15px;
+  padding-bottom: 3px;
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 24px;
+
+  /* Proton - Primary */
+
+  color: #6041b8;
+`;
+
+export const ActiveUpcomingExpiredContract = styled.div`
+  padding-top: 15px;
+  padding-bottom: 3px;
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+
+  /* Proton - Secondary */
+
+  color: #3c3c3c;
+`;
+export const ActiveContractParts = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  align-items: center;
+`;
+
+export const ActiveContractSubParts = styled.div`
+  flex: 25%;
+  & > div > text {
+    font-size: 12px;
+    letter: -2%;
+  }
+`;
+export const UpcomingContractSubParts = styled.div`
+  flex: 25%;
+  & > div > text {
+    font-size: 12px;
+    letter: -2%;
+  }
+  & > button {
+    background: #ffffff;
+    /* Proton - Primary */
+
+    border: 1px solid #6041b8;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+`;
+export const UpcomingContractParts = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  align-items: center;
+`;
+export const LightColor = styled.div`
+  /* Proton - Tertiary color */
+  color: #9e9e9e;
 `;
