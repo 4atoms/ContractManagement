@@ -8,6 +8,7 @@ import ConsultantDetail from "Pages/consultant/consultantDetail";
 import SupplierDetail from "Pages/supplier/supplierDetail";
 import Dashboard from "Pages/dashboard";
 import SupplierNew from "Pages/suppliernew";
+import ConsultantNew from "Pages/consultantnew";
 
 function Injector(component, name) {
   const hoc = component;
@@ -26,4 +27,5 @@ export default {
   SupplierDetail: Injector(SupplierDetail, "SupplierDetail"),
   ConsultantDetail: Injector(ConsultantDetail, "ConsultantDetail"),
   SupplierNew: Injector(SupplierNew, "SupplierNew"),
+  ConsultantNew: Injector(ConsultantNew, "ConsultantNew"),
 };

@@ -115,8 +115,8 @@ const SupplierData = () => {
       key: "view",
       render: (supplierssList) => (
         <Space size="middle">
-          <EditIcon onClickCapture={() => handleClick(supplierssList.id)} />
-          <DeleteForeverIcon onClick={() => console.log("Delete Clicked")} />
+          <EditIcon style={{ fill: "#6041b8", height: "18px" }} />
+          <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
         </Space>
       ),
     },

@@ -51,19 +51,28 @@ const getConsultantsData = () => (dispatch) => {
     });
 };
 
-const getDetailOfConsulant = (consultant_id) => (dispatch) => {
+// const getDetailOfConsultant = (consultant_id) => (dispatch) => {
+//   nw.apiWithPath("consultantList", [consultant_id])
+//     .get()
+//     .then((resp) => {
+//       const contract_id = resp.data.data.contracts?.[0].id;
+//       nw.apiWithPath("contractList", [contract_id])
+//         .get()
+//         .then((resp2) => {
+//           console.log(resp2.data.data);
+//           dispatch(assignToConsultantStore("detailOfContract", resp2.data.data));
+//         });
+//       dispatch(assignToConsultantStore("detailOfConsultant", resp.data.data));
+//       console.log(resp.data.data);
+//     });
+// };
+
+const getDetailOfConsultant = (consultant_id) => (dispatch) => {
   nw.apiWithPath("consultantList", [consultant_id])
     .get()
     .then((resp) => {
-      const contract_id = resp.data.data.contracts?.[0].id;
-      nw.apiWithPath("contractList", [contract_id])
-        .get()
-        .then((resp2) => {
-          console.log(resp2.data.data);
-          dispatch(assignToConsultantStore("detailOfContract", resp2.data.data));
-        });
-      dispatch(assignToConsultantStore("detailOfConsultant", resp.data.data));
       console.log(resp.data.data);
+      dispatch(assignToConsultantStore("detailOfConsultant", resp.data.data));
     });
 };
 // Routing
@@ -91,7 +100,7 @@ export default {
     assignToConsultantStore,
     resetConsultantStore,
     getConsultantsData,
-    getDetailOfConsulant,
+    getDetailOfConsultant,
     setId,
   },
 };

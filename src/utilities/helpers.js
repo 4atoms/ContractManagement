@@ -26,6 +26,10 @@ const dateFormat = (string) => {
   return moment(string).format("Do MMM  YYYY");
 };
 
+const dateFormatStandard = (string) => {
+  return moment(string).format("D MMM  YYYY");
+};
+
 // make the first letter caps
 const capitalizeFirstChar = (text) => {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
@@ -86,4 +90,5 @@ export {
   isUserLoggedIn,
   isAdminLoggedIn,
   dateFormat,
+  dateFormatStandard,
 };
