@@ -29,6 +29,10 @@ const dateFormat = (string) => {
 const dateFormatStandard = (string) => {
   return moment(string).format("D MMM  YYYY");
 };
+const TodayDate = () => {
+  return moment().format("D MMM  YYYY");
+};
+
 
 // make the first letter caps
 const capitalizeFirstChar = (text) => {
@@ -91,4 +95,5 @@ export {
   isAdminLoggedIn,
   dateFormat,
   dateFormatStandard,
+  TodayDate,
 };
