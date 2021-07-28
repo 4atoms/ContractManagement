@@ -11,6 +11,7 @@ import {
   CardLeftWrapper,
   CardRightWrapper,
 } from "Components/common.style";
+import ConfirmDelete from "Components/confirmDelete";
 import { themeColors } from "Config/theme";
 const DashboardPage = () => {
   const context = useContext(RefContext);
@@ -24,6 +25,7 @@ const DashboardPage = () => {
       <WrapperCard>
         <CardLeftWrapper>
           <CardLeft style={{ maxHeight: "241", maxWidth: "511" }}></CardLeft>
+          <ConfirmDelete />
         </CardLeftWrapper>
         <CardRightWrapper>
           <CardRight></CardRight>
