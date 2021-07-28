@@ -131,16 +131,18 @@ const SupplierData = () => {
     {
       title: "Action",
       key: "view",
-      render: (supliersList) => (
+      render: (suppliersList) => (
         <Space size="middle">
           <EditIcon
             style={{ fill: "#6041b8", height: "18px" }}
-            onClick={showEdit(suppliersList.id)}
+            onClick={() => {
+              showEdit(suppliersList.id);
+            }}
           />
           <DeleteForeverIcon
             style={{ fill: "red", height: "18px" }}
             onClick={() => {
-              console.log("delete", supliersList.id);
+              console.log("delete", suppliersList.id);
             }}
           />
         </Space>
