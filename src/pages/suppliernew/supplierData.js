@@ -24,7 +24,7 @@ const SupplierData = () => {
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
   const [displayCreateSupplier, setDisplayCreateSupplier] = useState(false);
-
+  const [displayEditSupplier, setDisplayEditSupplier] = useState(false);
   useEffect(() => {
     getSupplierData();
   }, []);
@@ -32,10 +32,18 @@ const SupplierData = () => {
   const showDetails = () => {
     setDisplayDetails(true);
     setDisplayCreateSupplier(false);
+    setDisplayEditSupplier(false);
   };
   const showCreate = () => {
     setDisplayDetails(false);
     setDisplayCreateSupplier(true);
+    setDisplayEditSupplier(false);
+  };
+
+  const showEdit = (num) => {
+    setDisplayDetails(false);
+    setDisplayCreateSupplier(false);
+    setDisplayEditSupplier(true);
   };
 
   const handleClick = (num) => {
@@ -46,8 +54,12 @@ const SupplierData = () => {
   const columns = [
     {
       title: "Supplier Name",
-      dataIndex: "name",
       key: "name",
+      render: (suppliersList, record) => (
+        <Space size="middle">
+          <a onClick={() => handleClick(suppliersList.id)}>{record.name}</a>
+        </Space>
+      ),
     },
 
     {
@@ -101,7 +113,7 @@ const SupplierData = () => {
           </BadgeGreen>
           <BadgeOrange>
             <Badge
-              count={suppliersList.contract_summary?.to_be_renew}
+              count={suppliersList.contract_summary?.to_be_renewed}
               showZero
               className="site-badge-count-4"
             />
@@ -119,10 +131,18 @@ const SupplierData = () => {
     {
       title: "Action",
       key: "view",
-      render: () => (
+      render: (supliersList) => (
         <Space size="middle">
-          <EditIcon style={{ fill: "#6041b8", height: "18px" }} />
-          <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
+          <EditIcon
+            style={{ fill: "#6041b8", height: "18px" }}
+            onClick={showEdit(suppliersList.id)}
+          />
+          <DeleteForeverIcon
+            style={{ fill: "red", height: "18px" }}
+            onClick={() => {
+              console.log("delete", supliersList.id);
+            }}
+          />
         </Space>
       ),
     },
@@ -143,13 +163,13 @@ const SupplierData = () => {
             <Table
               dataSource={suppliersList}
               columns={columns}
-              onRow={(record, rowIndex) => {
-                return {
-                  onClick: (event) => {
-                    handleClick(record.id);
-                  },
-                };
-              }}
+              // onRow={(record, rowIndex) => {
+              //   return {
+              //     onClick: (event) => {
+              //       handleClick(record.id);
+              //     },
+              //   };
+              // }}
             ></Table>
           </CardLeft>
         </CardLeftWrapper>
@@ -160,6 +180,7 @@ const SupplierData = () => {
             displayDetails={displayDetails}
             displayCreateSupplier={displayCreateSupplier}
             addSupplier={addSupplier}
+            displayEditSupplier={displayEditSupplier}
           />
           {/* <CreateCard
             detailOfSupplier={detailOfSupplier}

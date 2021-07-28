@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Progress, Table } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -23,20 +23,44 @@ import {
   PointOfContactsDiv,
   PointOfContactsInput,
   ButtonsDiv,
+  EditCardComp,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import RefContext from "Utilities/refContext";
 // import CreateCard from "./createCard";
+let i = 2;
 const CardRightComp = (props) => {
+  useEffect(() => {}, [iterations]);
+  let iterations = ["0", "1"];
+  const updateIterations = () => {
+    iterations.push(i);
+    i++;
+  };
   const context = useContext(RefContext);
   const {
-    actions: { addSupplier},
+    actions: { addSupplier },
   } = context;
   const FormForAdd = {
     name: "",
-    contact_person: "",
-    email: "",
-    phone: "",
+    point_of_contacts: [
+      {
+        name: "",
+        email: "",
+        phone: "",
+      },
+    ],
+    organization_no: "",
+  };
+  const EditedSupplier = {
+    name: "",
+    point_of_contacts: [
+      {
+        name: "",
+        email: "",
+        phone: "",
+      },
+    ],
+    organization_no: "",
   };
 
   const [name, setName] = useState("");
@@ -47,11 +71,15 @@ const CardRightComp = (props) => {
   const [pocNum, setPocNum] = useState("");
   const addSupplierTry = () => {
     FormForAdd.name = name;
-    FormForAdd.contact_person = pocName;
-    FormForAdd.email = pocEmail;
-    FormForAdd.phone = pocNum;
+    FormForAdd.organization_no = companyId;
+    FormForAdd.point_of_contacts[0].name = pocName;
+    FormForAdd.point_of_contacts[0].email = pocEmail;
+    FormForAdd.point_of_contacts[0].phone = pocNum;
     console.log(FormForAdd);
     props.addSupplier(FormForAdd);
+  };
+  const editSupplierTry = () => {
+    props.editSupplier();
   };
   const columns2 = [
     {
@@ -113,7 +141,7 @@ const CardRightComp = (props) => {
                 format={() => (
                   <div>
                     <CircleNumber>
-                      {props.detailOfSupplier?.contract_summary?.to_be_renew}
+                      {props.detailOfSupplier?.contract_summary?.to_be_renewed}
                     </CircleNumber>
                     <CircleText>To Renew</CircleText>
                   </div>
@@ -195,31 +223,91 @@ const CardRightComp = (props) => {
             onChange={(e) => setCompanyId(e.target.value)}
           />
           <PointOfContacts>Point Of Contacts</PointOfContacts>
-          <PointOfContactsDiv>
-            <div>
-              <PointOfContactsInput
-                placeholder="Name"
-                onChange={(e) => setPocName(e.target.value)}
-              ></PointOfContactsInput>
-              <PointOfContactsInput
-                placeholder="Email"
-                onChange={(e) => setPocEmail(e.target.value)}
-              ></PointOfContactsInput>
-              <PointOfContactsInput
-                placeholder="Phone No"
-                onChange={(e) => setPocNum(e.target.value)}
-              ></PointOfContactsInput>
-              <DeleteForeverIcon
-                style={{ fill: "red", height: "18px", marginTop: "5px" }}
-              />
-            </div>
-          </PointOfContactsDiv>
+
+          {iterations.map((x) => {
+            return (
+              <div key={x}>
+                <PointOfContactsDiv>
+                  <PointOfContactsInput
+                    placeholder="Name"
+                    onChange={(e) => setPocName(e.target.value)}
+                  ></PointOfContactsInput>
+                  <PointOfContactsInput
+                    placeholder="Email"
+                    onChange={(e) => setPocEmail(e.target.value)}
+                  ></PointOfContactsInput>
+                  <PointOfContactsInput
+                    placeholder="Phone No"
+                    onChange={(e) => setPocNum(e.target.value)}
+                  ></PointOfContactsInput>
+                  <DeleteForeverIcon
+                    style={{ fill: "red", height: "18px", marginTop: "5px" }}
+                  />
+                </PointOfContactsDiv>
+              </div>
+            );
+          })}
+          <button onClick={updateIterations}>add</button>
+
           <ButtonsDiv>
-            <button onClick={addSupplierTry}>Add</button>
+            <button onClick={addSupplierTry}>Create</button>
             <button>Cancel</button>
           </ButtonsDiv>
         </RightCardContent>
       </CreateCardComp>
+      <EditCardComp displayEditSupplier={props.displayEditSupplier}>
+        <RightCardContent>
+          <SupplierName>
+            Edit Supplier: {props.detailOfSupplier.name}
+            {/* <span style={{ position: "absolute", right: "20px", top: "20px" }}>
+              <EditIcon style={{ height: "18px" }} />
+              <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
+            </span> */}
+          </SupplierName>
+          <Line1 />
+          <div>Name</div>
+          <input
+            placeholder="Name"
+            onChange={(e) => setName(e.target.value)}
+            value={props.detailOfSupplier.name}
+          />
+          <div>Company ID</div>
+          <input
+            placeholder="xxyyzz##"
+            onChange={(e) => setCompanyId(e.target.value)}
+            value={props.detailOfSupplier.id}
+          />
+          <PointOfContacts>Point Of Contacts</PointOfContacts>
+
+          <PointOfContactsDiv>
+            <PointOfContactsInput
+              placeholder="Name"
+              onChange={(e) => setPocName(e.target.value)}
+              value={props.detailOfSupplier.point_of_contacts?.[0]?.name}
+            ></PointOfContactsInput>
+            <PointOfContactsInput
+              placeholder="Email"
+              onChange={(e) => setPocEmail(e.target.value)}
+              value={props.detailOfSupplier.point_of_contacts?.[0]?.email}
+            ></PointOfContactsInput>
+            <PointOfContactsInput
+              placeholder="Phone No"
+              onChange={(e) => setPocNum(e.target.value)}
+              value={props.detailOfSupplier.point_of_contacts?.[0]?.phone}
+            ></PointOfContactsInput>
+            <DeleteForeverIcon
+              style={{ fill: "red", height: "18px", marginTop: "5px" }}
+            />
+          </PointOfContactsDiv>
+
+          <button onClick={updateIterations}>add</button>
+
+          <ButtonsDiv>
+            <button onClick={editSupplierTry}>Create</button>
+            <button>Cancel</button>
+          </ButtonsDiv>
+        </RightCardContent>
+      </EditCardComp>
     </CardRight>
   );
 };

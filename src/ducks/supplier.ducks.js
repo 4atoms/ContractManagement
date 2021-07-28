@@ -67,6 +67,20 @@ const addSupplier = (supplierInfo) => () => {
       console.log(resp.data);
     });
 };
+const editSupplier = (supplierInfo) => () => {
+  nw.api("supplierList")
+    .put(supplierInfo)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
+const deleteSupplier = (supplierInfo) => () => {
+  nw.api("supplierList")
+    .del(supplierInfo)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
 
 // Routing
 
@@ -96,5 +110,7 @@ export default {
     getDetailOfSupplier,
     setId,
     addSupplier,
+    editSupplier,
+    deleteSupplier,
   },
 };

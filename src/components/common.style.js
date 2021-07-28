@@ -164,6 +164,9 @@ export const DisplayCardRight = styled.div`
 export const CreateCardComp = styled.div`
   display: ${(props) => (props.displayCreateSupplier ? "block" : "none")};
 `;
+export const EditCardComp = styled.div`
+  display: ${(props) => (props.displayEditSupplier ? "block" : "none")};
+`;
 export const DisplayCardRight3 = styled.div`
   display: ${(props) => (props.displayConsultDetails ? "block" : "none")};
 `;

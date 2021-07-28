@@ -18,8 +18,6 @@ const DashboardPage = () => {
     store: {},
     actions: {},
   } = context;
-  const [displayDetails, setDisplayDetails] = useState(false);
-  const [displayCreateSupplier, setDisplayCreateSupplier] = useState(false);
 
   return (
     <>
