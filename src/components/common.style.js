@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { mdResStyles, lgResStyles } from "Config/theme";
+import { mdResStyles, lgResStyles, themeColors } from "Config/theme";
 
 export const TableWrap = styled.div`
   overflow-x: scroll;
@@ -164,6 +164,9 @@ export const DisplayCardRight = styled.div`
 export const CreateCardComp = styled.div`
   display: ${(props) => (props.displayCreateSupplier ? "block" : "none")};
 `;
+export const EditCardComp = styled.div`
+  display: ${(props) => (props.displayEditSupplier ? "block" : "none")};
+`;
 export const DisplayCardRight3 = styled.div`
   display: ${(props) => (props.displayConsultDetails ? "block" : "none")};
 `;
@@ -286,17 +289,26 @@ export const RightCardContent = styled.div`
 `;
 
 export const PointOfContactsDiv = styled.div`
-
   display: flex;
-  &>div{
+  & > div {
     max-width: 100%;
     display: inline-flex;
     flex-wrap: nowrap;
     flex-direction: row;
     gap: 30px;
-}
   }
+  & > input {
+    width: 135px;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+    background: #ffffff;
 
+    border: 1px solid #9e9e9e;
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
 `;
 
 export const PointOfContactsInput = styled.input`
@@ -313,8 +325,59 @@ export const ButtonsDiv = styled.div`
     margin-right: 16px;
   }
 `;
+export const SaveButton = styled.div`
+  width: 75px;
+  height: 30px;
 
-export const Green = styled.span`themeColors.greenSuccess`;
+  background: #6041b8;
+  border-radius: 5px;
+  & > button {
+    background: none;
+    border: none;
+  }
+  & > button > div {
+    font-family: Varela Round;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: -0.02em;
+    /* White */
+
+    color: #ffffff;
+  }
+`;
+export const CancelButton = styled.div`
+  width: 75px;
+  height: 30px;
+
+  background: #ffffff;
+
+  border: 1px solid #6041b8;
+  box-sizing: border-box;
+  border-radius: 5px;
+  & > button {
+    background: none;
+    border: none;
+  }
+  & > button > div {
+    font-family: Varela Round;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    letter-spacing: -0.02em;
+
+    /* Proton - Primary */
+
+    color: #6041b8;
+  }
+`;
+export const Green = styled.span`
+  ${themeColors.greenSuccess}
+`;
 
 export const BadgeGreen = styled.div`
   & > span > sup {

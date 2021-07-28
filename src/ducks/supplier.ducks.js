@@ -48,9 +48,6 @@ const getSupplierData = (request) => (dispatch) => {
       dispatch(assignToSupplierStore("suppliersList", resp.data.data));
     });
 };
-// function mapStateToProps() {
-//   return {};
-// }
 const getDetailOfSupplier = (supplier_id) => (dispatch) => {
   nw.apiWithPath("supplierList", [supplier_id])
     .get()
@@ -63,6 +60,20 @@ const getDetailOfSupplier = (supplier_id) => (dispatch) => {
 const addSupplier = (supplierInfo) => () => {
   nw.api("supplierList")
     .post(supplierInfo)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
+const editSupplier = (supplierInfo) => () => {
+  nw.api("supplierList")
+    .put(supplierInfo)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
+const deleteSupplier = (supplierInfo) => () => {
+  nw.api("supplierList")
+    .del(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
     });
@@ -96,5 +107,7 @@ export default {
     getDetailOfSupplier,
     setId,
     addSupplier,
+    editSupplier,
+    deleteSupplier,
   },
 };
