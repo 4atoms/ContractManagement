@@ -189,11 +189,6 @@ const SupplierData = () => {
             addSupplier={addSupplier}
             displayEditSupplier={displayEditSupplier}
           />
-          {/* <CreateCard
-            detailOfSupplier={detailOfSupplier}
-            displayCreateSupplier={displayCreateSupplier}
-            displayDetails={displayDetails}
-          /> */}
         </CardRightWrapper>
       </WrapperCard>
     </>

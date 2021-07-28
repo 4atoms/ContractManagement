@@ -48,9 +48,6 @@ const getSupplierData = (request) => (dispatch) => {
       dispatch(assignToSupplierStore("suppliersList", resp.data.data));
     });
 };
-// function mapStateToProps() {
-//   return {};
-// }
 const getDetailOfSupplier = (supplier_id) => (dispatch) => {
   nw.apiWithPath("supplierList", [supplier_id])
     .get()
