@@ -36,6 +36,7 @@ import {
   MobileSupplier,
   Flex50,
   ButtonsDiv,
+  EditConsultantCardComp,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import { dateFormatStandard } from "../../utilities/helpers";
@@ -53,18 +54,18 @@ const onSearch = (val) => {
   console.log("search:", val);
 };
 
-const NoExpiredContractButton = (props) => {
-  if (props.detailOfConsultant.contracts?.expired?.length == 0) {
-    console.log("Expired");
-    <button>No expired contracts </button>;
-  }
-};
-const NoUpcomingContractButton = (props) => {
-  if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
-    console.log("Upcoming");
-    <button>No upcoming contracts</button>;
-  }
-};
+// const NoExpiredContractButton = (props) => {
+//   if (props.detailOfConsultant.contracts?.expired?.length == 0) {
+//     console.log("Expired");
+//     <button>No expired contracts </button>;
+//   }
+// }; 
+// const NoUpcomingContractButton = (props) => {
+//   if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
+//     console.log("Upcoming");
+//     <button>No upcoming contracts</button>;
+//   }
+// };
 
 const CardRightComp = (props) => {
   const columns2 = [
@@ -119,7 +120,7 @@ const CardRightComp = (props) => {
                 <text>Supplier</text>
               </LightColor>
               <div>
-                <text>ABC</text>
+                <text></text>
               </div>
             </Supplier>
           </EmailMobileSupplier>
@@ -138,7 +139,7 @@ const CardRightComp = (props) => {
               <div>
                 <text>
                   {
-                    props.detailOfConsultant?.contracts?.active?.[0]?.client
+                    props.detailOfConsultant.contracts?.active?.[0]?.client
                       ?.name
                   }
                 </text>
@@ -332,12 +333,8 @@ const CardRightComp = (props) => {
                 onChange={onChange}
                 onFocus={onFocus}
                 onSearch={onSearch}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
               >
-                <Option value="jack">Jack</Option>
+                <Option>{props.detailOfConsultant.contracts?.expired}</Option>
                 <Option value="lucy">Lucy</Option>
                 <Option value="tom">Tom</Option>
               </Select>
@@ -355,10 +352,6 @@ const CardRightComp = (props) => {
                 onChange={onChange}
                 onFocus={onFocus}
                 onSearch={onSearch}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
               >
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
@@ -375,10 +368,6 @@ const CardRightComp = (props) => {
                 onChange={onChange}
                 onFocus={onFocus}
                 onSearch={onSearch}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
               >
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
@@ -407,10 +396,6 @@ const CardRightComp = (props) => {
                 onChange={onChange}
                 onFocus={onFocus}
                 onSearch={onSearch}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
               >
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
@@ -431,10 +416,6 @@ const CardRightComp = (props) => {
                 onChange={onChange}
                 onFocus={onFocus}
                 onSearch={onSearch}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >=
-                  0
-                }
               >
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
@@ -453,6 +434,61 @@ const CardRightComp = (props) => {
           </ButtonsDiv> */}
         </RightCardContent>
       </CreateConsultantCardComp>
+
+      {/* Edit Consultant Card */}
+      <EditConsultantCardComp
+        displayEditConsultant={props.displayEditConsultant}
+        detailOfConsultant={props.detailOfConsultant}
+      >
+        <RightCardContent>
+          <ConsultantName>
+            Edit Consultant: {props.detailOfConsultant.name}
+            {/* <span style={{ position: "absolute", right: "20px", top: "20px" }}>
+              <EditIcon style={{ height: "18px" }} />
+              <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
+            </span> */}
+          </ConsultantName>
+          <Line1 />
+          <div>Name</div>
+          <input
+            placeholder="Name"
+            // onChange={(e) => setName(e.target.value)}
+            // value={props.detailOfSupplier.name}
+          />
+          <div>Email</div>
+          <input
+            placeholder="Email"
+            // onChange={(e) => setCompanyId(e.target.value)}
+            // value={props.detailOfSupplier.id}
+          />
+          <div>Mobile</div>
+          <input
+            placeholder="Mobile"
+            // onChange={(e) => setCompanyId(e.target.value)}
+            // value={props.detailOfSupplier.id}
+          />
+          <div>Supplier</div>
+          <Select
+            showSearch
+            style={{ width: 180 }}
+            placeholder="Select Supplier"
+            optionFilterProp="children"
+            onChange={onChange}
+            onFocus={onFocus}
+            onSearch={onSearch}
+          >
+            <Option value="jack">Jack</Option>
+            <Option value="lucy">Lucy</Option>
+            <Option value="tom">Tom</Option>
+          </Select>
+          {/* <button onClick={updateIterations}>add</button>
+
+          <ButtonsDiv>
+            <button onClick={editSupplierTry}>Create</button>
+            <button>Cancel</button>
+          </ButtonsDiv> */}
+        </RightCardContent>
+      </EditConsultantCardComp>
     </CardRight>
   );
 };

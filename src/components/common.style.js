@@ -173,6 +173,9 @@ export const DisplayCardRight3 = styled.div`
 export const CreateConsultantCardComp = styled.div`
   display: ${(props) => (props.displayCreateConsultant ? "block" : "none")};
 `;
+export const EditConsultantCardComp = styled.div`
+  display: ${(props) => (props.displayEditConsultant ? "block" : "none")};
+`;
 export const Consultants = styled.div`
   // padding-top: 40px;
   // padding-bottom: 15px;
