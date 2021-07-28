@@ -13,15 +13,17 @@ import {
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import CardRightComp from "./cardRightComp";
+import { dateFormatStandard, TodayDate } from "../../utilities/helpers";
 
 const ConsultantData = () => {
   const context = useContext(RefContext);
   const {
     store: { consultantsList, detailOfConsultant },
-    actions: { getConsultantsData, getDetailOfConsultant },
+    actions: { getConsultantsData, getDetailOfConsultant, addConsultant },
   } = context;
 
   const [displayConsultDetails, setDisplayConsultDetails] = useState(false);
+  const [displayCreateConsultant, setDisplayCreateConsultant] = useState(false);
 
   useEffect(() => {
     getConsultantsData();
@@ -30,6 +32,12 @@ const ConsultantData = () => {
   const showDetails = () => {
     setDisplayConsultDetails(true);
   };
+
+  const showCreate = () => {
+    setDisplayConsultDetails(false);
+    setDisplayCreateConsultant(true);
+  };
+
   const handleClick = (num) => {
     getDetailOfConsultant(num);
     showDetails();
@@ -50,13 +58,34 @@ const ConsultantData = () => {
     },
     {
       title: "Project",
-      dataIndex: "project",
       key: "project",
+      render: (consultantsList) => {
+        if (consultantsList.contracts == null) {
+          return <Space size="middle">X</Space>;
+        } else {
+          return (
+            <Space size="middle">
+              {consultantsList.contracts[0]?.project?.project_name}
+            </Space>
+          );
+        }
+      },
     },
     {
       title: "Active Contract Expires in",
-      dataIndex: "Active Contract Expires in",
       key: "acei",
+      render: (consultantsList) => {
+        if (consultantsList.contracts == null) {
+          return <Space size="middle">X</Space>;
+        } else {
+          return (
+            <Space size="middle">
+              {dateFormatStandard(consultantsList.contracts[0]?.end_date)}
+              {/* <text>{TodayDate()}</text> */}
+            </Space>
+          );
+        }
+      },
     },
     {
       title: "Renewal/Upcoming start",
@@ -82,7 +111,7 @@ const ConsultantData = () => {
             <text>Consultants</text>
             <AddCircleIcon
               style={{ float: "right" }}
-              onClick={() => setdisplayCreateSupplier(true)}
+              onClick={showCreate}
             ></AddCircleIcon>
           </Card1Header>
           <Table
@@ -103,6 +132,8 @@ const ConsultantData = () => {
         <CardRightComp
           detailOfConsultant={detailOfConsultant}
           displayConsultDetails={displayConsultDetails}
+          displayCreateConsultant={displayCreateConsultant}
+          addConsultant={addConsultant}
         />
       </CardRightWrapper>
     </WrapperCard>

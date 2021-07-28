@@ -170,7 +170,9 @@ export const EditCardComp = styled.div`
 export const DisplayCardRight3 = styled.div`
   display: ${(props) => (props.displayConsultDetails ? "block" : "none")};
 `;
-
+export const CreateConsultantCardComp = styled.div`
+  display: ${(props) => (props.displayCreateConsultant ? "block" : "none")};
+`;
 export const Consultants = styled.div`
   // padding-top: 40px;
   // padding-bottom: 15px;
@@ -489,4 +491,22 @@ export const UpcomingContractParts = styled.div`
 export const LightColor = styled.div`
   /* Proton - Tertiary color */
   color: #9e9e9e;
+`;
+
+export const NameEmail = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  gap: 25px;
+`;
+export const MobileSupplier = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  gap: 25px;
+`;
+export const Flex50 = styled.div`
+  flex: 46%;
+  font-size: 12px;
+  height: 46px;
 `;
