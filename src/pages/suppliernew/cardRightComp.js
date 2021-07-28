@@ -323,8 +323,16 @@ const CardRightComp = (props) => {
           <button onClick={updateIterations}>add</button>
 
           <ButtonsDiv>
-            <button onClick={editSupplierTry}>Create</button>
-            <button>Cancel</button>
+            <SaveButton>
+              <button onClick={editSupplierTry}>
+                <div>Save</div>
+              </button>
+            </SaveButton>
+            <CancelButton>
+              <button>
+                <div>Cancel</div>
+              </button>
+            </CancelButton>
           </ButtonsDiv>
         </RightCardContent>
       </EditCardComp>
