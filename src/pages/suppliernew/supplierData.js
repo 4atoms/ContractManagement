@@ -20,7 +20,12 @@ const SupplierData = () => {
   const context = useContext(RefContext);
   const {
     store: { suppliersList, detailOfSupplier },
-    actions: { getSupplierData, getDetailOfSupplier, addSupplier },
+    actions: {
+      getSupplierData,
+      getDetailOfSupplier,
+      addSupplier,
+      deleteSupplier,
+    },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
   const [displayCreateSupplier, setDisplayCreateSupplier] = useState(false);
@@ -142,7 +147,7 @@ const SupplierData = () => {
           <DeleteForeverIcon
             style={{ fill: "red", height: "18px" }}
             onClick={() => {
-              console.log("delete", suppliersList.id);
+              deleteSupplier(suppliersList.id);
             }}
           />
         </Space>

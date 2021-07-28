@@ -24,16 +24,19 @@ import {
   PointOfContactsInput,
   ButtonsDiv,
   EditCardComp,
+  SaveButton,
+  CancelButton,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import RefContext from "Utilities/refContext";
 // import CreateCard from "./createCard";
 let i = 2;
 const CardRightComp = (props) => {
-  useEffect(() => {}, [iterations]);
-  let iterations = ["0", "1"];
-  const updateIterations = () => {
+  useEffect(() => {}, [iterations, updateIterations]);
+  let iterations = [0, 1];
+  const updateIterations = (iterations) => {
     iterations.push(i);
+    console.log("update", iterations);
     i++;
   };
   const context = useContext(RefContext);
@@ -247,15 +250,32 @@ const CardRightComp = (props) => {
               </div>
             );
           })}
-          <button onClick={updateIterations}>add</button>
+          <button
+            onClick={() => {
+              updateIterations(iterations);
+            }}
+          >
+            add
+          </button>
 
           <ButtonsDiv>
-            <button onClick={addSupplierTry}>Create</button>
-            <button>Cancel</button>
+            <SaveButton>
+              <button onClick={addSupplierTry}>
+                <div>Save</div>
+              </button>
+            </SaveButton>
+            <CancelButton>
+              <button>
+                <div>Cancel</div>
+              </button>
+            </CancelButton>
           </ButtonsDiv>
         </RightCardContent>
       </CreateCardComp>
-      <EditCardComp displayEditSupplier={props.displayEditSupplier}>
+      <EditCardComp
+        displayEditSupplier={props.displayEditSupplier}
+        detailOfSupplier={props.detailOfSupplier}
+      >
         <RightCardContent>
           <SupplierName>
             Edit Supplier: {props.detailOfSupplier.name}
