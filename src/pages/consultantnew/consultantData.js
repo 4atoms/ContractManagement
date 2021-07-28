@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Badge } from "antd";
+import { Table, Space } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
@@ -14,6 +14,7 @@ import {
 import { themeColors } from "Config/theme";
 import CardRightComp from "./cardRightComp";
 import { dateFormatStandard, TodayDate } from "../../utilities/helpers";
+import moment from "moment";
 
 const ConsultantData = () => {
   const context = useContext(RefContext);
@@ -24,18 +25,28 @@ const ConsultantData = () => {
 
   const [displayConsultDetails, setDisplayConsultDetails] = useState(false);
   const [displayCreateConsultant, setDisplayCreateConsultant] = useState(false);
-
+  const [displayEditConsultant, setdisplayEditConsultant] = useState(false);
   useEffect(() => {
     getConsultantsData();
   }, []);
 
   const showDetails = () => {
     setDisplayConsultDetails(true);
+    setDisplayCreateConsultant(false);
+    setdisplayEditConsultant(false);
   };
 
   const showCreate = () => {
     setDisplayConsultDetails(false);
     setDisplayCreateConsultant(true);
+    setdisplayEditConsultant(false);
+  };
+
+  const showEdit = (num) => {
+    getDetailOfConsultant(num);
+    setDisplayConsultDetails(false);
+    setDisplayCreateConsultant(false);
+    setdisplayEditConsultant(true);
   };
 
   const handleClick = (num) => {
@@ -46,8 +57,12 @@ const ConsultantData = () => {
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
       key: "name",
+      render: (consultantsList, record) => (
+        <Space size="middle">
+          <a onClick={() => handleClick(consultantsList.id)}>{record.name}</a>
+        </Space>
+      ),
     },
     {
       title: "Supplier",
@@ -81,7 +96,11 @@ const ConsultantData = () => {
           return (
             <Space size="middle">
               {dateFormatStandard(consultantsList.contracts[0]?.end_date)}
-              {/* <text>{TodayDate()}</text> */}
+              {moment(consultantsList.contracts[0]?.end_date).diff(
+                moment(),
+                "days"
+              )}
+              <text>{TodayDate()}</text>
             </Space>
           );
         }
@@ -97,7 +116,12 @@ const ConsultantData = () => {
       key: "action",
       render: (consultantsList) => (
         <Space size="middle">
-          <EditIcon style={{ fill: "#6041b8", height: "18px" }} />
+          <EditIcon
+            style={{ fill: "#6041b8", height: "18px" }}
+            onClick={() => {
+              showEdit(consultantsList.id);
+            }}
+          />
           <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
         </Space>
       ),
@@ -117,13 +141,13 @@ const ConsultantData = () => {
           <Table
             dataSource={consultantsList}
             columns={columns}
-            onRow={(record, rowIndex) => {
-              return {
-                onClick: () => {
-                  handleClick(record.id);
-                },
-              };
-            }}
+            // onRow={(record, rowIndex) => {
+            //   return {
+            //     onClick: () => {
+            //       handleClick(record.id);
+            //     },
+            //   };
+            // }}
           ></Table>
         </CardLeft>
       </CardLeftWrapper>
@@ -134,6 +158,7 @@ const ConsultantData = () => {
           displayConsultDetails={displayConsultDetails}
           displayCreateConsultant={displayCreateConsultant}
           addConsultant={addConsultant}
+          displayEditConsultant={displayEditConsultant}
         />
       </CardRightWrapper>
     </WrapperCard>
