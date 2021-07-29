@@ -1,10 +1,15 @@
 import cloneDeep from "lodash/cloneDeep";
 import { setNamespace } from "Utilities/helpers";
+import Network from "Utilities/network";
+
 const namespace = "dashboard";
 const createAction = setNamespace(namespace);
+const nw = new Network();
 
 // STORE
-const initialState = {};
+const initialState = {
+  overviewData: null,
+};
 
 // ACTIONS
 
@@ -30,6 +35,19 @@ const resetDashboardStore = () => (dispatch) => {
 
 // METHODS
 
+const getOverviewData = () => (dispatch) => {
+  return nw
+    .api("dashboardOverview")
+    .get()
+    .then((resp) => {
+      console.log(resp.data.data);
+      dispatch(assignToDashboardStore("overviewData", resp.data.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 // Routing
 
 // Reducers
@@ -54,5 +72,6 @@ export default {
   creators: {
     assignToDashboardStore,
     resetDashboardStore,
+    getOverviewData,
   },
 };

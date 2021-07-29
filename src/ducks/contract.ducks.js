@@ -8,7 +8,7 @@ const nw = new Network();
 
 // STORE
 const initialState = {
-  contractsList: [],
+  contractsList: null,
   upcomingContractsList: [],
   expiredContractsList: [],
   contractListDraft: [],
@@ -73,6 +73,19 @@ const getDetailOfcontract = (contract_id) => (dispatch) => {
     });
 };
 
+//update the contract
+const updateContract = (request) => (dispatch) => {
+  return nw
+    .apiWithPath("contractList", [request.id])
+    .put(request)
+    .then((resp) => {
+      console.log(resp.data.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 // Routing
 
 // Reducers
@@ -99,5 +112,6 @@ export default {
     resetContractStore,
     getContractsData,
     getDetailOfcontract,
+    updateContract,
   },
 };

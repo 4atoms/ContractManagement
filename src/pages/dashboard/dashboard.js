@@ -1,37 +1,31 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Badge, Button, Input } from "antd";
+import React, { useContext } from "react";
 import RefContext from "Utilities/refContext";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import {
-  CardLeft,
-  CardRight,
-  WrapperCard,
-  Card1Header,
-  CardLeftWrapper,
-  CardRightWrapper,
-} from "Components/common.style";
-import ConfirmDelete from "Components/confirmDelete";
-import { themeColors } from "Config/theme";
+import { WrapperCard, RenewableCard, ChartCard } from "./dashboard.style";
+
+import OverView from "./overView";
+import TimeSheet from "./timeSheet";
+
 const DashboardPage = () => {
   const context = useContext(RefContext);
-  const {
-    store: {},
-    actions: {},
-  } = context;
+  const { store, actions } = context;
 
   return (
-    <>
-      <WrapperCard>
-        <CardLeftWrapper>
-          <CardLeft style={{ maxHeight: "241", maxWidth: "511" }}></CardLeft>
-          <ConfirmDelete />
-        </CardLeftWrapper>
-        <CardRightWrapper>
-          <CardRight></CardRight>
-        </CardRightWrapper>
-      </WrapperCard>
-    </>
+    <WrapperCard style={{ gap: "20px" }}>
+      <div
+        className="flex"
+        style={{ width: "43.3%", flexFlow: "column", gap: "15px" }}
+      >
+        <OverView store={store} actions={actions} />
+        <TimeSheet store={store} actions={actions} />
+      </div>
+      <div
+        className="flex"
+        style={{ width: "55%", flexFlow: "column", gap: "15px" }}
+      >
+        <RenewableCard></RenewableCard>
+        <ChartCard></ChartCard>
+      </div>
+    </WrapperCard>
   );
 };
 export default DashboardPage;
