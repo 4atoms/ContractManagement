@@ -25,6 +25,7 @@ const SupplierData = () => {
       getDetailOfSupplier,
       addSupplier,
       deleteSupplier,
+      editSupplier,
     },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
@@ -46,6 +47,7 @@ const SupplierData = () => {
   };
 
   const showEdit = (num) => {
+    getDetailOfSupplier(num);
     setDisplayDetails(false);
     setDisplayCreateSupplier(false);
     setDisplayEditSupplier(true);
@@ -170,6 +172,7 @@ const SupplierData = () => {
             <Table
               dataSource={suppliersList}
               columns={columns}
+              pagination={{ pageSize: 5 }}
               // onRow={(record, rowIndex) => {
               //   return {
               //     onClick: (event) => {
@@ -187,6 +190,7 @@ const SupplierData = () => {
             displayDetails={displayDetails}
             displayCreateSupplier={displayCreateSupplier}
             addSupplier={addSupplier}
+            editSupplier={editSupplier}
             displayEditSupplier={displayEditSupplier}
           />
         </CardRightWrapper>

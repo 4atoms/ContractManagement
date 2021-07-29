@@ -38,6 +38,28 @@ const CardRightComp = (props) => {
     iterations.push(i);
     console.log("update", iterations);
     i++;
+    return (
+      <PointOfContactsDiv>
+        <PointOfContactsInput
+          placeholder="Name"
+          onChange={(e) => setPocName(e.target.value)}
+          value={props.detailOfSupplier.point_of_contacts?.[0]?.name}
+        ></PointOfContactsInput>
+        <PointOfContactsInput
+          placeholder="Email"
+          onChange={(e) => setPocEmail(e.target.value)}
+          value={props.detailOfSupplier.point_of_contacts?.[0]?.email}
+        ></PointOfContactsInput>
+        <PointOfContactsInput
+          placeholder="Phone No"
+          onChange={(e) => setPocNum(e.target.value)}
+          value={props.detailOfSupplier.point_of_contacts?.[0]?.phone}
+        ></PointOfContactsInput>
+        <DeleteForeverIcon
+          style={{ fill: "red", height: "18px", marginTop: "5px" }}
+        />
+      </PointOfContactsDiv>
+    );
   };
   const context = useContext(RefContext);
   const {
@@ -65,7 +87,13 @@ const CardRightComp = (props) => {
     ],
     organization_no: "",
   };
-
+  const point_of_contacts = [
+    {
+      name: "",
+      email: "",
+      phone: "",
+    },
+  ];
   const [name, setName] = useState("");
 
   const [companyId, setCompanyId] = useState("");
@@ -82,7 +110,13 @@ const CardRightComp = (props) => {
     props.addSupplier(FormForAdd);
   };
   const editSupplierTry = () => {
-    props.editSupplier();
+    FormForAdd.name = name;
+    FormForAdd.organization_no = companyId;
+    FormForAdd.point_of_contacts[0].name = pocName;
+    FormForAdd.point_of_contacts[0].email = pocEmail;
+    FormForAdd.point_of_contacts[0].phone = pocNum;
+    console.log(FormForAdd);
+    props.editSupplier(FormForAdd);
   };
   const columns2 = [
     {
@@ -276,7 +310,7 @@ const CardRightComp = (props) => {
         displayEditSupplier={props.displayEditSupplier}
         detailOfSupplier={props.detailOfSupplier}
       >
-        <RightCardContent>
+        <RightCardContent key={props.detailOfSupplier.id}>
           <SupplierName>
             Edit Supplier: {props.detailOfSupplier.name}
             {/* <span style={{ position: "absolute", right: "20px", top: "20px" }}>
@@ -289,13 +323,13 @@ const CardRightComp = (props) => {
           <input
             placeholder="Name"
             onChange={(e) => setName(e.target.value)}
-            value={props.detailOfSupplier.name}
+            defaultValue={props.detailOfSupplier.name}
           />
           <div>Company ID</div>
           <input
             placeholder="xxyyzz##"
             onChange={(e) => setCompanyId(e.target.value)}
-            value={props.detailOfSupplier.id}
+            defaultValue={props.detailOfSupplier.id}
           />
           <PointOfContacts>Point Of Contacts</PointOfContacts>
 
@@ -324,7 +358,7 @@ const CardRightComp = (props) => {
 
           <ButtonsDiv>
             <SaveButton>
-              <button onClick={editSupplierTry}>
+              <button onClick={editSupplierTry()}>
                 <div>Save</div>
               </button>
             </SaveButton>
