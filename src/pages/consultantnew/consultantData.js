@@ -19,8 +19,8 @@ import moment from "moment";
 const ConsultantData = () => {
   const context = useContext(RefContext);
   const {
-    store: { consultantsList, detailOfConsultant },
-    actions: { getConsultantsData, getDetailOfConsultant, addConsultant },
+    store: { consultantsList, detailOfConsultant, suppliersList },
+    actions: { getConsultantsData, getDetailOfConsultant, addConsultant, getSupplierData },
   } = context;
 
   const [displayConsultDetails, setDisplayConsultDetails] = useState(false);
@@ -28,8 +28,12 @@ const ConsultantData = () => {
   const [displayEditConsultant, setdisplayEditConsultant] = useState(false);
   useEffect(() => {
     getConsultantsData();
+    getSupplierData();
   }, []);
 
+  const sup = () => {
+    console.log(suppliersList);
+  };
   const showDetails = () => {
     setDisplayConsultDetails(true);
     setDisplayCreateConsultant(false);
@@ -133,6 +137,7 @@ const ConsultantData = () => {
         <CardLeft>
           <Card1Header>
             <text>Consultants</text>
+            <div>{sup()}</div>
             <AddCircleIcon
               style={{ float: "right" }}
               onClick={showCreate}
@@ -159,6 +164,7 @@ const ConsultantData = () => {
           displayCreateConsultant={displayCreateConsultant}
           addConsultant={addConsultant}
           displayEditConsultant={displayEditConsultant}
+          suppliersList={suppliersList}
         />
       </CardRightWrapper>
     </WrapperCard>
