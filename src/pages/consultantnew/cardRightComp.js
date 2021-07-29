@@ -1,5 +1,15 @@
 import React from "react";
-import { Table, Input, Badge, Dropdown, Button, Menu, Select } from "antd";
+import {
+  Table,
+  Input,
+  Badge,
+  Dropdown,
+  Button,
+  Menu,
+  Select,
+  DatePicker,
+  Space,
+} from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import { DownOutlined, UserOutlined } from "@ant-design/icons";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -40,6 +50,10 @@ import {
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import { dateFormatStandard } from "../../utilities/helpers";
+import moment from "moment";
+
+const { RangePicker } = DatePicker;
+const dateFormat = "DD/MM/YYYY";
 
 const { Option } = Select;
 const onChange = (value) => {
@@ -54,12 +68,12 @@ const onSearch = (val) => {
   console.log("search:", val);
 };
 
-// const NoExpiredContractButton = (props) => {
-//   if (props.detailOfConsultant.contracts?.expired?.length == 0) {
-//     console.log("Expired");
-//     <button>No expired contracts </button>;
-//   }
-// }; 
+const NoExpiredContractButton = (props) => {
+  if (props.detailOfConsultant.contracts?.expired?.length == 0) {
+    console.log("Expired");
+    return <button>No expired contracts </button>;
+  }
+};
 // const NoUpcomingContractButton = (props) => {
 //   if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
 //     console.log("Upcoming");
@@ -289,7 +303,7 @@ const CardRightComp = (props) => {
           <ActiveUpcomingExpiredContract>
             <Badge status="error" />
             <text>Expired Contract</text>
-
+            <div>{NoExpiredContractButton(props)}</div>
             <Table
               dataSource={props.detailOfConsultant.contracts?.expired}
               pagination={{ position: ["none", "none"] }}
@@ -334,9 +348,10 @@ const CardRightComp = (props) => {
                 onFocus={onFocus}
                 onSearch={onSearch}
               >
-                <Option>{props.detailOfConsultant.contracts?.expired}</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="tom">Tom</Option>
+                {props.suppliersList.map((element) => {
+                  return <Option key={element.id}>{element.name}</Option>;
+                })}
+                {/* <Option value="lucy">Lucy</Option> */}
               </Select>
             </Flex50>
           </MobileSupplier>
@@ -384,7 +399,12 @@ const CardRightComp = (props) => {
             </Flex50>
             <Flex50>
               <text>Start Date</text>
-              <Input placeholder="Mobile" />
+              <Space direction="vertical" size={18}>
+                <DatePicker
+                  // defaultValue={moment("01/01/2015", dateFormat)}
+                  format={dateFormat}
+                />
+              </Space>
             </Flex50>
             <Flex50>
               <text>Period</text>

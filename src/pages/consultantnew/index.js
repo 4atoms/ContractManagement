@@ -8,7 +8,7 @@ import Header from "Components/Header";
 import ConsultantData from "./consultantData";
 
 const ConsultantNew = (props) => {
-  const propShape = formStoreData(props, ["consultant"]);
+  const propShape = formStoreData(props, ["consultant", "supplier"]);
 
   useEffect(() => {
     return () => {
