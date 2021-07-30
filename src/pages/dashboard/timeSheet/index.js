@@ -44,7 +44,6 @@ const TimeSheet = ({ store, actions }) => {
           .includes(value.toLowerCase())
       );
     });
-    console.log(list);
     setListContract(list);
   };
 
@@ -101,9 +100,10 @@ const TimeSheet = ({ store, actions }) => {
         <Table
           pagination={{
             pageSize: 4,
+            position: ["bottomLeft"],
+            simple: true,
           }}
           //   loading = {listContract === null}
-          position={["bottomRight"]}
           //   rowSelection={{
           //     type: "checkbox",
           //   }}

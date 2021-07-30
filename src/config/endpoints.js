@@ -5,6 +5,9 @@ const development = {
   consultantList: "/consultants",
   login: "/auth/login",
   signup: "/signup",
+
+  contractWithQuery: "/contracts?status=", // status will be active, renewed, to_be_renewed, upcoming, expired.
+  renewContract: "consultants/renew_contract",
 };
 
 export function getAllEndpoints() {

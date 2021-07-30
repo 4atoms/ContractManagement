@@ -41,7 +41,7 @@ const TimeSheetCard = styled(Card)`
 const RenewableCard = styled(Card)`
   height: 290px;
   & .ant-table-cell {
-    padding: 5px;
+    padding: 4px;
   }
 `;
 
