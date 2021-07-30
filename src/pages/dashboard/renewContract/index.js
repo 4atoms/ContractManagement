@@ -43,13 +43,13 @@ const RenewContract = ({ store, actions }) => {
     if (contract) {
       request.renew_contracts.push({
         id: contract.id,
-        period: parseInt(contract.renew_for),
+        period: contract.renew_for,
       });
     } else {
       selectedContracts.forEach((contract) => {
         request.renew_contracts.push({
           id: contract.id,
-          period: parseInt(contract.renew_for),
+          period: contract.renew_for,
         });
       });
     }
@@ -95,14 +95,14 @@ const RenewContract = ({ store, actions }) => {
         }
         return (
           <Select
-            defaultValue="6"
+            defaultValue={6}
             style={{ width: 120 }}
             onChange={(e) => (record["renew_for"] = e)}
           >
-            <Option value="6">6 months</Option>
-            <Option value="3">3 months</Option>
-            <Option value="2">2 months</Option>
-            <Option value="1">1 month</Option>
+            <Option value={6}>6 months</Option>
+            <Option value={3}>3 months</Option>
+            <Option value={2}>2 months</Option>
+            <Option value={1}>1 month</Option>
           </Select>
         );
       },

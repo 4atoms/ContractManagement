@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import RefContext from "Utilities/refContext";
-import { WrapperCard, ChartCard } from "./dashboard.style";
+import { WrapperCard } from "./dashboard.style";
 
 import OverView from "./overView";
 import TimeSheet from "./timeSheet";
 import RenewContract from "./renewContract";
+import CostEstimation from "./costEstimationAnalysis";
 
 const DashboardPage = () => {
   const context = useContext(RefContext);
@@ -24,7 +25,7 @@ const DashboardPage = () => {
         style={{ width: "55%", flexFlow: "column", gap: "15px" }}
       >
         <RenewContract store={store} actions={actions}></RenewContract>
-        <ChartCard></ChartCard>
+        <CostEstimation store={store} actions={actions}></CostEstimation>
       </div>
     </WrapperCard>
   );
