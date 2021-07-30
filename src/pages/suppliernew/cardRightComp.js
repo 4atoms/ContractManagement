@@ -88,33 +88,42 @@ const CardRightComp = (props) => {
   const [pocNum, setPocNum] = useState("");
   const [count, setCount] = useState(0);
   const [points, setPoints] = useState();
-  const point = `<PointOfContactsDiv>
-  <PointOfContactsInput
-    placeholder="Name"
-    onChange={(e) => setPocName(e.target.value)}
-    value={props.detailOfSupplier.point_of_contacts?.[0]?.name}
-  ></PointOfContactsInput>
-  <PointOfContactsInput
-    placeholder="Email"
-    onChange={(e) => setPocEmail(e.target.value)}
-    value={props.detailOfSupplier.point_of_contacts?.[0]?.email}
-  ></PointOfContactsInput>
-  <PointOfContactsInput
-    placeholder="Phone No"
-    onChange={(e) => setPocNum(e.target.value)}
-    value={props.detailOfSupplier.point_of_contacts?.[0]?.phone}
-  ></PointOfContactsInput>
-  <DeleteForeverIcon
-    style={{ fill: "red", height: "18px", marginTop: "5px" }}
-  />
-</PointOfContactsDiv>`;
+  const point = 
+    <PointOfContactsDiv>
+      <PointOfContactsInput
+        placeholder="Name"
+        onChange={(e) => setPocName(e.target.value)}
+        value={props.detailOfSupplier.point_of_contacts?.[0]?.name}
+      ></PointOfContactsInput>
+      <PointOfContactsInput
+        placeholder="Email"
+        onChange={(e) => setPocEmail(e.target.value)}
+        value={props.detailOfSupplier.point_of_contacts?.[0]?.email}
+      ></PointOfContactsInput>
+      <PointOfContactsInput
+        placeholder="Phone No"
+        onChange={(e) => setPocNum(e.target.value)}
+        value={props.detailOfSupplier.point_of_contacts?.[0]?.phone}
+      ></PointOfContactsInput>
+      <DeleteForeverIcon
+        style={{ fill: "red", height: "18px", marginTop: "5px" }}
+      />
+    </PointOfContactsDiv>;
+  const updateIterationss = (num) => {
+    let arrayp = [];
+    for (let i = 0; i <= num; i++) {
+      arrayp = arrayp.push(updateIterations());
+    }
+    return arrayp;
+  };
 
   const displayInputfields = () => {
     setCount(count + 1);
     console.log(count);
-    for (let i = 0; i <= count; i++) {
-      setPoints(updateIterations());
-    }
+    setPoints(updateIterations());
+    // for (let i = 0; i <= count; i++) {
+    //   setPoints(updateIterationss(i));
+    // }
     console.log("entered");
   };
 
@@ -127,14 +136,14 @@ const CardRightComp = (props) => {
     console.log(FormForAdd);
     props.addSupplier(FormForAdd);
   };
-  const editSupplierTry = () => {
+  const editSupplierTry = (supplier_id) => {
     FormForAdd.name = name;
     FormForAdd.organization_no = companyId;
     FormForAdd.point_of_contacts[0].name = pocName;
     FormForAdd.point_of_contacts[0].email = pocEmail;
     FormForAdd.point_of_contacts[0].phone = pocNum;
     console.log(FormForAdd);
-    props.editSupplier(FormForAdd);
+    props.editSupplier(FormForAdd,supplier_id);
   };
   const columns2 = [
     {
@@ -303,7 +312,7 @@ const CardRightComp = (props) => {
 
           <ButtonsDiv>
             <SaveButton>
-              <button onClick={editSupplierTry()}>
+              <button onClick={editSupplierTry(props.detailOfSupplier.id)}>
                 <div>Save</div>
               </button>
             </SaveButton>
