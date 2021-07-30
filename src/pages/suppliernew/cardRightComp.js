@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Button, Progress, Table } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
+import CircleComponent from "Components/circleComponent";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
@@ -11,10 +12,6 @@ import {
   Line1,
   Contracts,
   CircularBarsContainer,
-  Circle,
-  CircleText,
-  CircleNumber,
-  SpaceBar,
   Consultants,
   CTitle,
   Tags,
@@ -30,14 +27,9 @@ import {
 import { themeColors } from "Config/theme";
 import RefContext from "Utilities/refContext";
 // import CreateCard from "./createCard";
-let i = 2;
 const CardRightComp = (props) => {
-  useEffect(() => {}, [iterations, updateIterations]);
-  let iterations = [0, 1];
-  const updateIterations = (iterations) => {
-    iterations.push(i);
-    console.log("update", iterations);
-    i++;
+  useEffect(() => {}, []);
+  const updateIterations = () => {
     return (
       <PointOfContactsDiv>
         <PointOfContactsInput
@@ -76,30 +68,56 @@ const CardRightComp = (props) => {
     ],
     organization_no: "",
   };
-  const EditedSupplier = {
-    name: "",
-    point_of_contacts: [
-      {
-        name: "",
-        email: "",
-        phone: "",
-      },
-    ],
-    organization_no: "",
-  };
-  const point_of_contacts = [
-    {
-      name: "",
-      email: "",
-      phone: "",
-    },
-  ];
+  // const EditedSupplier = {
+  //   name: "",
+  //   point_of_contacts: [
+  //     {
+  //       name: "",
+  //       email: "",
+  //       phone: "",
+  //     },
+  //   ],
+  //   organization_no: "",
+  // };
+
   const [name, setName] = useState("");
 
   const [companyId, setCompanyId] = useState("");
   const [pocName, setPocName] = useState("");
   const [pocEmail, setPocEmail] = useState("");
   const [pocNum, setPocNum] = useState("");
+  const [count, setCount] = useState(0);
+  const [points, setPoints] = useState();
+  const point = `<PointOfContactsDiv>
+  <PointOfContactsInput
+    placeholder="Name"
+    onChange={(e) => setPocName(e.target.value)}
+    value={props.detailOfSupplier.point_of_contacts?.[0]?.name}
+  ></PointOfContactsInput>
+  <PointOfContactsInput
+    placeholder="Email"
+    onChange={(e) => setPocEmail(e.target.value)}
+    value={props.detailOfSupplier.point_of_contacts?.[0]?.email}
+  ></PointOfContactsInput>
+  <PointOfContactsInput
+    placeholder="Phone No"
+    onChange={(e) => setPocNum(e.target.value)}
+    value={props.detailOfSupplier.point_of_contacts?.[0]?.phone}
+  ></PointOfContactsInput>
+  <DeleteForeverIcon
+    style={{ fill: "red", height: "18px", marginTop: "5px" }}
+  />
+</PointOfContactsDiv>`;
+
+  const displayInputfields = () => {
+    setCount(count + 1);
+    console.log(count);
+    for (let i = 0; i <= count; i++) {
+      setPoints(updateIterations());
+    }
+    console.log("entered");
+  };
+
   const addSupplierTry = () => {
     FormForAdd.name = name;
     FormForAdd.organization_no = companyId;
@@ -151,76 +169,26 @@ const CardRightComp = (props) => {
           <Contracts>Contracts</Contracts>
 
           <CircularBarsContainer>
-            <Circle>
-              <Progress
-                type="circle"
-                percent={100}
-                width={90}
-                style={{ maxWidth: "100%" }}
-                format={() => (
-                  <div>
-                    <CircleNumber>
-                      {props.detailOfSupplier?.contract_summary?.ongoing}
-                    </CircleNumber>
-                    <CircleText>Ongoing</CircleText>
-                  </div>
-                )}
-                strokeColor={themeColors.greenSuccess}
-              />
-            </Circle>
-            <SpaceBar />
-            <Circle>
-              <Progress
-                type="circle"
-                percent={100}
-                width={90}
-                style={{ maxWidth: "100%" }}
-                format={() => (
-                  <div>
-                    <CircleNumber>
-                      {props.detailOfSupplier?.contract_summary?.to_be_renewed}
-                    </CircleNumber>
-                    <CircleText>To Renew</CircleText>
-                  </div>
-                )}
-                strokeColor={themeColors.orangeWarning}
-              />
-            </Circle>
-            <SpaceBar />
-            <Circle>
-              <Progress
-                type="circle"
-                percent={100}
-                width={90}
-                style={{ maxWidth: "100%" }}
-                format={() => (
-                  <div>
-                    <CircleNumber>
-                      {props.detailOfSupplier?.contract_summary?.upcoming}
-                    </CircleNumber>
-                    <CircleText>Upcoming</CircleText>
-                  </div>
-                )}
-                strokeColor={themeColors.blueInfo}
-              />
-            </Circle>
-            <SpaceBar />
-            <Circle>
-              <Progress
-                type="circle"
-                percent={100}
-                width={90}
-                format={() => (
-                  <div>
-                    <CircleNumber>
-                      {props.detailOfSupplier?.contract_summary?.expired}
-                    </CircleNumber>
-                    <CircleText>Expired</CircleText>
-                  </div>
-                )}
-                strokeColor={themeColors.redDanger}
-              />
-            </Circle>
+            <CircleComponent
+              number={props.detailOfSupplier?.contract_summary?.ongoing}
+              text="Ongoing"
+              color={themeColors.greenSuccess}
+            />
+            <CircleComponent
+              number={props.detailOfSupplier?.contract_summary?.to_be_renewed}
+              text="To Renew"
+              color={themeColors.orangeWarning}
+            />
+            <CircleComponent
+              number={props.detailOfSupplier?.contract_summary?.upcoming}
+              text="Upcoming"
+              color={themeColors.blueInfo}
+            />
+            <CircleComponent
+              number={props.detailOfSupplier?.contract_summary?.expired}
+              text="Expired"
+              color={themeColors.redDanger}
+            />
           </CircularBarsContainer>
           <Consultants>
             <CTitle>
@@ -260,36 +228,13 @@ const CardRightComp = (props) => {
             onChange={(e) => setCompanyId(e.target.value)}
           />
           <PointOfContacts>Point Of Contacts</PointOfContacts>
-
-          {iterations.map((x) => {
-            return (
-              <div key={x}>
-                <PointOfContactsDiv>
-                  <PointOfContactsInput
-                    placeholder="Name"
-                    onChange={(e) => setPocName(e.target.value)}
-                  ></PointOfContactsInput>
-                  <PointOfContactsInput
-                    placeholder="Email"
-                    onChange={(e) => setPocEmail(e.target.value)}
-                  ></PointOfContactsInput>
-                  <PointOfContactsInput
-                    placeholder="Phone No"
-                    onChange={(e) => setPocNum(e.target.value)}
-                  ></PointOfContactsInput>
-                  <DeleteForeverIcon
-                    style={{ fill: "red", height: "18px", marginTop: "5px" }}
-                  />
-                </PointOfContactsDiv>
-              </div>
-            );
-          })}
+          <div>{points}</div>
           <button
             onClick={() => {
-              updateIterations(iterations);
+              displayInputfields();
             }}
           >
-            add
+            Add
           </button>
 
           <ButtonsDiv>

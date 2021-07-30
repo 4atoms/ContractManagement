@@ -172,7 +172,7 @@ const SupplierData = () => {
             <Table
               dataSource={suppliersList}
               columns={columns}
-              pagination={{ pageSize: 5 }}
+              pagination={{ pageSize: 4 }}
               // onRow={(record, rowIndex) => {
               //   return {
               //     onClick: (event) => {
