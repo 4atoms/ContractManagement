@@ -1,4 +1,5 @@
 const development = {
+  dashboardOverview: "/dashboard/overview",
   supplierList: "/suppliers",
   contractList: "/contracts",
   consultantList: "/consultants",

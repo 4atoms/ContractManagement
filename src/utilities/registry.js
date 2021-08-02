@@ -1,5 +1,5 @@
 // Controllers
-import Login from "Pages/login";
+import Login from "Pages/Login";
 import Dashboard from "Pages/dashboard";
 import SupplierNew from "Pages/suppliernew";
 import ConsultantNew from "Pages/consultantnew";
