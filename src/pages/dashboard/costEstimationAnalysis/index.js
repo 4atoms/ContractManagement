@@ -142,13 +142,13 @@ const CostEstimation = ({ store, actions }) => {
               initialValues={requestParams}
             >
               <Form.Item name={["month"]}>
-                <Select style={{ width: 120 }} options={months}></Select>
+                <Select style={{ width: 80 }} options={months}></Select>
               </Form.Item>
               <Form.Item name={["year"]}>
-                <Select style={{ width: 120 }} options={year}></Select>
+                <Select style={{ width: 80 }} options={year}></Select>
               </Form.Item>
               <Form.Item name={["type"]}>
-                <Select style={{ width: 120 }}>
+                <Select style={{ width: 105 }}>
                   <Option value="projects">Projects</Option>
                   <Option value="suppliers">Suppliers</Option>
                 </Select>

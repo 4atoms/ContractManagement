@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { CardTitle, RenewableCard, CollectionName } from "./../dashboard.style";
 import { Input, Button, Table, Select } from "antd";
 import { dateFormat, dateDifference } from "Utilities/helpers";
+import ModalLayout from "Components/modalLayout";
+
+import LaunchIcon from "@material-ui/icons/Launch";
 
 const RenewContract = ({ store, actions }) => {
   const { contractListDraft } = store;
@@ -13,10 +16,10 @@ const RenewContract = ({ store, actions }) => {
   );
 
   const [selectedContracts, setSelectedContracts] = useState([]);
+  const [isModalOpen, setisModalOpen] = useState(false);
 
   useEffect(() => {
     if (!contractListDraft) {
-      console.log("came");
       actions.getContractsDataWithQuery({ status: "to_be_renewed" });
     }
   }, []);
@@ -36,6 +39,11 @@ const RenewContract = ({ store, actions }) => {
       );
     });
     setListContract(list);
+  };
+
+  const onclose = () => {
+    setisModalOpen(false);
+    setSelectedContracts([]);
   };
 
   const renewContractsRequest = (contract = null) => {
@@ -115,26 +123,13 @@ const RenewContract = ({ store, actions }) => {
     },
   ];
 
-  return (
-    <RenewableCard style={{ position: "relative" }}>
-      <div style={{ height: "12%" }}>
-        <CardTitle style={{ margin: "0px 0px 4px 0px" }}>
-          <div>Contracts To Renew</div>
-          <div>
-            <Search
-              placeholder="search"
-              style={{ width: 200 }}
-              allowClear
-              onChange={(e) => filterList(e.target.value)}
-            />
-          </div>
-        </CardTitle>
-      </div>
-      <div style={{ height: "85%" }}>
+  const renderTable = (rowCount) => {
+    return (
+      <>
         <Table
           rowKey={["id"]}
           pagination={{
-            pageSize: 3,
+            pageSize: rowCount,
             position: ["bottomLeft"],
             simple: true,
           }}
@@ -149,16 +144,52 @@ const RenewContract = ({ store, actions }) => {
           dataSource={listContract}
           columns={timeSheetColumns}
         ></Table>
-      </div>
-      <Button
-        type="primary"
-        style={{ position: "absolute", right: "50px", bottom: "20px" }}
-        disabled={!selectedContracts.length}
-        onClick={() => renewContractsRequest()}
-      >
-        Renew Selected
-      </Button>
-    </RenewableCard>
+        <Button
+          type="primary"
+          style={{ position: "absolute", right: "50px", bottom: "20px" }}
+          disabled={!selectedContracts.length}
+          onClick={() => renewContractsRequest()}
+        >
+          Renew Selected
+        </Button>
+      </>
+    );
+  };
+  const renderContent = () => {
+    return (
+      <RenewableCard style={{ position: "relative" }}>
+        <div style={{ height: "12%" }}>
+          <CardTitle style={{ margin: "0px 0px 4px 0px" }}>
+            <div>Contracts To Renew</div>
+            <div>
+              <Search
+                placeholder="search"
+                style={{ width: 200 }}
+                allowClear
+                onChange={(e) => filterList(e.target.value)}
+              />
+              <LaunchIcon
+                className="cursorPointer"
+                style={{ margin: "5px 5px 5px 10px" }}
+                onClick={() => setisModalOpen(true)}
+              />
+            </div>
+          </CardTitle>
+        </div>
+        <div style={{ height: "88%" }}>{renderTable(3)}</div>
+      </RenewableCard>
+    );
+  };
+
+  return (
+    <>
+      {renderContent()}
+      {isModalOpen && (
+        <ModalLayout title={"Contracts To Renew"} onclose={onclose}>
+          {renderTable(8)}
+        </ModalLayout>
+      )}
+    </>
   );
 };
 

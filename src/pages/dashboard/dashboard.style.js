@@ -24,6 +24,7 @@ const CardTitle = styled.div`
   color: ${primaryColor};
   display: flex;
   justify-content: space-between;
+  align-item: center;
   margin: 10px;
 `;
 
@@ -36,12 +37,34 @@ const TimeSheetCard = styled(Card)`
   & .ant-table-cell {
     padding: 7px;
   }
+  & .ant-spin-nested-loading {
+    height: 100%;
+  }
+  & .ant-spin-container {
+    height: 100%;
+  }
+  & .ant-table-pagination.ant-pagination {
+    position: absolute;
+    bottom: 0px;
+    margin: 5px 0;
+  }
 `;
 
 const RenewableCard = styled(Card)`
   height: 290px;
   & .ant-table-cell {
     padding: 4px;
+  }
+  & .ant-spin-nested-loading {
+    height: 100%;
+  }
+  & .ant-spin-container {
+    height: 100%;
+  }
+  & .ant-table-pagination.ant-pagination {
+    position: absolute;
+    bottom: 0px;
+    margin: 5px 0;
   }
 `;
 
