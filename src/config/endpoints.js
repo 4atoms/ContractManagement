@@ -5,6 +5,8 @@ const development = {
   consultantList: "/consultants",
   login: "/auth/login",
   signup: "/signup",
+  projectList: "/projects",
+  clientList: "/clients",
 };
 
 export function getAllEndpoints() {

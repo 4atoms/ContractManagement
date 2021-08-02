@@ -75,6 +75,14 @@ const getDetailOfConsultant = (consultant_id) => (dispatch) => {
       dispatch(assignToConsultantStore("detailOfConsultant", resp.data.data));
     });
 };
+
+const addConsultant = (consultantInfo) => () => {
+  nw.api("consultantList")
+    .post(consultantInfo)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
 // Routing
 
 // Reducers
@@ -102,5 +110,6 @@ export default {
     getConsultantsData,
     getDetailOfConsultant,
     setId,
+    addConsultant,
   },
 };
