@@ -13,6 +13,7 @@ import promiseMiddleware from "redux-promise";
 import cloneDeep from "lodash/cloneDeep";
 
 // Ducks
+import AnalysisDucks from "Ducks/analysis.ducks";
 import HomeDucks from "Ducks/home.ducks";
 import ConsultantDucks from "Ducks/consultant.ducks";
 import ContractDucks from "Ducks/contract.ducks";
@@ -29,6 +30,7 @@ function generateBuildingBlocks() {
   let creators = {};
 
   const ducks = {
+    AnalysisDucks,
     HomeDucks,
     ConsultantDucks,
     ContractDucks,
