@@ -93,9 +93,6 @@ const CardRightComp = (props) => {
   const [location, setLocation] = useState("Jaipur");
   const [supplier, setSupplier] = useState("");
   // const [companyId, setCompanyId] = useState("");
-  // const [pocName, setPocName] = useState("");
-  // const [pocEmail, setPocEmail] = useState("");
-  // const [pocNum, setPocNum] = useState("");
   const addConsultantTry = () => {
     FormForAdd.name = name;
     FormForAdd.email = email;
@@ -103,32 +100,42 @@ const CardRightComp = (props) => {
     FormForAdd.DOB = DOB;
     FormForAdd.location = location;
     FormForAdd.supplier = supplier;
-    // FormForAdd2.supplier = supplier;
-    // FormForAdd2.consultant = consultant;
-    // FormForAdd2.client = client;
-    // FormForAdd2.project.project_name = project_name;
-    // FormForAdd2.project.project_number = project_number;
-    // FormForAdd2.cost_center = cost_center;
-    // FormForAdd2.start_date = start_date;
-    // FormForAdd2.period = period;
-    // FormForAdd2.role = role;
-    // FormForAdd2.currency = currency;
-    // FormForAdd2.cost_per_hour = cost_per_hour;
-    console.log("Form for Add",FormForAdd);
-    // console.log(FormForAdd2);
-    props.addConsultant(FormForAdd);
-    // props.addConsultant(FormForAdd2);
+
+    FormForAdd2.supplier = supplier;
+    FormForAdd2.consultant.name = name;
+    FormForAdd2.consultant.email = email;
+    FormForAdd2.consultant.phone = phone;
+    FormForAdd2.client = client;
+    FormForAdd2.project = project;
+    FormForAdd2.cost_center = cost_center;
+    FormForAdd2.start_date = "2021-08-03";
+    FormForAdd2.period = period;
+    FormForAdd2.role = role;
+    FormForAdd2.currency = currency;
+    FormForAdd2.cost_per_hour = cost_per_hour;
+
+    if(supplier && name&&email&& phone &&client &&project && cost_center&& start_date&& period&& role&& currency&& cost_per_hour)
+    {
+      console.log("Form For Add2", FormForAdd2);
+      props.addConsultant(FormForAdd2);
+    }
+    else
+    {
+      console.log("Form for Add", FormForAdd);
+       props.addConsultant(FormForAdd);
+    }
   };
 
   //Contract Create API
   const FormForAdd2 = {
     supplier: "",
-    consultant: "",
-    client: "",
-    project: {
-      project_name: "",
-      project_number: "",
+    consultant: {
+      name: "",
+      email: "",
+      phone: "",
     },
+    client: "",
+    project: "",
     cost_center: "",
     start_date: "",
     period: "",
@@ -139,8 +146,7 @@ const CardRightComp = (props) => {
 
   const [consultant, setConsultant] = useState("");
   const [client, setClient] = useState("");
-  const [project_name, setProject_name] = useState("");
-  const [project_number, setProject_number] = useState("");
+  const [project, setProject] = useState("");
   const [cost_center, setCost_center] = useState("");
   const [start_date, setStart_date] = useState("");
   const [period, setPeriod] = useState("");
@@ -217,7 +223,8 @@ const CardRightComp = (props) => {
       render: (expireddata) => (
         <>
           <div>
-            { dateFormatStandard(expireddata.start_date) } - { dateFormatStandard(expireddata.end_date) }
+            {dateFormatStandard(expireddata.start_date)} -{" "}
+            {dateFormatStandard(expireddata.end_date)}
           </div>
           <div>EUR {expireddata.cost_per_hour}/hr</div>
         </>
@@ -503,7 +510,11 @@ const CardRightComp = (props) => {
                 onSearch={onSearch}
               >
                 {props.suppliersList.map((element) => {
-                  return <Option key={element.id} value={element.id}>{element.name}</Option>;
+                  return (
+                    <Option key={element.id} value={element.id}>
+                      {element.name}
+                    </Option>
+                  );
                 })}
                 {/* <Option value="lucy">Lucy</Option> */}
               </Select>
@@ -518,12 +529,16 @@ const CardRightComp = (props) => {
                 style={{ width: 180 }}
                 placeholder="Select Client"
                 optionFilterProp="children"
-                onChange={(value)=> (clientSelection(value))}
+                onChange={(value) => clientSelection(value)}
                 onFocus={onFocus}
                 onSearch={onSearch}
               >
                 {props.clientsList.map((element) => {
-                  return <Option key={element.id} value={element.id}>{element.name}</Option>;
+                  return (
+                    <Option key={element.id} value={element.id}>
+                      {element.name}
+                    </Option>
+                  );
                 })}
               </Select>
             </Flex50>
@@ -536,9 +551,12 @@ const CardRightComp = (props) => {
                 optionFilterProp="children"
                 onFocus={onFocus}
                 onSearch={onSearch}
+                onChange={(value) => setProject(value)}
               >
                 {projectList.map((element) => {
-                  return <Option key={element.id}>{element.project_name}</Option>;
+                  return (
+                    <Option key={element.id} value={element.id}>{element.project_name}</Option>
+                  );
                 })}
               </Select>
             </Flex50>
@@ -546,7 +564,7 @@ const CardRightComp = (props) => {
               <text>Project ID</text>
               <input
                 placeholder="Project ID"
-                onChange={(e) => setName(e.target.value)}
+                // onChange={(e) => setName(e.target.value)}
               />
             </Flex50>
             <Flex50>
@@ -576,9 +594,10 @@ const CardRightComp = (props) => {
                 optionFilterProp="children"
                 onFocus={onFocus}
                 onSearch={onSearch}
+                onChange={(value) => setPeriod(value)}
               >
-                <Option value="jack">6</Option>
-                <Option value="lucy">12</Option>
+                <Option value={6}>6</Option>
+                <Option value={12}>12</Option>
               </Select>
             </Flex50>
             <Flex50>
@@ -597,6 +616,7 @@ const CardRightComp = (props) => {
                 optionFilterProp="children"
                 onFocus={onFocus}
                 onSearch={onSearch}
+                onChange={(value) => setCurrency(value)}
               >
                 <Option value="EURO">EURO</Option>
                 <Option value="INR">INR</Option>
