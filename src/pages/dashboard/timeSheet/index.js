@@ -23,11 +23,13 @@ const TimeSheet = ({ store, actions }) => {
   }, [contractsList]);
 
   const updateLogTime = (id, logTime) => {
-    let request = {
-      id: id,
-      time_log: logTime,
-    };
-    actions.updateContract(request);
+    if (logTime != "" && logTime && logTime >= 0) {
+      let request = {
+        id: id,
+        time_log: logTime,
+      };
+      actions.updateContract(request);
+    }
   };
 
   const handleChange = (id, value, callBack) => {
@@ -78,6 +80,7 @@ const TimeSheet = ({ store, actions }) => {
       title: "Log Time",
       render: (record) => (
         <InputNumber
+          onBlur={() => console.log("onBlur")}
           onChange={(e) => handleChange(record.id, e, updateLogTime)}
         />
       ),

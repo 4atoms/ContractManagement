@@ -55,10 +55,10 @@ const CostEstimation = ({ store, actions }) => {
   ];
 
   const year = [
-    { label: "2019", value: 2019 },
-    { label: "2020", value: 2020 },
-    { label: "2021", value: 2021 },
-    { label: "2022", value: 2022 },
+    { label: today.getFullYear() - 3, value: today.getFullYear() - 3 },
+    { label: today.getFullYear() - 2, value: today.getFullYear() - 2 },
+    { label: today.getFullYear() - 1, value: today.getFullYear() - 1 },
+    { label: today.getFullYear(), value: today.getFullYear() },
   ];
 
   const mapValues = (analysisArray) => {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { primaryColor, tertiaryColor } from "Theme";
+import { primaryColor, tertiaryColor, themeColors } from "Theme";
 
 const WrapperCard = styled.div`
   background-color: #fafaff;
@@ -76,6 +76,18 @@ const CollectionName = styled.div`
   color: ${tertiaryColor};
 `;
 
+const Button = styled.button`
+  cursor: pointer;
+  color: ${(props) =>
+    props.type == "primary" ? themeColors.white : primaryColor};
+  background-color: ${(props) =>
+    props.type == "primary" ? primaryColor : themeColors.white};
+  border-color: ${(props) =>
+    props.type == "primary" ? themeColors.white : primaryColor};
+  border-radius: 5px;
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+`;
+
 export {
   WrapperCard,
   Card,
@@ -85,4 +97,5 @@ export {
   RenewableCard,
   ChartCard,
   CollectionName,
+  Button,
 };

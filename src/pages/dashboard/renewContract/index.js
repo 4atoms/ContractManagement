@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { CardTitle, RenewableCard, CollectionName } from "./../dashboard.style";
-import { Input, Button, Table, Select } from "antd";
+import {
+  CardTitle,
+  RenewableCard,
+  CollectionName,
+  Button,
+} from "./../dashboard.style";
+import { Input, Table, Select } from "antd";
 import { dateFormat, dateDifference } from "Utilities/helpers";
 import ModalLayout from "Components/modalLayout";
 
@@ -16,6 +21,7 @@ const RenewContract = ({ store, actions }) => {
   );
 
   const [selectedContracts, setSelectedContracts] = useState([]);
+  const [selectedRowsArrayID, setSelectedRowsArrayID] = useState([]);
   const [isModalOpen, setisModalOpen] = useState(false);
 
   useEffect(() => {
@@ -27,6 +33,11 @@ const RenewContract = ({ store, actions }) => {
   useEffect(() => {
     setListContract(contractListDraft?.ongoing);
   }, [contractListDraft]);
+
+  useEffect(() => {
+    setSelectedContracts([]);
+    setSelectedRowsArrayID([]);
+  }, [isModalOpen]);
 
   const filterList = (value) => {
     const list = contractListDraft.ongoing.filter((contract) => {
@@ -43,10 +54,10 @@ const RenewContract = ({ store, actions }) => {
 
   const onclose = () => {
     setisModalOpen(false);
-    setSelectedContracts([]);
   };
 
   const renewContractsRequest = (contract = null) => {
+    console.log("clicked");
     let request = { renew_contracts: [] };
     if (contract) {
       request.renew_contracts.push({
@@ -64,7 +75,7 @@ const RenewContract = ({ store, actions }) => {
     actions.renewContracts(request, { status: "to_be_renewed" });
   };
 
-  const timeSheetColumns = [
+  const renewContractColumns = [
     {
       title: "Name",
       key: "name",
@@ -136,13 +147,15 @@ const RenewContract = ({ store, actions }) => {
           //   loading = {listContract === null}
           rowSelection={{
             type: "checkbox",
+            selectedRowKeys: selectedRowsArrayID,
             onChange: (selectedRowKeys, selectedRows) => {
               setSelectedContracts(selectedRows);
+              setSelectedRowsArrayID(selectedRowKeys);
             },
           }}
           style={{ height: "100%" }}
           dataSource={listContract}
-          columns={timeSheetColumns}
+          columns={renewContractColumns}
         ></Table>
         <Button
           type="primary"
