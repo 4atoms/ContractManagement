@@ -69,7 +69,7 @@ const CardRightComp = (props) => {
     FormForAdd.organization_no = companyId;
     FormForAdd.point_of_contacts = poc;
     console.log(FormForAdd);
-    props.editSupplier(FormForAdd, supplier_id);
+    props.editSupplier(poc, supplier_id);
   };
   const columns2 = [
     {
