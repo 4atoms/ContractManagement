@@ -8,10 +8,10 @@ const nw = new Network();
 
 // STORE
 const initialState = {
-  contractsList: [],
+  contractsList: null,
   upcomingContractsList: [],
   expiredContractsList: [],
-  contractListDraft: [],
+  contractListDraft: null,
   detailOfContract: [],
   id: null,
 };
@@ -65,11 +65,50 @@ const getContractsData = () => (dispatch) => {
       );
     });
 };
+
+const getContractsDataWithQuery = (query) => (dispatch) => {
+  return nw
+    .apiWithQuery("contractWithQuery", query)
+    .get()
+    .then((response) => {
+      dispatch(assignToContractStore("contractListDraft", response.data.data));
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 const getDetailOfcontract = (contract_id) => (dispatch) => {
   nw.apiWithPath("contractList", [contract_id])
     .get()
     .then((resp) => {
       dispatch(assignToContractStore("detailOfContract", resp.data.data));
+    });
+};
+
+//update the contract
+const updateContract = (request) => (dispatch) => {
+  return nw
+    .apiWithPath("contractList", [request.id])
+    .put(request)
+    .then((resp) => {
+      console.log(resp.data.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const renewContracts = (request, query) => (dispatch) => {
+  return nw
+    .api("renewContract")
+    .post(request)
+    .then((resp) => {
+      console.log(resp.data.data);
+      getContractsDataWithQuery(query)(dispatch);
+    })
+    .catch((error) => {
+      console.log(error);
     });
 };
 
@@ -98,6 +137,9 @@ export default {
     assignToContractStore,
     resetContractStore,
     getContractsData,
+    getContractsDataWithQuery,
     getDetailOfcontract,
+    updateContract,
+    renewContracts,
   },
 };

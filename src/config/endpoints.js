@@ -1,9 +1,21 @@
 const development = {
+  dashboardOverview: "/dashboard/overview",
   supplierList: "/suppliers",
   contractList: "/contracts",
   consultantList: "/consultants",
   login: "/auth/login",
   signup: "/signup",
+
+  contractWithQuery: "/contracts?status=", // status will be active, renewed, to_be_renewed, upcoming, expired.
+  renewContract: "consultants/renew_contract", // to renew a contract
+
+  //chart analysis
+  suppliersAnalysis: "/analysis/suppliers?month=&year=", // for all supplier, and also for specfic supplier -> /id
+  consultantAnalysis: "/analysis/consultants?month=&year=", // for specific consultant -> /id
+  clientAnalysis: "/analysis/clients/path?query=&month=&year=", // fro specific client -> /id
+  projectsAnalysis: "/analysis/projects?month=&year=", // for all projects
+  projectList: "/projects",
+  clientList: "/clients",
 };
 
 export function getAllEndpoints() {

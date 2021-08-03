@@ -13,11 +13,13 @@ import promiseMiddleware from "redux-promise";
 import cloneDeep from "lodash/cloneDeep";
 
 // Ducks
+import AnalysisDucks from "Ducks/analysis.ducks";
 import HomeDucks from "Ducks/home.ducks";
 import ConsultantDucks from "Ducks/consultant.ducks";
 import ContractDucks from "Ducks/contract.ducks";
 import SupplierDucks from "Ducks/supplier.ducks";
 import AuthDucks from "Ducks/auth.ducks";
+import ClientAndProjectDucks from "Ducks/clientandproject.ducks";
 
 const history = createBrowserHistory();
 
@@ -28,11 +30,13 @@ function generateBuildingBlocks() {
   let creators = {};
 
   const ducks = {
+    AnalysisDucks,
     HomeDucks,
     ConsultantDucks,
     ContractDucks,
     SupplierDucks,
     AuthDucks,
+    ClientAndProjectDucks,
   };
   const namespaces = [];
 

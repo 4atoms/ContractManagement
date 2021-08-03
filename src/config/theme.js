@@ -3,6 +3,7 @@ export const themeColors = {
   white: "#ffffff",
   // Gray
   gray70: "#535353",
+
   // Red
   red10: "#FFF5F5",
   red20: "#FFE6E7",
@@ -22,9 +23,19 @@ export const themeColors = {
   orangeWarning: "#FF7A00",
   greenSuccess: "#8FC827",
   redDanger: "#DB303F",
+
+  //  Iris/60
+  chartBarOddColor: "#A5A6F6",
+
+  /* Fuschia/80 */
+  chartBarEvenColor: "#F178B6",
+
+  //tertiary color
+  darkGray: "#9E9E9E",
 };
 
 export const primaryColor = themeColors.purple;
+export const tertiaryColor = themeColors.darkGray;
 
 // ************ BreakPoints ************
 export const BreakPoints = {

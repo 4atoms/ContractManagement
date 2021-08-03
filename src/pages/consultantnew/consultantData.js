@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Badge } from "antd";
+import { Table, Space } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import CancelIcon from "@material-ui/icons/Cancel";
 import {
   CardLeft,
   WrapperCard,
@@ -14,28 +15,58 @@ import {
 import { themeColors } from "Config/theme";
 import CardRightComp from "./cardRightComp";
 import { dateFormatStandard, TodayDate } from "../../utilities/helpers";
+import moment from "moment";
 
 const ConsultantData = () => {
   const context = useContext(RefContext);
   const {
-    store: { consultantsList, detailOfConsultant },
-    actions: { getConsultantsData, getDetailOfConsultant, addConsultant },
+    store: {
+      consultantsList,
+      detailOfConsultant,
+      suppliersList,
+      clientsList,
+      projectsList,
+    },
+    actions: {
+      getConsultantsData,
+      getDetailOfConsultant,
+      addConsultant,
+      getSupplierData,
+      getClientData,
+      getProjectData,
+    },
   } = context;
 
   const [displayConsultDetails, setDisplayConsultDetails] = useState(false);
   const [displayCreateConsultant, setDisplayCreateConsultant] = useState(false);
-
+  const [displayEditConsultant, setdisplayEditConsultant] = useState(false);
   useEffect(() => {
     getConsultantsData();
+    getSupplierData();
+    getClientData();
+    getProjectData();
   }, []);
 
+  const sup = () => {
+    console.log(suppliersList);
+  };
   const showDetails = () => {
     setDisplayConsultDetails(true);
+    setDisplayCreateConsultant(false);
+    setdisplayEditConsultant(false);
   };
 
   const showCreate = () => {
     setDisplayConsultDetails(false);
     setDisplayCreateConsultant(true);
+    setdisplayEditConsultant(false);
+  };
+
+  const showEdit = (num) => {
+    getDetailOfConsultant(num);
+    setDisplayConsultDetails(false);
+    setDisplayCreateConsultant(false);
+    setdisplayEditConsultant(true);
   };
 
   const handleClick = (num) => {
@@ -46,8 +77,12 @@ const ConsultantData = () => {
   const columns = [
     {
       title: "Name",
-      dataIndex: "name",
       key: "name",
+      render: (consultantsList, record) => (
+        <Space size="middle">
+          <a onClick={() => handleClick(consultantsList.id)}>{record.name}</a>
+        </Space>
+      ),
     },
     {
       title: "Supplier",
@@ -60,8 +95,14 @@ const ConsultantData = () => {
       title: "Project",
       key: "project",
       render: (consultantsList) => {
-        if (consultantsList.contracts == null) {
-          return <Space size="middle">X</Space>;
+        if (
+          moment(consultantsList.contracts[0]?.end_date).diff(moment(), "days") < 0
+        ) {
+          return (
+            <Space size="middle">
+              <CancelIcon></CancelIcon>
+            </Space>
+          );
         } else {
           return (
             <Space size="middle">
@@ -75,12 +116,22 @@ const ConsultantData = () => {
       title: "Active Contract Expires in",
       key: "acei",
       render: (consultantsList) => {
-        if (consultantsList.contracts == null) {
-          return <Space size="middle">X</Space>;
+        if (
+          moment(consultantsList.contracts[0]?.end_date).diff(moment(), "days") < 0
+        ) {
+          return (
+            <Space size="middle">
+              <CancelIcon></CancelIcon>
+            </Space>
+          );
         } else {
           return (
             <Space size="middle">
               {dateFormatStandard(consultantsList.contracts[0]?.end_date)}
+              {moment(consultantsList.contracts[0]?.end_date).diff(
+                moment(),
+                "days"
+              )}
               {/* <text>{TodayDate()}</text> */}
             </Space>
           );
@@ -97,7 +148,12 @@ const ConsultantData = () => {
       key: "action",
       render: (consultantsList) => (
         <Space size="middle">
-          <EditIcon style={{ fill: "#6041b8", height: "18px" }} />
+          <EditIcon
+            style={{ fill: "#6041b8", height: "18px" }}
+            onClick={() => {
+              showEdit(consultantsList.id);
+            }}
+          />
           <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
         </Space>
       ),
@@ -117,13 +173,14 @@ const ConsultantData = () => {
           <Table
             dataSource={consultantsList}
             columns={columns}
-            onRow={(record, rowIndex) => {
-              return {
-                onClick: () => {
-                  handleClick(record.id);
-                },
-              };
-            }}
+            pagination={{ pageSize: 4 }}
+            // onRow={(record, rowIndex) => {
+            //   return {
+            //     onClick: () => {
+            //       handleClick(record.id);
+            //     },
+            //   };
+            // }}
           ></Table>
         </CardLeft>
       </CardLeftWrapper>
@@ -134,6 +191,10 @@ const ConsultantData = () => {
           displayConsultDetails={displayConsultDetails}
           displayCreateConsultant={displayCreateConsultant}
           addConsultant={addConsultant}
+          displayEditConsultant={displayEditConsultant}
+          suppliersList={suppliersList}
+          clientsList={clientsList}
+          projectsList={projectsList}
         />
       </CardRightWrapper>
     </WrapperCard>

@@ -33,7 +33,6 @@ const TodayDate = () => {
   return moment().format("D MMM  YYYY");
 };
 
-
 // make the first letter caps
 const capitalizeFirstChar = (text) => {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
@@ -82,6 +81,10 @@ const isAdminLoggedIn = (store) => {
   return currentUser && currentUser.roles.indexOf(ROLES.admin) > -1;
 };
 
+const dateDifference = (first, second) => {
+  return Math.round((second - first) / (1000 * 60 * 60 * 24))+1;
+};
+
 export {
   setNamespace,
   uniqKey,
@@ -96,4 +99,5 @@ export {
   dateFormat,
   dateFormatStandard,
   TodayDate,
+  dateDifference,
 };
