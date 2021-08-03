@@ -1,6 +1,6 @@
 import React from "react";
 import { Progress } from "antd";
-import { Circle, CircleNumber, CircleText, SpaceBar } from "../common.style";
+import { Circle, CircleNumber, CircleText } from "../common.style";
 const CircleComponent = (props) => {
   return (
     <>
@@ -19,7 +19,6 @@ const CircleComponent = (props) => {
           strokeColor={props.color}
         />
       </Circle>
-      <SpaceBar />
     </>
   );
 };

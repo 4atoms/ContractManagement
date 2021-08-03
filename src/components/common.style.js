@@ -121,6 +121,7 @@ export const CardRightWrapper = styled.div`
 export const CircularBarsContainer = styled.div`
   display: flex;
   flex: 100%;
+  justify-content: space-around;
   max-width: 100%;
   top: 577px;
   flex-wrap: wrap;
