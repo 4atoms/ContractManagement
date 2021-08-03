@@ -82,8 +82,7 @@ const Button = styled.button`
     props.type == "primary" ? themeColors.white : primaryColor};
   background-color: ${(props) =>
     props.type == "primary" ? primaryColor : themeColors.white};
-  border-color: ${(props) =>
-    props.type == "primary" ? themeColors.white : primaryColor};
+  border: 2px solid ${primaryColor};
   border-radius: 5px;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
