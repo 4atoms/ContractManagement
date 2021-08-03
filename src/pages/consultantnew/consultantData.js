@@ -4,6 +4,7 @@ import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import CancelIcon from "@material-ui/icons/Cancel";
 import {
   CardLeft,
   WrapperCard,
@@ -19,8 +20,21 @@ import moment from "moment";
 const ConsultantData = () => {
   const context = useContext(RefContext);
   const {
-    store: { consultantsList, detailOfConsultant, suppliersList },
-    actions: { getConsultantsData, getDetailOfConsultant, addConsultant, getSupplierData },
+    store: {
+      consultantsList,
+      detailOfConsultant,
+      suppliersList,
+      clientsList,
+      projectsList,
+    },
+    actions: {
+      getConsultantsData,
+      getDetailOfConsultant,
+      addConsultant,
+      getSupplierData,
+      getClientData,
+      getProjectData,
+    },
   } = context;
 
   const [displayConsultDetails, setDisplayConsultDetails] = useState(false);
@@ -29,6 +43,8 @@ const ConsultantData = () => {
   useEffect(() => {
     getConsultantsData();
     getSupplierData();
+    getClientData();
+    getProjectData();
   }, []);
 
   const sup = () => {
@@ -79,8 +95,14 @@ const ConsultantData = () => {
       title: "Project",
       key: "project",
       render: (consultantsList) => {
-        if (consultantsList.contracts == null) {
-          return <Space size="middle">X</Space>;
+        if (
+          moment(consultantsList.contracts[0]?.end_date).diff(moment(), "days") < 0
+        ) {
+          return (
+            <Space size="middle">
+              <CancelIcon></CancelIcon>
+            </Space>
+          );
         } else {
           return (
             <Space size="middle">
@@ -94,8 +116,14 @@ const ConsultantData = () => {
       title: "Active Contract Expires in",
       key: "acei",
       render: (consultantsList) => {
-        if (consultantsList.contracts == null) {
-          return <Space size="middle">X</Space>;
+        if (
+          moment(consultantsList.contracts[0]?.end_date).diff(moment(), "days") < 0
+        ) {
+          return (
+            <Space size="middle">
+              <CancelIcon></CancelIcon>
+            </Space>
+          );
         } else {
           return (
             <Space size="middle">
@@ -104,7 +132,7 @@ const ConsultantData = () => {
                 moment(),
                 "days"
               )}
-              <text>{TodayDate()}</text>
+              {/* <text>{TodayDate()}</text> */}
             </Space>
           );
         }
@@ -137,7 +165,6 @@ const ConsultantData = () => {
         <CardLeft>
           <Card1Header>
             <text>Consultants</text>
-            <div>{sup()}</div>
             <AddCircleIcon
               style={{ float: "right" }}
               onClick={showCreate}
@@ -146,6 +173,7 @@ const ConsultantData = () => {
           <Table
             dataSource={consultantsList}
             columns={columns}
+            pagination={{ pageSize: 4 }}
             // onRow={(record, rowIndex) => {
             //   return {
             //     onClick: () => {
@@ -165,6 +193,8 @@ const ConsultantData = () => {
           addConsultant={addConsultant}
           displayEditConsultant={displayEditConsultant}
           suppliersList={suppliersList}
+          clientsList={clientsList}
+          projectsList={projectsList}
         />
       </CardRightWrapper>
     </WrapperCard>

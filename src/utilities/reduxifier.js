@@ -19,6 +19,7 @@ import ConsultantDucks from "Ducks/consultant.ducks";
 import ContractDucks from "Ducks/contract.ducks";
 import SupplierDucks from "Ducks/supplier.ducks";
 import AuthDucks from "Ducks/auth.ducks";
+import ClientAndProjectDucks from "Ducks/clientandproject.ducks";
 
 const history = createBrowserHistory();
 
@@ -35,6 +36,7 @@ function generateBuildingBlocks() {
     ContractDucks,
     SupplierDucks,
     AuthDucks,
+    ClientAndProjectDucks,
   };
   const namespaces = [];
 

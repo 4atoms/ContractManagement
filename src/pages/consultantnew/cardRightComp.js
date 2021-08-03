@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Table,
   Input,
@@ -47,6 +47,8 @@ import {
   Flex50,
   ButtonsDiv,
   EditConsultantCardComp,
+  SaveButton,
+  CancelButton,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import { dateFormatStandard } from "../../utilities/helpers";
@@ -56,9 +58,10 @@ const { RangePicker } = DatePicker;
 const dateFormat = "DD/MM/YYYY";
 
 const { Option } = Select;
-const onChange = (value) => {
-  console.log(`selected ${value}`);
-};
+// const onChange = (value) => {
+//   console.log(`selected ${value}`);
+
+// };
 
 const onFocus = () => {
   console.log("focus");
@@ -68,35 +71,157 @@ const onSearch = (val) => {
   console.log("search:", val);
 };
 
-const NoExpiredContractButton = (props) => {
-  if (props.detailOfConsultant.contracts?.expired?.length == 0) {
-    console.log("Expired");
-    return <button>No expired contracts </button>;
-  }
-};
-// const NoUpcomingContractButton = (props) => {
-//   if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
-//     console.log("Upcoming");
-//     <button>No upcoming contracts</button>;
-//   }
-// };
-
 const CardRightComp = (props) => {
+  //const context = useContext(RefContext);
+  // const {
+  //   actions: { addConsultant },
+  // } = context;
+
+  //Consultant Create API
+  const FormForAdd = {
+    name: "",
+    email: "",
+    phone: "",
+    DOB: "",
+    location: "",
+    supplier: "",
+  };
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [DOB, setDOB] = useState("1992-07-21");
+  const [location, setLocation] = useState("Jaipur");
+  const [supplier, setSupplier] = useState("");
+  // const [companyId, setCompanyId] = useState("");
+  // const [pocName, setPocName] = useState("");
+  // const [pocEmail, setPocEmail] = useState("");
+  // const [pocNum, setPocNum] = useState("");
+  const addConsultantTry = () => {
+    FormForAdd.name = name;
+    FormForAdd.email = email;
+    FormForAdd.phone = phone;
+    FormForAdd.DOB = DOB;
+    FormForAdd.location = location;
+    FormForAdd.supplier = supplier;
+    // FormForAdd2.supplier = supplier;
+    // FormForAdd2.consultant = consultant;
+    // FormForAdd2.client = client;
+    // FormForAdd2.project.project_name = project_name;
+    // FormForAdd2.project.project_number = project_number;
+    // FormForAdd2.cost_center = cost_center;
+    // FormForAdd2.start_date = start_date;
+    // FormForAdd2.period = period;
+    // FormForAdd2.role = role;
+    // FormForAdd2.currency = currency;
+    // FormForAdd2.cost_per_hour = cost_per_hour;
+    console.log("Form for Add",FormForAdd);
+    // console.log(FormForAdd2);
+    props.addConsultant(FormForAdd);
+    // props.addConsultant(FormForAdd2);
+  };
+
+  //Contract Create API
+  const FormForAdd2 = {
+    supplier: "",
+    consultant: "",
+    client: "",
+    project: {
+      project_name: "",
+      project_number: "",
+    },
+    cost_center: "",
+    start_date: "",
+    period: "",
+    role: "",
+    currency: "",
+    cost_per_hour: "",
+  };
+
+  const [consultant, setConsultant] = useState("");
+  const [client, setClient] = useState("");
+  const [project_name, setProject_name] = useState("");
+  const [project_number, setProject_number] = useState("");
+  const [cost_center, setCost_center] = useState("");
+  const [start_date, setStart_date] = useState("");
+  const [period, setPeriod] = useState("");
+  const [role, setRole] = useState("");
+  const [currency, setCurrency] = useState("");
+  const [cost_per_hour, setCost_per_hour] = useState("");
+
+  const [projectList, setProjectList] = useState([]);
+
+  const NoExpiredContractButton = (props) => {
+    if (props.detailOfConsultant.contracts?.expired?.length == 0) {
+      console.log("Expired");
+      return <button>No expired contracts </button>;
+    } else {
+      return (
+        <Table
+          dataSource={props.detailOfConsultant.contracts?.expired}
+          pagination={{ position: ["none", "none"] }}
+          showHeader={false}
+          columns={columns2}
+        ></Table>
+      );
+    }
+  };
+
+  // const NoUpcomingContractButton = (props) => {
+  //   if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
+  //     console.log("Upcoming");
+  //     <button>No upcoming contracts</button>;
+  //   }
+  // };
+
+  const clientSelection = (value) => {
+    setClient(value);
+    console.log("ClientID", value);
+    console.log("Client Value", client);
+  };
+
+  useEffect(() => {
+    props.clientsList.forEach((clnt) => {
+      console.log(clnt.id == client, client, clnt);
+      if (clnt.id == client) {
+        setProjectList(clnt.projects);
+      }
+      console.log("Projectlist", projectList);
+    });
+  }, [client]);
+
   const columns2 = [
     {
       title: "Client",
-      dataIndex: "client",
       key: "client",
+      render: (expireddata) => (
+        <Space size="middle">{expireddata.client.name}</Space>
+      ),
     },
     {
       title: "Project",
-      dataIndex: "project",
       key: "project",
+      render: (expireddata) => (
+        <>
+          <div>
+            <Space size="middle">{expireddata.project.project_name}</Space>
+          </div>
+          <div>
+            <Space size="middle">{expireddata.role}</Space>
+          </div>
+        </>
+      ),
     },
     {
-      title: "Organization No",
-      dataIndex: "organization_no",
-      key: "organization_no",
+      title: "StartDate - End Date",
+      key: "startdate_enddate",
+      render: (expireddata) => (
+        <>
+          <div>
+            { dateFormatStandard(expireddata.start_date) } - { dateFormatStandard(expireddata.end_date) }
+          </div>
+          <div>EUR {expireddata.cost_per_hour}/hr</div>
+        </>
+      ),
     },
   ];
 
@@ -242,7 +367,12 @@ const CardRightComp = (props) => {
                 <text>Client</text>
               </LightColor>
               <div>
-                <text>A</text>
+                <text>
+                  {
+                    props.detailOfConsultant.contracts?.upcoming?.[0]?.client
+                      ?.name
+                  }
+                </text>
               </div>
             </UpcomingContractSubParts>
             <UpcomingContractSubParts>
@@ -250,7 +380,12 @@ const CardRightComp = (props) => {
                 <text>Project</text>
               </LightColor>
               <div>
-                <text>A</text>
+                <text>
+                  {
+                    props.detailOfConsultant.contracts?.upcoming?.[0]?.project
+                      ?.project_name
+                  }
+                </text>
               </div>
             </UpcomingContractSubParts>
             <UpcomingContractSubParts>
@@ -258,7 +393,9 @@ const CardRightComp = (props) => {
                 <text>Role</text>
               </LightColor>
               <div>
-                <text>A</text>
+                <text>
+                  {props.detailOfConsultant.contracts?.upcoming?.[0]?.role}
+                </text>
               </div>
             </UpcomingContractSubParts>
             <UpcomingContractSubParts>
@@ -266,7 +403,7 @@ const CardRightComp = (props) => {
                 <text>Cost Center</text>
               </LightColor>
               <div>
-                <text>A</text>
+                <text>{props.detailOfConsultant.location}</text>
               </div>
             </UpcomingContractSubParts>
             <UpcomingContractSubParts>
@@ -274,7 +411,12 @@ const CardRightComp = (props) => {
                 <text>Start Date</text>
               </LightColor>
               <div>
-                <text>A</text>
+                <text>
+                  {dateFormatStandard(
+                    props.detailOfConsultant.contracts?.upcoming?.[0]
+                      ?.start_date
+                  )}
+                </text>
               </div>
             </UpcomingContractSubParts>
             <UpcomingContractSubParts>
@@ -282,7 +424,11 @@ const CardRightComp = (props) => {
                 <text>End Date</text>
               </LightColor>
               <div>
-                <text>A</text>
+                <text>
+                  {dateFormatStandard(
+                    props.detailOfConsultant.contracts?.upcoming?.[0]?.end_date
+                  )}
+                </text>
               </div>
             </UpcomingContractSubParts>
             <UpcomingContractSubParts>
@@ -290,7 +436,12 @@ const CardRightComp = (props) => {
                 <text>Cost/hr</text>
               </LightColor>
               <div>
-                <text>A</text>
+                <text>
+                  {
+                    props.detailOfConsultant.contracts?.upcoming?.[0]
+                      ?.cost_per_hour
+                  }
+                </text>
               </div>
             </UpcomingContractSubParts>
             <UpcomingContractSubParts>
@@ -304,12 +455,6 @@ const CardRightComp = (props) => {
             <Badge status="error" />
             <text>Expired Contract</text>
             <div>{NoExpiredContractButton(props)}</div>
-            <Table
-              dataSource={props.detailOfConsultant.contracts?.expired}
-              pagination={{ position: ["none", "none"] }}
-              showHeader={false}
-              columns={columns2}
-            ></Table>
           </ActiveUpcomingExpiredContract>
         </RightCardContent>
       </DisplayCardRight3>
@@ -324,17 +469,26 @@ const CardRightComp = (props) => {
           <NameEmail>
             <Flex50>
               <text>Name</text>
-              <Input placeholder="Name" />
+              <input
+                placeholder="Name"
+                onChange={(e) => setName(e.target.value)}
+              />
             </Flex50>
             <Flex50>
               <text>Email</text>
-              <Input placeholder="Email" />
+              <input
+                placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </Flex50>
           </NameEmail>
           <MobileSupplier>
             <Flex50>
               <text>Mobile</text>
-              <Input placeholder="Mobile" />
+              <input
+                placeholder="Mobile"
+                onChange={(e) => setPhone(e.target.value)}
+              />
             </Flex50>
             <Flex50>
               <text>Supplier</text>
@@ -342,14 +496,14 @@ const CardRightComp = (props) => {
               <Select
                 showSearch
                 style={{ width: 180 }}
-                placeholder="Select a person"
+                placeholder="Select a Supplier"
                 optionFilterProp="children"
-                onChange={onChange}
+                onChange={(value) => setSupplier(value)}
                 onFocus={onFocus}
                 onSearch={onSearch}
               >
                 {props.suppliersList.map((element) => {
-                  return <Option key={element.id}>{element.name}</Option>;
+                  return <Option key={element.id} value={element.id}>{element.name}</Option>;
                 })}
                 {/* <Option value="lucy">Lucy</Option> */}
               </Select>
@@ -364,13 +518,13 @@ const CardRightComp = (props) => {
                 style={{ width: 180 }}
                 placeholder="Select Client"
                 optionFilterProp="children"
-                onChange={onChange}
+                onChange={(value)=> (clientSelection(value))}
                 onFocus={onFocus}
                 onSearch={onSearch}
               >
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="tom">Tom</Option>
+                {props.clientsList.map((element) => {
+                  return <Option key={element.id} value={element.id}>{element.name}</Option>;
+                })}
               </Select>
             </Flex50>
             <Flex50>
@@ -380,29 +534,36 @@ const CardRightComp = (props) => {
                 style={{ width: 180 }}
                 placeholder="Select Project"
                 optionFilterProp="children"
-                onChange={onChange}
                 onFocus={onFocus}
                 onSearch={onSearch}
               >
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="tom">Tom</Option>
+                {projectList.map((element) => {
+                  return <Option key={element.id}>{element.project_name}</Option>;
+                })}
               </Select>
             </Flex50>
             <Flex50>
               <text>Project ID</text>
-              <Input placeholder="Project ID" />
+              <input
+                placeholder="Project ID"
+                onChange={(e) => setName(e.target.value)}
+              />
             </Flex50>
             <Flex50>
               <text>Role</text>
-              <Input placeholder="Role" />
+              <input
+                placeholder="Role"
+                onChange={(e) => setRole(e.target.value)}
+              />
             </Flex50>
             <Flex50>
               <text>Start Date</text>
               <Space direction="vertical" size={18}>
                 <DatePicker
                   // defaultValue={moment("01/01/2015", dateFormat)}
+                  //onChange={(value) => setStart_date(value)}
                   format={dateFormat}
+                  onChange={(e) => setStart_date(e.target.value)}
                 />
               </Space>
             </Flex50>
@@ -413,18 +574,19 @@ const CardRightComp = (props) => {
                 style={{ width: 180 }}
                 placeholder="Select Period"
                 optionFilterProp="children"
-                onChange={onChange}
                 onFocus={onFocus}
                 onSearch={onSearch}
               >
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="tom">Tom</Option>
+                <Option value="jack">6</Option>
+                <Option value="lucy">12</Option>
               </Select>
             </Flex50>
             <Flex50>
               <text>Cost Center</text>
-              <Input placeholder="Cost Center" />
+              <input
+                placeholder="Cost Center"
+                onChange={(e) => setCost_center(e.target.value)}
+              />
             </Flex50>
             <Flex50>
               <text>Currency</text>
@@ -433,25 +595,30 @@ const CardRightComp = (props) => {
                 style={{ width: 180 }}
                 placeholder="Select Currency"
                 optionFilterProp="children"
-                onChange={onChange}
                 onFocus={onFocus}
                 onSearch={onSearch}
               >
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="tom">Tom</Option>
+                <Option value="EURO">EURO</Option>
+                <Option value="INR">INR</Option>
               </Select>
             </Flex50>
             <Flex50>
               <text>Cost/hr</text>
-              <Input placeholder="Mobile" />
+              <input
+                placeholder="Cost/hr"
+                onChange={(e) => setCost_per_hour(e.target.value)}
+              />
             </Flex50>
             <Flex50></Flex50>
           </MobileSupplier>
-          {/* <ButtonsDiv>
-            <button>Save</button>
-            <button>Cancel</button>
-          </ButtonsDiv> */}
+          <ButtonsDiv>
+            <SaveButton>
+              <button onClick={addConsultantTry}>Save</button>
+            </SaveButton>
+            <CancelButton>
+              <button>Cancel</button>
+            </CancelButton>
+          </ButtonsDiv>
         </RightCardContent>
       </CreateConsultantCardComp>
 
@@ -493,7 +660,6 @@ const CardRightComp = (props) => {
             style={{ width: 180 }}
             placeholder="Select Supplier"
             optionFilterProp="children"
-            onChange={onChange}
             onFocus={onFocus}
             onSearch={onSearch}
           >

@@ -14,6 +14,8 @@ const development = {
   consultantAnalysis: "/analysis/consultants?month=&year=", // for specific consultant -> /id
   clientAnalysis: "/analysis/clients/path?query=&month=&year=", // fro specific client -> /id
   projectsAnalysis: "/analysis/projects?month=&year=", // for all projects
+  projectList: "/projects",
+  clientList: "/clients",
 };
 
 export function getAllEndpoints() {
