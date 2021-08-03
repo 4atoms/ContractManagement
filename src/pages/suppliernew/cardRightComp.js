@@ -270,6 +270,7 @@ const CardRightComp = (props) => {
               name="dynamic_form_nest_item"
               onFinish={onFinish}
               autoComplete="off"
+              initialValue={props.detailOfSupplier.point_of_contacts}
             >
               <Form.List name="users">
                 {(fields, { add, remove }) => (
