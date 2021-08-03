@@ -114,16 +114,18 @@ const CardRightComp = (props) => {
     FormForAdd2.currency = currency;
     FormForAdd2.cost_per_hour = cost_per_hour;
 
-    if(supplier && name&&email&& phone &&client &&project && cost_center&& start_date&& period&& role&& currency&& cost_per_hour)
-    {
-      console.log("Form For Add2", FormForAdd2);
-      props.addConsultant(FormForAdd2);
-    }
-    else
-    {
-      console.log("Form for Add", FormForAdd);
-       props.addConsultant(FormForAdd);
-    }
+    // if(supplier && name&&email&& phone &&client &&project && cost_center&& start_date&& period&& role&& currency&& cost_per_hour)
+    // {
+    //   console.log("Form For Add2", FormForAdd2);
+    //   props.addConsultantwithContract(FormForAdd2);
+    // }
+    // else
+    // {
+    //   console.log("Form for Add", FormForAdd);
+    //    props.addConsultant(FormForAdd);
+    // }
+    console.log("Form For Add2", FormForAdd2);
+    props.addConsultantwithContract(FormForAdd2);
   };
 
   //Contract Create API
@@ -561,9 +563,9 @@ const CardRightComp = (props) => {
               </Select>
             </Flex50>
             <Flex50>
-              <text>Project ID</text>
+              <text>Organization ID</text>
               <input
-                placeholder="Project ID"
+                placeholder="Organization ID"
                 // onChange={(e) => setName(e.target.value)}
               />
             </Flex50>
@@ -633,7 +635,7 @@ const CardRightComp = (props) => {
           </MobileSupplier>
           <ButtonsDiv>
             <SaveButton>
-              <button onClick={addConsultantTry}>Save</button>
+              <button onClick={() => addConsultantTry()}>Save</button>
             </SaveButton>
             <CancelButton>
               <button>Cancel</button>

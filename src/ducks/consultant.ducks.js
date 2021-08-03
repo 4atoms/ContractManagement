@@ -83,6 +83,22 @@ const addConsultant = (consultantInfo) => () => {
       console.log(resp.data);
     });
 };
+
+const addConsultantwithContract = (consultantInfo) => () => {
+  nw.api("createContractWithConsultant")
+    .post(consultantInfo)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
+
+const deleteConsultant = (consultantInfo) => () => {
+  nw.apiWithPath("consultantList", [consultantInfo])
+    .delete(consultantInfo)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
 // Routing
 
 // Reducers
@@ -111,5 +127,7 @@ export default {
     getDetailOfConsultant,
     setId,
     addConsultant,
+    deleteConsultant,
+    addConsultantwithContract,
   },
 };
