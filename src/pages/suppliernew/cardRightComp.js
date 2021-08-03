@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Button, Progress, Table } from "antd";
+import { Button, Table, Form, Space, Input } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
+import CircleComponent from "Components/circleComponent";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
@@ -11,10 +12,6 @@ import {
   Line1,
   Contracts,
   CircularBarsContainer,
-  Circle,
-  CircleText,
-  CircleNumber,
-  SpaceBar,
   Consultants,
   CTitle,
   Tags,
@@ -30,31 +27,17 @@ import {
 import { themeColors } from "Config/theme";
 import RefContext from "Utilities/refContext";
 // import CreateCard from "./createCard";
-let i = 2;
 const CardRightComp = (props) => {
-  useEffect(() => {}, [iterations, updateIterations]);
-  let iterations = [0, 1];
-  const updateIterations = (iterations) => {
-    iterations.push(i);
-    console.log("update", iterations);
-    i++;
+  const onFinish = (values) => {
+    setPoc(values.users);
+    console.log("Received values of form:", values);
   };
+
   const context = useContext(RefContext);
   const {
     actions: { addSupplier },
   } = context;
   const FormForAdd = {
-    name: "",
-    point_of_contacts: [
-      {
-        name: "",
-        email: "",
-        phone: "",
-      },
-    ],
-    organization_no: "",
-  };
-  const EditedSupplier = {
     name: "",
     point_of_contacts: [
       {
@@ -72,17 +55,21 @@ const CardRightComp = (props) => {
   const [pocName, setPocName] = useState("");
   const [pocEmail, setPocEmail] = useState("");
   const [pocNum, setPocNum] = useState("");
+  const [poc, setPoc] = useState([]);
+
   const addSupplierTry = () => {
     FormForAdd.name = name;
     FormForAdd.organization_no = companyId;
-    FormForAdd.point_of_contacts[0].name = pocName;
-    FormForAdd.point_of_contacts[0].email = pocEmail;
-    FormForAdd.point_of_contacts[0].phone = pocNum;
+    FormForAdd.point_of_contacts = poc;
     console.log(FormForAdd);
     props.addSupplier(FormForAdd);
   };
-  const editSupplierTry = () => {
-    props.editSupplier();
+  const editSupplierTry = (supplier_id) => {
+    FormForAdd.name = name;
+    FormForAdd.organization_no = companyId;
+    FormForAdd.point_of_contacts = poc;
+    console.log(FormForAdd);
+    props.editSupplier({point_of_contacts:poc}, supplier_id);
   };
   const columns2 = [
     {
@@ -117,76 +104,26 @@ const CardRightComp = (props) => {
           <Contracts>Contracts</Contracts>
 
           <CircularBarsContainer>
-            <Circle>
-              <Progress
-                type="circle"
-                percent={100}
-                width={90}
-                style={{ maxWidth: "100%" }}
-                format={() => (
-                  <div>
-                    <CircleNumber>
-                      {props.detailOfSupplier?.contract_summary?.ongoing}
-                    </CircleNumber>
-                    <CircleText>Ongoing</CircleText>
-                  </div>
-                )}
-                strokeColor={themeColors.greenSuccess}
-              />
-            </Circle>
-            <SpaceBar />
-            <Circle>
-              <Progress
-                type="circle"
-                percent={100}
-                width={90}
-                style={{ maxWidth: "100%" }}
-                format={() => (
-                  <div>
-                    <CircleNumber>
-                      {props.detailOfSupplier?.contract_summary?.to_be_renewed}
-                    </CircleNumber>
-                    <CircleText>To Renew</CircleText>
-                  </div>
-                )}
-                strokeColor={themeColors.orangeWarning}
-              />
-            </Circle>
-            <SpaceBar />
-            <Circle>
-              <Progress
-                type="circle"
-                percent={100}
-                width={90}
-                style={{ maxWidth: "100%" }}
-                format={() => (
-                  <div>
-                    <CircleNumber>
-                      {props.detailOfSupplier?.contract_summary?.upcoming}
-                    </CircleNumber>
-                    <CircleText>Upcoming</CircleText>
-                  </div>
-                )}
-                strokeColor={themeColors.blueInfo}
-              />
-            </Circle>
-            <SpaceBar />
-            <Circle>
-              <Progress
-                type="circle"
-                percent={100}
-                width={90}
-                format={() => (
-                  <div>
-                    <CircleNumber>
-                      {props.detailOfSupplier?.contract_summary?.expired}
-                    </CircleNumber>
-                    <CircleText>Expired</CircleText>
-                  </div>
-                )}
-                strokeColor={themeColors.redDanger}
-              />
-            </Circle>
+            <CircleComponent
+              number={props.detailOfSupplier?.contract_summary?.ongoing}
+              text="Ongoing"
+              color={themeColors.greenSuccess}
+            />
+            <CircleComponent
+              number={props.detailOfSupplier?.contract_summary?.to_be_renewed}
+              text="To Renew"
+              color={themeColors.orangeWarning}
+            />
+            <CircleComponent
+              number={props.detailOfSupplier?.contract_summary?.upcoming}
+              text="Upcoming"
+              color={themeColors.blueInfo}
+            />
+            <CircleComponent
+              number={props.detailOfSupplier?.contract_summary?.expired}
+              text="Expired"
+              color={themeColors.redDanger}
+            />
           </CircularBarsContainer>
           <Consultants>
             <CTitle>
@@ -226,38 +163,67 @@ const CardRightComp = (props) => {
             onChange={(e) => setCompanyId(e.target.value)}
           />
           <PointOfContacts>Point Of Contacts</PointOfContacts>
-
-          {iterations.map((x) => {
-            return (
-              <div key={x}>
-                <PointOfContactsDiv>
-                  <PointOfContactsInput
-                    placeholder="Name"
-                    onChange={(e) => setPocName(e.target.value)}
-                  ></PointOfContactsInput>
-                  <PointOfContactsInput
-                    placeholder="Email"
-                    onChange={(e) => setPocEmail(e.target.value)}
-                  ></PointOfContactsInput>
-                  <PointOfContactsInput
-                    placeholder="Phone No"
-                    onChange={(e) => setPocNum(e.target.value)}
-                  ></PointOfContactsInput>
-                  <DeleteForeverIcon
-                    style={{ fill: "red", height: "18px", marginTop: "5px" }}
-                  />
-                </PointOfContactsDiv>
-              </div>
-            );
-          })}
-          <button
-            onClick={() => {
-              updateIterations(iterations);
-            }}
+          <Form
+            name="dynamic_form_nest_item"
+            onFinish={onFinish}
+            autoComplete="off"
           >
-            add
-          </button>
-
+            <Form.List name="users">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, fieldKey, ...restField }) => (
+                    <Space
+                      key={key}
+                      style={{ display: "flex", marginBottom: 8 }}
+                      align="baseline"
+                    >
+                      <Form.Item
+                        {...restField}
+                        name={[name, "name"]}
+                        fieldKey={[fieldKey, "name"]}
+                        rules={[
+                          { required: true, message: "Missing first name" },
+                        ]}
+                      >
+                        <Input placeholder="Name" />
+                      </Form.Item>
+                      <Form.Item
+                        {...restField}
+                        name={[name, "email"]}
+                        fieldKey={[fieldKey, "email"]}
+                        rules={[
+                          { required: true, message: "Missing last name" },
+                        ]}
+                      >
+                        <Input placeholder="Email" />
+                      </Form.Item>
+                      <Form.Item
+                        {...restField}
+                        name={[name, "phone"]}
+                        fieldKey={[fieldKey, "phone"]}
+                        rules={[
+                          { required: true, message: "Missing first name" },
+                        ]}
+                      >
+                        <Input placeholder="Phone" />
+                      </Form.Item>
+                      <DeleteForeverIcon onClick={() => remove(name)} />
+                    </Space>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block>
+                      Add field
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+            <Form.Item>
+              <Button type="primary" htmlType="submit">
+                Submit
+              </Button>
+            </Form.Item>
+          </Form>
           <ButtonsDiv>
             <SaveButton>
               <button onClick={addSupplierTry}>
@@ -276,7 +242,7 @@ const CardRightComp = (props) => {
         displayEditSupplier={props.displayEditSupplier}
         detailOfSupplier={props.detailOfSupplier}
       >
-        <RightCardContent>
+        <RightCardContent key={props.detailOfSupplier.id}>
           <SupplierName>
             Edit Supplier: {props.detailOfSupplier.name}
             {/* <span style={{ position: "absolute", right: "20px", top: "20px" }}>
@@ -289,42 +255,96 @@ const CardRightComp = (props) => {
           <input
             placeholder="Name"
             onChange={(e) => setName(e.target.value)}
-            value={props.detailOfSupplier.name}
+            defaultValue={props.detailOfSupplier.name}
           />
           <div>Company ID</div>
           <input
             placeholder="xxyyzz##"
             onChange={(e) => setCompanyId(e.target.value)}
-            value={props.detailOfSupplier.id}
+            defaultValue={props.detailOfSupplier.organization_no}
           />
           <PointOfContacts>Point Of Contacts</PointOfContacts>
 
           <PointOfContactsDiv>
-            <PointOfContactsInput
-              placeholder="Name"
-              onChange={(e) => setPocName(e.target.value)}
-              value={props.detailOfSupplier.point_of_contacts?.[0]?.name}
-            ></PointOfContactsInput>
-            <PointOfContactsInput
-              placeholder="Email"
-              onChange={(e) => setPocEmail(e.target.value)}
-              value={props.detailOfSupplier.point_of_contacts?.[0]?.email}
-            ></PointOfContactsInput>
-            <PointOfContactsInput
-              placeholder="Phone No"
-              onChange={(e) => setPocNum(e.target.value)}
-              value={props.detailOfSupplier.point_of_contacts?.[0]?.phone}
-            ></PointOfContactsInput>
-            <DeleteForeverIcon
-              style={{ fill: "red", height: "18px", marginTop: "5px" }}
-            />
+            <Form
+              name="dynamic_form_nest_item"
+              onFinish={onFinish}
+              autoComplete="off"
+              initialValue={props.detailOfSupplier.point_of_contacts}
+            >
+              <Form.List name="users">
+                {(fields, { add, remove }) => (
+                  <>
+                    {fields.map(({ key, name, fieldKey, ...restField }) => (
+                      <Space
+                        key={key}
+                        style={{ display: "flex", marginBottom: 8 }}
+                        align="baseline"
+                      >
+                        <Form.Item
+                          {...restField}
+                          name={[name, "name"]}
+                          fieldKey={[fieldKey, "name"]}
+                          rules={[
+                            { required: true, message: "Missing first name" },
+                          ]}
+                        >
+                          <Input placeholder="Name" />
+                        </Form.Item>
+                        <Form.Item
+                          {...restField}
+                          name={[name, "email"]}
+                          fieldKey={[fieldKey, "email"]}
+                          rules={[
+                            { required: true, message: "Missing last name" },
+                          ]}
+                        >
+                          <Input placeholder="Email" />
+                        </Form.Item>
+                        <Form.Item
+                          {...restField}
+                          name={[name, "phone"]}
+                          fieldKey={[fieldKey, "phone"]}
+                          rules={[
+                            { required: true, message: "Missing first name" },
+                          ]}
+                        >
+                          <Input placeholder="Phone" />
+                        </Form.Item>
+                        <DeleteForeverIcon onClick={() => remove(name)} />
+                      </Space>
+                    ))}
+                    <Form.Item>
+                      <Button type="dashed" onClick={() => add()} block>
+                        Add
+                      </Button>
+                    </Form.Item>
+                  </>
+                )}
+              </Form.List>
+              <Form.Item>
+                <Button type="primary" htmlType="submit">
+                  Submit
+                </Button>
+              </Form.Item>
+            </Form>
           </PointOfContactsDiv>
 
-          <button onClick={updateIterations}>add</button>
-
           <ButtonsDiv>
-            <button onClick={editSupplierTry}>Create</button>
-            <button>Cancel</button>
+            <SaveButton>
+              <button
+                onClick={() => {
+                  editSupplierTry(props.detailOfSupplier.id);
+                }}
+              >
+                <div>Save</div>
+              </button>
+            </SaveButton>
+            <CancelButton>
+              <button>
+                <div>Cancel</div>
+              </button>
+            </CancelButton>
           </ButtonsDiv>
         </RightCardContent>
       </EditCardComp>

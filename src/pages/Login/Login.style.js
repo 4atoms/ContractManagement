@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import bgimg from "../../assets/images/Group29.png"
 export const Login = styled.div`
   box-sizing: border-box;
   margin: 0;
@@ -8,12 +8,14 @@ export const Login = styled.div`
   width: 100%;
   min-height: 100vh;
   padding: 0 20px;
-  background: radial-gradient(
-    ellipse at left bottom,
-    rgba(22, 24, 47, 1) 0%,
-    rgba(38, 20, 72, 0.9) 59%,
-    rgba(17, 27, 75, 0.9) 100%
-  );
+  // background: radial-gradient(
+  //   ellipse at left bottom,
+  //   rgba(22, 24, 47, 1) 0%,
+  //   rgba(38, 20, 72, 0.9) 59%,
+  //   rgba(17, 27, 75, 0.9) 100%
+  // );
+  background-image: url(${bgimg});
+  background-repeat: no-repeat;
   display: flex;
 `;
 

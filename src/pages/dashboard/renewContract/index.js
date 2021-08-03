@@ -11,6 +11,8 @@ import ModalLayout from "Components/modalLayout";
 
 import LaunchIcon from "@material-ui/icons/Launch";
 
+import { primaryColor, themeColors } from "Theme";
+
 const RenewContract = ({ store, actions }) => {
   const { contractListDraft } = store;
   const { Search } = Input;
@@ -80,7 +82,7 @@ const RenewContract = ({ store, actions }) => {
       title: "Name",
       key: "name",
       dataIndex: ["consultant", "name"],
-      render: (text) => <a>{text}</a>,
+      render: (text) => <div style={{ color: primaryColor }}>{text}</div>,
     },
 
     {
@@ -99,7 +101,9 @@ const RenewContract = ({ store, actions }) => {
       dataIndex: ["end_date"],
       render: (endDate) => (
         <div style={{ fontSize: "12px" }}>
-          <span>{dateDifference(new Date(), new Date(endDate))} Days</span>
+          <span style={{ color: themeColors.redDanger }}>
+            {dateDifference(new Date(), new Date(endDate))} Days
+          </span>
           <CollectionName>{dateFormat(endDate)}</CollectionName>
         </div>
       ),

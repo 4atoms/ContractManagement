@@ -17,6 +17,7 @@ import {
 import { themeColors } from "Config/theme";
 import CardRightComp from "./cardRightComp";
 const SupplierData = () => {
+  const { Search } = Input;
   const context = useContext(RefContext);
   const {
     store: { suppliersList, detailOfSupplier },
@@ -25,14 +26,19 @@ const SupplierData = () => {
       getDetailOfSupplier,
       addSupplier,
       deleteSupplier,
+      editSupplier,
     },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
-  const [displayCreateSupplier, setDisplayCreateSupplier] = useState(false);
+  const [displayCreateSupplier, setDisplayCreateSupplier] = useState(true);
   const [displayEditSupplier, setDisplayEditSupplier] = useState(false);
+  const [listSupplier, setListSupplier] = useState(suppliersList);
   useEffect(() => {
     getSupplierData();
   }, []);
+  useEffect(() => {
+    setListSupplier(suppliersList);
+  }, [suppliersList]);
 
   const showDetails = () => {
     setDisplayDetails(true);
@@ -46,6 +52,7 @@ const SupplierData = () => {
   };
 
   const showEdit = (num) => {
+    getDetailOfSupplier(num);
     setDisplayDetails(false);
     setDisplayCreateSupplier(false);
     setDisplayEditSupplier(true);
@@ -54,6 +61,15 @@ const SupplierData = () => {
   const handleClick = (num) => {
     getDetailOfSupplier(num);
     showDetails();
+  };
+  const filterList = (value) => {
+    const list = suppliersList.filter((supplier) => {
+      return (
+        supplier.name.toLowerCase().includes(value.toLowerCase()) ||
+        supplier.organization_no.toLowerCase().includes(value.toLowerCase())
+      );
+    });
+    setListSupplier(list);
   };
 
   const columns = [
@@ -166,17 +182,17 @@ const SupplierData = () => {
                 style={{ float: "right" }}
                 onClick={showCreate}
               ></AddCircleIcon>
+              <Search
+                placeholder="search"
+                style={{ width: 200, float: "right" }}
+                allowClear
+                onChange={(e) => filterList(e.target.value)}
+              />
             </Card1Header>
             <Table
-              dataSource={suppliersList}
+              dataSource={listSupplier}
               columns={columns}
-              // onRow={(record, rowIndex) => {
-              //   return {
-              //     onClick: (event) => {
-              //       handleClick(record.id);
-              //     },
-              //   };
-              // }}
+              pagination={{ pageSize: 4 }}
             ></Table>
           </CardLeft>
         </CardLeftWrapper>
@@ -187,6 +203,7 @@ const SupplierData = () => {
             displayDetails={displayDetails}
             displayCreateSupplier={displayCreateSupplier}
             addSupplier={addSupplier}
+            editSupplier={editSupplier}
             displayEditSupplier={displayEditSupplier}
           />
         </CardRightWrapper>

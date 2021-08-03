@@ -12,6 +12,9 @@ const getUrl = function (url, params) {
 
 module.exports = {
   URL_HOME: "/home",
+  URL_DASHBOARD: "/dashboard",
+  URL_SUPPLIERS: "/suppliers",
+  URL_CONSULTANTS: "/consultants",
   routeTo: (url, history, params) => {
     history.push(getUrl(url, params));
   },

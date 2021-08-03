@@ -3,6 +3,7 @@ import { CardTitle, TimeSheetCard } from "./../dashboard.style";
 import { Input, InputNumber, Table } from "antd";
 import ModalLayout from "Components/modalLayout";
 import LaunchIcon from "@material-ui/icons/Launch";
+import { primaryColor } from "Theme";
 
 const TimeSheet = ({ store, actions }) => {
   const { contractsList } = store;
@@ -57,7 +58,7 @@ const TimeSheet = ({ store, actions }) => {
       title: "Name",
       key: "name",
       dataIndex: ["consultant", "name"],
-      render: (text) => <a>{text}</a>,
+      render: (text) => <div style={{ color: primaryColor }}>{text}</div>,
     },
 
     {
