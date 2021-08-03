@@ -64,16 +64,16 @@ const addSupplier = (supplierInfo) => () => {
       console.log(resp.data);
     });
 };
-const editSupplier = (supplierInfo) => () => {
-  nw.api("supplierList")
+const editSupplier = (supplierInfo,supplierId) => () => {
+  nw.apiWithPath("supplierList", [supplierId])
     .put(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
     });
 };
 const deleteSupplier = (supplierInfo) => () => {
-  nw.api("supplierList")
-    .del(supplierInfo)
+  nw.apiWithPath("supplierList", [supplierInfo])
+    .delete(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
     });

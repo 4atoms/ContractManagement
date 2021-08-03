@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import RefContext from "Utilities/refContext";
 import "./Login.style.js";
 import { Login, LoginContainer, BTNContainer, ImageWrap } from "./Login.style";
-import logo from "Assets/images/proton-logo.png";
+import logo from "Assets/images/Group35.png";
 
 const Loginpage = () => {
   const Context = useContext(RefContext);
