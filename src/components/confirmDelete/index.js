@@ -152,7 +152,8 @@ const DeleteButton = styled.div`
     color: #ffffff;
   }
 `;
-const ConfirmDelete = () => {
+{/* <Popup name="delete" method={deleteSupplier} id={s_id}/> */}
+const ConfirmDelete = (props) => {
   return (
     <>
       <DeleteBox>
@@ -166,7 +167,7 @@ const ConfirmDelete = () => {
             <button>Cancel</button>
           </CancelButton>
           <DeleteButton>
-            <button>Delete</button>
+            <button onClick={props}>Delete</button>
           </DeleteButton>
         </TextDiv>
       </DeleteBox>
