@@ -31,9 +31,11 @@ const ConsultantData = () => {
       getConsultantsData,
       getDetailOfConsultant,
       addConsultant,
+      deleteConsultant,
       getSupplierData,
       getClientData,
       getProjectData,
+      addConsultantwithContract,
     },
   } = context;
 
@@ -96,7 +98,10 @@ const ConsultantData = () => {
       key: "project",
       render: (consultantsList) => {
         if (
-          moment(consultantsList.contracts[0]?.end_date).diff(moment(), "days") < 0
+          moment(consultantsList.contracts[0]?.end_date).diff(
+            moment(),
+            "days"
+          ) < 0
         ) {
           return (
             <Space size="middle">
@@ -117,7 +122,10 @@ const ConsultantData = () => {
       key: "acei",
       render: (consultantsList) => {
         if (
-          moment(consultantsList.contracts[0]?.end_date).diff(moment(), "days") < 0
+          moment(consultantsList.contracts[0]?.end_date).diff(
+            moment(),
+            "days"
+          ) < 0
         ) {
           return (
             <Space size="middle">
@@ -154,7 +162,12 @@ const ConsultantData = () => {
               showEdit(consultantsList.id);
             }}
           />
-          <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
+          <DeleteForeverIcon
+            style={{ fill: "red", height: "18px" }}
+            onClick={() => {
+              deleteConsultant(consultantsList.id);
+            }}
+          />
         </Space>
       ),
     },
@@ -195,6 +208,7 @@ const ConsultantData = () => {
           suppliersList={suppliersList}
           clientsList={clientsList}
           projectsList={projectsList}
+          addConsultantwithContract={addConsultantwithContract}
         />
       </CardRightWrapper>
     </WrapperCard>
