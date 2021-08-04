@@ -103,8 +103,8 @@ const renewContractsDashboard = (request) => (dispatch) => {
     .then((resp) => {
       console.log(resp.data.data);
       getContractsWithQueryDashboard({ status: "active" })(dispatch);
-      getContractsWithQueryDashboard({ status: "to_be_renewed" })(dispatch);
       getOverviewData()(dispatch);
+      getContractsWithQueryDashboard({ status: "to_be_renewed" })(dispatch);
     })
     .catch((error) => {
       console.log(error);
