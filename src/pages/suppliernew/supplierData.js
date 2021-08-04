@@ -16,6 +16,7 @@ import {
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import CardRightComp from "./cardRightComp";
+import RightCardComp from "./rightCardComp";
 const SupplierData = () => {
   const { Search } = Input;
   const context = useContext(RefContext);
