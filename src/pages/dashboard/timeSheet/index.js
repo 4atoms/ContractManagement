@@ -142,7 +142,12 @@ const TimeSheet = ({ store, actions }) => {
     <>
       {renderContent()}
       {isModalOpen && (
-        <ModalLayout title={"Timesheet"} onclose={onclose}>
+        <ModalLayout
+          width={"700px"}
+          height={"550px"}
+          title={"Timesheet"}
+          onclose={onclose}
+        >
           {renderTable()}
         </ModalLayout>
       )}

@@ -201,7 +201,12 @@ const RenewContract = ({ store, actions }) => {
     <>
       {renderContent()}
       {isModalOpen && (
-        <ModalLayout title={"Contracts To Renew"} onclose={onclose}>
+        <ModalLayout
+          width={"700px"}
+          height={"550px"}
+          title={"Contracts To Renew"}
+          onclose={onclose}
+        >
           {renderTable(8)}
         </ModalLayout>
       )}

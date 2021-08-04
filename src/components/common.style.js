@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { mdResStyles, lgResStyles, themeColors } from "Config/theme";
+import {
+  mdResStyles,
+  lgResStyles,
+  themeColors,
+  primaryColor,
+} from "Config/theme";
 
 export const TableWrap = styled.div`
   overflow-x: scroll;
@@ -513,4 +518,15 @@ export const Flex50 = styled.div`
   flex: 46%;
   font-size: 12px;
   height: 46px;
+`;
+
+export const CommonButton = styled.button`
+  cursor: pointer;
+  color: ${(props) =>
+    props.type == "primary" ? themeColors.white : primaryColor};
+  background-color: ${(props) =>
+    props.type == "primary" ? primaryColor : themeColors.white};
+  border: 2px solid ${primaryColor};
+  border-radius: 5px;
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;

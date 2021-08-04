@@ -7,9 +7,9 @@ import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 
 const ContainerWrapper = styled.div`
-  width: 700px;
-  height: 550px;
   margin: 60px auto 0;
+  width: ${(props) => (props.width ? props.width : "100px")};
+  height: ${(props) => (props.height ? props.height : "100px")};
 `;
 
 const Container = styled.div`
@@ -53,10 +53,10 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const ModalLayout = ({ children, onclose, title }) => {
+const ModalLayout = ({ children, onclose, title, width, height }) => {
   const renderContainer = () => {
     return (
-      <ContainerWrapper>
+      <ContainerWrapper width={width} height={height}>
         <Container>
           <Header>
             <Title>{title}</Title>

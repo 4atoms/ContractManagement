@@ -8,11 +8,18 @@ import Header from "Components/Header";
 import ConsultantData from "./consultantData";
 
 const ConsultantNew = (props) => {
-  const propShape = formStoreData(props, ["consultant", "supplier", "clientandproject"]);
+  const propShape = formStoreData(props, [
+    "consultant",
+    "supplier",
+    "clientandproject",
+    "contract",
+  ]);
 
   useEffect(() => {
     return () => {
       propShape.actions.resetSupplierStore();
+      propShape.actions.resetConsultantStore();
+      propShape.actions.resetContractStore();
     };
   }, []);
 
