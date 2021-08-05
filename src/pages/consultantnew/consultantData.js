@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space } from "antd";
+import { Table, Space, Input } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
@@ -18,6 +18,7 @@ import { dateFormatStandard, TodayDate } from "../../utilities/helpers";
 import moment from "moment";
 
 const ConsultantData = () => {
+  const { Search } = Input;
   const context = useContext(RefContext);
   const {
     store: {
@@ -42,12 +43,17 @@ const ConsultantData = () => {
   const [displayConsultDetails, setDisplayConsultDetails] = useState(false);
   const [displayCreateConsultant, setDisplayCreateConsultant] = useState(false);
   const [displayEditConsultant, setdisplayEditConsultant] = useState(false);
+  const [listConsultant, setListConsultant] = useState(consultantsList);
   useEffect(() => {
     getConsultantsData();
     getSupplierData();
     getClientData();
     getProjectData();
   }, []);
+
+  useEffect(() => {
+    setListConsultant(consultantsList);
+  }, [consultantsList]);
 
   const sup = () => {
     console.log(suppliersList);
@@ -74,6 +80,17 @@ const ConsultantData = () => {
   const handleClick = (num) => {
     getDetailOfConsultant(num);
     showDetails();
+  };
+
+  const filterList = (value) => {
+    const list = consultantsList.filter((consultant) => {
+      return (
+        consultant.name.toLowerCase().includes(value.toLowerCase()) ||
+        consultant.supplier.name.toLowerCase().includes(value.toLowerCase()) ||
+        consultant.contracts.project?.project_name?.toLowerCase().includes(value.toLowerCase())
+      );
+    });
+    setListConsultant(list);
   };
 
   const columns = [
@@ -182,9 +199,15 @@ const ConsultantData = () => {
               style={{ float: "right" }}
               onClick={showCreate}
             ></AddCircleIcon>
+            <Search
+              placeholder="search"
+              style={{ width: 200, float: "right" }}
+              allowClear
+              onChange={(e) => filterList(e.target.value)}
+            />
           </Card1Header>
           <Table
-            dataSource={consultantsList}
+            dataSource={listConsultant}
             columns={columns}
             pagination={{ pageSize: 4 }}
             // onRow={(record, rowIndex) => {
