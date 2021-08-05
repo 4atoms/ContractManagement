@@ -8,8 +8,8 @@ import CloseIcon from "@material-ui/icons/Close";
 
 const ContainerWrapper = styled.div`
   margin: 60px auto 0;
-  width: ${(props) => (props.width ? props.width : "100px")};
-  height: ${(props) => (props.height ? props.height : "100px")};
+  width: ${(props) => (props.width ? props.width : "200px")};
+  height: ${(props) => (props.height ? props.height : "200px")};
 `;
 
 const Container = styled.div`
@@ -21,7 +21,8 @@ const Container = styled.div`
 const Header = styled.div`
   width: 100%;
   height: 10%;
-  background-color: ${primaryColor}};
+  background-color: ${(props) =>
+    props.type == "normal" ? primaryColor : themeColors.redDanger};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,12 +54,12 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const ModalLayout = ({ children, onclose, title, width, height }) => {
+const ModalLayout = ({ children, onclose, title, width, height, type }) => {
   const renderContainer = () => {
     return (
       <ContainerWrapper width={width} height={height}>
         <Container>
-          <Header>
+          <Header type={type}>
             <Title>{title}</Title>
             <CloseIcon
               className="cursorPointer"
@@ -80,12 +81,15 @@ const ModalLayout = ({ children, onclose, title, width, height }) => {
 
 ModalLayout.defaultProps = {
   title: "",
+  type: "normal",
 };
 
 ModalLayout.propTypes = {
   children: any,
   onclose: func.isRequries,
   title: string,
+  width: string.isRequries,
+  height: string.isRequries,
 };
 
 export default ModalLayout;
