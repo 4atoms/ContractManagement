@@ -11,7 +11,7 @@ const WrapperCard = styled.div`
 `;
 
 const Card = styled.div`
-  padding: 20px;
+  padding: 15px;
   width: 100%
 
   /* White */
@@ -29,11 +29,11 @@ const CardTitle = styled.div`
 `;
 
 const OverviewCard = styled(Card)`
-  height: 260px;
+  height: 240px;
 `;
 
 const TimeSheetCard = styled(Card)`
-  height: 350px;
+  height: 340px;
   & .ant-table-cell {
     padding: 7px;
   }
@@ -69,7 +69,7 @@ const RenewableCard = styled(Card)`
 `;
 
 const ChartCard = styled(Card)`
-  height: 320px;
+  height: 290px;
 `;
 
 const CollectionName = styled.div`

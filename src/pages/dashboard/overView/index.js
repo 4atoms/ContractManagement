@@ -26,23 +26,23 @@ const OverView = ({ store, actions }) => {
       >
         <CardTitle>Overview</CardTitle>
         <div>
-          <span className="font20">{overviewData?.suppliers || 0}</span>
+          <span className="font18">{overviewData?.suppliers || 0}</span>
           <CollectionName>Suppliers</CollectionName>
         </div>
         <div>
-          <span className="font20">{overviewData?.consultants || 0}</span>
+          <span className="font18">{overviewData?.consultants || 0}</span>
           <CollectionName>Consultants</CollectionName>
         </div>
         <div>
-          <span className="font20">{overviewData?.clients || 0}</span>
+          <span className="font18">{overviewData?.clients || 0}</span>
           <CollectionName>Clients</CollectionName>
         </div>
         <div>
-          <span className="font20">{overviewData?.projects || 0}</span>
+          <span className="font18">{overviewData?.projects || 0}</span>
           <CollectionName>Projects</CollectionName>
         </div>
       </div>
-      <Line1 style={{ margin: "15px 0px" }} />
+      <Line1 style={{ margin: "10px 0px" }} />
       <CardTitle>
         <div>Contracts Summary</div>{" "}
         <Link style={{ color: primaryColor }} to={Url.URL_CONSULTANTS}>

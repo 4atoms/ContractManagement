@@ -51,8 +51,11 @@ a {
 .ant-drawer-body {
   padding: 24px 0px;
 }
-.ant-avatar-lg, .font20 {
+.ant-avatar-lg {
   font-size: 20px;
+}
+.font18 {
+  font-size: 18px;
 }
 .ant-image,
 img {
