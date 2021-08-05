@@ -523,10 +523,19 @@ export const Flex50 = styled.div`
 export const CommonButton = styled.button`
   cursor: pointer;
   color: ${(props) =>
-    props.type == "primary" ? themeColors.white : primaryColor};
+    props.type == "primary"
+      ? themeColors.white
+      : props.deleteModal
+      ? themeColors.redDanger
+      : primaryColor};
   background-color: ${(props) =>
-    props.type == "primary" ? primaryColor : themeColors.white};
-  border: 2px solid ${primaryColor};
+    props.type == "primary"
+      ? props.deleteModal
+        ? themeColors.redDanger
+        : primaryColor
+      : themeColors.white};
+  border: 2px solid
+    ${(props) => (props.deleteModal ? themeColors.redDanger : primaryColor)};
   border-radius: 5px;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
