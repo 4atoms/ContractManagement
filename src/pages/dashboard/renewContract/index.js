@@ -14,12 +14,12 @@ import LaunchIcon from "@material-ui/icons/Launch";
 import { primaryColor, themeColors } from "Theme";
 
 const RenewContract = ({ store, actions }) => {
-  const { contractListDraft } = store;
+  const { renewContractDashboard } = store;
   const { Search } = Input;
   const { Option } = Select;
 
   const [listContract, setListContract] = useState(
-    contractListDraft?.ongoing || null
+    renewContractDashboard?.ongoing || null
   );
 
   const [selectedContracts, setSelectedContracts] = useState([]);
@@ -27,14 +27,14 @@ const RenewContract = ({ store, actions }) => {
   const [isModalOpen, setisModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!contractListDraft) {
-      actions.getContractsDataWithQuery({ status: "to_be_renewed" });
+    if (!renewContractDashboard) {
+      actions.getContractsWithQueryDashboard({ status: "to_be_renewed" });
     }
   }, []);
 
   useEffect(() => {
-    setListContract(contractListDraft?.ongoing);
-  }, [contractListDraft]);
+    setListContract(renewContractDashboard?.ongoing);
+  }, [renewContractDashboard]);
 
   useEffect(() => {
     setSelectedContracts([]);
@@ -42,7 +42,7 @@ const RenewContract = ({ store, actions }) => {
   }, [isModalOpen]);
 
   const filterList = (value) => {
-    const list = contractListDraft.ongoing.filter((contract) => {
+    const list = renewContractDashboard.ongoing.filter((contract) => {
       return (
         contract.consultant.name.toLowerCase().includes(value.toLowerCase()) ||
         contract.supplier.name.toLowerCase().includes(value.toLowerCase()) ||
@@ -59,7 +59,6 @@ const RenewContract = ({ store, actions }) => {
   };
 
   const renewContractsRequest = (contract = null) => {
-    console.log("clicked");
     let request = { renew_contracts: [] };
     if (contract) {
       request.renew_contracts.push({
@@ -74,7 +73,7 @@ const RenewContract = ({ store, actions }) => {
         });
       });
     }
-    actions.renewContracts(request, { status: "to_be_renewed" });
+    actions.renewContractsDashboard(request, { status: "to_be_renewed" });
   };
 
   const renewContractColumns = [
@@ -202,7 +201,12 @@ const RenewContract = ({ store, actions }) => {
     <>
       {renderContent()}
       {isModalOpen && (
-        <ModalLayout title={"Contracts To Renew"} onclose={onclose}>
+        <ModalLayout
+          width={"700px"}
+          height={"550px"}
+          title={"Contracts To Renew"}
+          onclose={onclose}
+        >
           {renderTable(8)}
         </ModalLayout>
       )}

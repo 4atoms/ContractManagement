@@ -6,30 +6,32 @@ import LaunchIcon from "@material-ui/icons/Launch";
 import { primaryColor } from "Theme";
 
 const TimeSheet = ({ store, actions }) => {
-  const { contractsList } = store;
+  const { activeContractDashboard, analysisQuery } = store;
   const { Search } = Input;
 
   const [inDebounce, setInDebounce] = useState();
-  const [listContract, setListContract] = useState(contractsList);
+  const [listContract, setListContract] = useState(
+    activeContractDashboard?.ongoing
+  );
   const [isModalOpen, setisModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!contractsList) {
-      actions.getContractsData();
+    if (!activeContractDashboard) {
+      actions.getContractsWithQueryDashboard({ status: "active" });
     }
   }, []);
 
   useEffect(() => {
-    setListContract(contractsList);
-  }, [contractsList]);
+    setListContract(activeContractDashboard?.ongoing);
+  }, [activeContractDashboard]);
 
   const updateLogTime = (id, logTime) => {
-    if (logTime != "" && logTime && logTime >= 0) {
+    if (logTime != null && logTime >= 0) {
       let request = {
         id: id,
         time_log: logTime,
       };
-      actions.updateContract(request);
+      actions.updateContractDashboard(request, analysisQuery);
     }
   };
 
@@ -42,7 +44,7 @@ const TimeSheet = ({ store, actions }) => {
     );
   };
   const filterList = (value) => {
-    const list = contractsList.filter((contract) => {
+    const list = activeContractDashboard.filter((contract) => {
       return (
         contract.consultant.name.toLowerCase().includes(value.toLowerCase()) ||
         contract.project.project_name
@@ -140,7 +142,12 @@ const TimeSheet = ({ store, actions }) => {
     <>
       {renderContent()}
       {isModalOpen && (
-        <ModalLayout title={"Timesheet"} onclose={onclose}>
+        <ModalLayout
+          width={"700px"}
+          height={"550px"}
+          title={"Timesheet"}
+          onclose={onclose}
+        >
           {renderTable()}
         </ModalLayout>
       )}

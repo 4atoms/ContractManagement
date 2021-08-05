@@ -9,6 +9,11 @@ const nw = new Network();
 // STORE
 const initialState = {
   overviewData: null,
+  activeContractDashboard: null,
+  renewContractDashboard: null,
+  allSuppliersAnalysisDashboard: null,
+  allProjectsAnalysisDashboard: null,
+  analysisQuery: null,
 };
 
 // ACTIONS
@@ -35,6 +40,7 @@ const resetDashboardStore = () => (dispatch) => {
 
 // METHODS
 
+// overview card
 const getOverviewData = () => (dispatch) => {
   return nw
     .api("dashboardOverview")
@@ -46,6 +52,102 @@ const getOverviewData = () => (dispatch) => {
     .catch((error) => {
       console.log(error);
     });
+};
+
+// timesheet card
+const getContractsWithQueryDashboard = (query) => (dispatch) => {
+  return nw
+    .apiWithQuery("contractWithQuery", query)
+    .get()
+    .then((response) => {
+      if (query.status == "active") {
+        dispatch(
+          assignToDashboardStore("activeContractDashboard", response.data.data)
+        );
+      } else {
+        dispatch(
+          assignToDashboardStore("renewContractDashboard", response.data.data)
+        );
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+//update the contract
+const updateContractDashboard = (request, query) => (dispatch) => {
+  return nw
+    .apiWithPath("contractList", [request.id])
+    .put(request)
+    .then((resp) => {
+      console.log(resp.data.data);
+      if (query) {
+        if (query.type == "projects") {
+          getAllProjectsAnalysisDashboard(query)(dispatch);
+        } else {
+          getAllSuppliersAnalysisDashboard(query)(dispatch);
+        }
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+//renewcard
+const renewContractsDashboard = (request) => (dispatch) => {
+  return nw
+    .api("renewContract")
+    .post(request)
+    .then((resp) => {
+      console.log(resp.data.data);
+      getContractsWithQueryDashboard({ status: "active" })(dispatch);
+      getOverviewData()(dispatch);
+      getContractsWithQueryDashboard({ status: "to_be_renewed" })(dispatch);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+// cost estimation card
+const getAllSuppliersAnalysisDashboard = (request) => (dispatch) => {
+  return nw
+    .apiWithQuery("suppliersAnalysis", request)
+    .get()
+    .then((response) => {
+      dispatch(
+        assignToDashboardStore(
+          "allSuppliersAnalysisDashboard",
+          response.data.data
+        )
+      );
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const getAllProjectsAnalysisDashboard = (request) => (dispatch) => {
+  return nw
+    .apiWithQuery("projectsAnalysis", request)
+    .get()
+    .then((response) => {
+      dispatch(
+        assignToDashboardStore(
+          "allProjectsAnalysisDashboard",
+          response.data.data
+        )
+      );
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const updateAnalysisQuery = (query) => (dispatch) => {
+  return dispatch(assignToDashboardStore("analysisQuery", query));
 };
 
 // Routing
@@ -73,5 +175,11 @@ export default {
     assignToDashboardStore,
     resetDashboardStore,
     getOverviewData,
+    getContractsWithQueryDashboard,
+    updateContractDashboard,
+    renewContractsDashboard,
+    getAllSuppliersAnalysisDashboard,
+    getAllProjectsAnalysisDashboard,
+    updateAnalysisQuery,
   },
 };

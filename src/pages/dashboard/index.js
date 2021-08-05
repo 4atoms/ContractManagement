@@ -8,13 +8,11 @@ import DashboardPage from "./dashboard";
 import Header from "../../components/Header/index";
 
 const Dashboard = (props) => {
-  const propShape = formStoreData(props, ["dashboard", "contract", "analysis"]);
+  const propShape = formStoreData(props, ["dashboard"]);
 
   useEffect(() => {
     return () => {
       propShape.actions.resetDashboardStore();
-      propShape.actions.resetContractStore();
-      propShape.actions.resetAnalysisStore();
     };
   }, []);
 
