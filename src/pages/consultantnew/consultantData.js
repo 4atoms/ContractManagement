@@ -50,8 +50,11 @@ const ConsultantData = () => {
   const [displayCreateConsultant, setDisplayCreateConsultant] = useState(false);
   const [displayEditConsultant, setdisplayEditConsultant] = useState(false);
 
-  const [isModalOpen, setisModalOpen] = useState(false);
-  const [renewContractDetail, setRenewContractDetail] = useState();
+  const [isRenewModalOpen, setRenewModalOpen] = useState(false);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+
+  const [renewContractDetail, setRenewContractDetail] = useState(null);
+  const [deleteContractDetail, setDeleteContractDetail] = useState(null);
   const [period, setPeriod] = useState(6);
 
   const [listConsultant, setListConsultant] = useState(consultantsList);
@@ -91,9 +94,11 @@ const ConsultantData = () => {
   };
 
   const onclose = () => {
-    setisModalOpen(false);
+    setRenewModalOpen(false);
     setPeriod(6);
     setRenewContractDetail(null);
+    setDeleteModalOpen(false);
+    setDeleteContractDetail(null);
   };
 
   const renewContractsRequest = () => {
@@ -273,7 +278,7 @@ const ConsultantData = () => {
                 <Button
                   onClick={() => {
                     setRenewContractDetail(consultantsList);
-                    setisModalOpen(true);
+                    setRenewModalOpen(true);
                   }}
                 >
                   Renew
@@ -307,9 +312,11 @@ const ConsultantData = () => {
             }}
           />
           <DeleteForeverIcon
+            className="cursorPointer"
             style={{ fill: "red", height: "18px" }}
             onClick={() => {
-              deleteConsultant(consultantsList.id);
+              setDeleteContractDetail(consultantsList);
+              setDeleteModalOpen(true);
             }}
           />
         </Space>
@@ -317,23 +324,85 @@ const ConsultantData = () => {
     },
   ];
 
+  const buttonStyle = {
+    position: "absolute",
+    bottom: "23px",
+    gap: "10px",
+    display: "flex",
+    right: "20px",
+  };
+  const colStyle = {
+    gap: "20px",
+    display: "flex",
+    flexFlow: "column",
+  };
+  const valueStyle = {
+    color: primaryColor,
+    padding: "0px 10px",
+  };
+
+  const delValStyle = {
+    color: themeColors.redDanger,
+    padding: "0px 10px",
+  };
+
+  const renderDeleteContent = () => {
+    return (
+      <>
+        <Row style={{ padding: "20px 10px" }}>
+          <Col style={colStyle} span={9}>
+            <div>
+              Consultant name:
+              <span style={delValStyle}>{deleteContractDetail.name}</span>
+            </div>
+            <div>
+              Supplier name:
+              <span style={delValStyle}>
+                {deleteContractDetail.supplier.name}
+              </span>
+            </div>
+            <div>
+              Email:
+              <span style={delValStyle}>{deleteContractDetail.email}</span>
+            </div>
+            <div>
+              Phone:
+              <span style={delValStyle}>{deleteContractDetail.phone}</span>
+            </div>
+          </Col>
+          <Col style={colStyle} span={15}>
+            <div>
+              Consultant ID:
+              <span style={delValStyle}>{deleteContractDetail.id}</span>
+            </div>
+            <div>
+              Supplier ID:
+              <span style={delValStyle}>
+                {deleteContractDetail.supplier.id}
+              </span>
+            </div>
+          </Col>
+        </Row>
+        <div style={buttonStyle}>
+          <CommonButton deleteModal onClick={() => onclose()}>
+            Cancel
+          </CommonButton>
+          <CommonButton
+            onClick={() => {
+              deleteConsultant(deleteContractDetail.id);
+              onclose();
+            }}
+            type="primary"
+            deleteModal
+          >
+            Delete
+          </CommonButton>
+        </div>
+      </>
+    );
+  };
+
   const renderRenewContent = () => {
-    const buttonStyle = {
-      position: "absolute",
-      bottom: "23px",
-      gap: "10px",
-      display: "flex",
-      right: "20px",
-    };
-    const colStyle = {
-      gap: "20px",
-      display: "flex",
-      flexFlow: "column",
-    };
-    const valueStyle = {
-      color: primaryColor,
-      padding: "0px 10px",
-    };
     return (
       <>
         <Row style={{ padding: "20px 10px" }}>
@@ -452,14 +521,16 @@ const ConsultantData = () => {
   return (
     <>
       {renderContent()}
-      {isModalOpen && (
+      {(isRenewModalOpen || isDeleteModalOpen) && (
         <ModalLayout
           width={"550px"}
-          height={"340px"}
-          title={"Renew Contract"}
+          height={isDeleteModalOpen ? "300px" : "340px"}
+          title={isDeleteModalOpen ? "Delete Contract" : "Renew Contract"}
           onclose={onclose}
+          type={isDeleteModalOpen ? "delete" : "normal"}
         >
-          {renderRenewContent()}
+          {isRenewModalOpen && renderRenewContent()}
+          {isDeleteModalOpen && renderDeleteContent()}
         </ModalLayout>
       )}
     </>

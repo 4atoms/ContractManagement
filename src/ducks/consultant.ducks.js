@@ -92,11 +92,12 @@ const addConsultantwithContract = (consultantInfo) => () => {
     });
 };
 
-const deleteConsultant = (consultantInfo) => () => {
+const deleteConsultant = (consultantInfo) => (dispatch) => {
   nw.apiWithPath("consultantList", [consultantInfo])
     .delete(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+      getConsultantsData()(dispatch);
     });
 };
 // Routing
