@@ -269,7 +269,7 @@ const CardRightComp = (props) => {
   const [client_name, setClient_name] = useState("");
   const [organization_no, setOrganization_no] = useState("");
   const [project_name, setProject_name] = useState("");
-  const [project_number, setProject_number] = useState("");
+  const [project_number, setProject_number] = useState("1");
 
   //Client already Created -> new Project Creation API
   const FormForAdd4 = {
