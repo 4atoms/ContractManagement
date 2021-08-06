@@ -11,7 +11,7 @@ const WrapperCard = styled.div`
 `;
 
 const Card = styled.div`
-  padding: 20px;
+  padding: 15px;
   width: 100%
 
   /* White */
@@ -29,11 +29,11 @@ const CardTitle = styled.div`
 `;
 
 const OverviewCard = styled(Card)`
-  height: 260px;
+  height: 240px;
 `;
 
 const TimeSheetCard = styled(Card)`
-  height: 350px;
+  height: 340px;
   & .ant-table-cell {
     padding: 7px;
   }
@@ -69,7 +69,7 @@ const RenewableCard = styled(Card)`
 `;
 
 const ChartCard = styled(Card)`
-  height: 320px;
+  height: 290px;
 `;
 
 const CollectionName = styled.div`
@@ -82,8 +82,7 @@ const Button = styled.button`
     props.type == "primary" ? themeColors.white : primaryColor};
   background-color: ${(props) =>
     props.type == "primary" ? primaryColor : themeColors.white};
-  border-color: ${(props) =>
-    props.type == "primary" ? themeColors.white : primaryColor};
+  border: 2px solid ${primaryColor};
   border-radius: 5px;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;

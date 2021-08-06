@@ -19,7 +19,7 @@ const Header = () => {
             <a href="suppliers">Suppliers</a>
           </Link>
           <Link>
-            <a href="consultantsnew">ConsultantsNew</a>
+            <a href="consultants">ConsultantsNew</a>
           </Link>
         </LinkComponent>
         <UserProfile>

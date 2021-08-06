@@ -9,6 +9,7 @@ import {
   Select,
   DatePicker,
   Space,
+  AutoComplete,
 } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import { DownOutlined, UserOutlined } from "@ant-design/icons";
@@ -93,9 +94,6 @@ const CardRightComp = (props) => {
   const [location, setLocation] = useState("Jaipur");
   const [supplier, setSupplier] = useState("");
   // const [companyId, setCompanyId] = useState("");
-  // const [pocName, setPocName] = useState("");
-  // const [pocEmail, setPocEmail] = useState("");
-  // const [pocNum, setPocNum] = useState("");
   const addConsultantTry = () => {
     FormForAdd.name = name;
     FormForAdd.email = email;
@@ -103,27 +101,132 @@ const CardRightComp = (props) => {
     FormForAdd.DOB = DOB;
     FormForAdd.location = location;
     FormForAdd.supplier = supplier;
-    // FormForAdd2.supplier = supplier;
-    // FormForAdd2.consultant = consultant;
-    // FormForAdd2.client = client;
-    // FormForAdd2.project.project_name = project_name;
-    // FormForAdd2.project.project_number = project_number;
-    // FormForAdd2.cost_center = cost_center;
-    // FormForAdd2.start_date = start_date;
-    // FormForAdd2.period = period;
-    // FormForAdd2.role = role;
-    // FormForAdd2.currency = currency;
-    // FormForAdd2.cost_per_hour = cost_per_hour;
-    console.log("Form for Add",FormForAdd);
-    // console.log(FormForAdd2);
-    props.addConsultant(FormForAdd);
-    // props.addConsultant(FormForAdd2);
+
+    FormForAdd2.supplier = supplier;
+    FormForAdd2.consultant.name = name;
+    FormForAdd2.consultant.email = email;
+    FormForAdd2.consultant.phone = phone;
+    FormForAdd2.client = client;
+    FormForAdd2.project = project;
+    FormForAdd2.cost_center = cost_center;
+    FormForAdd2.start_date = "2021-08-03";
+    FormForAdd2.period = period;
+    FormForAdd2.role = role;
+    FormForAdd2.currency = currency;
+    FormForAdd2.cost_per_hour = cost_per_hour;
+
+    FormForAdd3.supplier = supplier;
+    FormForAdd3.consultant.name = name;
+    FormForAdd3.consultant.email = email;
+    FormForAdd3.consultant.phone = phone;
+    FormForAdd3.client.name = client_name;
+    FormForAdd3.client.organization_no = organization_no;
+    FormForAdd3.project.project_name = project_name;
+    FormForAdd3.project.project_number = project_number;
+    FormForAdd3.cost_center = cost_center;
+    FormForAdd3.start_date = "2021-08-03";
+    FormForAdd3.period = period;
+    FormForAdd3.role = role;
+    FormForAdd3.currency = currency;
+    FormForAdd3.cost_per_hour = cost_per_hour;
+
+    FormForAdd4.supplier = supplier;
+    FormForAdd4.consultant.name = name;
+    FormForAdd4.consultant.email = email;
+    FormForAdd4.consultant.phone = phone;
+    FormForAdd4.client = client;
+    FormForAdd4.project.project_name = project_name;
+    FormForAdd4.project.project_number = project_number;
+    FormForAdd4.cost_center = cost_center;
+    FormForAdd4.start_date = "2021-08-03";
+    FormForAdd4.period = period;
+    FormForAdd4.role = role;
+    FormForAdd4.currency = currency;
+    FormForAdd4.cost_per_hour = cost_per_hour;
+
+    // if(supplier && name&&email&& phone &&client &&project && cost_center&& start_date&& period&& role&& currency&& cost_per_hour)
+    // {
+    //   console.log("Form For Add2", FormForAdd2);
+    //   props.addConsultantwithContract(FormForAdd2);
+    // }
+    // else
+    // {
+    //   console.log("Form for Add", FormForAdd);
+    //    props.addConsultant(FormForAdd);
+    // }
+    console.log("Form For Add", FormForAdd);
+    console.log("Form For Add2", FormForAdd2);
+    console.log("Form For Add3", FormForAdd3);
+    console.log("Form For Add4", FormForAdd4);
+    // props.addConsultantwithContract(FormForAdd2);
   };
 
   //Contract Create API
   const FormForAdd2 = {
     supplier: "",
-    consultant: "",
+    consultant: {
+      name: "",
+      email: "",
+      phone: "",
+    },
+    client: "",
+    project: "",
+    cost_center: "",
+    start_date: "",
+    period: "",
+    role: "",
+    currency: "",
+    cost_per_hour: "",
+  };
+
+  const [consultant, setConsultant] = useState("");
+  const [client, setClient] = useState("");
+  const [project, setProject] = useState("");
+  const [cost_center, setCost_center] = useState("");
+  const [start_date, setStart_date] = useState("");
+  const [period, setPeriod] = useState("");
+  const [role, setRole] = useState("");
+  const [currency, setCurrency] = useState("");
+  const [cost_per_hour, setCost_per_hour] = useState("");
+
+  const [projectList, setProjectList] = useState([]);
+
+  //Client and Project Simultaneous Creation API
+  const FormForAdd3 = {
+    supplier: "",
+    consultant: {
+      name: "",
+      email: "",
+      phone: "",
+    },
+    client: {
+      name: "",
+      organization_no: "",
+    },
+    project: {
+      project_name: "",
+      project_number: "",
+    },
+    cost_center: "",
+    start_date: "",
+    period: "",
+    role: "",
+    currency: "",
+    cost_per_hour: "",
+  };
+  const [client_name, setClient_name] = useState("");
+  const [organization_no, setOrganization_no] = useState("");
+  const [project_name, setProject_name] = useState("");
+  const [project_number, setProject_number] = useState("");
+
+  //Client already Created -> new Project Creation API
+  const FormForAdd4 = {
+    supplier: "",
+    consultant: {
+      name: "",
+      email: "",
+      phone: "",
+    },
     client: "",
     project: {
       project_name: "",
@@ -136,19 +239,6 @@ const CardRightComp = (props) => {
     currency: "",
     cost_per_hour: "",
   };
-
-  const [consultant, setConsultant] = useState("");
-  const [client, setClient] = useState("");
-  const [project_name, setProject_name] = useState("");
-  const [project_number, setProject_number] = useState("");
-  const [cost_center, setCost_center] = useState("");
-  const [start_date, setStart_date] = useState("");
-  const [period, setPeriod] = useState("");
-  const [role, setRole] = useState("");
-  const [currency, setCurrency] = useState("");
-  const [cost_per_hour, setCost_per_hour] = useState("");
-
-  const [projectList, setProjectList] = useState([]);
 
   const NoExpiredContractButton = (props) => {
     if (props.detailOfConsultant.contracts?.expired?.length == 0) {
@@ -174,9 +264,26 @@ const CardRightComp = (props) => {
   // };
 
   const clientSelection = (value) => {
-    setClient(value);
+    // setClient(value);
     console.log("ClientID", value);
-    console.log("Client Value", client);
+    if (typeof value == "string") {
+      setClient_name(value);
+      setClient(null);
+    } else {
+      setClient(value.id);
+      setClient_name(null);
+    }
+  };
+
+  const ProjectSelection = (value) => {
+    console.log("ProjectID", value);
+    if (typeof value == "string") {
+      setProject_name(value);
+      setProject(null);
+    } else {
+      setProject(value.id);
+      setProject_name(null);
+    }
   };
 
   useEffect(() => {
@@ -187,6 +294,10 @@ const CardRightComp = (props) => {
       }
       console.log("Projectlist", projectList);
     });
+    if(!client)
+    {
+      setProjectList([]);
+    }
   }, [client]);
 
   const columns2 = [
@@ -217,7 +328,8 @@ const CardRightComp = (props) => {
       render: (expireddata) => (
         <>
           <div>
-            { dateFormatStandard(expireddata.start_date) } - { dateFormatStandard(expireddata.end_date) }
+            {dateFormatStandard(expireddata.start_date)} -{" "}
+            {dateFormatStandard(expireddata.end_date)}
           </div>
           <div>EUR {expireddata.cost_per_hour}/hr</div>
         </>
@@ -469,14 +581,16 @@ const CardRightComp = (props) => {
           <NameEmail>
             <Flex50>
               <text>Name</text>
-              <input
+              <Input
+                style={{ width: 180 }}
                 placeholder="Name"
                 onChange={(e) => setName(e.target.value)}
               />
             </Flex50>
             <Flex50>
               <text>Email</text>
-              <input
+              <Input
+                style={{ width: 180 }}
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -485,7 +599,8 @@ const CardRightComp = (props) => {
           <MobileSupplier>
             <Flex50>
               <text>Mobile</text>
-              <input
+              <Input
+                style={{ width: 180 }}
                 placeholder="Mobile"
                 onChange={(e) => setPhone(e.target.value)}
               />
@@ -503,7 +618,11 @@ const CardRightComp = (props) => {
                 onSearch={onSearch}
               >
                 {props.suppliersList.map((element) => {
-                  return <Option key={element.id} value={element.id}>{element.name}</Option>;
+                  return (
+                    <Option key={element.id} value={element.id}>
+                      {element.name}
+                    </Option>
+                  );
                 })}
                 {/* <Option value="lucy">Lucy</Option> */}
               </Select>
@@ -513,45 +632,81 @@ const CardRightComp = (props) => {
           <MobileSupplier>
             <Flex50>
               <text>Client</text>
-              <Select
-                showSearch
-                style={{ width: 180 }}
-                placeholder="Select Client"
+              <AutoComplete
+                style={{
+                  width: 200,
+                }}
                 optionFilterProp="children"
-                onChange={(value)=> (clientSelection(value))}
-                onFocus={onFocus}
-                onSearch={onSearch}
+                // onSearch={(value) => onClientSearch(value)}
+                onChange={(value) => clientSelection(value)}
+                onSelect={(value, options) =>
+                  clientSelection({ id: options.id, value })
+                }
+                placeholder="Enter Client"
+                filterOption={(inputValue, option) => {
+                  return (
+                    option.key
+                      .toUpperCase()
+                      .indexOf(inputValue.toUpperCase()) !== -1
+                  );
+                }}
               >
                 {props.clientsList.map((element) => {
-                  return <Option key={element.id} value={element.id}>{element.name}</Option>;
+                  return (
+                    <Option
+                      key={element.name}
+                      id={element.id}
+                      value={element.name}
+                    >
+                      {element.name}
+                    </Option>
+                  );
                 })}
-              </Select>
+              </AutoComplete>
             </Flex50>
             <Flex50>
               <text>Project</text>
-              <Select
-                showSearch
-                style={{ width: 180 }}
-                placeholder="Select Project"
+              <AutoComplete
+                style={{
+                  width: 200,
+                }}
                 optionFilterProp="children"
-                onFocus={onFocus}
+                optionLabelProp="title"
+                onChange={(value) => ProjectSelection(value)}
+                onSelect={(value, options) =>
+                  ProjectSelection({ id: options.id, value })
+                }
+                placeholder="Select Project Demo"
                 onSearch={onSearch}
+                filterOption={(inputValue, option) => {
+                  return (
+                    option.key
+                      .toUpperCase()
+                      .indexOf(inputValue.toUpperCase()) !== -1
+                  );
+                }}
               >
                 {projectList.map((element) => {
-                  return <Option key={element.id}>{element.project_name}</Option>;
+                  return (
+                    <Option key={element.id} id={element.id} value={element.project_name}>
+                      {element.project_name}
+                    </Option>
+                  );
                 })}
-              </Select>
+              </AutoComplete>
             </Flex50>
             <Flex50>
-              <text>Project ID</text>
-              <input
-                placeholder="Project ID"
-                onChange={(e) => setName(e.target.value)}
+              <text>Organization ID</text>
+              <Input
+                style={{ width: 180 }}
+                placeholder="Organization ID"
+                // onChange={(e) => setName(e.target.value)}
               />
             </Flex50>
             <Flex50>
               <text>Role</text>
-              <input
+              <Input
+                style={{ width: 180 }}
                 placeholder="Role"
                 onChange={(e) => setRole(e.target.value)}
               />
@@ -560,6 +715,7 @@ const CardRightComp = (props) => {
               <text>Start Date</text>
               <Space direction="vertical" size={18}>
                 <DatePicker
+                  style={{ width: 180 }}
                   // defaultValue={moment("01/01/2015", dateFormat)}
                   //onChange={(value) => setStart_date(value)}
                   format={dateFormat}
@@ -576,14 +732,16 @@ const CardRightComp = (props) => {
                 optionFilterProp="children"
                 onFocus={onFocus}
                 onSearch={onSearch}
+                onChange={(value) => setPeriod(value)}
               >
-                <Option value="jack">6</Option>
-                <Option value="lucy">12</Option>
+                <Option value={6}>6</Option>
+                <Option value={12}>12</Option>
               </Select>
             </Flex50>
             <Flex50>
               <text>Cost Center</text>
-              <input
+              <Input
+                style={{ width: 180 }}
                 placeholder="Cost Center"
                 onChange={(e) => setCost_center(e.target.value)}
               />
@@ -597,6 +755,7 @@ const CardRightComp = (props) => {
                 optionFilterProp="children"
                 onFocus={onFocus}
                 onSearch={onSearch}
+                onChange={(value) => setCurrency(value)}
               >
                 <Option value="EURO">EURO</Option>
                 <Option value="INR">INR</Option>
@@ -604,7 +763,8 @@ const CardRightComp = (props) => {
             </Flex50>
             <Flex50>
               <text>Cost/hr</text>
-              <input
+              <Input
+                style={{ width: 180 }}
                 placeholder="Cost/hr"
                 onChange={(e) => setCost_per_hour(e.target.value)}
               />
@@ -613,7 +773,7 @@ const CardRightComp = (props) => {
           </MobileSupplier>
           <ButtonsDiv>
             <SaveButton>
-              <button onClick={addConsultantTry}>Save</button>
+              <button onClick={() => addConsultantTry()}>Save</button>
             </SaveButton>
             <CancelButton>
               <button>Cancel</button>
@@ -637,19 +797,19 @@ const CardRightComp = (props) => {
           </ConsultantName>
           <Line1 />
           <div>Name</div>
-          <input
+          <Input
             placeholder="Name"
             // onChange={(e) => setName(e.target.value)}
             // value={props.detailOfSupplier.name}
           />
           <div>Email</div>
-          <input
+          <Input
             placeholder="Email"
             // onChange={(e) => setCompanyId(e.target.value)}
             // value={props.detailOfSupplier.id}
           />
           <div>Mobile</div>
-          <input
+          <Input
             placeholder="Mobile"
             // onChange={(e) => setCompanyId(e.target.value)}
             // value={props.detailOfSupplier.id}

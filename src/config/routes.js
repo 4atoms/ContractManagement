@@ -20,7 +20,7 @@ const fetchRoutes = (containers) => {
 
         <Route
           exact
-          path="/consultantsnew"
+          path="/consultants"
           component={withRouter(ConsultantNew)}
         />
 

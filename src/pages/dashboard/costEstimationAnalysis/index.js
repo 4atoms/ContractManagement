@@ -6,7 +6,7 @@ import { themeColors } from "Theme";
 import { Bar } from "react-chartjs-2";
 
 const CostEstimation = ({ store, actions }) => {
-  const { allSuppliersAnalysis, allProjectsAnalysis } = store;
+  const { allSuppliersAnalysisDashboard, allProjectsAnalysisDashboard } = store;
   const { Option } = Select;
 
   const [form] = Form.useForm();
@@ -24,20 +24,28 @@ const CostEstimation = ({ store, actions }) => {
   });
 
   useEffect(() => {
+    actions.updateAnalysisQuery(requestParams);
     if (requestParams.type == "projects") {
-      actions.getAllProjectsAnalysis(requestParams);
+      actions.getAllProjectsAnalysisDashboard(requestParams);
     } else {
-      actions.getAllSuppliersAnalysis(requestParams);
+      actions.getAllSuppliersAnalysisDashboard(requestParams);
     }
   }, [requestParams]);
 
   useEffect(() => {
-    if (requestParams.type == "suppliers" && allSuppliersAnalysis) {
-      mapValues(allSuppliersAnalysis);
-    } else if (requestParams.type == "projects" && allProjectsAnalysis) {
-      mapValues(allProjectsAnalysis);
+    if (requestParams.type == "suppliers" && allSuppliersAnalysisDashboard) {
+      mapValues(allSuppliersAnalysisDashboard);
+    } else if (
+      requestParams.type == "projects" &&
+      allProjectsAnalysisDashboard
+    ) {
+      mapValues(allProjectsAnalysisDashboard);
     }
-  }, [allSuppliersAnalysis, allProjectsAnalysis, requestParams]);
+  }, [
+    allSuppliersAnalysisDashboard,
+    allProjectsAnalysisDashboard,
+    requestParams,
+  ]);
 
   const months = [
     { label: "Jan", value: 1 },

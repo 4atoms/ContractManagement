@@ -99,13 +99,13 @@ const updateContract = (request) => (dispatch) => {
     });
 };
 
-const renewContracts = (request, query) => (dispatch) => {
+const renewContracts = (request) => (dispatch) => {
   return nw
     .api("renewContract")
     .post(request)
     .then((resp) => {
       console.log(resp.data.data);
-      getContractsDataWithQuery(query)(dispatch);
+      getContractsData()(dispatch);
     })
     .catch((error) => {
       console.log(error);

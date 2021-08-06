@@ -1,5 +1,10 @@
 import styled from "styled-components";
-import { mdResStyles, lgResStyles, themeColors } from "Config/theme";
+import {
+  mdResStyles,
+  lgResStyles,
+  themeColors,
+  primaryColor,
+} from "Config/theme";
 
 export const TableWrap = styled.div`
   overflow-x: scroll;
@@ -121,6 +126,7 @@ export const CardRightWrapper = styled.div`
 export const CircularBarsContainer = styled.div`
   display: flex;
   flex: 100%;
+  justify-content: space-around;
   max-width: 100%;
   top: 577px;
   flex-wrap: wrap;
@@ -512,4 +518,24 @@ export const Flex50 = styled.div`
   flex: 46%;
   font-size: 12px;
   height: 46px;
+`;
+
+export const CommonButton = styled.button`
+  cursor: pointer;
+  color: ${(props) =>
+    props.type == "primary"
+      ? themeColors.white
+      : props.deleteModal
+      ? themeColors.redDanger
+      : primaryColor};
+  background-color: ${(props) =>
+    props.type == "primary"
+      ? props.deleteModal
+        ? themeColors.redDanger
+        : primaryColor
+      : themeColors.white};
+  border: 2px solid
+    ${(props) => (props.deleteModal ? themeColors.redDanger : primaryColor)};
+  border-radius: 5px;
+  opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;
