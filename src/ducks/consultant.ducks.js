@@ -91,6 +91,14 @@ const addConsultantwithContract = (consultantInfo) => () => {
       console.log(resp.data);
     });
 };
+const editConsultant = (consultantInfo, consultantId) => () => {
+
+  nw.apiWithPath("consultantList", [consultantId])
+    .put(consultantInfo)
+    .then((resp) => {
+      console.log(resp.data);
+    });
+};
 
 const deleteConsultant = (consultantInfo) => (dispatch) => {
   nw.apiWithPath("consultantList", [consultantInfo])
@@ -130,5 +138,6 @@ export default {
     addConsultant,
     deleteConsultant,
     addConsultantwithContract,
+    editConsultant,
   },
 };

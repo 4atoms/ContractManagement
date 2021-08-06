@@ -28,6 +28,13 @@ import { themeColors } from "Config/theme";
 import RefContext from "Utilities/refContext";
 // import CreateCard from "./createCard";
 const CardRightComp = (props) => {
+  const [form] = Form.useForm();
+
+  const intialValue = {
+    name: null,
+    organisation_no: null,
+    point_of_contacts: [{ name: null, email: null, phone: null }],
+  };
   const onFinish = (values) => {
     setPoc(values.users);
     console.log("Received values of form:", values);
@@ -52,9 +59,6 @@ const CardRightComp = (props) => {
   const [name, setName] = useState("");
 
   const [companyId, setCompanyId] = useState("");
-  const [pocName, setPocName] = useState("");
-  const [pocEmail, setPocEmail] = useState("");
-  const [pocNum, setPocNum] = useState("");
   const [poc, setPoc] = useState([]);
 
   const addSupplierTry = () => {
@@ -69,7 +73,7 @@ const CardRightComp = (props) => {
     FormForAdd.organization_no = companyId;
     FormForAdd.point_of_contacts = poc;
     console.log(FormForAdd);
-    props.editSupplier({point_of_contacts:poc}, supplier_id);
+    props.editSupplier({ point_of_contacts: poc }, supplier_id);
   };
   const columns2 = [
     {
@@ -95,7 +99,12 @@ const CardRightComp = (props) => {
           <SupplierName>
             {props.detailOfSupplier.name}
             <span style={{ position: "absolute", right: "20px", top: "20px" }}>
-              <EditIcon style={{ height: "18px" }} />
+              <EditIcon
+                style={{ height: "18px" }}
+                onClick={() => {
+                  editSupplierTry(props.detailOfSupplier.id);
+                }}
+              />
               <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
             </span>
           </SupplierName>
@@ -150,7 +159,12 @@ const CardRightComp = (props) => {
           <SupplierName>
             Create Supplier
             {/* <span style={{ position: "absolute", right: "20px", top: "20px" }}>
-              <EditIcon style={{ height: "18px" }} />
+              <EditIcon
+                style={{ height: "18px" }}
+                onClick={() => {
+                  editSupplierTry(props.detailOfSupplier.id);
+                }}
+              />
               <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
             </span> */}
           </SupplierName>
@@ -164,9 +178,11 @@ const CardRightComp = (props) => {
           />
           <PointOfContacts>Point Of Contacts</PointOfContacts>
           <Form
+            form={form}
             name="dynamic_form_nest_item"
             onFinish={onFinish}
             autoComplete="off"
+            initialValues={props.detailOfSupplier || intialValue}
           >
             <Form.List name="users">
               {(fields, { add, remove }) => (
@@ -270,7 +286,9 @@ const CardRightComp = (props) => {
               name="dynamic_form_nest_item"
               onFinish={onFinish}
               autoComplete="off"
-              initialValue={props.detailOfSupplier.point_of_contacts}
+              initialValues={{
+                users: props.detailOfSupplier?.point_of_contacts,
+              }}
             >
               <Form.List name="users">
                 {(fields, { add, remove }) => (
