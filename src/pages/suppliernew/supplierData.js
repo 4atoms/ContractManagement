@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Badge, Input } from "antd";
+import { Table, Space, Badge, Input, Row, Col } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { themeColors, tertiaryColor, primaryColor } from "Config/theme";
 import {
   CardLeft,
   WrapperCard,
@@ -13,8 +14,10 @@ import {
   BadgeGreen,
   BadgeOrange,
   BadgeBlue,
+  CommonButton,
 } from "Components/common.style";
 import CardRightComp from "./cardRightComp";
+import ModalLayout from "Components/modalLayout";
 // import { themeColors } from "Config/theme";
 // import RightCardComp from "./rightCardComp";
 const SupplierData = () => {
@@ -34,6 +37,7 @@ const SupplierData = () => {
   const [displayCreateSupplier, setDisplayCreateSupplier] = useState(true);
   const [displayEditSupplier, setDisplayEditSupplier] = useState(false);
   const [listSupplier, setListSupplier] = useState(suppliersList);
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   useEffect(() => {
     getSupplierData();
   }, []);
@@ -62,6 +66,10 @@ const SupplierData = () => {
   const handleClick = (num) => {
     getDetailOfSupplier(num);
     showDetails();
+  };
+  const onclose = () => {
+    setDeleteModalOpen(false);
+    setDeleteSupplierDetail(null);
   };
   const filterList = (value) => {
     const list = suppliersList.filter((supplier) => {
@@ -171,45 +179,114 @@ const SupplierData = () => {
       ),
     },
   ];
+  const buttonStyle = {
+    position: "absolute",
+    bottom: "23px",
+    gap: "10px",
+    display: "flex",
+    right: "20px",
+  };
+  const colStyle = {
+    gap: "20px",
+    display: "flex",
+    flexFlow: "column",
+  };
+  const valueStyle = {
+    color: primaryColor,
+    padding: "0px 10px",
+  };
 
+  const delValStyle = {
+    color: themeColors.redDanger,
+    padding: "0px 10px",
+  };
+
+  const renderDeleteContent = () => {
+    return (
+      <>
+        <Row style={{ padding: "20px 10px" }}>
+          <Col style={colStyle} span={9}>
+            <div>
+              Supplier name:
+              <span style={delValStyle}>{detailOfSupplier.name}</span>
+            </div>
+          </Col>
+        </Row>
+        <div style={buttonStyle}>
+          <CommonButton deleteModal onClick={() => onclose()}>
+            Cancel
+          </CommonButton>
+          <CommonButton
+            onClick={() => {
+              deleteSupplier(suppliersList.id);
+              onclose();
+            }}
+            type="primary"
+            deleteModal
+          >
+            Delete
+          </CommonButton>
+        </div>
+      </>
+    );
+  };
+  const renderContent = () => {
+    return (
+      <>
+        <WrapperCard>
+          <CardLeftWrapper>
+            <CardLeft>
+              <Card1Header>
+                <text>Suppliers</text>
+                <AddCircleIcon
+                  style={{ float: "right" }}
+                  onClick={showCreate}
+                ></AddCircleIcon>
+                <Search
+                  placeholder="search"
+                  style={{ width: 200, float: "right" }}
+                  allowClear
+                  onChange={(e) => filterList(e.target.value)}
+                />
+              </Card1Header>
+              <Table
+                dataSource={listSupplier}
+                columns={columns}
+                pagination={{ pageSize: 4 }}
+              ></Table>
+            </CardLeft>
+          </CardLeftWrapper>
+
+          <CardRightWrapper>
+            <CardRightComp
+              detailOfSupplier={detailOfSupplier}
+              displayDetails={displayDetails}
+              displayCreateSupplier={displayCreateSupplier}
+              addSupplier={addSupplier}
+              editSupplier={editSupplier}
+              displayEditSupplier={displayEditSupplier}
+            />
+          </CardRightWrapper>
+        </WrapperCard>
+      </>
+    );
+  };
   return (
     <>
-      <WrapperCard>
-        <CardLeftWrapper>
-          <CardLeft>
-            <Card1Header>
-              <text>Suppliers</text>
-              <AddCircleIcon
-                style={{ float: "right" }}
-                onClick={showCreate}
-              ></AddCircleIcon>
-              <Search
-                placeholder="search"
-                style={{ width: 200, float: "right" }}
-                allowClear
-                onChange={(e) => filterList(e.target.value)}
-              />
-            </Card1Header>
-            <Table
-              dataSource={listSupplier}
-              columns={columns}
-              pagination={{ pageSize: 4 }}
-            ></Table>
-          </CardLeft>
-        </CardLeftWrapper>
-
-        <CardRightWrapper>
-          <CardRightComp
-            detailOfSupplier={detailOfSupplier}
-            displayDetails={displayDetails}
-            displayCreateSupplier={displayCreateSupplier}
-            addSupplier={addSupplier}
-            editSupplier={editSupplier}
-            displayEditSupplier={displayEditSupplier}
-          />
-        </CardRightWrapper>
-      </WrapperCard>
+      {renderContent()}
+      {isDeleteModalOpen && (
+        <ModalLayout
+          width={"550px"}
+          height={"300px"}
+          title={"Delete Supplier"}
+          onclose={onclose}
+          type={"delete"}
+        >
+          {isDeleteModalOpen && renderDeleteContent()}
+        </ModalLayout>
+      )}
     </>
   );
 };
 export default SupplierData;
+
