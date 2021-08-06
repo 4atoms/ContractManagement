@@ -31,6 +31,7 @@ import {
   CTitle,
   Tags,
   PointOfContacts,
+  CommonButton,
   EmailMobileSupplier,
   Email,
   Mobile,
@@ -83,23 +84,18 @@ const CardRightComp = (props) => {
     name: "",
     email: "",
     phone: "",
-    DOB: "",
-    location: "",
     supplier: "",
   };
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [DOB, setDOB] = useState("1992-07-21");
-  const [location, setLocation] = useState("Jaipur");
+  const [start_date, setStart_date] = useState("");
   const [supplier, setSupplier] = useState("");
   // const [companyId, setCompanyId] = useState("");
   const addConsultantTry = () => {
     FormForAdd.name = name;
     FormForAdd.email = email;
     FormForAdd.phone = phone;
-    FormForAdd.DOB = DOB;
-    FormForAdd.location = location;
     FormForAdd.supplier = supplier;
 
     FormForAdd2.supplier = supplier;
@@ -109,7 +105,7 @@ const CardRightComp = (props) => {
     FormForAdd2.client = client;
     FormForAdd2.project = project;
     FormForAdd2.cost_center = cost_center;
-    FormForAdd2.start_date = "2021-08-03";
+    FormForAdd2.start_date = start_date;
     FormForAdd2.period = period;
     FormForAdd2.role = role;
     FormForAdd2.currency = currency;
@@ -124,7 +120,7 @@ const CardRightComp = (props) => {
     FormForAdd3.project.project_name = project_name;
     FormForAdd3.project.project_number = project_number;
     FormForAdd3.cost_center = cost_center;
-    FormForAdd3.start_date = "2021-08-03";
+    FormForAdd3.start_date = start_date;
     FormForAdd3.period = period;
     FormForAdd3.role = role;
     FormForAdd3.currency = currency;
@@ -138,27 +134,84 @@ const CardRightComp = (props) => {
     FormForAdd4.project.project_name = project_name;
     FormForAdd4.project.project_number = project_number;
     FormForAdd4.cost_center = cost_center;
-    FormForAdd4.start_date = "2021-08-03";
+    FormForAdd4.start_date = start_date;
     FormForAdd4.period = period;
     FormForAdd4.role = role;
     FormForAdd4.currency = currency;
     FormForAdd4.cost_per_hour = cost_per_hour;
 
-    // if(supplier && name&&email&& phone &&client &&project && cost_center&& start_date&& period&& role&& currency&& cost_per_hour)
-    // {
-    //   console.log("Form For Add2", FormForAdd2);
-    //   props.addConsultantwithContract(FormForAdd2);
-    // }
-    // else
-    // {
-    //   console.log("Form for Add", FormForAdd);
-    //    props.addConsultant(FormForAdd);
-    // }
-    console.log("Form For Add", FormForAdd);
-    console.log("Form For Add2", FormForAdd2);
-    console.log("Form For Add3", FormForAdd3);
-    console.log("Form For Add4", FormForAdd4);
-    // props.addConsultantwithContract(FormForAdd2);
+    console.log(
+      supplier,
+      name,
+      email,
+      phone,
+      client,
+      project,
+      cost_center,
+      start_date,
+      period,
+      role,
+      currency,
+      cost_per_hour,
+      client_name,
+      project_name,
+      project_number,
+      organization_no
+    );
+
+    if (
+      client &&
+      project_name &&
+      !client_name &&
+      supplier &&
+      name &&
+      email &&
+      phone &&
+      cost_center &&
+      start_date &&
+      period &&
+      role &&
+      currency &&
+      cost_per_hour
+    ) {
+      console.log("Form For Add4", FormForAdd4);
+      props.addConsultantwithContract(FormForAdd4);
+    } else if (
+      client_name &&
+      project_name &&
+      organization_no &&
+      supplier &&
+      name &&
+      email &&
+      phone &&
+      cost_center &&
+      period &&
+      role &&
+      currency &&
+      cost_per_hour
+    ) {
+      console.log("Form For Add3", FormForAdd3);
+      props.addConsultantwithContract(FormForAdd3);
+    } else if (
+      supplier &&
+      name &&
+      email &&
+      phone &&
+      client &&
+      project &&
+      cost_center &&
+      start_date &&
+      period &&
+      role &&
+      currency &&
+      cost_per_hour
+    ) {
+      console.log("Form For Add2", FormForAdd2);
+      props.addConsultantwithContract(FormForAdd2);
+    } else if (name && email && phone && supplier) {
+      console.log("Form for Add", FormForAdd);
+      props.addConsultant(FormForAdd);
+    }
   };
 
   //Contract Create API
@@ -183,7 +236,6 @@ const CardRightComp = (props) => {
   const [client, setClient] = useState("");
   const [project, setProject] = useState("");
   const [cost_center, setCost_center] = useState("");
-  const [start_date, setStart_date] = useState("");
   const [period, setPeriod] = useState("");
   const [role, setRole] = useState("");
   const [currency, setCurrency] = useState("");
@@ -217,7 +269,7 @@ const CardRightComp = (props) => {
   const [client_name, setClient_name] = useState("");
   const [organization_no, setOrganization_no] = useState("");
   const [project_name, setProject_name] = useState("");
-  const [project_number, setProject_number] = useState("");
+  const [project_number, setProject_number] = useState("1");
 
   //Client already Created -> new Project Creation API
   const FormForAdd4 = {
@@ -291,12 +343,13 @@ const CardRightComp = (props) => {
       console.log(clnt.id == client, client, clnt);
       if (clnt.id == client) {
         setProjectList(clnt.projects);
+        setOrganization_no(clnt.organization_no);
       }
       console.log("Projectlist", projectList);
     });
-    if(!client)
-    {
+    if (!client) {
       setProjectList([]);
+      setOrganization_no(null);
     }
   }, [client]);
 
@@ -424,7 +477,7 @@ const CardRightComp = (props) => {
                 <text>Cost Center</text>
               </LightColor>
               <div>
-                <text>{props.detailOfConsultant.location}</text>
+                <text>{props.detailOfConsultant.cost_center}</text>
               </div>
             </ActiveContractSubParts>
             <ActiveContractSubParts>
@@ -515,7 +568,7 @@ const CardRightComp = (props) => {
                 <text>Cost Center</text>
               </LightColor>
               <div>
-                <text>{props.detailOfConsultant.location}</text>
+                <text>{props.detailOfConsultant.cost_center}</text>
               </div>
             </UpcomingContractSubParts>
             <UpcomingContractSubParts>
@@ -688,7 +741,11 @@ const CardRightComp = (props) => {
               >
                 {projectList.map((element) => {
                   return (
-                    <Option key={element.id} id={element.id} value={element.project_name}>
+                    <Option
+                      key={element.id}
+                      id={element.id}
+                      value={element.project_name}
+                    >
                       {element.project_name}
                     </Option>
                   );
@@ -700,7 +757,9 @@ const CardRightComp = (props) => {
               <Input
                 style={{ width: 180 }}
                 placeholder="Organization ID"
-                // onChange={(e) => setName(e.target.value)}
+                onChange={(e) => setOrganization_no(e.target.value)}
+                disabled={client_name == null}
+                value={organization_no}
               />
             </Flex50>
             <Flex50>
@@ -719,7 +778,7 @@ const CardRightComp = (props) => {
                   // defaultValue={moment("01/01/2015", dateFormat)}
                   //onChange={(value) => setStart_date(value)}
                   format={dateFormat}
-                  onChange={(e) => setStart_date(e.target.value)}
+                  onChange={(e) => setStart_date(e)}
                 />
               </Space>
             </Flex50>
@@ -772,12 +831,12 @@ const CardRightComp = (props) => {
             <Flex50></Flex50>
           </MobileSupplier>
           <ButtonsDiv>
-            <SaveButton>
-              <button onClick={() => addConsultantTry()}>Save</button>
-            </SaveButton>
-            <CancelButton>
-              <button>Cancel</button>
-            </CancelButton>
+            <CommonButton onClick={() => addConsultantTry()} type="primary">
+              Save
+            </CommonButton>
+            <CommonButton>
+              Cancel
+            </CommonButton>
           </ButtonsDiv>
         </RightCardContent>
       </CreateConsultantCardComp>
