@@ -30,7 +30,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   color: ${themeColors.white};
 `;
 
