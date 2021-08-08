@@ -117,7 +117,6 @@ Network.prototype.apiWithPathAndQuery = function (
 
 Network.prototype.get = function (params) {
   const instance = cloneDeep(this.instance);
-  console.log(authDetails, instance, "Prototype");
   return instance.get(
     this.url,
     { params },
