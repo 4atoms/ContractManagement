@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Badge, Button, Input } from "antd";
+import { Table, Space, Badge, Input } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
@@ -14,8 +14,9 @@ import {
   BadgeOrange,
   BadgeBlue,
 } from "Components/common.style";
-import { themeColors } from "Config/theme";
 import CardRightComp from "./cardRightComp";
+// import { themeColors } from "Config/theme";
+// import RightCardComp from "./rightCardComp";
 const SupplierData = () => {
   const { Search } = Input;
   const context = useContext(RefContext);

@@ -27,7 +27,7 @@ import {
 import { themeColors } from "Config/theme";
 import RefContext from "Utilities/refContext";
 
-  const CreateCard = (props) => {
+const EditCard = (props) => {
   const [form] = Form.useForm();
 
   const intialValue = {
@@ -55,6 +55,8 @@ import RefContext from "Utilities/refContext";
     ],
     organization_no: "",
   };
+
+  const [name, setName] = useState("");
 
   const [companyId, setCompanyId] = useState("");
   const [poc, setPoc] = useState([]);
@@ -90,36 +92,42 @@ import RefContext from "Utilities/refContext";
       key: "phone",
     },
   ];
-  const [name, setName] = useState("");
   return (
-    <CreateCardComp displayCreateSupplier={props.displayCreateSupplier}>
-        <RightCardContent>
-          <SupplierName>
-            Create Supplier
-            {/* <span style={{ position: "absolute", right: "20px", top: "20px" }}>
-              <EditIcon
-                style={{ height: "18px" }}
-                onClick={() => {
-                  editSupplierTry(props.detailOfSupplier.id);
-                }}
-              />
+    <EditCardComp
+      displayEditSupplier={props.displayEditSupplier}
+      detailOfSupplier={props.detailOfSupplier}
+    >
+      <RightCardContent key={props.detailOfSupplier.id}>
+        <SupplierName>
+          Edit Supplier: {props.detailOfSupplier.name}
+          {/* <span style={{ position: "absolute", right: "20px", top: "20px" }}>
+              <EditIcon style={{ height: "18px" }} />
               <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
             </span> */}
-          </SupplierName>
-          <Line1 />
-          <div>Name</div>
-          <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
-          <div>Company ID</div>
-          <input
-            placeholder="xxyyzz##"
-            onChange={(e) => setCompanyId(e.target.value)}
-          />
-          <PointOfContacts>Point Of Contacts</PointOfContacts>
+        </SupplierName>
+        <Line1 />
+        <div>Name</div>
+        <input
+          placeholder="Name"
+          onChange={(e) => setName(e.target.value)}
+          defaultValue={props.detailOfSupplier.name}
+        />
+        <div>Company ID</div>
+        <input
+          placeholder="xxyyzz##"
+          onChange={(e) => setCompanyId(e.target.value)}
+          defaultValue={props.detailOfSupplier.organization_no}
+        />
+        <PointOfContacts>Point Of Contacts</PointOfContacts>
+
+        <PointOfContactsDiv>
           <Form
             name="dynamic_form_nest_item"
             onFinish={onFinish}
             autoComplete="off"
-            initialValues={props.detailOfSupplier || intialValue}
+            initialValues={{
+              users: props.detailOfSupplier?.point_of_contacts,
+            }}
           >
             <Form.List name="users">
               {(fields, { add, remove }) => (
@@ -165,7 +173,7 @@ import RefContext from "Utilities/refContext";
                   ))}
                   <Form.Item>
                     <Button type="dashed" onClick={() => add()} block>
-                      Add field
+                      Add
                     </Button>
                   </Form.Item>
                 </>
@@ -177,21 +185,26 @@ import RefContext from "Utilities/refContext";
               </Button>
             </Form.Item>
           </Form>
-          <ButtonsDiv>
-            <SaveButton>
-              <button onClick={addSupplierTry}>
-                <div>Save</div>
-              </button>
-            </SaveButton>
-            <CancelButton>
-              <button>
-                <div>Cancel</div>
-              </button>
-            </CancelButton>
-          </ButtonsDiv>
-        </RightCardContent>
-      </CreateCardComp>
+        </PointOfContactsDiv>
+
+        <ButtonsDiv>
+          <SaveButton>
+            <button
+              onClick={() => {
+                editSupplierTry(props.detailOfSupplier.id);
+              }}
+            >
+              <div>Save</div>
+            </button>
+          </SaveButton>
+          <CancelButton>
+            <button>
+              <div>Cancel</div>
+            </button>
+          </CancelButton>
+        </ButtonsDiv>
+      </RightCardContent>
+    </EditCardComp>
   );
 };
-
-export default CreateCard;
+export default EditCard;
