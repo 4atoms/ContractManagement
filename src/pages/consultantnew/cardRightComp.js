@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import RefContext from "Utilities/refContext";
 import {
   Table,
   Input,
@@ -49,6 +50,7 @@ import {
   Flex50,
   ButtonsDiv,
   EditConsultantCardComp,
+  DisplayContractCardComp,
   SaveButton,
   CancelButton,
 } from "Components/common.style";
@@ -60,10 +62,6 @@ const { RangePicker } = DatePicker;
 const dateFormat = "DD/MM/YYYY";
 
 const { Option } = Select;
-// const onChange = (value) => {
-//   console.log(`selected ${value}`);
-
-// };
 
 const onFocus = () => {
   console.log("focus");
@@ -72,13 +70,7 @@ const onFocus = () => {
 const onSearch = (val) => {
   console.log("search:", val);
 };
-
 const CardRightComp = (props) => {
-  //const context = useContext(RefContext);
-  // const {
-  //   actions: { addConsultant },
-  // } = context;
-
   //Consultant Create API
   const FormForAdd = {
     name: "",
@@ -308,6 +300,103 @@ const CardRightComp = (props) => {
     }
   };
 
+  const NoActiveContractButton = () => {
+    if (props.detailOfConsultant.contracts?.active?.length == 0) {
+      console.log("No Active Contracts");
+      return (
+        <button
+          onClick={() => {
+            props.showCreateContract();
+            console.log("State", props.displayConsultDetails);
+          }}
+        >
+          Click here to add new contract
+        </button>
+      );
+    } else {
+      return (
+        <ActiveContractParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Client</text>
+            </LightColor>
+            <div>
+              <text>
+                {props.detailOfConsultant.contracts?.active?.[0]?.client?.name}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Project</text>
+            </LightColor>
+            <div>
+              <text>
+                {
+                  props.detailOfConsultant.contracts?.active?.[0]?.project
+                    ?.project_name
+                }
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Role</text>
+            </LightColor>
+            <div>
+              <text>
+                {props.detailOfConsultant.contracts?.active?.[0]?.role}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Cost Center</text>
+            </LightColor>
+            <div>
+              <text>{props.detailOfConsultant.cost_center}</text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Start Date</text>
+            </LightColor>
+            <div>
+              <text>
+                {dateFormatStandard(
+                  props.detailOfConsultant.contracts?.active?.[0]?.start_date
+                )}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>End Date</text>
+            </LightColor>
+            <div>
+              <text>
+                {dateFormatStandard(
+                  props.detailOfConsultant.contracts?.active?.[0]?.end_date
+                )}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Cost/hr</text>
+            </LightColor>
+            <div>
+              <text>
+                {props.detailOfConsultant.contracts?.active?.[0]?.cost_per_hour}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts></ActiveContractSubParts>
+        </ActiveContractParts>
+      );
+    }
+  };
+
   // const NoUpcomingContractButton = (props) => {
   //   if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
   //     console.log("Upcoming");
@@ -434,91 +523,8 @@ const CardRightComp = (props) => {
           <ActiveUpcomingExpiredContract>
             <Badge status="success" />
             <text>Active Contract</text>
+            <div>{NoActiveContractButton()}</div>
           </ActiveUpcomingExpiredContract>
-          <ActiveContractParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Client</text>
-              </LightColor>
-              <div>
-                <text>
-                  {
-                    props.detailOfConsultant.contracts?.active?.[0]?.client
-                      ?.name
-                  }
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Project</text>
-              </LightColor>
-              <div>
-                <text>
-                  {
-                    props.detailOfConsultant.contracts?.active?.[0]?.project
-                      ?.project_name
-                  }
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Role</text>
-              </LightColor>
-              <div>
-                <text>
-                  {props.detailOfConsultant.contracts?.active?.[0]?.role}
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Cost Center</text>
-              </LightColor>
-              <div>
-                <text>{props.detailOfConsultant.cost_center}</text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Start Date</text>
-              </LightColor>
-              <div>
-                <text>
-                  {dateFormatStandard(
-                    props.detailOfConsultant.contracts?.active?.[0]?.start_date
-                  )}
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>End Date</text>
-              </LightColor>
-              <div>
-                <text>
-                  {dateFormatStandard(
-                    props.detailOfConsultant.contracts?.active?.[0]?.end_date
-                  )}
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Cost/hr</text>
-              </LightColor>
-              <div>
-                <text>
-                  {
-                    props.detailOfConsultant.contracts?.active?.[0]
-                      ?.cost_per_hour
-                  }
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts></ActiveContractSubParts>
-          </ActiveContractParts>
           <Line1 />
 
           {/* Upcoming Contracts */}
@@ -685,9 +691,10 @@ const CardRightComp = (props) => {
           <MobileSupplier>
             <Flex50>
               <text>Client</text>
+              <br></br>
               <AutoComplete
                 style={{
-                  width: 200,
+                  width: 180,
                 }}
                 optionFilterProp="children"
                 // onSearch={(value) => onClientSearch(value)}
@@ -719,9 +726,10 @@ const CardRightComp = (props) => {
             </Flex50>
             <Flex50>
               <text>Project</text>
+              <br></br>
               <AutoComplete
                 style={{
-                  width: 200,
+                  width: 180,
                 }}
                 optionFilterProp="children"
                 optionLabelProp="title"
@@ -834,9 +842,7 @@ const CardRightComp = (props) => {
             <CommonButton onClick={() => addConsultantTry()} type="primary">
               Save
             </CommonButton>
-            <CommonButton>
-              Cancel
-            </CommonButton>
+            <CommonButton>Cancel</CommonButton>
           </ButtonsDiv>
         </RightCardContent>
       </CreateConsultantCardComp>
@@ -894,6 +900,13 @@ const CardRightComp = (props) => {
           </ButtonsDiv> */}
         </RightCardContent>
       </EditConsultantCardComp>
+
+      {/* Create Contract Card */}
+      <DisplayContractCardComp displayCreateContract={props.displayCreateContract}>
+        <RightCardContent>
+          <text>Hi</text>
+        </RightCardContent>
+      </DisplayContractCardComp>
     </CardRight>
   );
 };

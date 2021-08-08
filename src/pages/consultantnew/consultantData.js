@@ -57,6 +57,8 @@ const ConsultantData = () => {
   const [deleteContractDetail, setDeleteContractDetail] = useState(null);
   const [period, setPeriod] = useState(6);
 
+  const [displayCreateContract, setdisplayCreateContract] = useState(false);
+
   const [listConsultant, setListConsultant] = useState(consultantsList);
   useEffect(() => {
     getConsultantsData();
@@ -73,12 +75,14 @@ const ConsultantData = () => {
     setDisplayConsultDetails(true);
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(false);
+    setdisplayCreateContract(false);
   };
 
   const showCreate = () => {
     setDisplayConsultDetails(false);
     setDisplayCreateConsultant(true);
     setdisplayEditConsultant(false);
+    setdisplayCreateContract(false);
   };
 
   const showEdit = (num) => {
@@ -86,6 +90,16 @@ const ConsultantData = () => {
     setDisplayConsultDetails(false);
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(true);
+    setdisplayCreateContract(false);
+  };
+
+  //Used for create contract Card
+  const showCreateContract = () => {
+    setDisplayConsultDetails(false);
+    setDisplayCreateConsultant(false);
+    setdisplayEditConsultant(false);
+    setdisplayCreateContract(true);
+    console.log("GASGSHA");
   };
 
   const handleClick = (num) => {
@@ -512,6 +526,8 @@ const ConsultantData = () => {
             clientsList={clientsList}
             projectsList={projectsList}
             addConsultantwithContract={addConsultantwithContract}
+            displayCreateContract={displayCreateContract}
+            showCreateContract={showCreateContract}
           />
         </CardRightWrapper>
       </WrapperCard>
@@ -538,3 +554,8 @@ const ConsultantData = () => {
 };
 
 export default ConsultantData;
+// export default {
+//   store: ConsultantData,
+//   creators: {
+//     showCreateContract,
+//   },}

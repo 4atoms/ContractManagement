@@ -13,12 +13,9 @@ const fetchRoutes = (containers) => {
 
         <AuthRoute exact path="/" component={withRouter(Dashboard)} />
         <AuthRoute exact path="/home" component={withRouter(Dashboard)} />
-        <Route exact path="/" component={withRouter(Dashboard)} />
-        <Route exact path="/dashboard" component={withRouter(Dashboard)} />
-
-        <Route exact path="/suppliers" component={withRouter(SupplierNew)} />
-
-        <Route
+        <AuthRoute exact path="/dashboard" component={withRouter(Dashboard)} />
+        <AuthRoute exact path="/suppliers" component={withRouter(SupplierNew)} />
+        <AuthRoute
           exact
           path="/consultants"
           component={withRouter(ConsultantNew)}
