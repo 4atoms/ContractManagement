@@ -326,8 +326,32 @@ const CardRightComp = (props) => {
     cost_per_hour: "",
   };
 
-  const updateConsultant = () => {
-    console.log(name, email, phone);
+  const resetConsultantStates = () => {
+    setName("");
+    setPhone("");
+    setEmail("");
+  };
+
+  const editAndUpdateConsultant = () => {
+    let request = {};
+    if (name && name != "") {
+      request["name"] = name;
+    }
+    if (email && email != "") {
+      request["email"] = email;
+    }
+    if (phone && phone != "") {
+      request["phone"] = phone;
+    }
+    if (Object.keys(request).length) {
+      console.log(request);
+      resetConsultantStates();
+      props
+        .updateConsultant(request, props.detailOfConsultant.id)
+        .then(() => props.showDetails());
+    } else {
+      props.showDetails();
+    }
   };
 
   const NoExpiredContractButton = (props) => {
@@ -897,48 +921,60 @@ const CardRightComp = (props) => {
       </CreateConsultantCardComp>
 
       {/* Edit Consultant Card */}
-      <EditConsultantCardComp
-        displayEditConsultant={props.displayEditConsultant}
-        detailOfConsultant={props.detailOfConsultant}
-      >
-        <RightCardContent>
-          <ConsultantName>
-            Edit Consultant: {props.detailOfConsultant.name}
-          </ConsultantName>
-          <Line1 />
-          <div>Name</div>
-          <Input
-            placeholder="Name"
-            onChange={(e) => setName(e.target.value)}
-            defaultValue={props.detailOfConsultant.name}
-          />
-          <div>Email</div>
-          <Input
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            defaultValue={props.detailOfConsultant.email}
-          />
-          <div>Mobile</div>
-          <Input
-            placeholder="Mobile"
-            onChange={(e) => setPhone(e.target.value)}
-            defaultValue={props.detailOfConsultant.phone}
-          />
-          <div>Supplier</div>
-          <Input
-            placeholder="Supplier"
-            defaultValue={props.detailOfConsultant?.supplier?.name}
-            disabled={true}
-          />
+      {props.detailOfConsultant?.name && (
+        <EditConsultantCardComp
+          displayEditConsultant={props.displayEditConsultant}
+          detailOfConsultant={props.detailOfConsultant}
+        >
+          <RightCardContent>
+            <ConsultantName>
+              Edit Consultant: {props.detailOfConsultant.name}
+            </ConsultantName>
+            <Line1 />
+            <div>Name</div>
+            <Input
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+              defaultValue={props.detailOfConsultant.name}
+            />
+            <div>Email</div>
+            <Input
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              defaultValue={props.detailOfConsultant.email}
+            />
+            <div>Mobile</div>
+            <Input
+              placeholder="Mobile"
+              onChange={(e) => setPhone(e.target.value)}
+              defaultValue={props.detailOfConsultant.phone}
+            />
+            <div>Supplier</div>
+            <Input
+              placeholder="Supplier"
+              defaultValue={props.detailOfConsultant?.supplier?.name}
+              disabled={true}
+            />
 
-          <ButtonsDiv>
-            <CommonButton onClick={() => updateConsultant()} type="primary">
-              Update
-            </CommonButton>
-            <CommonButton>Cancel</CommonButton>
-          </ButtonsDiv>
-        </RightCardContent>
-      </EditConsultantCardComp>
+            <ButtonsDiv>
+              <CommonButton
+                onClick={() => editAndUpdateConsultant()}
+                type="primary"
+              >
+                Update
+              </CommonButton>
+              <CommonButton
+                onClick={() => {
+                  resetConsultantStates();
+                  props.showDetails();
+                }}
+              >
+                Cancel
+              </CommonButton>
+            </ButtonsDiv>
+          </RightCardContent>
+        </EditConsultantCardComp>
+      )}
 
       {/* Create Contract Card */}
       <DisplayContractCardComp

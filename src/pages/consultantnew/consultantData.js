@@ -41,6 +41,7 @@ const ConsultantData = () => {
       getProjectData,
       addConsultantwithContract,
       renewContracts,
+      updateConsultant,
     },
   } = context;
 
@@ -528,6 +529,8 @@ const ConsultantData = () => {
             addConsultantwithContract={addConsultantwithContract}
             displayCreateContract={displayCreateContract}
             showCreateContract={showCreateContract}
+            updateConsultant={updateConsultant}
+            showDetails={showDetails}
           />
         </CardRightWrapper>
       </WrapperCard>

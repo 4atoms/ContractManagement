@@ -342,9 +342,6 @@ export const ButtonsDiv = styled.div`
   bottom: 20px;
   display: flex;
   gap: 20px;
-  & > button {
-    margin-right: 16px;
-  }
 `;
 export const SaveButton = styled.div`
   width: 75px;
