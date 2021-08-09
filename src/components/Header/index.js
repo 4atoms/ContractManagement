@@ -1,26 +1,36 @@
 import React from "react";
-import { AutoComplete, Input, Button } from "antd";
 import logo from "Assets/images/proton-logo.png";
-import { PageHeader, LinkComponent, Link, Logo, UserProfile } from "./header.style";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {
+  PageHeader,
+  LinkComponent,
+  LinkTag,
+  Logo,
+  UserProfile,
+} from "./header.style";
+import { Link } from "react-router-dom";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+
+import Url from "Config/url";
 
 const Header = () => {
   return (
     <>
       <PageHeader>
         <Logo>
-          <img src={logo} />
+          <Link to={Url.URL_HOME}>
+            <img src={logo} />
+          </Link>
         </Logo>
         <LinkComponent>
-        <Link>
-            <a href="dashboard">Dashboard</a>
-          </Link>
-          <Link>
-            <a href="suppliers">Suppliers</a>
-          </Link>
-          <Link>
-            <a href="consultants">ConsultantsNew</a>
-          </Link>
+          <LinkTag>
+            <Link to={Url.URL_DASHBOARD}>Dashboard</Link>
+          </LinkTag>
+          <LinkTag>
+            <Link to={Url.URL_SUPPLIERS}>Suppliers</Link>
+          </LinkTag>
+          <LinkTag>
+            <Link to={Url.URL_CONSULTANTS}>Consultants</Link>
+          </LinkTag>
         </LinkComponent>
         <UserProfile>
           Welcome, User <AccountCircleIcon />

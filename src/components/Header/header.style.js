@@ -28,7 +28,7 @@ export const LinkComponent = styled.div`
   padding-top: 14px;
 `;
 
-export const Link = styled.div`
+export const LinkTag = styled.div`
   margin: 10px;
 
   & > a {
