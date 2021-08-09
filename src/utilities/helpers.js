@@ -29,6 +29,9 @@ const dateFormat = (string) => {
 const dateFormatStandard = (string) => {
   return moment(string).format("D MMM  YYYY");
 };
+const dateFormatStandard2 = (string) => {
+  return moment(string).format("YYYY MM DD");
+};
 const TodayDate = () => {
   return moment().format("D MMM  YYYY");
 };
@@ -98,6 +101,7 @@ export {
   isAdminLoggedIn,
   dateFormat,
   dateFormatStandard,
+  dateFormatStandard2,
   TodayDate,
   dateDifference,
 };
