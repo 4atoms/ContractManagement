@@ -165,24 +165,31 @@ export const SpaceBar = styled.div`
 `;
 
 export const DisplayCardRight = styled.div`
+  height: 100%;
   display: ${(props) => (props.displayDetails ? "block" : "none")};
 `;
 export const CreateCardComp = styled.div`
+  height: 100%;
   display: ${(props) => (props.displayCreateSupplier ? "block" : "none")};
 `;
 export const EditCardComp = styled.div`
+  height: 100%;
   display: ${(props) => (props.displayEditSupplier ? "block" : "none")};
 `;
 export const DisplayCardRight3 = styled.div`
+  height: 100%;
   display: ${(props) => (props.displayConsultDetails ? "block" : "none")};
 `;
 export const CreateConsultantCardComp = styled.div`
+  height: 100%;
   display: ${(props) => (props.displayCreateConsultant ? "block" : "none")};
 `;
 export const EditConsultantCardComp = styled.div`
+  height: 100%;
   display: ${(props) => (props.displayEditConsultant ? "block" : "none")};
 `;
 export const DisplayContractCardComp = styled.div`
+  height: 100%;
   display: ${(props) => (props.displayCreateContract ? "block" : "none")};
 `;
 export const Consultants = styled.div`
@@ -296,6 +303,7 @@ export const PointOfContacts = styled.div`
 `;
 
 export const RightCardContent = styled.div`
+  height: 100%;
   padding: 5px 31px;
   position: relative;
 `;
@@ -330,8 +338,8 @@ export const PointOfContactsInput = styled.input`
 
 export const ButtonsDiv = styled.div`
   position: absolute;
-  top: 380px;
-  right: 80px;
+  right: 20px;
+  bottom: 20px;
   gap: 20px;
   & > button {
     margin-right: 16px;

@@ -1,37 +1,21 @@
-import React, { useState, useContext, useEffect } from "react";
-import RefContext from "Utilities/refContext";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   Input,
   Badge,
-  Dropdown,
-  Button,
-  Menu,
   Select,
   DatePicker,
   Space,
   AutoComplete,
 } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
-import { DownOutlined, UserOutlined } from "@ant-design/icons";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
   DisplayCardRight3,
   RightCardContent,
   SupplierName,
-  SupplierId,
   Line1,
-  Contracts,
-  CircularBarsContainer,
-  Circle,
-  CircleText,
-  CircleNumber,
-  SpaceBar,
-  Consultants,
-  CTitle,
-  Tags,
-  PointOfContacts,
   CommonButton,
   EmailMobileSupplier,
   Email,
@@ -51,14 +35,9 @@ import {
   ButtonsDiv,
   EditConsultantCardComp,
   DisplayContractCardComp,
-  SaveButton,
-  CancelButton,
 } from "Components/common.style";
-import { themeColors } from "Config/theme";
 import { dateFormatStandard } from "../../utilities/helpers";
-import moment from "moment";
 
-const { RangePicker } = DatePicker;
 const dateFormat = "DD/MM/YYYY";
 
 const { Option } = Select;
@@ -84,10 +63,10 @@ const CardRightComp = (props) => {
   const [start_date, setStart_date] = useState("");
   const [supplier, setSupplier] = useState("");
   // const [companyId, setCompanyId] = useState("");
-  const [contrwithexistingconsultant, setContrwithexistingconsultant] =
+  const [contractwithexistingconsultant, setcontractwithexistingconsultant] =
     useState(false);
   const addConsultantTry = () => {
-    let project_number = project_name.toUpperCase();
+    let project_number = project_name?.toUpperCase();
     FormForAdd.name = name;
     FormForAdd.email = email;
     FormForAdd.phone = phone;
@@ -166,9 +145,9 @@ const CardRightComp = (props) => {
       currency,
       cost_per_hour,
       "Checking",
-      contrwithexistingconsultant
+      contractwithexistingconsultant
     );
-    if (contrwithexistingconsultant) {
+    if (contractwithexistingconsultant) {
       FormForAdd4.consultant = props.detailOfConsultant.id;
       FormForAdd3.consultant = props.detailOfConsultant.id;
       FormForAdd2.consultant = props.detailOfConsultant.id;
@@ -289,7 +268,6 @@ const CardRightComp = (props) => {
     cost_per_hour: "",
   };
 
-  const [consultant, setConsultant] = useState("");
   const [client, setClient] = useState("");
   const [project, setProject] = useState("");
   const [cost_center, setCost_center] = useState("");
@@ -348,6 +326,10 @@ const CardRightComp = (props) => {
     cost_per_hour: "",
   };
 
+  const updateConsultant = () => {
+    console.log(name, email, phone);
+  };
+
   const NoExpiredContractButton = (props) => {
     if (props.detailOfConsultant.contracts?.expired?.length == 0) {
       console.log("Expired");
@@ -372,7 +354,7 @@ const CardRightComp = (props) => {
           onClick={() => {
             props.showCreateContract();
             console.log("State", props.displayConsultDetails);
-            setContrwithexistingconsultant(true);
+            setcontractwithexistingconsultant(true);
           }}
         >
           Click here to add new contract
@@ -419,7 +401,9 @@ const CardRightComp = (props) => {
               <text>Cost Center</text>
             </LightColor>
             <div>
-              <text>{props.detailOfConsultant.contracts?.active?.[0]?.cost_center}</text>
+              <text>
+                {props.detailOfConsultant.contracts?.active?.[0]?.cost_center}
+              </text>
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
@@ -920,49 +904,39 @@ const CardRightComp = (props) => {
         <RightCardContent>
           <ConsultantName>
             Edit Consultant: {props.detailOfConsultant.name}
-            {/* <span style={{ position: "absolute", right: "20px", top: "20px" }}>
-              <EditIcon style={{ height: "18px" }} />
-              <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
-            </span> */}
           </ConsultantName>
           <Line1 />
           <div>Name</div>
           <Input
             placeholder="Name"
-            // onChange={(e) => setName(e.target.value)}
-            // value={props.detailOfSupplier.name}
+            onChange={(e) => setName(e.target.value)}
+            defaultValue={props.detailOfConsultant.name}
           />
           <div>Email</div>
           <Input
             placeholder="Email"
-            // onChange={(e) => setCompanyId(e.target.value)}
-            // value={props.detailOfSupplier.id}
+            onChange={(e) => setEmail(e.target.value)}
+            defaultValue={props.detailOfConsultant.email}
           />
           <div>Mobile</div>
           <Input
             placeholder="Mobile"
-            // onChange={(e) => setCompanyId(e.target.value)}
-            // value={props.detailOfSupplier.id}
+            onChange={(e) => setPhone(e.target.value)}
+            defaultValue={props.detailOfConsultant.phone}
           />
           <div>Supplier</div>
-          <Select
-            showSearch
-            style={{ width: 180 }}
-            placeholder="Select Supplier"
-            optionFilterProp="children"
-            onFocus={onFocus}
-            onSearch={onSearch}
-          >
-            <Option value="jack">Jack</Option>
-            <Option value="lucy">Lucy</Option>
-            <Option value="tom">Tom</Option>
-          </Select>
-          {/* <button onClick={updateIterations}>add</button>
+          <Input
+            placeholder="Supplier"
+            defaultValue={props.detailOfConsultant?.supplier?.name}
+            disabled={true}
+          />
 
           <ButtonsDiv>
-            <button onClick={editSupplierTry}>Create</button>
-            <button>Cancel</button>
-          </ButtonsDiv> */}
+            <CommonButton onClick={() => updateConsultant()} type="primary">
+              Update
+            </CommonButton>
+            <CommonButton>Cancel</CommonButton>
+          </ButtonsDiv>
         </RightCardContent>
       </EditConsultantCardComp>
 
@@ -972,7 +946,7 @@ const CardRightComp = (props) => {
       >
         <RightCardContent>
           <ConsultantName>
-            <text>Create Contract for {props.detailOfConsultant.name} </text>
+            <text>Create Contract for {props.detailOfConsultant?.name} </text>
           </ConsultantName>
           <Line1></Line1>
           <MobileSupplier>
