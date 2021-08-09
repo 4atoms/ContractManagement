@@ -7,7 +7,7 @@ import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 
 const ContainerWrapper = styled.div`
-  margin: 60px auto 0;
+  margin: auto;
   width: ${(props) => (props.width ? props.width : "200px")};
   height: ${(props) => (props.height ? props.height : "200px")};
 `;
@@ -21,6 +21,7 @@ const Container = styled.div`
 const Header = styled.div`
   width: 100%;
   height: 10%;
+  min-height: 30px;
   background-color: ${(props) =>
     props.type == "normal" ? primaryColor : themeColors.redDanger};
   display: flex;
@@ -36,7 +37,7 @@ const Title = styled.div`
 
 const ContentWrapper = styled.div`
   width: 100%;
-  height: 90%;
+  height: 85%;
   padding: 0px 5px 10px;
   position: relative;
   & .ant-table-cell {
@@ -57,19 +58,21 @@ const ContentWrapper = styled.div`
 const ModalLayout = ({ children, onclose, title, width, height, type }) => {
   const renderContainer = () => {
     return (
-      <ContainerWrapper width={width} height={height}>
-        <Container>
-          <Header type={type}>
-            <Title>{title}</Title>
-            <CloseIcon
-              className="cursorPointer"
-              style={{ color: themeColors.white }}
-              onClick={() => onclose()}
-            />
-          </Header>
-          <ContentWrapper>{children}</ContentWrapper>
-        </Container>
-      </ContainerWrapper>
+      <div className="fullWidth fullHeight flex">
+        <ContainerWrapper width={width} height={height}>
+          <Container>
+            <Header type={type}>
+              <Title>{title}</Title>
+              <CloseIcon
+                className="cursorPointer"
+                style={{ color: themeColors.white }}
+                onClick={() => onclose()}
+              />
+            </Header>
+            <ContentWrapper>{children}</ContentWrapper>
+          </Container>
+        </ContainerWrapper>
+      </div>
     );
   };
   return (

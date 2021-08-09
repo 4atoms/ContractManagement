@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Table, Space, Badge, Input, Row, Col } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import WarningIcon from "@material-ui/icons/Warning";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -191,30 +192,26 @@ const SupplierData = () => {
     display: "flex",
     right: "20px",
   };
-  const colStyle = {
-    gap: "20px",
-    display: "flex",
-    flexFlow: "column",
-  };
-  const valueStyle = {
-    color: primaryColor,
-    padding: "0px 10px",
-  };
 
-  const delValStyle = {
-    color: themeColors.redDanger,
-    padding: "0px 10px",
+  const contentStyle = {
+    display: "flex",
+    height: "90%",
+    justifyContent: "center",
+    gap: "20px",
+    fontSize: "18px",
+    alignItems: "center",
   };
 
   const renderDeleteContent = () => {
-    getDetailOfSupplier(deleteSupplierDetail);
     return (
       <>
-        {/* <div>Confirm Deletion</div> */}
-        <TextDiv>
-          Are you sure you want to delete?
-          <div>You cant undo this action</div>
-        </TextDiv>
+        <div style={contentStyle}>
+          <WarningIcon style={{ color: themeColors.redDanger }} />
+          <div>
+            Are you sure you want to delete?
+            <div style={{ fontSize: "14px" }}>You cant undo this action</div>
+          </div>
+        </div>
         <div style={buttonStyle}>
           <CommonButton deleteModal onClick={() => onclose()}>
             Cancel
@@ -279,8 +276,8 @@ const SupplierData = () => {
       {renderContent()}
       {isDeleteModalOpen && (
         <ModalLayout
-          width={"306px"}
-          height={"179px"}
+          width={"450px"}
+          height={"225px"}
           title={"Confirm Deletion"}
           onclose={onclose}
           type={"delete"}

@@ -544,7 +544,7 @@ const ConsultantData = () => {
         <ModalLayout
           width={"550px"}
           height={isDeleteModalOpen ? "300px" : "340px"}
-          title={isDeleteModalOpen ? "Delete Contract" : "Renew Contract"}
+          title={isDeleteModalOpen ? "Delete Consultant" : "Renew Contract"}
           onclose={onclose}
           type={isDeleteModalOpen ? "delete" : "normal"}
         >
