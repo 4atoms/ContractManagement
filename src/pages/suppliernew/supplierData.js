@@ -169,6 +169,7 @@ const SupplierData = () => {
       render: (suppliersList) => (
         <Space size="middle">
           <EditIcon
+            className="cursorPointer"
             style={{ fill: "#6041b8", height: "18px" }}
             onClick={() => {
               showEdit(suppliersList.id);

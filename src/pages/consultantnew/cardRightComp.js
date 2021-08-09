@@ -559,7 +559,13 @@ const CardRightComp = (props) => {
           <ConsultantName>
             {props.detailOfConsultant.name}
             <span style={{ position: "absolute", right: "20px", top: "20px" }}>
-              <EditIcon style={{ height: "18px" }} />
+              <EditIcon
+                className="cursorPointer"
+                onClick={() => {
+                  props.showEdit(props.detailOfConsultant.id);
+                }}
+                style={{ height: "18px" }}
+              />
               <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
             </span>
           </ConsultantName>

@@ -321,6 +321,7 @@ const ConsultantData = () => {
       render: (consultantsList) => (
         <Space size="middle">
           <EditIcon
+            className="cursorPointer"
             style={{ fill: "#6041b8", height: "18px" }}
             onClick={() => {
               showEdit(consultantsList.id);
@@ -531,6 +532,7 @@ const ConsultantData = () => {
             showCreateContract={showCreateContract}
             updateConsultant={updateConsultant}
             showDetails={showDetails}
+            showEdit={showEdit}
           />
         </CardRightWrapper>
       </WrapperCard>
