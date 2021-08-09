@@ -63,16 +63,14 @@ const addSupplier = (supplierInfo) => () => {
       console.log(resp.data);
     });
 };
-const editSupplier = (supplierInfo, supplierId) => () => {
-  supplierInfo.point_of_contacts.forEach(function (v) {
-    if (v._id) {
-      delete v._id;
-    }
-  });
-  nw.apiWithPath("supplierList", [supplierId])
+const editSupplier = (supplierInfo, supplierId) => (dispatch) => {
+  return nw
+    .apiWithPath("supplierList", [supplierId])
     .put(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
+      getSupplierData()(dispatch);
+      getDetailOfSupplier(supplierId)(dispatch);
     });
 };
 const deleteSupplier = (supplierInfo) => (dispatch) => {

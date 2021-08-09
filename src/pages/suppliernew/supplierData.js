@@ -265,6 +265,8 @@ const SupplierData = () => {
               addSupplier={addSupplier}
               editSupplier={editSupplier}
               displayEditSupplier={displayEditSupplier}
+              showDetails={showDetails}
+              showEdit={showEdit}
             />
           </CardRightWrapper>
         </WrapperCard>
