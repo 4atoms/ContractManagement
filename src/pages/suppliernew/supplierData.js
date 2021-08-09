@@ -210,13 +210,11 @@ const SupplierData = () => {
     getDetailOfSupplier(deleteSupplierDetail);
     return (
       <>
-        <HeaderDelete>
-          {/* <div>Confirm Deletion</div> */}
-        </HeaderDelete>
+        {/* <div>Confirm Deletion</div> */}
         <TextDiv>
           Are you sure you want to delete?
           <div>You cant undo this action</div>
-          </TextDiv>
+        </TextDiv>
         <div style={buttonStyle}>
           <CommonButton deleteModal onClick={() => onclose()}>
             Cancel

@@ -326,8 +326,8 @@ export const PointOfContactsInput = styled.input`
 `;
 
 export const ButtonsDiv = styled.div`
-  position: absolute;
-  top: 380px;
+  display: flex;
+  top: 100px;
   right: 80px;
   gap: 20px;
   & > button {
@@ -614,5 +614,26 @@ export const TextDiv = styled.div`
     /* Proton - Tertiary color */
 
     color: #9e9e9e;
+  }
+`;
+export const AddBox = styled.div`
+  width: 367px;
+  height: 30px;
+
+  border: 1px solid #9e9e9e;
+  box-sizing: border-box;
+  border-radius: 5px;
+  & > div {
+    width: 186px;
+    height: 14px;
+
+    font-family: Varela Round;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.02em;
+
+    color: #3c3c3c;
   }
 `;
