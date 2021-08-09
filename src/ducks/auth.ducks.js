@@ -3,6 +3,8 @@ import { setNamespace } from "Utilities/helpers";
 import Network from "Utilities/network";
 import cookie from "react-cookies";
 
+import authDetails from "Config/authHeaders";
+
 const namespace = "auth";
 const createAction = setNamespace(namespace);
 const nw = new Network();
@@ -41,8 +43,9 @@ const login = (request, history) => () => {
     .post(request)
     .then((resp) => {
       console.log(resp.data.data.accessToken);
-      cookie.save("access_token", resp.data.data.accessToken);
-      // sessionStorage.setItem("accessToken", resp.data.accessToken);
+      const { accessToken } = resp?.data?.data;
+      cookie.save("access_token", accessToken);
+      authDetails["Access-token"] = accessToken;
       history.push("/home");
     });
 };

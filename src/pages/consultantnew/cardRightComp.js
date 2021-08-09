@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import RefContext from "Utilities/refContext";
 import {
   Table,
   Input,
@@ -49,6 +50,7 @@ import {
   Flex50,
   ButtonsDiv,
   EditConsultantCardComp,
+  DisplayContractCardComp,
   SaveButton,
   CancelButton,
 } from "Components/common.style";
@@ -60,10 +62,6 @@ const { RangePicker } = DatePicker;
 const dateFormat = "DD/MM/YYYY";
 
 const { Option } = Select;
-// const onChange = (value) => {
-//   console.log(`selected ${value}`);
-
-// };
 
 const onFocus = () => {
   console.log("focus");
@@ -72,13 +70,7 @@ const onFocus = () => {
 const onSearch = (val) => {
   console.log("search:", val);
 };
-
 const CardRightComp = (props) => {
-  //const context = useContext(RefContext);
-  // const {
-  //   actions: { addConsultant },
-  // } = context;
-
   //Consultant Create API
   const FormForAdd = {
     name: "",
@@ -92,7 +84,10 @@ const CardRightComp = (props) => {
   const [start_date, setStart_date] = useState("");
   const [supplier, setSupplier] = useState("");
   // const [companyId, setCompanyId] = useState("");
+  const [contrwithexistingconsultant, setContrwithexistingconsultant] =
+    useState(false);
   const addConsultantTry = () => {
+    let project_number = project_name.toUpperCase();
     FormForAdd.name = name;
     FormForAdd.email = email;
     FormForAdd.phone = phone;
@@ -159,58 +154,120 @@ const CardRightComp = (props) => {
       organization_no
     );
 
-    if (
-      client &&
-      project_name &&
-      !client_name &&
-      supplier &&
-      name &&
-      email &&
-      phone &&
-      cost_center &&
-      start_date &&
-      period &&
-      role &&
-      currency &&
-      cost_per_hour
-    ) {
-      console.log("Form For Add4", FormForAdd4);
-      props.addConsultantwithContract(FormForAdd4);
-    } else if (
-      client_name &&
-      project_name &&
-      organization_no &&
-      supplier &&
-      name &&
-      email &&
-      phone &&
-      cost_center &&
-      period &&
-      role &&
-      currency &&
-      cost_per_hour
-    ) {
-      console.log("Form For Add3", FormForAdd3);
-      props.addConsultantwithContract(FormForAdd3);
-    } else if (
-      supplier &&
-      name &&
-      email &&
-      phone &&
-      client &&
-      project &&
-      cost_center &&
-      start_date &&
-      period &&
-      role &&
-      currency &&
-      cost_per_hour
-    ) {
-      console.log("Form For Add2", FormForAdd2);
-      props.addConsultantwithContract(FormForAdd2);
-    } else if (name && email && phone && supplier) {
-      console.log("Form for Add", FormForAdd);
-      props.addConsultant(FormForAdd);
+    console.log(
+      client_name,
+      project_name,
+      organization_no,
+      supplier,
+      cost_center,
+      start_date,
+      period,
+      role,
+      currency,
+      cost_per_hour,
+      "Checking",
+      contrwithexistingconsultant
+    );
+    if (contrwithexistingconsultant) {
+      FormForAdd4.consultant = props.detailOfConsultant.id;
+      FormForAdd3.consultant = props.detailOfConsultant.id;
+      FormForAdd2.consultant = props.detailOfConsultant.id;
+      FormForAdd4.supplier = props.detailOfConsultant.supplier.id;
+      FormForAdd3.supplier = props.detailOfConsultant.supplier.id;
+      FormForAdd2.supplier = props.detailOfConsultant.supplier.id;
+      if (
+        client &&
+        project_name &&
+        !client_name &&
+        cost_center &&
+        start_date &&
+        period &&
+        role &&
+        currency &&
+        cost_per_hour
+      ) {
+        console.log("Form For Add4", FormForAdd4);
+        props.addConsultantwithContract(FormForAdd4);
+      } else if (
+        client_name &&
+        project_name &&
+        organization_no &&
+        cost_center &&
+        start_date &&
+        period &&
+        role &&
+        currency &&
+        cost_per_hour
+      ) {
+        console.log("Form For Add3", FormForAdd3);
+        props.addConsultantwithContract(FormForAdd3);
+      } else if (
+        client &&
+        project &&
+        cost_center &&
+        start_date &&
+        period &&
+        role &&
+        currency &&
+        cost_per_hour
+      ) {
+        console.log("Form For Add2", FormForAdd2);
+        props.addConsultantwithContract(FormForAdd2);
+      }
+    } else {
+      if (
+        client &&
+        project_name &&
+        !client_name &&
+        supplier &&
+        name &&
+        email &&
+        phone &&
+        cost_center &&
+        start_date &&
+        period &&
+        role &&
+        currency &&
+        cost_per_hour
+      ) {
+        console.log("Form For Add4", FormForAdd4);
+        props.addConsultantwithContract(FormForAdd4);
+      } else if (
+        client_name &&
+        project_name &&
+        organization_no &&
+        supplier &&
+        name &&
+        email &&
+        phone &&
+        cost_center &&
+        period &&
+        role &&
+        currency &&
+        cost_per_hour
+      ) {
+        console.log("Form For Add3", FormForAdd3);
+        props.addConsultantwithContract(FormForAdd3);
+      } else if (
+        supplier &&
+        name &&
+        email &&
+        phone &&
+        client &&
+        project &&
+        cost_center &&
+        start_date &&
+        period &&
+        role &&
+        currency &&
+        cost_per_hour
+      ) {
+        console.log("Form For Add2", FormForAdd2);
+        props.addConsultantwithContract(FormForAdd2);
+      } else if (name && email && phone && supplier) {
+        console.log("Form for Add", FormForAdd);
+        props.addConsultant(FormForAdd);
+      }
     }
   };
 
@@ -269,7 +326,6 @@ const CardRightComp = (props) => {
   const [client_name, setClient_name] = useState("");
   const [organization_no, setOrganization_no] = useState("");
   const [project_name, setProject_name] = useState("");
-  const [project_number, setProject_number] = useState("1");
 
   //Client already Created -> new Project Creation API
   const FormForAdd4 = {
@@ -304,6 +360,104 @@ const CardRightComp = (props) => {
           showHeader={false}
           columns={columns2}
         ></Table>
+      );
+    }
+  };
+
+  const NoActiveContractButton = () => {
+    if (props.detailOfConsultant.contracts?.active?.length == 0) {
+      console.log("No Active Contracts");
+      return (
+        <button
+          onClick={() => {
+            props.showCreateContract();
+            console.log("State", props.displayConsultDetails);
+            setContrwithexistingconsultant(true);
+          }}
+        >
+          Click here to add new contract
+        </button>
+      );
+    } else {
+      return (
+        <ActiveContractParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Client</text>
+            </LightColor>
+            <div>
+              <text>
+                {props.detailOfConsultant.contracts?.active?.[0]?.client?.name}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Project</text>
+            </LightColor>
+            <div>
+              <text>
+                {
+                  props.detailOfConsultant.contracts?.active?.[0]?.project
+                    ?.project_name
+                }
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Role</text>
+            </LightColor>
+            <div>
+              <text>
+                {props.detailOfConsultant.contracts?.active?.[0]?.role}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Cost Center</text>
+            </LightColor>
+            <div>
+              <text>{props.detailOfConsultant.contracts?.active?.[0]?.cost_center}</text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Start Date</text>
+            </LightColor>
+            <div>
+              <text>
+                {dateFormatStandard(
+                  props.detailOfConsultant.contracts?.active?.[0]?.start_date
+                )}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>End Date</text>
+            </LightColor>
+            <div>
+              <text>
+                {dateFormatStandard(
+                  props.detailOfConsultant.contracts?.active?.[0]?.end_date
+                )}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts>
+            <LightColor>
+              <text>Cost/hr</text>
+            </LightColor>
+            <div>
+              <text>
+                {props.detailOfConsultant.contracts?.active?.[0]?.cost_per_hour}
+              </text>
+            </div>
+          </ActiveContractSubParts>
+          <ActiveContractSubParts></ActiveContractSubParts>
+        </ActiveContractParts>
       );
     }
   };
@@ -424,7 +578,7 @@ const CardRightComp = (props) => {
                 <text>Supplier</text>
               </LightColor>
               <div>
-                <text></text>
+                <text>{props.detailOfConsultant?.supplier?.name}</text>
               </div>
             </Supplier>
           </EmailMobileSupplier>
@@ -434,91 +588,8 @@ const CardRightComp = (props) => {
           <ActiveUpcomingExpiredContract>
             <Badge status="success" />
             <text>Active Contract</text>
+            <div>{NoActiveContractButton()}</div>
           </ActiveUpcomingExpiredContract>
-          <ActiveContractParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Client</text>
-              </LightColor>
-              <div>
-                <text>
-                  {
-                    props.detailOfConsultant.contracts?.active?.[0]?.client
-                      ?.name
-                  }
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Project</text>
-              </LightColor>
-              <div>
-                <text>
-                  {
-                    props.detailOfConsultant.contracts?.active?.[0]?.project
-                      ?.project_name
-                  }
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Role</text>
-              </LightColor>
-              <div>
-                <text>
-                  {props.detailOfConsultant.contracts?.active?.[0]?.role}
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Cost Center</text>
-              </LightColor>
-              <div>
-                <text>{props.detailOfConsultant.cost_center}</text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Start Date</text>
-              </LightColor>
-              <div>
-                <text>
-                  {dateFormatStandard(
-                    props.detailOfConsultant.contracts?.active?.[0]?.start_date
-                  )}
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>End Date</text>
-              </LightColor>
-              <div>
-                <text>
-                  {dateFormatStandard(
-                    props.detailOfConsultant.contracts?.active?.[0]?.end_date
-                  )}
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts>
-              <LightColor>
-                <text>Cost/hr</text>
-              </LightColor>
-              <div>
-                <text>
-                  {
-                    props.detailOfConsultant.contracts?.active?.[0]
-                      ?.cost_per_hour
-                  }
-                </text>
-              </div>
-            </ActiveContractSubParts>
-            <ActiveContractSubParts></ActiveContractSubParts>
-          </ActiveContractParts>
           <Line1 />
 
           {/* Upcoming Contracts */}
@@ -685,9 +756,10 @@ const CardRightComp = (props) => {
           <MobileSupplier>
             <Flex50>
               <text>Client</text>
+              <br></br>
               <AutoComplete
                 style={{
-                  width: 200,
+                  width: 180,
                 }}
                 optionFilterProp="children"
                 // onSearch={(value) => onClientSearch(value)}
@@ -719,9 +791,10 @@ const CardRightComp = (props) => {
             </Flex50>
             <Flex50>
               <text>Project</text>
+              <br></br>
               <AutoComplete
                 style={{
-                  width: 200,
+                  width: 180,
                 }}
                 optionFilterProp="children"
                 optionLabelProp="title"
@@ -834,9 +907,7 @@ const CardRightComp = (props) => {
             <CommonButton onClick={() => addConsultantTry()} type="primary">
               Save
             </CommonButton>
-            <CommonButton>
-              Cancel
-            </CommonButton>
+            <CommonButton>Cancel</CommonButton>
           </ButtonsDiv>
         </RightCardContent>
       </CreateConsultantCardComp>
@@ -894,6 +965,173 @@ const CardRightComp = (props) => {
           </ButtonsDiv> */}
         </RightCardContent>
       </EditConsultantCardComp>
+
+      {/* Create Contract Card */}
+      <DisplayContractCardComp
+        displayCreateContract={props.displayCreateContract}
+      >
+        <RightCardContent>
+          <ConsultantName>
+            <text>Create Contract for {props.detailOfConsultant.name} </text>
+          </ConsultantName>
+          <Line1></Line1>
+          <MobileSupplier>
+            <Flex50>
+              <text>Client</text>
+              <br></br>
+              <AutoComplete
+                style={{
+                  width: 180,
+                }}
+                optionFilterProp="children"
+                onChange={(value) => clientSelection(value)}
+                onSelect={(value, options) =>
+                  clientSelection({ id: options.id, value })
+                }
+                placeholder="Enter Client"
+                filterOption={(inputValue, option) => {
+                  return (
+                    option.key
+                      .toUpperCase()
+                      .indexOf(inputValue.toUpperCase()) !== -1
+                  );
+                }}
+              >
+                {props.clientsList.map((element) => {
+                  return (
+                    <Option
+                      key={element.name}
+                      id={element.id}
+                      value={element.name}
+                    >
+                      {element.name}
+                    </Option>
+                  );
+                })}
+              </AutoComplete>
+            </Flex50>
+            <Flex50>
+              <text>Project</text>
+              <br></br>
+              <AutoComplete
+                style={{
+                  width: 180,
+                }}
+                optionFilterProp="children"
+                optionLabelProp="title"
+                onChange={(value) => ProjectSelection(value)}
+                onSelect={(value, options) =>
+                  ProjectSelection({ id: options.id, value })
+                }
+                placeholder="Select Project Demo"
+                onSearch={onSearch}
+                filterOption={(inputValue, option) => {
+                  return (
+                    option.key
+                      .toUpperCase()
+                      .indexOf(inputValue.toUpperCase()) !== -1
+                  );
+                }}
+              >
+                {projectList.map((element) => {
+                  return (
+                    <Option
+                      key={element.id}
+                      id={element.id}
+                      value={element.project_name}
+                    >
+                      {element.project_name}
+                    </Option>
+                  );
+                })}
+              </AutoComplete>
+            </Flex50>
+            <Flex50>
+              <text>Organization ID</text>
+              <Input
+                style={{ width: 180 }}
+                placeholder="Organization ID"
+                onChange={(e) => setOrganization_no(e.target.value)}
+                disabled={client_name == null}
+                value={organization_no}
+              />
+            </Flex50>
+            <Flex50>
+              <text>Role</text>
+              <Input
+                style={{ width: 180 }}
+                placeholder="Role"
+                onChange={(e) => setRole(e.target.value)}
+              />
+            </Flex50>
+            <Flex50>
+              <text>Start Date</text>
+              <Space direction="vertical" size={18}>
+                <DatePicker
+                  style={{ width: 180 }}
+                  // defaultValue={moment("01/01/2015", dateFormat)}
+                  //onChange={(value) => setStart_date(value)}
+                  format={dateFormat}
+                  onChange={(e) => setStart_date(e)}
+                />
+              </Space>
+            </Flex50>
+            <Flex50>
+              <text>Period</text>
+              <Select
+                showSearch
+                style={{ width: 180 }}
+                placeholder="Select Period"
+                optionFilterProp="children"
+                onFocus={onFocus}
+                onSearch={onSearch}
+                onChange={(value) => setPeriod(value)}
+              >
+                <Option value={6}>6</Option>
+                <Option value={12}>12</Option>
+              </Select>
+            </Flex50>
+            <Flex50>
+              <text>Cost Center</text>
+              <Input
+                style={{ width: 180 }}
+                placeholder="Cost Center"
+                onChange={(e) => setCost_center(e.target.value)}
+              />
+            </Flex50>
+            <Flex50>
+              <text>Currency</text>
+              <Select
+                showSearch
+                style={{ width: 180 }}
+                placeholder="Select Currency"
+                optionFilterProp="children"
+                onFocus={onFocus}
+                onSearch={onSearch}
+                onChange={(value) => setCurrency(value)}
+              >
+                <Option value="EURO">EURO</Option>
+                <Option value="INR">INR</Option>
+              </Select>
+            </Flex50>
+            <Flex50>
+              <text>Cost/hr</text>
+              <Input
+                style={{ width: 180 }}
+                placeholder="Cost/hr"
+                onChange={(e) => setCost_per_hour(e.target.value)}
+              />
+            </Flex50>
+            <Flex50></Flex50>
+          </MobileSupplier>
+          <ButtonsDiv>
+            <CommonButton onClick={() => addConsultantTry()} type="primary">
+              Save
+            </CommonButton>
+            <CommonButton>Cancel</CommonButton>
+          </ButtonsDiv>
+        </RightCardContent>
+      </DisplayContractCardComp>
     </CardRight>
   );
 };
