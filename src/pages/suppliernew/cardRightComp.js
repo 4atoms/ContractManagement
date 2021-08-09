@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Button, Table, Form, Space, Input } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CircleComponent from "Components/circleComponent";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
@@ -18,11 +19,11 @@ import {
   PointOfContacts,
   CreateCardComp,
   PointOfContactsDiv,
-  PointOfContactsInput,
   ButtonsDiv,
   EditCardComp,
   SaveButton,
   CancelButton,
+  AddBox,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import RefContext from "Utilities/refContext";
@@ -61,19 +62,23 @@ const CardRightComp = (props) => {
   const [companyId, setCompanyId] = useState("");
   const [poc, setPoc] = useState([]);
 
-  const addSupplierTry = () => {
-    FormForAdd.name = name;
-    FormForAdd.organization_no = companyId;
-    FormForAdd.point_of_contacts = poc;
-    console.log(FormForAdd);
-    props.addSupplier(FormForAdd);
+  const addSupplierTry = (values) => {
+    // FormForAdd.name = values.name;
+    // FormForAdd.organization_no = values.organization_no;
+    // FormForAdd.point_of_contacts = values.point_of_contacts;
+    // console.log(values);
+    // console.log(FormForAdd);
+    props.addSupplier(values);
   };
-  const editSupplierTry = (supplier_id) => {
-    FormForAdd.name = name;
-    FormForAdd.organization_no = companyId;
-    FormForAdd.point_of_contacts = poc;
-    console.log(FormForAdd);
-    props.editSupplier({ point_of_contacts: poc }, supplier_id);
+  const editSupplierTry = (supplier_id, values) => {
+    // FormForAdd.name = values.name;
+    // FormForAdd.organization_no = values.organization_no;
+    // FormForAdd.point_of_contacts = values.point_of_contacts;
+    // console.log(FormForAdd);
+    props.editSupplier(
+      { point_of_contacts: values.point_of_contacts },
+      supplier_id
+    );
   };
   const columns2 = [
     {
@@ -170,21 +175,27 @@ const CardRightComp = (props) => {
           </SupplierName>
           <Line1 />
           <div>Name</div>
-          <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
+          {/* <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
           <div>Company ID</div>
           <input
             placeholder="xxyyzz##"
             onChange={(e) => setCompanyId(e.target.value)}
-          />
+          /> */}
           <PointOfContacts>Point Of Contacts</PointOfContacts>
           <Form
             form={form}
             name="dynamic_form_nest_item"
-            onFinish={onFinish}
+            onFinish={addSupplierTry}
             autoComplete="off"
             initialValues={props.detailOfSupplier || intialValue}
           >
-            <Form.List name="users">
+            <Form.Item name="name" label="name">
+              <Input placeholder="Name" />
+            </Form.Item>
+            <Form.Item name="organization_no" label="organization_no">
+              <Input placeholder="xxyyzz##" />
+            </Form.Item>
+            <Form.List name="point_of_contacts">
               {(fields, { add, remove }) => (
                 <>
                   {fields.map(({ key, name, fieldKey, ...restField }) => (
@@ -223,24 +234,39 @@ const CardRightComp = (props) => {
                       >
                         <Input placeholder="Phone" />
                       </Form.Item>
-                      <DeleteForeverIcon onClick={() => remove(name)} />
+                      <DeleteForeverIcon
+                        style={{ fill: "red" }}
+                        onClick={() => remove(name)}
+                      />
                     </Space>
                   ))}
                   <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block>
-                      Add field
-                    </Button>
+                    <AddBox>
+                      <Button onClick={() => add()} block>
+                        <AddCircleIcon />
+                        Click here to add point of contact
+                      </Button>
+                    </AddBox>
                   </Form.Item>
                 </>
               )}
             </Form.List>
             <Form.Item>
-              <Button type="primary" htmlType="submit">
-                Submit
-              </Button>
+              <ButtonsDiv>
+                <SaveButton>
+                  <button htmlType="submit">
+                    <div>Save</div>
+                  </button>
+                </SaveButton>
+                <CancelButton>
+                  <button>
+                    <div>Cancel</div>
+                  </button>
+                </CancelButton>
+              </ButtonsDiv>
             </Form.Item>
           </Form>
-          <ButtonsDiv>
+          {/* <ButtonsDiv>
             <SaveButton>
               <button onClick={addSupplierTry}>
                 <div>Save</div>
@@ -251,7 +277,7 @@ const CardRightComp = (props) => {
                 <div>Cancel</div>
               </button>
             </CancelButton>
-          </ButtonsDiv>
+          </ButtonsDiv> */}
         </RightCardContent>
       </CreateCardComp>
       <EditCardComp
@@ -268,7 +294,7 @@ const CardRightComp = (props) => {
           </SupplierName>
           <Line1 />
           <div>Name</div>
-          <input
+          {/* <input
             placeholder="Name"
             onChange={(e) => setName(e.target.value)}
             defaultValue={props.detailOfSupplier.name}
@@ -278,7 +304,7 @@ const CardRightComp = (props) => {
             placeholder="xxyyzz##"
             onChange={(e) => setCompanyId(e.target.value)}
             defaultValue={props.detailOfSupplier.organization_no}
-          />
+          /> */}
           <PointOfContacts>Point Of Contacts</PointOfContacts>
 
           <PointOfContactsDiv>
@@ -287,10 +313,16 @@ const CardRightComp = (props) => {
               onFinish={onFinish}
               autoComplete="off"
               initialValues={{
-                users: props.detailOfSupplier?.point_of_contacts,
+                point_of_contacts: props.detailOfSupplier?.point_of_contacts,
               }}
             >
-              <Form.List name="users">
+              <Form.Item name="name" label="name">
+              <Input placeholder="Name" defaultValue={props.detailOfSupplier.name}/>
+            </Form.Item>
+            <Form.Item name="organization_no" label="organization_no">
+              <Input placeholder="xxyyzz##" defaultValue={props.detailOfSupplier.organization_no} />
+            </Form.Item>
+              <Form.List name="point_of_contacts">
                 {(fields, { add, remove }) => (
                   <>
                     {fields.map(({ key, name, fieldKey, ...restField }) => (
@@ -329,26 +361,41 @@ const CardRightComp = (props) => {
                         >
                           <Input placeholder="Phone" />
                         </Form.Item>
-                        <DeleteForeverIcon onClick={() => remove(name)} />
+                        <DeleteForeverIcon
+                          style={{ fill: "red", marginTop: "15px" }}
+                          onClick={() => remove(name)}
+                        />
                       </Space>
                     ))}
                     <Form.Item>
-                      <Button type="dashed" onClick={() => add()} block>
-                        Add
-                      </Button>
+                      <AddBox>
+                        <Button onClick={() => add()} block>
+                          <AddCircleIcon />
+                          Click here to add point of contact
+                        </Button>
+                      </AddBox>
                     </Form.Item>
                   </>
                 )}
               </Form.List>
               <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Submit
-                </Button>
+                <ButtonsDiv>
+                  <SaveButton>
+                    <button htmlType="submit">
+                      <div>Save</div>
+                    </button>
+                  </SaveButton>
+                  <CancelButton>
+                    <button>
+                      <div>Cancel</div>
+                    </button>
+                  </CancelButton>
+                </ButtonsDiv>
               </Form.Item>
             </Form>
           </PointOfContactsDiv>
 
-          <ButtonsDiv>
+          {/* <ButtonsDiv>
             <SaveButton>
               <button
                 onClick={() => {
@@ -363,7 +410,7 @@ const CardRightComp = (props) => {
                 <div>Cancel</div>
               </button>
             </CancelButton>
-          </ButtonsDiv>
+          </ButtonsDiv> */}
         </RightCardContent>
       </EditCardComp>
     </CardRight>

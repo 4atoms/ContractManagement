@@ -152,7 +152,6 @@ const DeleteButton = styled.div`
     color: #ffffff;
   }
 `;
-{/* <Popup name="delete" method={deleteSupplier} id={s_id}/> */}
 const ConfirmDelete = (props) => {
   return (
     <>
