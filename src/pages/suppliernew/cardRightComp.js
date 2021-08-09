@@ -102,7 +102,7 @@ const CardRightComp = (props) => {
               <EditIcon
                 style={{ height: "18px" }}
                 onClick={() => {
-                  editSupplierTry(props.detailOfSupplier.id);
+                  props.showEdit(props.detailOfSupplier.id);
                 }}
               />
               <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
