@@ -15,20 +15,20 @@ const initialState = {
 
 // ACTIONS
 
-const ASSIGN_TO_SUPPLIER_STORE = createAction("ASSIGN_TO_SUPPLIER_STORE");
-const RESET_SUPPLIER_STORE = createAction("RESET_SUPPLIER_STORE");
+const ASSIGN_TO_CLIENTANDPROJECT_STORE = createAction("ASSIGN_TO_CLIENTANDPROJECT_STORE");
+const RESET_CLIENTANDPROJECT_STORE = createAction("RESET_CLIENTANDPROJECT_STORE");
 
-const assignToSupplierStore = (type, payload) => ({
-  type: ASSIGN_TO_SUPPLIER_STORE,
+const assignToClientandprojectStore = (type, payload) => ({
+  type: ASSIGN_TO_CLIENTANDPROJECT_STORE,
   meta: {
     type,
     payload,
   },
 });
 
-const resetSupplierStore = () => (dispatch) => {
+const resetClientandprojectStore = () => (dispatch) => {
   dispatch({
-    type: RESET_SUPPLIER_STORE,
+    type: RESET_CLIENTANDPROJECT_STORE,
     meta: {
       payload: null,
     },
@@ -46,7 +46,7 @@ const getClientData = () => (dispatch) => {
     .get()
     .then((resp) => {
       console.log(resp.data.data);
-      dispatch(assignToSupplierStore("clientsList", resp.data.data));
+      dispatch(assignToClientandprojectStore("clientsList", resp.data.data));
     });
 };
 const getProjectData = () => (dispatch) => {
@@ -54,7 +54,7 @@ const getProjectData = () => (dispatch) => {
     .get()
     .then((resp) => {
       console.log(resp.data.data);
-      dispatch(assignToSupplierStore("projectsList", resp.data.data));
+      dispatch(assignToClientandprojectStore("projectsList", resp.data.data));
     });
 };
 const getDetailOfSupplier = (supplier_id) => (dispatch) => {
@@ -62,7 +62,7 @@ const getDetailOfSupplier = (supplier_id) => (dispatch) => {
     .get()
     .then((resp) => {
       console.log("test", resp.data.data.point_of_contacts[0].name);
-      dispatch(assignToSupplierStore("detailOfSupplier", resp.data.data));
+      dispatch(assignToClientandprojectStore("detailOfSupplier", resp.data.data));
     });
 };
 
@@ -91,14 +91,14 @@ const deleteSupplier = (supplierInfo) => () => {
 // Routing
 
 // Reducers
-const supplierReducer = (state = initialState, action) => {
+const clientandprojectReducer = (state = initialState, action) => {
   const localState = cloneDeep(state);
 
   switch (action.type) {
-    case ASSIGN_TO_SUPPLIER_STORE:
+    case ASSIGN_TO_CLIENTANDPROJECT_STORE:
       localState[action.meta.type] = action.meta.payload;
       return { ...localState };
-    case RESET_SUPPLIER_STORE:
+    case RESET_CLIENTANDPROJECT_STORE:
       return initialState;
     default:
       return localState;
@@ -108,10 +108,10 @@ const supplierReducer = (state = initialState, action) => {
 export default {
   namespace,
   store: initialState,
-  reducer: supplierReducer,
+  reducer: clientandprojectReducer,
   creators: {
-    assignToSupplierStore,
-    resetSupplierStore,
+    assignToClientandprojectStore,
+    resetClientandprojectStore,
     getClientData,
     getProjectData,
     getDetailOfSupplier,
