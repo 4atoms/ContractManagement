@@ -340,6 +340,7 @@ export const ButtonsDiv = styled.div`
   position: absolute;
   right: 20px;
   bottom: 20px;
+  display: flex;
   gap: 20px;
   & > button {
     margin-right: 16px;
@@ -549,4 +550,102 @@ export const CommonButton = styled.button`
     ${(props) => (props.deleteModal ? themeColors.redDanger : primaryColor)};
   border-radius: 5px;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+`;
+
+export const DeleteBox = styled.div`
+  position: relative;
+  width: 306px;
+  height: 179px;
+  z-index: 99;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
+export const HeaderDelete = styled.div`
+  position: absolute;
+  width: 306px;
+  height: 42px;
+  left: 0px;
+  top: 0px;
+  z-index: 99;
+
+  background: ${themeColors.redDanger};
+  & > div {
+    position: absolute;
+    width: 145px;
+    height: 22px;
+    left: 25px;
+    top: 10px;
+
+    /* Proton - text body */
+
+    font-family: Varela Round;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+
+    text-align: center;
+
+    /* White */
+
+    color: #ffffff;
+  }
+`;
+
+export const TextDiv = styled.div`
+  position: absolute;
+  width: 217px;
+  height: 17px;
+  left: 60px;
+  top: 70px;
+  font-family: Varela Round;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  color: #3c3c3c;
+  & > div {
+    // position: absolute;
+    // width: 144px;
+    // height: 14px;
+    // left: 60px;
+    // top: 89px;
+
+    /* Proton - Subtitle */
+
+    font-family: Varela Round;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.02em;
+
+    /* Proton - Tertiary color */
+
+    color: #9e9e9e;
+  }
+`;
+export const AddBox = styled.div`
+  width: 367px;
+  height: 30px;
+
+  border: 1px solid #9e9e9e;
+  box-sizing: border-box;
+  border-radius: 5px;
+  & > div {
+    width: 186px;
+    height: 14px;
+
+    font-family: Varela Round;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: -0.02em;
+
+    color: #3c3c3c;
+  }
 `;
