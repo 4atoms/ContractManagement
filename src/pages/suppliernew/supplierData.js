@@ -15,6 +15,9 @@ import {
   BadgeOrange,
   BadgeBlue,
   CommonButton,
+  HeaderDelete,
+  DeleteBox,
+  TextDiv,
 } from "Components/common.style";
 import CardRightComp from "./cardRightComp";
 import ModalLayout from "Components/modalLayout";
@@ -38,6 +41,7 @@ const SupplierData = () => {
   const [displayEditSupplier, setDisplayEditSupplier] = useState(false);
   const [listSupplier, setListSupplier] = useState(suppliersList);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteSupplierDetail, setDeleteSupplierDetail] = useState(null);
   useEffect(() => {
     getSupplierData();
   }, []);
@@ -172,7 +176,8 @@ const SupplierData = () => {
           <DeleteForeverIcon
             style={{ fill: "red", height: "18px" }}
             onClick={() => {
-              deleteSupplier(suppliersList.id);
+              setDeleteModalOpen(true);
+              setDeleteSupplierDetail(suppliersList.id);
             }}
           />
         </Space>
@@ -202,23 +207,23 @@ const SupplierData = () => {
   };
 
   const renderDeleteContent = () => {
+    getDetailOfSupplier(deleteSupplierDetail);
     return (
       <>
-        <Row style={{ padding: "20px 10px" }}>
-          <Col style={colStyle} span={9}>
-            <div>
-              Supplier name:
-              <span style={delValStyle}>{detailOfSupplier.name}</span>
-            </div>
-          </Col>
-        </Row>
+        <HeaderDelete>
+          {/* <div>Confirm Deletion</div> */}
+        </HeaderDelete>
+        <TextDiv>
+          Are you sure you want to delete?
+          <div>You cant undo this action</div>
+          </TextDiv>
         <div style={buttonStyle}>
           <CommonButton deleteModal onClick={() => onclose()}>
             Cancel
           </CommonButton>
           <CommonButton
             onClick={() => {
-              deleteSupplier(suppliersList.id);
+              deleteSupplier(deleteSupplierDetail);
               onclose();
             }}
             type="primary"
@@ -276,9 +281,9 @@ const SupplierData = () => {
       {renderContent()}
       {isDeleteModalOpen && (
         <ModalLayout
-          width={"550px"}
-          height={"300px"}
-          title={"Delete Supplier"}
+          width={"306px"}
+          height={"179px"}
+          title={"Confirm Deletion"}
           onclose={onclose}
           type={"delete"}
         >
@@ -289,4 +294,3 @@ const SupplierData = () => {
   );
 };
 export default SupplierData;
-
