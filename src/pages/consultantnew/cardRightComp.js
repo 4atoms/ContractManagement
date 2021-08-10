@@ -449,7 +449,7 @@ const CardRightComp = (props) => {
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Cost//hr</text>
+              <text>Cost/hr</text>
             </LightColor>
             <div>
               <text>
