@@ -11,6 +11,8 @@ import {
   AutoComplete,
 } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
+import ModalLayout from "Components/modalLayout";
+import ConfirmDelete from "Components/confirmDelete";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
@@ -563,7 +565,16 @@ const CardRightComp = (props) => {
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
-            <button>Cancel</button>
+            <Button
+             onClick={
+               ()=> 
+               {
+                 props.setContractCancelledModalOpen(true);
+                 props.setDeleteContractDetail(props.detailOfConsultant.contracts?.upcoming?.[0]
+                ?.id)
+              }}
+                    
+            >Cancel</Button>
           </UpcomingContractSubParts>
         </UpcomingContractParts>
       );
@@ -688,7 +699,7 @@ const CardRightComp = (props) => {
                 className="cursorPointer"
                 style={{ fill: "red", height: "18px" }}
                 onClick={() => {
-                  props.setDeleteContractDetail(props.detailOfConsultant);
+                  props.setDeleteConsultantDetail(props.detailOfConsultant);
                   props.setDeleteModalOpen(true);
                 }}
               />

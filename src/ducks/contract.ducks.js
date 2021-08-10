@@ -112,6 +112,15 @@ const renewContracts = (request) => (dispatch) => {
     });
 };
 
+const deleteContract = (contract_id) => (dispatch) => {
+  return nw.apiWithPath("contractList", [contract_id])
+    .delete()
+    .then((resp) => {
+      console.log(resp.data);
+      getConsultantsData()(dispatch);
+    });
+};
+
 // Routing
 
 // Reducers
@@ -141,5 +150,6 @@ export default {
     getDetailOfcontract,
     updateContract,
     renewContracts,
+    deleteContract,
   },
 };

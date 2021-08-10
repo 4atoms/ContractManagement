@@ -41,6 +41,7 @@ const ConsultantData = () => {
       getProjectData,
       addConsultantwithContract,
       renewContracts,
+      deleteContract,
       updateConsultant,
     },
   } = context;
@@ -53,8 +54,10 @@ const ConsultantData = () => {
 
   const [isRenewModalOpen, setRenewModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isContractCancelledModalOpen, setContractCancelledModalOpen] = useState(false);
 
   const [renewContractDetail, setRenewContractDetail] = useState(null);
+  const [deleteConsultantDetail, setDeleteConsultantDetail] = useState(null);
   const [deleteContractDetail, setDeleteContractDetail] = useState(null);
   const [period, setPeriod] = useState(6);
 
@@ -100,7 +103,6 @@ const ConsultantData = () => {
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(false);
     setdisplayCreateContract(true);
-    console.log("GASGSHA");
   };
 
   const handleClick = (num) => {
@@ -113,6 +115,8 @@ const ConsultantData = () => {
     setPeriod(6);
     setRenewContractDetail(null);
     setDeleteModalOpen(false);
+    setDeleteConsultantDetail(null);
+    setContractCancelledModalOpen(false);
     setDeleteContractDetail(null);
   };
 
@@ -335,7 +339,7 @@ const ConsultantData = () => {
             className="cursorPointer"
             style={{ fill: "red", height: "18px" }}
             onClick={() => {
-              setDeleteContractDetail(consultantsList);
+              setDeleteConsultantDetail(consultantsList);
               setDeleteModalOpen(true);
             }}
           />
@@ -474,9 +478,11 @@ const ConsultantData = () => {
             showDetails={showDetails}
             showEdit={showEdit}
             setDeleteModalOpen={setDeleteModalOpen}
-            setDeleteContractDetail={setDeleteContractDetail}
+            setDeleteConsultantDetail={setDeleteConsultantDetail}
             setRenewModalOpen={setRenewModalOpen}
             setRenewContractDetail={setRenewContractDetail}
+            setContractCancelledModalOpen={setContractCancelledModalOpen}
+            setDeleteContractDetail={setDeleteContractDetail}
           />
         </CardRightWrapper>
       </WrapperCard>
@@ -486,19 +492,28 @@ const ConsultantData = () => {
   return (
     <>
       {renderContent()}
-      {(isRenewModalOpen || isDeleteModalOpen) && (
+      {(isRenewModalOpen || isDeleteModalOpen || isContractCancelledModalOpen) && (
         <ModalLayout
           width={isDeleteModalOpen ? "450px" : "550px"}
           height={isDeleteModalOpen ? "225px" : "340px"}
-          title={isDeleteModalOpen ? "Delete Consultant" : "Renew Contract"}
+          title={isDeleteModalOpen ? "Delete Consultant" : isContractCancelledModalOpen ? "Cancel the Contract": "Renew Contract"}
           onclose={onclose}
-          type={isDeleteModalOpen ? "delete" : "normal"}
+          type={isDeleteModalOpen || isContractCancelledModalOpen ? "delete" : "normal"}
         >
           {isRenewModalOpen && renewContractDetail && renderRenewContent()}
           {isDeleteModalOpen && (
             <ConfirmDelete
               deleteIt={() => {
-                deleteConsultant(deleteContractDetail.id);
+                deleteConsultant(deleteConsultantDetail.id);
+                onclose();
+              }}
+              cancelIt={onclose}
+            />
+          )}
+      {isContractCancelledModalOpen && (
+            <ConfirmDelete
+              deleteIt={() => {
+                deleteContract(deleteContractDetail);
                 onclose();
               }}
               cancelIt={onclose}
