@@ -54,7 +54,8 @@ const ConsultantData = () => {
 
   const [isRenewModalOpen, setRenewModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-  const [isContractCancelledModalOpen, setContractCancelledModalOpen] = useState(false);
+  const [isContractCancelledModalOpen, setContractCancelledModalOpen] =
+    useState(false);
 
   const [renewContractDetail, setRenewContractDetail] = useState(null);
   const [deleteConsultantDetail, setDeleteConsultantDetail] = useState(null);
@@ -492,13 +493,21 @@ const ConsultantData = () => {
   return (
     <>
       {renderContent()}
-      {(isRenewModalOpen || isDeleteModalOpen || isContractCancelledModalOpen) && (
+      {(isRenewModalOpen ||
+        isDeleteModalOpen ||
+        isContractCancelledModalOpen) && (
         <ModalLayout
-          width={isDeleteModalOpen ? "450px" : "550px"}
-          height={isDeleteModalOpen ? "225px" : "340px"}
-          title={isDeleteModalOpen ? "Delete Consultant" : isContractCancelledModalOpen ? "Cancel the Contract": "Renew Contract"}
+          width={isRenewModalOpen ? "550px" : "450px"}
+          height={isRenewModalOpen ? "340px" : "225px"}
+          title={
+            isDeleteModalOpen
+              ? "Delete Consultant"
+              : isContractCancelledModalOpen
+              ? "Cancel the Contract"
+              : "Renew Contract"
+          }
           onclose={onclose}
-          type={isDeleteModalOpen || isContractCancelledModalOpen ? "delete" : "normal"}
+          type={isRenewModalOpen ? "normal" : "delete"}
         >
           {isRenewModalOpen && renewContractDetail && renderRenewContent()}
           {isDeleteModalOpen && (
@@ -510,7 +519,7 @@ const ConsultantData = () => {
               cancelIt={onclose}
             />
           )}
-      {isContractCancelledModalOpen && (
+          {isContractCancelledModalOpen && (
             <ConfirmDelete
               deleteIt={() => {
                 deleteContract(deleteContractDetail);
