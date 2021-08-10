@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Button, Table, Form, Space, Input } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -41,30 +41,25 @@ const CardRightComp = (props) => {
   const {
     actions: { addSupplier },
   } = context;
-  const FormForAdd = {
-    name: "",
-    point_of_contacts: [
-      {
-        name: "",
-        email: "",
-        phone: "",
-      },
-    ],
-    organization_no: "",
-  };
+  // const FormForAdd = {
+  //   name: "",
+  //   point_of_contacts: [
+  //     {
+  //       name: "",
+  //       email: "",
+  //       phone: "",
+  //     },
+  //   ],
+  //   organization_no: "",
+  // };
 
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
 
-  const [companyId, setCompanyId] = useState("");
-  const [poc, setPoc] = useState([]);
+  // const [companyId, setCompanyId] = useState("");
+  // const [poc, setPoc] = useState([]);
 
   const addSupplierTry = (values) => {
-    // FormForAdd.name = values.name;
-    // FormForAdd.organization_no = values.organization_no;
-    // FormForAdd.point_of_contacts = values.point_of_contacts;
-    // console.log(values);
-    // console.log(FormForAdd);
-    props.addSupplier(values);
+    props.addSupplier(values).then(() => props.showDetails());
   };
   const editSupplierTry = (values) => {
     let request = values;
