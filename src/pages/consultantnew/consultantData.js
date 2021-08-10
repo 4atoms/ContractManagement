@@ -533,6 +533,8 @@ const ConsultantData = () => {
             updateConsultant={updateConsultant}
             showDetails={showDetails}
             showEdit={showEdit}
+            setDeleteModalOpen={setDeleteModalOpen}
+            setDeleteContractDetail={setDeleteContractDetail}
           />
         </CardRightWrapper>
       </WrapperCard>

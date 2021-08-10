@@ -674,7 +674,14 @@ const CardRightComp = (props) => {
                 }}
                 style={{ height: "18px" }}
               />
-              <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
+              <DeleteForeverIcon
+                className="cursorPointer"
+                style={{ fill: "red", height: "18px" }}
+                onClick={() => {
+                  props.setDeleteContractDetail(props.detailOfConsultant);
+                  props.setDeleteModalOpen(true);
+                }}
+              />
             </span>
           </ConsultantName>
           {/* <Consultants></Consultants> */}
