@@ -30,7 +30,9 @@ const dateFormatStandard = (string) => {
   return moment(string).format("D MMM  YYYY");
 };
 const dateFormatStandard2 = (string) => {
-  return moment(string).format("YYYY MM DD");
+  if (string) {
+    return moment(string).format("YYYY-MM-DD");
+  } else string;
 };
 const TodayDate = () => {
   return moment().format("D MMM  YYYY");
@@ -85,7 +87,7 @@ const isAdminLoggedIn = (store) => {
 };
 
 const dateDifference = (first, second) => {
-  return Math.round((second - first) / (1000 * 60 * 60 * 24))+1;
+  return Math.round((second - first) / (1000 * 60 * 60 * 24)) + 1;
 };
 
 export {

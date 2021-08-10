@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Badge, Input, Row, Col } from "antd";
+import { Table, Space, Badge, Input } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import WarningIcon from "@material-ui/icons/Warning";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { themeColors, tertiaryColor, primaryColor } from "Config/theme";
+import { themeColors } from "Config/theme";
 import {
   CardLeft,
   WrapperCard,
@@ -16,9 +16,6 @@ import {
   BadgeOrange,
   BadgeBlue,
   CommonButton,
-  HeaderDelete,
-  DeleteBox,
-  TextDiv,
 } from "Components/common.style";
 import CardRightComp from "./cardRightComp";
 import ModalLayout from "Components/modalLayout";
@@ -268,6 +265,8 @@ const SupplierData = () => {
               displayEditSupplier={displayEditSupplier}
               showDetails={showDetails}
               showEdit={showEdit}
+              setDeleteModalOpen={setDeleteModalOpen}
+              setDeleteSupplierDetail={setDeleteSupplierDetail}
             />
           </CardRightWrapper>
         </WrapperCard>
