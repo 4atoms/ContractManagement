@@ -19,6 +19,7 @@ import CardRightComp from "./cardRightComp";
 import { dateFormatStandard } from "../../utilities/helpers";
 import moment from "moment";
 import ModalLayout from "Components/modalLayout";
+import ConfirmDelete from "Components/confirmDelete";
 
 const ConsultantData = () => {
   const { Search } = Input;
@@ -357,67 +358,6 @@ const ConsultantData = () => {
     padding: "0px 10px",
   };
 
-  const delValStyle = {
-    color: themeColors.redDanger,
-    padding: "0px 10px",
-  };
-
-  const renderDeleteContent = () => {
-    return (
-      <>
-        <Row style={{ padding: "20px 10px" }}>
-          <Col style={colStyle} span={9}>
-            <div>
-              Consultant name:
-              <span style={delValStyle}>{deleteContractDetail.name}</span>
-            </div>
-            <div>
-              Supplier name:
-              <span style={delValStyle}>
-                {deleteContractDetail.supplier.name}
-              </span>
-            </div>
-            <div>
-              Email:
-              <span style={delValStyle}>{deleteContractDetail.email}</span>
-            </div>
-            <div>
-              Phone:
-              <span style={delValStyle}>{deleteContractDetail.phone}</span>
-            </div>
-          </Col>
-          <Col style={colStyle} span={15}>
-            <div>
-              Consultant ID:
-              <span style={delValStyle}>{deleteContractDetail.id}</span>
-            </div>
-            <div>
-              Supplier ID:
-              <span style={delValStyle}>
-                {deleteContractDetail.supplier.id}
-              </span>
-            </div>
-          </Col>
-        </Row>
-        <div style={buttonStyle}>
-          <CommonButton deleteModal onClick={() => onclose()}>
-            Cancel
-          </CommonButton>
-          <CommonButton
-            onClick={() => {
-              deleteConsultant(deleteContractDetail.id);
-              onclose();
-            }}
-            type="primary"
-            deleteModal
-          >
-            Delete
-          </CommonButton>
-        </div>
-      </>
-    );
-  };
-
   const renderRenewContent = () => {
     return (
       <>
@@ -546,14 +486,22 @@ const ConsultantData = () => {
       {renderContent()}
       {(isRenewModalOpen || isDeleteModalOpen) && (
         <ModalLayout
-          width={"550px"}
-          height={isDeleteModalOpen ? "300px" : "340px"}
+          width={isDeleteModalOpen ? "450px" : "550px"}
+          height={isDeleteModalOpen ? "225px" : "340px"}
           title={isDeleteModalOpen ? "Delete Consultant" : "Renew Contract"}
           onclose={onclose}
           type={isDeleteModalOpen ? "delete" : "normal"}
         >
           {isRenewModalOpen && renderRenewContent()}
-          {isDeleteModalOpen && renderDeleteContent()}
+          {isDeleteModalOpen && (
+            <ConfirmDelete
+              deleteIt={() => {
+                deleteConsultant(deleteContractDetail.id);
+                onclose();
+              }}
+              cancelIt={onclose}
+            />
+          )}
         </ModalLayout>
       )}
     </>
