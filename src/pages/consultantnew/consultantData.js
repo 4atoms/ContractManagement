@@ -535,6 +535,8 @@ const ConsultantData = () => {
             showEdit={showEdit}
             setDeleteModalOpen={setDeleteModalOpen}
             setDeleteContractDetail={setDeleteContractDetail}
+            setRenewModalOpen={setRenewModalOpen}
+            setRenewContractDetail={setRenewContractDetail}
           />
         </CardRightWrapper>
       </WrapperCard>
@@ -561,8 +563,3 @@ const ConsultantData = () => {
 };
 
 export default ConsultantData;
-// export default {
-//   store: ConsultantData,
-//   creators: {
-//     showCreateContract,
-//   },}
