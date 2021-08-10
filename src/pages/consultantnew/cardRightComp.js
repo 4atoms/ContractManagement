@@ -6,6 +6,7 @@ import {
   Select,
   DatePicker,
   Space,
+  Form,
   AutoComplete,
 } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
@@ -54,6 +55,9 @@ const onSearch = (val) => {
 };
 const CardRightComp = (props) => {
   //Consultant Create API
+
+  const [form] = Form.useForm();
+
   const FormForAdd = {
     name: "",
     email: "",
@@ -329,26 +333,11 @@ const CardRightComp = (props) => {
     cost_per_hour: "",
   };
 
-  const resetConsultantStates = () => {
-    setName("");
-    setPhone("");
-    setEmail("");
-  };
-
-  const editAndUpdateConsultant = () => {
-    let request = {};
-    if (name && name != "") {
-      request["name"] = name;
-    }
-    if (email && email != "") {
-      request["email"] = email;
-    }
-    if (phone && phone != "") {
-      request["phone"] = phone;
-    }
+  const editAndUpdateConsultant = (formData) => {
+    let request = formData;
+    delete request.supplier;
     if (Object.keys(request).length) {
       console.log(request);
-      resetConsultantStates();
       props
         .updateConsultant(request, props.detailOfConsultant.id)
         .then(() => props.showDetails());
@@ -609,6 +598,12 @@ const CardRightComp = (props) => {
     }
   }, [client]);
 
+  useEffect(() => {
+    if (props.detailOfConsultant) {
+      form.setFieldsValue(props.detailOfConsultant);
+    }
+  }, [props.detailOfConsultant]);
+
   const columns2 = [
     {
       title: "Client",
@@ -646,6 +641,25 @@ const CardRightComp = (props) => {
     },
   ];
 
+  const renderEditForm = () => {
+    return (
+      <Form onFinish={editAndUpdateConsultant} form={form}>
+        <Form.Item name={["name"]} label="Name">
+          <Input placeholder="Name" />
+        </Form.Item>
+        <Form.Item name={["email"]} label="Email">
+          <Input placeholder="email" />
+        </Form.Item>
+        <Form.Item name={["phone"]} label="Phone">
+          <Input placeholder="phone" />
+        </Form.Item>
+        <Form.Item name={["supplier", "name"]} label="Supplier">
+          <Input placeholder="supplier" disabled={true} />
+        </Form.Item>
+      </Form>
+    );
+  };
+
   return (
     <CardRight>
       <DisplayCardRight3 displayConsultDetails={props.displayConsultDetails}>
@@ -660,7 +674,14 @@ const CardRightComp = (props) => {
                 }}
                 style={{ height: "18px" }}
               />
-              <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
+              <DeleteForeverIcon
+                className="cursorPointer"
+                style={{ fill: "red", height: "18px" }}
+                onClick={() => {
+                  props.setDeleteContractDetail(props.detailOfConsultant);
+                  props.setDeleteModalOpen(true);
+                }}
+              />
             </span>
           </ConsultantName>
           {/* <Consultants></Consultants> */}
@@ -873,7 +894,7 @@ const CardRightComp = (props) => {
                   // defaultValue={moment("01/01/2015", dateFormat)}
                   //onChange={(value) => setStart_date(value)}
                   format={dateFormat}
-                  onChange={(e) => setStart_date(e)}
+                  onChange={(e) => setStart_date(dateFormatStandard2(e))}
                 />
               </Space>
             </Flex50>
@@ -939,60 +960,27 @@ const CardRightComp = (props) => {
       </CreateConsultantCardComp>
 
       {/* Edit Consultant Card */}
-      {props.detailOfConsultant?.name && (
-        <EditConsultantCardComp
-          displayEditConsultant={props.displayEditConsultant}
-          detailOfConsultant={props.detailOfConsultant}
-        >
-          <RightCardContent>
-            <ConsultantName>
-              Edit Consultant: {props.detailOfConsultant.name}
-            </ConsultantName>
-            <Line1 />
-            <div>Name</div>
-            <Input
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-              defaultValue={props.detailOfConsultant.name}
-            />
-            <div>Email</div>
-            <Input
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-              defaultValue={props.detailOfConsultant.email}
-            />
-            <div>Mobile</div>
-            <Input
-              placeholder="Mobile"
-              onChange={(e) => setPhone(e.target.value)}
-              defaultValue={props.detailOfConsultant.phone}
-            />
-            <div>Supplier</div>
-            <Input
-              placeholder="Supplier"
-              defaultValue={props.detailOfConsultant?.supplier?.name}
-              disabled={true}
-            />
+      <EditConsultantCardComp
+        displayEditConsultant={props.displayEditConsultant}
+        detailOfConsultant={props.detailOfConsultant}
+      >
+        <RightCardContent>
+          <ConsultantName>
+            Edit Consultant: {props.detailOfConsultant.name}
+          </ConsultantName>
+          <Line1 />
+          {renderEditForm(props.detailOfConsultant)}
 
-            <ButtonsDiv>
-              <CommonButton
-                onClick={() => editAndUpdateConsultant()}
-                type="primary"
-              >
-                Update
-              </CommonButton>
-              <CommonButton
-                onClick={() => {
-                  resetConsultantStates();
-                  props.showDetails();
-                }}
-              >
-                Cancel
-              </CommonButton>
-            </ButtonsDiv>
-          </RightCardContent>
-        </EditConsultantCardComp>
-      )}
+          <ButtonsDiv>
+            <CommonButton onClick={() => form.submit()} type="primary">
+              Update
+            </CommonButton>
+            <CommonButton onClick={() => props.showDetails()}>
+              Cancel
+            </CommonButton>
+          </ButtonsDiv>
+        </RightCardContent>
+      </EditConsultantCardComp>
 
       {/* Create Contract Card */}
       <DisplayContractCardComp
@@ -1100,7 +1088,7 @@ const CardRightComp = (props) => {
                   // defaultValue={moment("01/01/2015", dateFormat)}
                   //onChange={(value) => setStart_date(value)}
                   format={dateFormat}
-                  onChange={(e) => dateFormatStandard2(setStart_date(e))}
+                  onChange={(e) => setStart_date(dateFormatStandard2(e))}
                 />
               </Space>
             </Flex50>

@@ -106,7 +106,14 @@ const CardRightComp = (props) => {
                   props.showEdit(props.detailOfSupplier.id);
                 }}
               />
-              <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
+              <DeleteForeverIcon
+                className="cursorPointer"
+                style={{ fill: "red", height: "18px" }}
+                onClick={() => {
+                  props.setDeleteModalOpen(true);
+                  props.setDeleteSupplierDetail(props.detailOfSupplier.id);
+                }}
+              />
             </span>
           </SupplierName>
           <SupplierId>{props.detailOfSupplier.organization_no}</SupplierId>
