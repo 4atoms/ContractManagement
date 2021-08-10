@@ -73,10 +73,6 @@ const ConsultantData = () => {
     setListConsultant(consultantsList);
   }, [consultantsList]);
 
-  useEffect(() => {
-    console.log(renewContractDetail);
-  }, [renewContractDetail]);
-
   const showDetails = () => {
     setDisplayConsultDetails(true);
     setDisplayCreateConsultant(false);
@@ -123,9 +119,12 @@ const ConsultantData = () => {
 
   const renewContractsRequest = () => {
     let request = { renew_contracts: [] };
+    let contractDetail =
+      renewContractDetail?.contracts?.ongoing?.[0] ||
+      renewContractDetail?.contracts?.active?.[0];
     if (period && renewContractDetail) {
       request.renew_contracts.push({
-        id: renewContractDetail.contracts.ongoing[0].id,
+        id: contractDetail.id,
         period: period,
       });
       console.log(request);

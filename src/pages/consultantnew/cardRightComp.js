@@ -458,14 +458,14 @@ const CardRightComp = (props) => {
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
-          <Button
-                  onClick={() => {
-                    props.setRenewContractDetail(props.detailOfConsultant);
-                    props.setRenewModalOpen(true);
-                  }}
-                >
-                  Renew
-                </Button>
+            <Button
+              onClick={() => {
+                props.setRenewContractDetail(props.detailOfConsultant);
+                props.setRenewModalOpen(true);
+              }}
+            >
+              Renew
+            </Button>
           </ActiveContractSubParts>
         </ActiveContractParts>
       );
