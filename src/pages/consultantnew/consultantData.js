@@ -41,6 +41,7 @@ const ConsultantData = () => {
       getProjectData,
       addConsultantwithContract,
       renewContracts,
+      updateConsultant,
     },
   } = context;
 
@@ -320,6 +321,7 @@ const ConsultantData = () => {
       render: (consultantsList) => (
         <Space size="middle">
           <EditIcon
+            className="cursorPointer"
             style={{ fill: "#6041b8", height: "18px" }}
             onClick={() => {
               showEdit(consultantsList.id);
@@ -528,6 +530,9 @@ const ConsultantData = () => {
             addConsultantwithContract={addConsultantwithContract}
             displayCreateContract={displayCreateContract}
             showCreateContract={showCreateContract}
+            updateConsultant={updateConsultant}
+            showDetails={showDetails}
+            showEdit={showEdit}
           />
         </CardRightWrapper>
       </WrapperCard>
@@ -541,7 +546,7 @@ const ConsultantData = () => {
         <ModalLayout
           width={"550px"}
           height={isDeleteModalOpen ? "300px" : "340px"}
-          title={isDeleteModalOpen ? "Delete Contract" : "Renew Contract"}
+          title={isDeleteModalOpen ? "Delete Consultant" : "Renew Contract"}
           onclose={onclose}
           type={isDeleteModalOpen ? "delete" : "normal"}
         >

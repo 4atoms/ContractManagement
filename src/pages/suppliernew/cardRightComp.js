@@ -36,10 +36,6 @@ const CardRightComp = (props) => {
     organisation_no: null,
     point_of_contacts: [{ name: null, email: null, phone: null }],
   };
-  const onFinish = (values) => {
-    setPoc(values.users);
-    console.log("Received values of form:", values);
-  };
 
   const context = useContext(RefContext);
   const {
@@ -70,15 +66,14 @@ const CardRightComp = (props) => {
     // console.log(FormForAdd);
     props.addSupplier(values);
   };
-  const editSupplierTry = (supplier_id, values) => {
-    // FormForAdd.name = values.name;
-    // FormForAdd.organization_no = values.organization_no;
-    // FormForAdd.point_of_contacts = values.point_of_contacts;
-    // console.log(FormForAdd);
-    props.editSupplier(
-      { point_of_contacts: values.point_of_contacts },
-      supplier_id
-    );
+  const editSupplierTry = (values) => {
+    let request = values;
+    request["point_of_contacts"] = request.point_of_contacts.map((poc) => {
+      delete poc._id;
+      return poc;
+    });
+    console.log(request, request.id);
+    props.editSupplier(request, request.id).then(() => props.showDetails());
   };
   const columns2 = [
     {
@@ -105,9 +100,10 @@ const CardRightComp = (props) => {
             {props.detailOfSupplier.name}
             <span style={{ position: "absolute", right: "20px", top: "20px" }}>
               <EditIcon
+                className="cursorPointer"
                 style={{ height: "18px" }}
                 onClick={() => {
-                  editSupplierTry(props.detailOfSupplier.id);
+                  props.showEdit(props.detailOfSupplier.id);
                 }}
               />
               <DeleteForeverIcon style={{ fill: "red", height: "18px" }} />
@@ -174,17 +170,17 @@ const CardRightComp = (props) => {
             </span> */}
           </SupplierName>
           <Line1 />
-          <div>Name</div>
+          {/* <div>Name</div> */}
           {/* <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
           <div>Company ID</div>
           <input
             placeholder="xxyyzz##"
             onChange={(e) => setCompanyId(e.target.value)}
           /> */}
-          <PointOfContacts>Point Of Contacts</PointOfContacts>
+          {/* <PointOfContacts>Point Of Contacts</PointOfContacts> */}
           <Form
             form={form}
-            name="dynamic_form_nest_item"
+            name="create-supplier"
             onFinish={addSupplierTry}
             autoComplete="off"
             initialValues={props.detailOfSupplier || intialValue}
@@ -293,7 +289,7 @@ const CardRightComp = (props) => {
             </span> */}
           </SupplierName>
           <Line1 />
-          <div>Name</div>
+          {/* <div>Name</div> */}
           {/* <input
             placeholder="Name"
             onChange={(e) => setName(e.target.value)}
@@ -305,23 +301,24 @@ const CardRightComp = (props) => {
             onChange={(e) => setCompanyId(e.target.value)}
             defaultValue={props.detailOfSupplier.organization_no}
           /> */}
-          <PointOfContacts>Point Of Contacts</PointOfContacts>
+          {/* <PointOfContacts>Point Of Contacts</PointOfContacts> */}
 
           <PointOfContactsDiv>
             <Form
               name="dynamic_form_nest_item"
-              onFinish={onFinish}
+              onFinish={editSupplierTry}
               autoComplete="off"
-              initialValues={{
-                point_of_contacts: props.detailOfSupplier?.point_of_contacts,
-              }}
+              initialValues={props.detailOfSupplier}
             >
+              <Form.Item name="id" label="id" hidden>
+                <Input placeholder="id" />
+              </Form.Item>
               <Form.Item name="name" label="name">
-              <Input placeholder="Name" defaultValue={props.detailOfSupplier.name}/>
-            </Form.Item>
-            <Form.Item name="organization_no" label="organization_no">
-              <Input placeholder="xxyyzz##" defaultValue={props.detailOfSupplier.organization_no} />
-            </Form.Item>
+                <Input placeholder="Name" />
+              </Form.Item>
+              <Form.Item name="organization_no" label="organization_no">
+                <Input placeholder="xxyyzz##" />
+              </Form.Item>
               <Form.List name="point_of_contacts">
                 {(fields, { add, remove }) => (
                   <>
@@ -335,9 +332,7 @@ const CardRightComp = (props) => {
                           {...restField}
                           name={[name, "name"]}
                           fieldKey={[fieldKey, "name"]}
-                          rules={[
-                            { required: true, message: "Missing first name" },
-                          ]}
+                          rules={[{ required: true, message: "Missing name" }]}
                         >
                           <Input placeholder="Name" />
                         </Form.Item>
@@ -345,9 +340,7 @@ const CardRightComp = (props) => {
                           {...restField}
                           name={[name, "email"]}
                           fieldKey={[fieldKey, "email"]}
-                          rules={[
-                            { required: true, message: "Missing last name" },
-                          ]}
+                          rules={[{ required: true, message: "Missing email" }]}
                         >
                           <Input placeholder="Email" />
                         </Form.Item>
@@ -355,9 +348,7 @@ const CardRightComp = (props) => {
                           {...restField}
                           name={[name, "phone"]}
                           fieldKey={[fieldKey, "phone"]}
-                          rules={[
-                            { required: true, message: "Missing first name" },
-                          ]}
+                          rules={[{ required: true, message: "Missing phone" }]}
                         >
                           <Input placeholder="Phone" />
                         </Form.Item>

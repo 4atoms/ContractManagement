@@ -40,7 +40,7 @@ const setId = (num) => (dispatch) => {
   console.log(num);
 };
 
-const getSupplierData = (request) => (dispatch) => {
+const getSupplierData = () => (dispatch) => {
   nw.api("supplierList")
     .get()
     .then((resp) => {
@@ -52,7 +52,6 @@ const getDetailOfSupplier = (supplier_id) => (dispatch) => {
   nw.apiWithPath("supplierList", [supplier_id])
     .get()
     .then((resp) => {
-      console.log("test", resp.data.data.point_of_contacts[0].name);
       dispatch(assignToSupplierStore("detailOfSupplier", resp.data.data));
     });
 };
@@ -64,23 +63,22 @@ const addSupplier = (supplierInfo) => () => {
       console.log(resp.data);
     });
 };
-const editSupplier = (supplierInfo, supplierId) => () => {
-  supplierInfo.point_of_contacts.forEach(function (v) {
-    if (v._id) {
-      delete v._id;
-    }
-  });
-  nw.apiWithPath("supplierList", [supplierId])
+const editSupplier = (supplierInfo, supplierId) => (dispatch) => {
+  return nw
+    .apiWithPath("supplierList", [supplierId])
     .put(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
+      getSupplierData()(dispatch);
+      getDetailOfSupplier(supplierId)(dispatch);
     });
 };
-const deleteSupplier = (supplierInfo) => () => {
+const deleteSupplier = (supplierInfo) => (dispatch) => {
   nw.apiWithPath("supplierList", [supplierInfo])
     .delete(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
+      getSupplierData()(dispatch);
     });
 };
 
