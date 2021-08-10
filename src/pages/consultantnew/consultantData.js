@@ -16,8 +16,7 @@ import {
 } from "Components/common.style";
 import { themeColors, tertiaryColor, primaryColor } from "Config/theme";
 import CardRightComp from "./cardRightComp";
-import { dateFormatStandard } from "../../utilities/helpers";
-import moment from "moment";
+import { dateFormatStandard, dateDifference } from "../../utilities/helpers";
 import ModalLayout from "Components/modalLayout";
 import ConfirmDelete from "Components/confirmDelete";
 
@@ -222,10 +221,10 @@ const ConsultantData = () => {
                         : themeColors.black,
                   }}
                 >
-                  {moment(consultantsList.contracts.ongoing[0].end_date).diff(
-                    moment(),
-                    "days"
-                  ) + 1}
+                  {dateDifference(
+                    new Date(),
+                    new Date(consultantsList.contracts.ongoing[0].end_date)
+                  )}
                   days
                 </div>
                 <div style={{ color: tertiaryColor }}>
@@ -252,33 +251,34 @@ const ConsultantData = () => {
       key: "ren",
       render: (consultantsList) => {
         if (
-          !(
-            consultantsList.contracts.count -
-            consultantsList.contracts.expired.length
-          )
+          consultantsList.contracts.count -
+            consultantsList.contracts.expired.length ==
+          0
         ) {
           return null;
         } else if (consultantsList.contracts.upcoming.length) {
-          if (consultantsList.contracts.ongoing.length) {
-            if (consultantsList.contracts.ongoing[0].status == "renewed") {
-              return (
-                <div
-                  style={{
-                    textAlign: "center",
-                    color: themeColors.greenSuccess,
-                  }}
-                >
-                  <CheckCircleIcon />
-                </div>
-              );
-            } else return null;
+          if (
+            consultantsList.contracts.ongoing.length &&
+            consultantsList.contracts.ongoing[0].status == "renewed"
+          ) {
+            return (
+              <div
+                style={{
+                  textAlign: "center",
+                  color: themeColors.greenSuccess,
+                }}
+              >
+                <CheckCircleIcon />
+              </div>
+            );
           } else {
             return (
               <div className="centerAlign">
                 <div>
-                  {moment(
-                    consultantsList.contracts.upcoming[0].start_date
-                  ).diff(moment(), "days") + 1}
+                  {dateDifference(
+                    new Date(),
+                    new Date(consultantsList.contracts.upcoming[0].start_date)
+                  )}
                   days
                 </div>
                 <div style={{ color: tertiaryColor }}>
