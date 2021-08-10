@@ -59,7 +59,7 @@ const CardRightComp = (props) => {
   // const [poc, setPoc] = useState([]);
 
   const addSupplierTry = (values) => {
-    props.addSupplier(values).then(() => props.showDetails());
+    props.addSupplier(values);
   };
   const editSupplierTry = (values) => {
     let request = values;

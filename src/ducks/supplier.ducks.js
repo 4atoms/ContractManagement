@@ -56,11 +56,12 @@ const getDetailOfSupplier = (supplier_id) => (dispatch) => {
     });
 };
 
-const addSupplier = (supplierInfo) => () => {
+const addSupplier = (supplierInfo) => (dispatch) => {
   nw.api("supplierList")
     .post(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
+      getSupplierData()(dispatch);
     });
 };
 const editSupplier = (supplierInfo, supplierId) => (dispatch) => {
