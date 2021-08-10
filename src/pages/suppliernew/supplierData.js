@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Table, Space, Badge, Input } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-import WarningIcon from "@material-ui/icons/Warning";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
-import { themeColors } from "Config/theme";
 import {
   CardLeft,
   WrapperCard,
@@ -15,10 +13,10 @@ import {
   BadgeGreen,
   BadgeOrange,
   BadgeBlue,
-  CommonButton,
 } from "Components/common.style";
 import CardRightComp from "./cardRightComp";
 import ModalLayout from "Components/modalLayout";
+import ConfirmDelete from "Components/confirmDelete";
 // import { themeColors } from "Config/theme";
 // import RightCardComp from "./rightCardComp";
 const SupplierData = () => {
@@ -173,6 +171,7 @@ const SupplierData = () => {
             }}
           />
           <DeleteForeverIcon
+            className="cursorPointer"
             style={{ fill: "red", height: "18px" }}
             onClick={() => {
               setDeleteModalOpen(true);
@@ -183,51 +182,7 @@ const SupplierData = () => {
       ),
     },
   ];
-  const buttonStyle = {
-    position: "absolute",
-    bottom: "23px",
-    gap: "10px",
-    display: "flex",
-    right: "20px",
-  };
 
-  const contentStyle = {
-    display: "flex",
-    height: "90%",
-    justifyContent: "center",
-    gap: "20px",
-    fontSize: "18px",
-    alignItems: "center",
-  };
-
-  const renderDeleteContent = () => {
-    return (
-      <>
-        <div style={contentStyle}>
-          <WarningIcon style={{ color: themeColors.redDanger }} />
-          <div>
-            Are you sure you want to delete?
-            <div style={{ fontSize: "14px" }}>You cant undo this action</div>
-          </div>
-        </div>
-        <div style={buttonStyle}>
-          <CommonButton deleteModal onClick={() => onclose()}>
-            Cancel
-          </CommonButton>
-          <CommonButton
-            onClick={() => {
-              deleteSupplier(deleteSupplierDetail);
-              onclose();
-            }}
-            type="primary"
-            deleteModal
-          >
-            Delete
-          </CommonButton>
-        </div>
-      </>
-    );
-  };
   const renderContent = () => {
     return (
       <>
@@ -284,7 +239,15 @@ const SupplierData = () => {
           onclose={onclose}
           type={"delete"}
         >
-          {isDeleteModalOpen && renderDeleteContent()}
+          {isDeleteModalOpen && (
+            <ConfirmDelete
+              deleteIt={() => {
+                deleteSupplier(deleteSupplierDetail);
+                onclose();
+              }}
+              cancelIt={onclose}
+            />
+          )}
         </ModalLayout>
       )}
     </>
