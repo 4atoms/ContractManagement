@@ -6,6 +6,7 @@ import {
   Select,
   DatePicker,
   Space,
+  Button,
   Form,
   AutoComplete,
 } from "antd";
@@ -448,7 +449,7 @@ const CardRightComp = (props) => {
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Cost/hr</text>
+              <text>Cost//hr</text>
             </LightColor>
             <div>
               <text>
@@ -456,7 +457,16 @@ const CardRightComp = (props) => {
               </text>
             </div>
           </ActiveContractSubParts>
-          <ActiveContractSubParts></ActiveContractSubParts>
+          <ActiveContractSubParts>
+          <Button
+                  onClick={() => {
+                    props.setRenewContractDetail(props.detailOfConsultant);
+                    props.setRenewModalOpen(true);
+                  }}
+                >
+                  Renew
+                </Button>
+          </ActiveContractSubParts>
         </ActiveContractParts>
       );
     }
