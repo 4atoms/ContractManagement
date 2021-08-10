@@ -166,15 +166,12 @@ export const SpaceBar = styled.div`
 
 export const DisplayCardRight = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayDetails ? "block" : "none")};
 `;
 export const CreateCardComp = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayCreateSupplier ? "block" : "none")};
 `;
 export const EditCardComp = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayEditSupplier ? "block" : "none")};
 `;
 export const DisplayCardRight3 = styled.div`
   height: 100%;
