@@ -449,7 +449,7 @@ const CardRightComp = (props) => {
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Cost//hr</text>
+              <text>Cost/hr</text>
             </LightColor>
             <div>
               <text>
@@ -458,14 +458,14 @@ const CardRightComp = (props) => {
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
-            <Button
+          { props.detailOfConsultant.contracts?.active?.[0]?.status== "to_be_renewed" && ( <Button
               onClick={() => {
                 props.setRenewContractDetail(props.detailOfConsultant);
                 props.setRenewModalOpen(true);
               }}
             >
               Renew
-            </Button>
+            </Button>)}
           </ActiveContractSubParts>
         </ActiveContractParts>
       );
