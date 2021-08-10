@@ -873,7 +873,7 @@ const CardRightComp = (props) => {
                   // defaultValue={moment("01/01/2015", dateFormat)}
                   //onChange={(value) => setStart_date(value)}
                   format={dateFormat}
-                  onChange={(e) => setStart_date(e)}
+                  onChange={(e) => setStart_date(dateFormatStandard2(e))}
                 />
               </Space>
             </Flex50>
@@ -1100,7 +1100,7 @@ const CardRightComp = (props) => {
                   // defaultValue={moment("01/01/2015", dateFormat)}
                   //onChange={(value) => setStart_date(value)}
                   format={dateFormat}
-                  onChange={(e) => dateFormatStandard2(setStart_date(e))}
+                  onChange={(e) => setStart_date(dateFormatStandard2(e))}
                 />
               </Space>
             </Flex50>
