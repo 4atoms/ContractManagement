@@ -73,6 +73,10 @@ const ConsultantData = () => {
     setListConsultant(consultantsList);
   }, [consultantsList]);
 
+  useEffect(() => {
+    console.log(renewContractDetail);
+  }, [renewContractDetail]);
+
   const showDetails = () => {
     setDisplayConsultDetails(true);
     setDisplayCreateConsultant(false);
@@ -359,25 +363,26 @@ const ConsultantData = () => {
   };
 
   const renderRenewContent = () => {
+    let renewableContract =
+      renewContractDetail?.contracts?.ongoing?.[0] ||
+      renewContractDetail?.contracts?.active?.[0];
     return (
       <>
         <Row style={{ padding: "20px 10px" }}>
           <Col style={colStyle} span={12}>
             <div>
               Consultant name:
-              <span style={valueStyle}>{renewContractDetail.name}</span>
+              <span style={valueStyle}>{renewContractDetail?.name}</span>
             </div>
             <div>
               Supplier name:
               <span style={valueStyle}>
-                {renewContractDetail.supplier.name}
+                {renewContractDetail?.supplier?.name}
               </span>
             </div>
             <div>
               Role:
-              <span style={valueStyle}>
-                {renewContractDetail.contracts.ongoing[0].role}
-              </span>
+              <span style={valueStyle}>{renewableContract.role}</span>
             </div>
             <div>
               <span>Select Period: </span>
@@ -397,20 +402,16 @@ const ConsultantData = () => {
             <div>
               Project name:
               <span style={valueStyle}>
-                {renewContractDetail.contracts.ongoing[0].project.project_name}
+                {renewableContract?.project?.project_name}
               </span>
             </div>
             <div>
               Client name:
-              <span style={valueStyle}>
-                {renewContractDetail.contracts.ongoing[0].client.name}
-              </span>
+              <span style={valueStyle}>{renewableContract?.client?.name}</span>
             </div>
             <div>
               Cost / hour:
-              <span style={valueStyle}>
-                {renewContractDetail.contracts.ongoing[0].cost_per_hour}
-              </span>
+              <span style={valueStyle}>{renewableContract?.cost_per_hour}</span>
             </div>
           </Col>
         </Row>
@@ -492,7 +493,7 @@ const ConsultantData = () => {
           onclose={onclose}
           type={isDeleteModalOpen ? "delete" : "normal"}
         >
-          {isRenewModalOpen && renderRenewContent()}
+          {isRenewModalOpen && renewContractDetail && renderRenewContent()}
           {isDeleteModalOpen && (
             <ConfirmDelete
               deleteIt={() => {
