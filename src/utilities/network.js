@@ -9,6 +9,8 @@ const headers = {
   "Access-Control-Allow-Origin": "*",
 };
 
+let interceptorCallback = () => {};
+
 function Network() {
   this.endpoints = getAllEndpoints();
   this.baseURL = getBaseURL();
@@ -30,6 +32,22 @@ function Network() {
     withCredentials: false,
     headers: headers,
   });
+
+  this.instance.interceptors.response.use(
+    function (response) {
+      interceptorCallback(false);
+      return response;
+    },
+    function (error) {
+      if (error.response.status == 401) {
+        // window.location.assign("/login");
+        console.log("STATUS 401");
+      } else {
+        interceptorCallback(false);
+      }
+      return Promise.reject(error);
+    }
+  );
 
   return this;
 }

@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { shape } from "prop-types";
+import { notification } from "antd";
+import cookie from "react-cookies";
 
 import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
@@ -10,10 +12,23 @@ const Login = (props) => {
   const propShape = formStoreData(props, ["auth"]);
 
   useEffect(() => {
+    cookie.remove("access_token");
+    if (sessionStorage.getItem("isCookieExpire")) {
+      notifyAuthNeeded();
+      sessionStorage.clear();
+    }
     return () => {
       propShape.actions.resetAuthStore();
     };
   }, []);
+
+  const notifyAuthNeeded = () => {
+    notification.error({
+      message: "Session Expired",
+      description: "Please login again",
+      duration: 2,
+    });
+  };
 
   return (
     <>

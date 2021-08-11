@@ -1,5 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
-import { setNamespace } from "Utilities/helpers";
+import { setNamespace, setApiError } from "Utilities/helpers";
 import Network from "Utilities/network";
 
 const namespace = "dashboard";
@@ -8,6 +8,7 @@ const nw = new Network();
 
 // STORE
 const initialState = {
+  apiError: null,
   overviewData: null,
   activeContractDashboard: null,
   renewContractDashboard: null,
@@ -50,7 +51,7 @@ const getOverviewData = () => (dispatch) => {
       dispatch(assignToDashboardStore("overviewData", resp.data.data));
     })
     .catch((error) => {
-      console.log(error);
+      setApiError(dispatch, assignToDashboardStore, error);
     });
 };
 
@@ -71,7 +72,7 @@ const getContractsWithQueryDashboard = (query) => (dispatch) => {
       }
     })
     .catch((error) => {
-      console.log(error);
+      setApiError(dispatch, assignToDashboardStore, error);
     });
 };
 
@@ -91,7 +92,7 @@ const updateContractDashboard = (request, query) => (dispatch) => {
       }
     })
     .catch((error) => {
-      console.log(error);
+      setApiError(dispatch, assignToDashboardStore, error);
     });
 };
 
@@ -107,7 +108,7 @@ const renewContractsDashboard = (request) => (dispatch) => {
       getContractsWithQueryDashboard({ status: "to_be_renewed" })(dispatch);
     })
     .catch((error) => {
-      console.log(error);
+      setApiError(dispatch, assignToDashboardStore, error);
     });
 };
 
@@ -125,7 +126,7 @@ const getAllSuppliersAnalysisDashboard = (request) => (dispatch) => {
       );
     })
     .catch((error) => {
-      console.log(error);
+      setApiError(dispatch, assignToDashboardStore, error);
     });
 };
 
@@ -142,7 +143,7 @@ const getAllProjectsAnalysisDashboard = (request) => (dispatch) => {
       );
     })
     .catch((error) => {
-      console.log(error);
+      setApiError(dispatch, assignToDashboardStore, error);
     });
 };
 

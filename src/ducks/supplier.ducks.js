@@ -1,5 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
-import { setNamespace } from "Utilities/helpers";
+import { setNamespace, setApiError } from "Utilities/helpers";
 import Network from "Utilities/network";
 const namespace = "supplier";
 const createAction = setNamespace(namespace);
@@ -7,6 +7,7 @@ const nw = new Network();
 
 // STORE
 const initialState = {
+  apiError: null,
   suppliersList: [],
   detailOfSupplier: [],
   id: null,
@@ -41,27 +42,39 @@ const setId = (num) => (dispatch) => {
 };
 
 const getSupplierData = () => (dispatch) => {
-  nw.api("supplierList")
+  return nw
+    .api("supplierList")
     .get()
     .then((resp) => {
       console.log(resp.data.data);
       dispatch(assignToSupplierStore("suppliersList", resp.data.data));
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToSupplierStore, error);
     });
 };
 const getDetailOfSupplier = (supplier_id) => (dispatch) => {
-  nw.apiWithPath("supplierList", [supplier_id])
+  return nw
+    .apiWithPath("supplierList", [supplier_id])
     .get()
     .then((resp) => {
       dispatch(assignToSupplierStore("detailOfSupplier", resp.data.data));
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToSupplierStore, error);
     });
 };
 
 const addSupplier = (supplierInfo) => (dispatch) => {
-  nw.api("supplierList")
+  return nw
+    .api("supplierList")
     .post(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
       getSupplierData()(dispatch);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToSupplierStore, error);
     });
 };
 const editSupplier = (supplierInfo, supplierId) => (dispatch) => {
@@ -72,14 +85,21 @@ const editSupplier = (supplierInfo, supplierId) => (dispatch) => {
       console.log(resp.data);
       getSupplierData()(dispatch);
       getDetailOfSupplier(supplierId)(dispatch);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToSupplierStore, error);
     });
 };
 const deleteSupplier = (supplierInfo) => (dispatch) => {
-  nw.apiWithPath("supplierList", [supplierInfo])
+  return nw
+    .apiWithPath("supplierList", [supplierInfo])
     .delete(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
       getSupplierData()(dispatch);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToSupplierStore, error);
     });
 };
 

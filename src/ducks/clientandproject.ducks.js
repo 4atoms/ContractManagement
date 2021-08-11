@@ -1,5 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
-import { setNamespace } from "Utilities/helpers";
+import { setNamespace, setApiError } from "Utilities/helpers";
 import Network from "Utilities/network";
 const namespace = "clientandproject";
 const createAction = setNamespace(namespace);
@@ -7,6 +7,7 @@ const nw = new Network();
 
 // STORE
 const initialState = {
+  apiError: null,
   clientsList: [],
   projectsList: [],
   detailOfSupplier: [],
@@ -15,8 +16,12 @@ const initialState = {
 
 // ACTIONS
 
-const ASSIGN_TO_CLIENTANDPROJECT_STORE = createAction("ASSIGN_TO_CLIENTANDPROJECT_STORE");
-const RESET_CLIENTANDPROJECT_STORE = createAction("RESET_CLIENTANDPROJECT_STORE");
+const ASSIGN_TO_CLIENTANDPROJECT_STORE = createAction(
+  "ASSIGN_TO_CLIENTANDPROJECT_STORE"
+);
+const RESET_CLIENTANDPROJECT_STORE = createAction(
+  "RESET_CLIENTANDPROJECT_STORE"
+);
 
 const assignToClientandprojectStore = (type, payload) => ({
   type: ASSIGN_TO_CLIENTANDPROJECT_STORE,
@@ -42,15 +47,20 @@ const resetClientandprojectStore = () => (dispatch) => {
 // };
 
 const getClientData = () => (dispatch) => {
-  nw.api("clientList")
+  return nw
+    .api("clientList")
     .get()
     .then((resp) => {
       console.log(resp.data.data);
       dispatch(assignToClientandprojectStore("clientsList", resp.data.data));
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToClientandprojectStore, error);
     });
 };
 const getProjectData = () => (dispatch) => {
-  nw.api("projectList")
+  return nw
+    .api("projectList")
     .get()
     .then((resp) => {
       console.log(resp.data.data);
@@ -58,33 +68,51 @@ const getProjectData = () => (dispatch) => {
     });
 };
 const getDetailOfSupplier = (supplier_id) => (dispatch) => {
-  nw.apiWithPath("supplierList", [supplier_id])
+  return nw
+    .apiWithPath("supplierList", [supplier_id])
     .get()
     .then((resp) => {
       console.log("test", resp.data.data.point_of_contacts[0].name);
-      dispatch(assignToClientandprojectStore("detailOfSupplier", resp.data.data));
+      dispatch(
+        assignToClientandprojectStore("detailOfSupplier", resp.data.data)
+      );
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToClientandprojectStore, error);
     });
 };
 
-const addSupplier = (supplierInfo) => () => {
-  nw.api("supplierList")
+const addSupplier = (supplierInfo) => (dispatch) => {
+  return nw
+    .api("supplierList")
     .post(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToClientandprojectStore, error);
     });
 };
-const editSupplier = (supplierInfo) => () => {
-  nw.api("supplierList")
+const editSupplier = (supplierInfo) => (dispatch) => {
+  return nw
+    .api("supplierList")
     .put(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToClientandprojectStore, error);
     });
 };
-const deleteSupplier = (supplierInfo) => () => {
-  nw.api("supplierList")
+const deleteSupplier = (supplierInfo) => (dispatch) => {
+  return nw
+    .api("supplierList")
     .del(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToClientandprojectStore, error);
     });
 };
 
