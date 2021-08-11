@@ -26,6 +26,7 @@ const RenewContract = ({ store, actions }) => {
   const [selectedContracts, setSelectedContracts] = useState([]);
   const [selectedRowsArrayID, setSelectedRowsArrayID] = useState([]);
   const [isModalOpen, setisModalOpen] = useState(false);
+
   const [isRenewConfirmModalOpen, setisRenewConfirmModalOpen] = useState(false);
 
   useEffect(() => {
@@ -62,6 +63,7 @@ const RenewContract = ({ store, actions }) => {
   const renewConfirmClose = () => {
     setisRenewConfirmModalOpen(false);
     setSelectedContracts([]);
+    setSelectedRowsArrayID([]);
   };
 
   const renewContractsRequest = () => {
@@ -137,6 +139,7 @@ const RenewContract = ({ store, actions }) => {
         <Button
           onClick={() => {
             setSelectedContracts([record]);
+            setSelectedRowsArrayID([]);
             setisRenewConfirmModalOpen(true);
           }}
         >
@@ -150,7 +153,7 @@ const RenewContract = ({ store, actions }) => {
     display: "flex",
     height: "90%",
     justifyContent: "center",
-    gap: "20px",
+    gap: "10px",
     fontSize: "18px",
     alignItems: "center",
   };
@@ -169,7 +172,7 @@ const RenewContract = ({ store, actions }) => {
         <div style={contentStyle}>
           <CachedIcon style={{ color: primaryColor }} />
           <div>
-            Are you sure you want to renew?
+            Renew selected Contract(s) ?
             <div style={{ fontSize: "14px" }}>
               {"You can't undo this action"}
             </div>
@@ -220,7 +223,7 @@ const RenewContract = ({ store, actions }) => {
           type="primary"
           style={{ position: "absolute", right: "50px", bottom: "20px" }}
           disabled={!selectedContracts.length}
-          onClick={() => renewContractsRequest()}
+          onClick={() => setisRenewConfirmModalOpen(true)}
         >
           Renew Selected
         </Button>
@@ -270,7 +273,7 @@ const RenewContract = ({ store, actions }) => {
         <ModalLayout
           width={"450px"}
           height={"225px"}
-          title={"Renew Confirmation"}
+          title={"Confirm Renewal"}
           onclose={renewConfirmClose}
         >
           {renderConfirmRenew()}
