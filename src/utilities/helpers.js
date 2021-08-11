@@ -51,7 +51,7 @@ const capitalizeEveryFirstChar = (text) => {
 
 // make the code based on name
 const makeCode = (text) => {
-  return text.split(" ").join("").toLowerCase();
+  return text.split(" ").join("").toUpperCase();
 };
 
 const sanitaizeDOM = (tag) => {

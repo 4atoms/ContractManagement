@@ -280,8 +280,8 @@ const RenewContract = ({ store, actions }) => {
       )}
       {isRenewConfirmModalOpen && (
         <ModalLayout
-          width={"450px"}
-          height={"225px"}
+          width={"380px"}
+          height={"200px"}
           title={"Confirm Renewal"}
           onclose={renewConfirmClose}
         >
