@@ -1,5 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
-import { setNamespace } from "Utilities/helpers";
+import { setNamespace, setApiError } from "Utilities/helpers";
 import Network from "Utilities/network";
 
 const namespace = "analysis";
@@ -8,6 +8,7 @@ const nw = new Network();
 
 // STORE
 const initialState = {
+  apiError: null,
   allSuppliersAnalysis: null,
   allProjectsAnalysis: null,
 };
@@ -46,7 +47,7 @@ const getAllSuppliersAnalysis = (request) => (dispatch) => {
       );
     })
     .catch((error) => {
-      console.log(error);
+      setApiError(dispatch, assignToAnalysisStore, error);
     });
 };
 
@@ -60,7 +61,7 @@ const getAllProjectsAnalysis = (request) => (dispatch) => {
       );
     })
     .catch((error) => {
-      console.log(error);
+      setApiError(dispatch, assignToAnalysisStore, error);
     });
 };
 

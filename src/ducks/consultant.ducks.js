@@ -1,5 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
-import { setNamespace } from "Utilities/helpers";
+import { setNamespace, setApiError } from "Utilities/helpers";
 import Network from "Utilities/network";
 const namespace = "consultant";
 
@@ -8,6 +8,7 @@ const nw = new Network();
 
 // STORE
 const initialState = {
+  apiError: null,
   consultantsList: [],
   detailOfConsultant: [],
   detailOfContract: [],
@@ -43,11 +44,15 @@ const setId = (num) => (dispatch) => {
 };
 
 const getConsultantsData = () => (dispatch) => {
-  nw.api("consultantList")
+  return nw
+    .api("consultantList")
     .get()
     .then((resp) => {
       console.log(resp.data.data);
       dispatch(assignToConsultantStore("consultantsList", resp.data.data));
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToConsultantStore, error);
     });
 };
 
@@ -68,27 +73,39 @@ const getConsultantsData = () => (dispatch) => {
 // };
 
 const getDetailOfConsultant = (consultant_id) => (dispatch) => {
-  nw.apiWithPath("consultantList", [consultant_id])
+  return nw
+    .apiWithPath("consultantList", [consultant_id])
     .get()
     .then((resp) => {
       console.log(resp.data.data);
       dispatch(assignToConsultantStore("detailOfConsultant", resp.data.data));
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToConsultantStore, error);
     });
 };
 
-const addConsultant = (consultantInfo) => () => {
-  nw.api("consultantList")
+const addConsultant = (consultantInfo) => (dispatch) => {
+  return nw
+    .api("consultantList")
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToConsultantStore, error);
     });
 };
 
-const addConsultantwithContract = (consultantInfo) => () => {
-  nw.api("createContractWithConsultant")
+const addConsultantwithContract = (consultantInfo) => (dispatch) => {
+  return nw
+    .api("createContractWithConsultant")
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToConsultantStore, error);
     });
 };
 const updateConsultant = (consultantInfo, consultantId) => (dispatch) => {
@@ -101,16 +118,20 @@ const updateConsultant = (consultantInfo, consultantId) => (dispatch) => {
       getDetailOfConsultant(consultantId)(dispatch);
     })
     .catch((error) => {
-      console.log(error.response);
+      setApiError(dispatch, assignToConsultantStore, error);
     });
 };
 
 const deleteConsultant = (consultantInfo) => (dispatch) => {
-  nw.apiWithPath("consultantList", [consultantInfo])
+  return nw
+    .apiWithPath("consultantList", [consultantInfo])
     .delete(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
       getConsultantsData()(dispatch);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToConsultantStore, error);
     });
 };
 // Routing
