@@ -23,6 +23,8 @@ const RenewContract = ({ store, actions }) => {
     renewContractDashboard?.ongoing || null
   );
 
+  const [searchInput, setSearchInput] = useState("");
+
   const [selectedContracts, setSelectedContracts] = useState([]);
   const [selectedRowsArrayID, setSelectedRowsArrayID] = useState([]);
   const [isModalOpen, setisModalOpen] = useState(false);
@@ -40,8 +42,10 @@ const RenewContract = ({ store, actions }) => {
   }, [renewContractDashboard]);
 
   useEffect(() => {
+    setListContract(renewContractDashboard?.ongoing);
     setSelectedContracts([]);
     setSelectedRowsArrayID([]);
+    setSearchInput("");
   }, [isModalOpen]);
 
   const filterList = (value) => {
@@ -152,10 +156,10 @@ const RenewContract = ({ store, actions }) => {
   const contentStyle = {
     display: "flex",
     height: "90%",
-    justifyContent: "center",
     gap: "10px",
     fontSize: "18px",
     alignItems: "center",
+    marginLeft: "40px",
   };
 
   const buttonStyle = {
@@ -240,8 +244,12 @@ const RenewContract = ({ store, actions }) => {
               <Search
                 placeholder="search"
                 style={{ width: 200 }}
+                value={searchInput}
                 allowClear
-                onChange={(e) => filterList(e.target.value)}
+                onChange={(e) => {
+                  setSearchInput(e.target.value);
+                  filterList(e.target.value);
+                }}
               />
               <LaunchIcon
                 className="cursorPointer"
@@ -264,6 +272,7 @@ const RenewContract = ({ store, actions }) => {
           width={"700px"}
           height={"550px"}
           title={"Contracts To Renew"}
+          searchedValue={filterList}
           onclose={onclose}
         >
           {renderTable(8)}
