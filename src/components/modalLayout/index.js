@@ -1,5 +1,5 @@
 import React from "react";
-import { any, func, string } from "prop-types";
+import { any, func, string, bool } from "prop-types";
 import styled from "styled-components";
 import { themeColors, primaryColor } from "Config/theme";
 
@@ -55,7 +55,15 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const ModalLayout = ({ children, onclose, title, width, height, type }) => {
+const ModalLayout = ({
+  children,
+  onclose,
+  title,
+  width,
+  height,
+  type,
+  childModal,
+}) => {
   const renderContainer = () => {
     return (
       <div className="fullWidth fullHeight flex">
@@ -76,7 +84,11 @@ const ModalLayout = ({ children, onclose, title, width, height, type }) => {
     );
   };
   return (
-    <Modal style={{ zIndex: 1050 }} open={true} onClose={() => onclose()}>
+    <Modal
+      style={{ zIndex: childModal ? 1050 : 1000 }}
+      open={true}
+      onClose={() => onclose()}
+    >
       {renderContainer()}
     </Modal>
   );
@@ -85,6 +97,7 @@ const ModalLayout = ({ children, onclose, title, width, height, type }) => {
 ModalLayout.defaultProps = {
   title: "",
   type: "normal",
+  childModal: false,
 };
 
 ModalLayout.propTypes = {
@@ -93,6 +106,7 @@ ModalLayout.propTypes = {
   title: string,
   width: string.isRequries,
   height: string.isRequries,
+  childModal: bool,
 };
 
 export default ModalLayout;
