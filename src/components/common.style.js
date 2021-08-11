@@ -627,5 +627,10 @@ export const TextDiv = styled.div`
     color: #9e9e9e;
   }
 `;
-export const AddBox = styled.div`
+export const FormTop = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 400px;
+  gap: 25px;
+  max-width: 90%;
 `;
