@@ -49,6 +49,7 @@ const CardRightComp = (props) => {
   };
   const editSupplierTry = (values) => {
     let request = values;
+    console.log(values);
     request["point_of_contacts"] = request.point_of_contacts.map((poc) => {
       delete poc._id;
       return poc;
@@ -162,12 +163,12 @@ const CardRightComp = (props) => {
             >
               <NameEmail>
                 <FlexHalf>
-                  <Form.Item name="name" label="Name">
+                  <Form.Item name="name" label="name">
                     <Input placeholder="Name" />
                   </Form.Item>
                 </FlexHalf>
                 <FlexHalf>
-                  <Form.Item name="organization_no" label="Organization No.">
+                  <Form.Item name="organization_no" label="organization_no">
                     <Input placeholder="xxyyzz##" />
                   </Form.Item>
                 </FlexHalf>
@@ -237,21 +238,19 @@ const CardRightComp = (props) => {
                   </>
                 )}
               </Form.List>
-              <Form.Item>
-                <ButtonsDiv>
-                  <SaveButton>
-                    <button htmlType="submit">
-                      <div>Save</div>
-                    </button>
-                  </SaveButton>
-                  <CancelButton>
-                    <button>
-                      <div>Cancel</div>
-                    </button>
-                  </CancelButton>
-                </ButtonsDiv>
-              </Form.Item>
             </Form>
+            <ButtonsDiv>
+              <SaveButton>
+                <button htmlType="submit" onClick={() => form.submit()}>
+                  <div>Save</div>
+                </button>
+              </SaveButton>
+              <CancelButton>
+                <button>
+                  <div>Cancel</div>
+                </button>
+              </CancelButton>
+            </ButtonsDiv>
           </RightCardContent>
         </CreateCardComp>
       )}
@@ -338,7 +337,7 @@ const CardRightComp = (props) => {
               </Form>
               <ButtonsDiv>
                 <SaveButton>
-                  <button htmlType="submit" onClick={editSupplierTry}>
+                  <button htmlType="submit" onClick={() => form.submit()}>
                     <div>Save</div>
                   </button>
                 </SaveButton>
