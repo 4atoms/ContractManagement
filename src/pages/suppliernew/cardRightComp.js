@@ -23,9 +23,8 @@ import {
   EditCardComp,
   SaveButton,
   CancelButton,
-  AddBox,
   FlexHalf,
-  NameEmail,
+  FormTop,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 // import CreateCard from "./createCard";
@@ -161,7 +160,7 @@ const CardRightComp = (props) => {
               autoComplete="off"
               initialValues={intialValue}
             >
-              <NameEmail>
+              <FormTop>
                 <FlexHalf>
                   <Form.Item name="name" label="name">
                     <Input placeholder="Name" />
@@ -172,75 +171,74 @@ const CardRightComp = (props) => {
                     <Input placeholder="xxyyzz##" />
                   </Form.Item>
                 </FlexHalf>
-              </NameEmail>
-              <div style={{marginTop:"20px"}}>
-              Point Of Contacts
-              <Form.List name="point_of_contacts">
-                {(fields, { add, remove }) => (
-                  <>
-                    {fields.map(({ key, name, fieldKey, ...restField }) => (
-                      <Space
-                        key={key}
-                        style={{ display: "flex", marginBottom: 8 }}
-                        align="baseline"
-                      >
-                        <Form.Item
-                          {...restField}
-                          name={[name, "name"]}
-                          fieldKey={[fieldKey, "name"]}
-                          rules={[
-                            { required: true, message: "Missing first name" },
-                          ]}
+              </FormTop>
+              <div style={{ marginTop: "20px" }}>Point Of Contacts</div>
+              <div>
+                <Form.List name="point_of_contacts">
+                  {(fields, { add, remove }) => (
+                    <>
+                      {fields.map(({ key, name, fieldKey, ...restField }) => (
+                        <Space
+                          key={key}
+                          style={{ display: "flex", marginBottom: 4 }}
+                          align="baseline"
                         >
-                          <Input placeholder="Name" />
-                        </Form.Item>
-                        <Form.Item
-                          {...restField}
-                          name={[name, "email"]}
-                          fieldKey={[fieldKey, "email"]}
-                          rules={[
-                            { required: true, message: "Missing last name" },
-                          ]}
-                        >
-                          <Input placeholder="Email" />
-                        </Form.Item>
-                        <Form.Item
-                          {...restField}
-                          name={[name, "phone"]}
-                          fieldKey={[fieldKey, "phone"]}
-                          rules={[
-                            { required: true, message: "Missing first name" },
-                          ]}
-                        >
-                          <Input placeholder="Phone" />
-                        </Form.Item>
-                        <DeleteForeverIcon
-                          style={{ fill: "red" }}
-                          onClick={() => remove(name)}
-                        />
-                      </Space>
-                    ))}
-                    <Form.Item>
-                      <div>
-                        <Button onClick={() => add()} block>
-                          <div
-                            style={{
-                              justifyContent: "center",
-                              alignContent: "center",
-                              display: "flex",
-                            }}
+                          <Form.Item
+                            {...restField}
+                            name={[name, "name"]}
+                            fieldKey={[fieldKey, "name"]}
+                            rules={[
+                              { required: true, message: "Missing first name" },
+                            ]}
                           >
-                            <AddCircleIcon />
-                            Click here to add point of contact
-                          </div>
-                        </Button>
-                      </div>
-                    </Form.Item>
-                  </>
-                )}
-              </Form.List>
+                            <Input placeholder="Name" />
+                          </Form.Item>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "email"]}
+                            fieldKey={[fieldKey, "email"]}
+                            rules={[
+                              { required: true, message: "Missing last name" },
+                            ]}
+                          >
+                            <Input placeholder="Email" />
+                          </Form.Item>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "phone"]}
+                            fieldKey={[fieldKey, "phone"]}
+                            rules={[
+                              { required: true, message: "Missing first name" },
+                            ]}
+                          >
+                            <Input placeholder="Phone" />
+                          </Form.Item>
+                          <DeleteForeverIcon
+                            style={{ fill: "red" }}
+                            onClick={() => remove(name)}
+                          />
+                        </Space>
+                      ))}
+                      <Form.Item>
+                        <div>
+                          <Button onClick={() => add()} block>
+                            <div
+                              style={{
+                                justifyContent: "center",
+                                alignContent: "center",
+                                display: "flex",
+                              }}
+                            >
+                              <AddCircleIcon />
+                              Click here to add point of contact
+                            </div>
+                          </Button>
+                        </div>
+                      </Form.Item>
+                    </>
+                  )}
+                </Form.List>
               </div>
-              
             </Form>
             <ButtonsDiv>
               <SaveButton>
@@ -269,74 +267,90 @@ const CardRightComp = (props) => {
                 name="dynamic_form_nest_item"
                 onFinish={editSupplierTry}
                 autoComplete="off"
+                layout="vertical"
                 form={form}
               >
                 <Form.Item name="id" label="id" hidden>
                   <Input placeholder="id" />
                 </Form.Item>
-                <Form.Item name="name" label="name">
-                  <Input placeholder="Name" />
-                </Form.Item>
-                <Form.Item name="organization_no" label="organization_no">
-                  <Input placeholder="xxyyzz##" />
-                </Form.Item>
-                <Form.List name="point_of_contacts">
-                  {(fields, { add, remove }) => (
-                    <>
-                      {fields.map(({ key, name, fieldKey, ...restField }) => (
-                        <Space
-                          key={key}
-                          style={{ display: "flex", marginBottom: 8 }}
-                          align="baseline"
-                        >
-                          <Form.Item
-                            {...restField}
-                            name={[name, "name"]}
-                            fieldKey={[fieldKey, "name"]}
-                            rules={[
-                              { required: true, message: "Missing name" },
-                            ]}
+                <FormTop>
+                  <FlexHalf>
+                    <Form.Item name="name" label="name">
+                      <Input placeholder="Name" />
+                    </Form.Item>
+                  </FlexHalf>
+                  <FlexHalf>
+                    <Form.Item name="organization_no" label="organization_no">
+                      <Input placeholder="xxyyzz##" />
+                    </Form.Item>
+                  </FlexHalf>
+                </FormTop>
+                <div style={{ marginTop: "20px" }}>Point Of Contacts</div>
+
+                <div style={{ maxWidth: "90%" }}>
+                  <Form.List name="point_of_contacts">
+                    {(fields, { add, remove }) => (
+                      <>
+                        {fields.map(({ key, name, fieldKey, ...restField }) => (
+                          <Space
+                            key={key}
+                            style={{ display: "flex", marginBottom: 4 }}
+                            align="baseline"
                           >
-                            <Input placeholder="Name" />
-                          </Form.Item>
-                          <Form.Item
-                            {...restField}
-                            name={[name, "email"]}
-                            fieldKey={[fieldKey, "email"]}
-                            rules={[
-                              { required: true, message: "Missing email" },
-                            ]}
+                            <Form.Item
+                              {...restField}
+                              name={[name, "name"]}
+                              fieldKey={[fieldKey, "name"]}
+                              rules={[
+                                { required: true, message: "Missing name" },
+                              ]}
+                            >
+                              <Input placeholder="Name" />
+                            </Form.Item>
+                            <Form.Item
+                              {...restField}
+                              name={[name, "email"]}
+                              fieldKey={[fieldKey, "email"]}
+                              rules={[
+                                { required: true, message: "Missing email" },
+                              ]}
+                            >
+                              <Input placeholder="Email" />
+                            </Form.Item>
+                            <Form.Item
+                              {...restField}
+                              name={[name, "phone"]}
+                              fieldKey={[fieldKey, "phone"]}
+                              rules={[
+                                { required: true, message: "Missing phone" },
+                              ]}
+                            >
+                              <Input placeholder="Phone" />
+                            </Form.Item>
+                            <DeleteForeverIcon
+                              style={{ fill: "red", marginTop: "15px" }}
+                              onClick={() => remove(name)}
+                            />
+                          </Space>
+                        ))}
+                        <Form.Item>
+                          <div
+                            style={{
+                              justifyContent: "center",
+                              alignContent: "center",
+                              display: "flex",
+                            }}
                           >
-                            <Input placeholder="Email" />
-                          </Form.Item>
-                          <Form.Item
-                            {...restField}
-                            name={[name, "phone"]}
-                            fieldKey={[fieldKey, "phone"]}
-                            rules={[
-                              { required: true, message: "Missing phone" },
-                            ]}
-                          >
-                            <Input placeholder="Phone" />
-                          </Form.Item>
-                          <DeleteForeverIcon
-                            style={{ fill: "red", marginTop: "15px" }}
-                            onClick={() => remove(name)}
-                          />
-                        </Space>
-                      ))}
-                      <Form.Item>
-                        <AddBox>
-                          <Button onClick={() => add()} block>
-                            <AddCircleIcon />
-                            Click here to add point of contact
-                          </Button>
-                        </AddBox>
-                      </Form.Item>
-                    </>
-                  )}
-                </Form.List>
-                <Form.Item></Form.Item>
+                            <Button onClick={() => add()} block>
+                              <AddCircleIcon />
+                              Click here to add point of contact
+                            </Button>
+                          </div>
+                        </Form.Item>
+                      </>
+                    )}
+                  </Form.List>
+                </div>
               </Form>
               <ButtonsDiv>
                 <SaveButton>
