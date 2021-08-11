@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import RefContext from "Utilities/refContext";
+import { Menu, Dropdown } from "antd";
 
 import Url from "Config/url";
 
@@ -23,6 +24,20 @@ const HeaderBarContent = () => {
       actions.fetchCurrentUser();
     }
   }, [currentUser]);
+
+  const menu = (
+    <Menu>
+      {/* <Menu.Item>Setting</Menu.Item> */}
+      <Menu.Item
+        onClick={() => {
+          actions.resetAuthStore();
+          window.location.href = Url.URL_LOGIN;
+        }}
+      >
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <>
@@ -43,9 +58,16 @@ const HeaderBarContent = () => {
             <Link to={Url.URL_CONSULTANTS}>Consultants</Link>
           </LinkTag>
         </LinkComponent>
-        <UserProfile>
-          Welcome {currentUser?.firstName || "User"} <AccountCircleIcon />
-        </UserProfile>
+
+        <Dropdown
+          className="cursorPointer"
+          overlay={menu}
+          placement="bottomRight"
+        >
+          <UserProfile>
+            Welcome {currentUser?.firstName || "User"} <AccountCircleIcon />
+          </UserProfile>
+        </Dropdown>
       </PageHeader>
     </>
   );
