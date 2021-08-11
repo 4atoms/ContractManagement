@@ -173,7 +173,8 @@ const CardRightComp = (props) => {
                   </Form.Item>
                 </FlexHalf>
               </NameEmail>
-
+              <div style={{marginTop:"20px"}}>
+              Point Of Contacts
               <Form.List name="point_of_contacts">
                 {(fields, { add, remove }) => (
                   <>
@@ -238,6 +239,8 @@ const CardRightComp = (props) => {
                   </>
                 )}
               </Form.List>
+              </div>
+              
             </Form>
             <ButtonsDiv>
               <SaveButton>
