@@ -5,12 +5,26 @@ import Reduxifier from "Utilities/reduxifier";
 import Registry from "Utilities/registry";
 import { fetchRoutes } from "Config/routes";
 
+import { URL_LOGIN } from "Config/url";
+
 const Containers = Reduxifier.bindReactRedux(Registry);
 const Routes = fetchRoutes(Containers);
 
 const Application = () => {
-  const renderContent = () => {
-    return <Routes />;
+  const renderContent = (data) => {
+    const components = [];
+    if (data.location.pathname == URL_LOGIN) {
+      components.push(<Routes />);
+    } else {
+      components.push(
+        <>
+          <Containers.Header {...data} />
+          <Routes />
+        </>
+      );
+    }
+
+    return components;
   };
 
   return (

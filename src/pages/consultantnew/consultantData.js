@@ -16,8 +16,7 @@ import {
 } from "Components/common.style";
 import { themeColors, tertiaryColor, primaryColor } from "Config/theme";
 import CardRightComp from "./cardRightComp";
-import { dateFormatStandard } from "../../utilities/helpers";
-import moment from "moment";
+import { dateFormatStandard, dateDifference } from "../../utilities/helpers";
 import ModalLayout from "Components/modalLayout";
 import ConfirmDelete from "Components/confirmDelete";
 
@@ -42,6 +41,7 @@ const ConsultantData = () => {
       getProjectData,
       addConsultantwithContract,
       renewContracts,
+      deleteContract,
       updateConsultant,
     },
   } = context;
@@ -54,8 +54,11 @@ const ConsultantData = () => {
 
   const [isRenewModalOpen, setRenewModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isContractCancelledModalOpen, setContractCancelledModalOpen] =
+    useState(false);
 
   const [renewContractDetail, setRenewContractDetail] = useState(null);
+  const [deleteConsultantDetail, setDeleteConsultantDetail] = useState(null);
   const [deleteContractDetail, setDeleteContractDetail] = useState(null);
   const [period, setPeriod] = useState(6);
 
@@ -101,7 +104,6 @@ const ConsultantData = () => {
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(false);
     setdisplayCreateContract(true);
-    console.log("GASGSHA");
   };
 
   const handleClick = (num) => {
@@ -114,6 +116,8 @@ const ConsultantData = () => {
     setPeriod(6);
     setRenewContractDetail(null);
     setDeleteModalOpen(false);
+    setDeleteConsultantDetail(null);
+    setContractCancelledModalOpen(false);
     setDeleteContractDetail(null);
   };
 
@@ -222,10 +226,10 @@ const ConsultantData = () => {
                         : themeColors.black,
                   }}
                 >
-                  {moment(consultantsList.contracts.ongoing[0].end_date).diff(
-                    moment(),
-                    "days"
-                  ) + 1}
+                  {dateDifference(
+                    new Date(),
+                    new Date(consultantsList.contracts.ongoing[0].end_date)
+                  )}
                   days
                 </div>
                 <div style={{ color: tertiaryColor }}>
@@ -252,33 +256,34 @@ const ConsultantData = () => {
       key: "ren",
       render: (consultantsList) => {
         if (
-          !(
-            consultantsList.contracts.count -
-            consultantsList.contracts.expired.length
-          )
+          consultantsList.contracts.count -
+            consultantsList.contracts.expired.length ==
+          0
         ) {
           return null;
         } else if (consultantsList.contracts.upcoming.length) {
-          if (consultantsList.contracts.ongoing.length) {
-            if (consultantsList.contracts.ongoing[0].status == "renewed") {
-              return (
-                <div
-                  style={{
-                    textAlign: "center",
-                    color: themeColors.greenSuccess,
-                  }}
-                >
-                  <CheckCircleIcon />
-                </div>
-              );
-            } else return null;
+          if (
+            consultantsList.contracts.ongoing.length &&
+            consultantsList.contracts.ongoing[0].status == "renewed"
+          ) {
+            return (
+              <div
+                style={{
+                  textAlign: "center",
+                  color: themeColors.greenSuccess,
+                }}
+              >
+                <CheckCircleIcon />
+              </div>
+            );
           } else {
             return (
               <div className="centerAlign">
                 <div>
-                  {moment(
-                    consultantsList.contracts.upcoming[0].start_date
-                  ).diff(moment(), "days") + 1}
+                  {dateDifference(
+                    new Date(),
+                    new Date(consultantsList.contracts.upcoming[0].start_date)
+                  )}
                   days
                 </div>
                 <div style={{ color: tertiaryColor }}>
@@ -335,7 +340,7 @@ const ConsultantData = () => {
             className="cursorPointer"
             style={{ fill: "red", height: "18px" }}
             onClick={() => {
-              setDeleteContractDetail(consultantsList);
+              setDeleteConsultantDetail(consultantsList);
               setDeleteModalOpen(true);
             }}
           />
@@ -474,9 +479,11 @@ const ConsultantData = () => {
             showDetails={showDetails}
             showEdit={showEdit}
             setDeleteModalOpen={setDeleteModalOpen}
-            setDeleteContractDetail={setDeleteContractDetail}
+            setDeleteConsultantDetail={setDeleteConsultantDetail}
             setRenewModalOpen={setRenewModalOpen}
             setRenewContractDetail={setRenewContractDetail}
+            setContractCancelledModalOpen={setContractCancelledModalOpen}
+            setDeleteContractDetail={setDeleteContractDetail}
           />
         </CardRightWrapper>
       </WrapperCard>
@@ -486,19 +493,36 @@ const ConsultantData = () => {
   return (
     <>
       {renderContent()}
-      {(isRenewModalOpen || isDeleteModalOpen) && (
+      {(isRenewModalOpen ||
+        isDeleteModalOpen ||
+        isContractCancelledModalOpen) && (
         <ModalLayout
-          width={isDeleteModalOpen ? "450px" : "550px"}
-          height={isDeleteModalOpen ? "225px" : "340px"}
-          title={isDeleteModalOpen ? "Delete Consultant" : "Renew Contract"}
+          width={isRenewModalOpen ? "550px" : "450px"}
+          height={isRenewModalOpen ? "340px" : "225px"}
+          title={
+            isDeleteModalOpen
+              ? "Delete Consultant"
+              : isContractCancelledModalOpen
+              ? "Cancel the Contract"
+              : "Renew Contract"
+          }
           onclose={onclose}
-          type={isDeleteModalOpen ? "delete" : "normal"}
+          type={isRenewModalOpen ? "normal" : "delete"}
         >
           {isRenewModalOpen && renewContractDetail && renderRenewContent()}
           {isDeleteModalOpen && (
             <ConfirmDelete
               deleteIt={() => {
-                deleteConsultant(deleteContractDetail.id);
+                deleteConsultant(deleteConsultantDetail.id);
+                onclose();
+              }}
+              cancelIt={onclose}
+            />
+          )}
+          {isContractCancelledModalOpen && (
+            <ConfirmDelete
+              deleteIt={() => {
+                deleteContract(deleteContractDetail);
                 onclose();
               }}
               cancelIt={onclose}

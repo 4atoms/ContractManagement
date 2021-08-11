@@ -449,7 +449,7 @@ const CardRightComp = (props) => {
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Cost//hr</text>
+              <text>Cost/hr</text>
             </LightColor>
             <div>
               <text>
@@ -458,14 +458,17 @@ const CardRightComp = (props) => {
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
-            <Button
-              onClick={() => {
-                props.setRenewContractDetail(props.detailOfConsultant);
-                props.setRenewModalOpen(true);
-              }}
-            >
-              Renew
-            </Button>
+            {props.detailOfConsultant.contracts?.active?.[0]?.status ==
+              "to_be_renewed" && (
+              <Button
+                onClick={() => {
+                  props.setRenewContractDetail(props.detailOfConsultant);
+                  props.setRenewModalOpen(true);
+                }}
+              >
+                Renew
+              </Button>
+            )}
           </ActiveContractSubParts>
         </ActiveContractParts>
       );
@@ -563,7 +566,16 @@ const CardRightComp = (props) => {
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
-            <button>Cancel</button>
+            <Button
+              onClick={() => {
+                props.setContractCancelledModalOpen(true);
+                props.setDeleteContractDetail(
+                  props.detailOfConsultant.contracts?.upcoming?.[0]?.id
+                );
+              }}
+            >
+              Cancel
+            </Button>
           </UpcomingContractSubParts>
         </UpcomingContractParts>
       );
@@ -688,7 +700,7 @@ const CardRightComp = (props) => {
                 className="cursorPointer"
                 style={{ fill: "red", height: "18px" }}
                 onClick={() => {
-                  props.setDeleteContractDetail(props.detailOfConsultant);
+                  props.setDeleteConsultantDetail(props.detailOfConsultant);
                   props.setDeleteModalOpen(true);
                 }}
               />
