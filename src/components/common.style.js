@@ -525,6 +525,11 @@ export const Flex50 = styled.div`
   font-size: 12px;
   height: 46px;
 `;
+export const FlexHalf = styled.div`
+  flex: 40%;
+  font-size: 12px;
+  height: 46px;
+`;
 
 export const CommonButton = styled.button`
   cursor: pointer;
@@ -623,5 +628,4 @@ export const TextDiv = styled.div`
   }
 `;
 export const AddBox = styled.div`
-  
 `;

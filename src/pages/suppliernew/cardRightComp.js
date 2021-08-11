@@ -24,6 +24,8 @@ import {
   SaveButton,
   CancelButton,
   AddBox,
+  FlexHalf,
+  NameEmail,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import RefContext from "Utilities/refContext";
@@ -41,22 +43,6 @@ const CardRightComp = (props) => {
   const {
     actions: { addSupplier },
   } = context;
-  // const FormForAdd = {
-  //   name: "",
-  //   point_of_contacts: [
-  //     {
-  //       name: "",
-  //       email: "",
-  //       phone: "",
-  //     },
-  //   ],
-  //   organization_no: "",
-  // };
-
-  // const [name, setName] = useState("");
-
-  // const [companyId, setCompanyId] = useState("");
-  // const [poc, setPoc] = useState([]);
 
   const addSupplierTry = (values) => {
     props.addSupplier(values);
@@ -169,16 +155,24 @@ const CardRightComp = (props) => {
             <Form
               form={form}
               name="create-supplier"
+              layout="vertical"
               onFinish={addSupplierTry}
               autoComplete="off"
               initialValues={props.detailOfSupplier || intialValue}
             >
-              <Form.Item name="name" label="name">
-                <Input placeholder="Name" />
-              </Form.Item>
-              <Form.Item name="organization_no" label="organization_no">
-                <Input placeholder="xxyyzz##" />
-              </Form.Item>
+              <NameEmail>
+                <FlexHalf>
+                  <Form.Item name="name" label="Name">
+                    <Input placeholder="Name" />
+                  </Form.Item>
+                </FlexHalf>
+                <FlexHalf>
+                  <Form.Item name="organization_no" label="Organization No.">
+                    <Input placeholder="xxyyzz##" />
+                  </Form.Item>
+                </FlexHalf>
+              </NameEmail>
+
               <Form.List name="point_of_contacts">
                 {(fields, { add, remove }) => (
                   <>
@@ -225,7 +219,7 @@ const CardRightComp = (props) => {
                       </Space>
                     ))}
                     <Form.Item>
-                      <AddBox>
+                      <div>
                         <Button onClick={() => add()} block>
                           <div
                             style={{
@@ -238,7 +232,7 @@ const CardRightComp = (props) => {
                             Click here to add point of contact
                           </div>
                         </Button>
-                      </AddBox>
+                      </div>
                     </Form.Item>
                   </>
                 )}
@@ -344,7 +338,7 @@ const CardRightComp = (props) => {
               </Form>
               <ButtonsDiv>
                 <SaveButton>
-                  <button htmlType="submit">
+                  <button htmlType="submit" onClick={editSupplierTry}>
                     <div>Save</div>
                   </button>
                 </SaveButton>
