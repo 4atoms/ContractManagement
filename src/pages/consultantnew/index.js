@@ -4,7 +4,6 @@ import { shape } from "prop-types";
 import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
-import Header from "Components/Header";
 import ConsultantData from "./consultantData";
 
 const ConsultantNew = (props) => {
@@ -27,7 +26,6 @@ const ConsultantNew = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
-          <Header />
           <ConsultantData />
         </RefErrorBoundary>
       </RefProvider>

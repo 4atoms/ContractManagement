@@ -5,7 +5,6 @@ import RefProvider from "Utilities/refProvider";
 import RefErrorBoundary from "Utilities/refErrorBoundary";
 import { formStoreData } from "Utilities/helpers";
 import DashboardPage from "./dashboard";
-import Header from "../../components/Header/index";
 
 const Dashboard = (props) => {
   const propShape = formStoreData(props, ["dashboard"]);
@@ -20,7 +19,6 @@ const Dashboard = (props) => {
     <>
       <RefProvider data={propShape}>
         <RefErrorBoundary {...props}>
-          <Header />
           <DashboardPage />
         </RefErrorBoundary>
       </RefProvider>

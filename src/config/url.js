@@ -15,6 +15,7 @@ module.exports = {
   URL_DASHBOARD: "/dashboard",
   URL_SUPPLIERS: "/suppliers",
   URL_CONSULTANTS: "/consultants",
+  URL_LOGIN: "/login",
   routeTo: (url, history, params) => {
     history.push(getUrl(url, params));
   },

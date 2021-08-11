@@ -13,6 +13,7 @@ const nw = new Network();
 const initialState = {
   loginRequest: { email: null, password: null },
   accessToken: null,
+  currentUser: null,
 };
 
 // ACTIONS
@@ -38,17 +39,38 @@ const resetAuthStore = () => (dispatch) => {
 };
 
 // METHODS
-const login = (request, history) => () => {
+const login = (request, history) => (dispatch) => {
   nw.api("login")
     .post(request)
     .then((resp) => {
-      console.log(resp.data.data.accessToken);
       const { accessToken } = resp?.data?.data;
       cookie.save("access_token", accessToken);
       authDetails["Access-token"] = accessToken;
+      dispatch(
+        assignToAuthStore(
+          "currentUser",
+          // eslint-disable-next-line no-unused-vars
+          (({ accessToken, ...remain }) => remain)(resp?.data?.data)
+        )
+      );
       history.push("/home");
     });
 };
+
+const fetchCurrentUser = () => (dispatch) => {
+  if (cookie.load("access_token")) {
+    return nw
+      .api("fetchCurrentUser")
+      .get()
+      .then((response) => {
+        dispatch(assignToAuthStore("currentUser", response?.data?.data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+};
+
 // Routing
 
 // Reducers
@@ -74,5 +96,6 @@ export default {
     assignToAuthStore,
     resetAuthStore,
     login,
+    fetchCurrentUser,
   },
 };
