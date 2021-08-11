@@ -7,6 +7,9 @@ const development = {
   login: "/auth/login",
   signup: "/signup",
 
+  //user
+  fetchCurrentUser: "/users/fetch",
+
   contractWithQuery: "/contracts?status=", // status will be active, renewed, to_be_renewed, upcoming, expired.
   renewContract: "consultants/renew_contract", // to renew a contract
 

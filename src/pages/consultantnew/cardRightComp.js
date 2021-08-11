@@ -11,8 +11,6 @@ import {
   AutoComplete,
 } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
-import ModalLayout from "Components/modalLayout";
-import ConfirmDelete from "Components/confirmDelete";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
@@ -460,14 +458,17 @@ const CardRightComp = (props) => {
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
-          { props.detailOfConsultant.contracts?.active?.[0]?.status== "to_be_renewed" && ( <Button
-              onClick={() => {
-                props.setRenewContractDetail(props.detailOfConsultant);
-                props.setRenewModalOpen(true);
-              }}
-            >
-              Renew
-            </Button>)}
+            {props.detailOfConsultant.contracts?.active?.[0]?.status ==
+              "to_be_renewed" && (
+              <Button
+                onClick={() => {
+                  props.setRenewContractDetail(props.detailOfConsultant);
+                  props.setRenewModalOpen(true);
+                }}
+              >
+                Renew
+              </Button>
+            )}
           </ActiveContractSubParts>
         </ActiveContractParts>
       );
@@ -566,15 +567,15 @@ const CardRightComp = (props) => {
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
             <Button
-             onClick={
-               ()=> 
-               {
-                 props.setContractCancelledModalOpen(true);
-                 props.setDeleteContractDetail(props.detailOfConsultant.contracts?.upcoming?.[0]
-                ?.id)
+              onClick={() => {
+                props.setContractCancelledModalOpen(true);
+                props.setDeleteContractDetail(
+                  props.detailOfConsultant.contracts?.upcoming?.[0]?.id
+                );
               }}
-                    
-            >Cancel</Button>
+            >
+              Cancel
+            </Button>
           </UpcomingContractSubParts>
         </UpcomingContractParts>
       );
