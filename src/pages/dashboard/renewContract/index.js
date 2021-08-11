@@ -73,9 +73,9 @@ const RenewContract = ({ store, actions }) => {
       });
     });
     console.log(request);
-    // if (request.renew_contracts.length) {
-    //   actions.renewContractsDashboard(request, { status: "to_be_renewed" });
-    // }
+    if (request.renew_contracts.length) {
+      actions.renewContractsDashboard(request, { status: "to_be_renewed" });
+    }
   };
 
   const renewContractColumns = [
