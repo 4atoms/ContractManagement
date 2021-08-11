@@ -1,5 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
-import { setNamespace } from "Utilities/helpers";
+import { setNamespace, setApiError } from "Utilities/helpers";
 import Network from "Utilities/network";
 import cookie from "react-cookies";
 
@@ -11,6 +11,7 @@ const nw = new Network();
 
 // STORE
 const initialState = {
+  apiError: null,
   loginRequest: { email: null, password: null },
   accessToken: null,
   currentUser: null,
@@ -40,7 +41,8 @@ const resetAuthStore = () => (dispatch) => {
 
 // METHODS
 const login = (request, history) => (dispatch) => {
-  nw.api("login")
+  return nw
+    .api("login")
     .post(request)
     .then((resp) => {
       const { accessToken } = resp?.data?.data;
@@ -54,6 +56,9 @@ const login = (request, history) => (dispatch) => {
         )
       );
       history.push("/home");
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToAuthStore, error);
     });
 };
 
@@ -66,7 +71,7 @@ const fetchCurrentUser = () => (dispatch) => {
         dispatch(assignToAuthStore("currentUser", response?.data?.data));
       })
       .catch((error) => {
-        console.log(error);
+        setApiError(dispatch, assignToAuthStore, error);
       });
   }
 };

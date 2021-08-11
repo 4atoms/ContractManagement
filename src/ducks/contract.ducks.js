@@ -1,5 +1,5 @@
 import cloneDeep from "lodash/cloneDeep";
-import { setNamespace } from "Utilities/helpers";
+import { setNamespace, setApiError } from "Utilities/helpers";
 import Network from "Utilities/network";
 import { dateFormat } from "../utilities/helpers";
 const namespace = "contract";
@@ -8,6 +8,7 @@ const nw = new Network();
 
 // STORE
 const initialState = {
+  apiError: null,
   contractsList: null,
   upcomingContractsList: [],
   expiredContractsList: [],
@@ -40,7 +41,8 @@ const resetContractStore = () => (dispatch) => {
 
 // METHODS
 const getContractsData = () => (dispatch) => {
-  nw.api("contractList")
+  return nw
+    .api("contractList")
     .get()
     .then((resp) => {
       resp.data.data.ongoing.forEach((x) => {
@@ -63,6 +65,9 @@ const getContractsData = () => (dispatch) => {
       dispatch(
         assignToContractStore("expiredContractsList", resp.data.data.expired)
       );
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToContractStore, error);
     });
 };
 
@@ -75,14 +80,21 @@ const getContractsDataWithQuery = (query) => (dispatch) => {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToContractStore, error);
     });
 };
 
 const getDetailOfcontract = (contract_id) => (dispatch) => {
-  nw.apiWithPath("contractList", [contract_id])
+  return nw
+    .apiWithPath("contractList", [contract_id])
     .get()
     .then((resp) => {
       dispatch(assignToContractStore("detailOfContract", resp.data.data));
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToContractStore, error);
     });
 };
 
@@ -96,6 +108,9 @@ const updateContract = (request) => (dispatch) => {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToContractStore, error);
     });
 };
 
@@ -109,15 +124,22 @@ const renewContracts = (request) => (dispatch) => {
     })
     .catch((error) => {
       console.log(error);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToContractStore, error);
     });
 };
 
 const deleteContract = (contract_id) => (dispatch) => {
-  return nw.apiWithPath("contractList", [contract_id])
+  return nw
+    .apiWithPath("contractList", [contract_id])
     .delete()
     .then((resp) => {
       console.log(resp.data);
-      getConsultantsData()(dispatch);
+      getContractsData()(dispatch);
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToContractStore, error);
     });
 };
 

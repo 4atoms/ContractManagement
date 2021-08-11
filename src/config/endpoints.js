@@ -30,6 +30,6 @@ export function getAllEndpoints() {
 }
 
 export function getBaseURL() {
-  return "http://65.0.5.249:3000/api";
+  return "http://localhost:3002/api";
 }
 // https://run.mocky.io/v3/e9f7581e-9f74-4d13-ae02-b022383e56e3
