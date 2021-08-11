@@ -13,29 +13,31 @@ const RefErrorBoundary = (props) => {
     setContent(children);
   }, []);
 
-  const unauthorizedCard = (
-    <Result
-      status="error"
-      title="Session Expired"
-      subTitle="Sorry, Session expired please login again."
-      extra={
-        <Button type="primary" onClick={() => window.location.assign("/login")}>
-          Login
-        </Button>
-      }
-    />
-  );
+  const unauthorizedCard = (error) => {
+    return (
+      <Result
+        status="error"
+        title="Sorry, please login again."
+        // title={error.error.message}
+        // subTitle="Sorry, please login again."
+        extra={
+          <Button
+            type="primary"
+            onClick={() => window.location.assign("/login")}
+          >
+            Login
+          </Button>
+        }
+      />
+    );
+  };
 
   // eslint-disable-next-line no-unused-vars
   const errorFallbackComponent = ({ error, resetErrorBoundary }) => {
-    // if (error.status == "401") {
-    //   history.push("/login");
-    //   return <></>;
-    // } else
     return (
       <>
         {error.status === 401 ? (
-          unauthorizedCard
+          unauthorizedCard(error)
         ) : (
           <Result
             status="warning"
