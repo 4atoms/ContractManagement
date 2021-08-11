@@ -9,6 +9,7 @@ import { Input, Table, Select } from "antd";
 import { dateFormat, dateDifference } from "Utilities/helpers";
 import ModalLayout from "Components/modalLayout";
 
+import CachedIcon from "@material-ui/icons/Cached";
 import LaunchIcon from "@material-ui/icons/Launch";
 
 import { primaryColor, themeColors } from "Theme";
@@ -25,6 +26,7 @@ const RenewContract = ({ store, actions }) => {
   const [selectedContracts, setSelectedContracts] = useState([]);
   const [selectedRowsArrayID, setSelectedRowsArrayID] = useState([]);
   const [isModalOpen, setisModalOpen] = useState(false);
+  const [isRenewConfirmModalOpen, setisRenewConfirmModalOpen] = useState(false);
 
   useEffect(() => {
     if (!renewContractDashboard) {
@@ -57,23 +59,23 @@ const RenewContract = ({ store, actions }) => {
   const onclose = () => {
     setisModalOpen(false);
   };
+  const renewConfirmClose = () => {
+    setisRenewConfirmModalOpen(false);
+    setSelectedContracts([]);
+  };
 
-  const renewContractsRequest = (contract = null) => {
+  const renewContractsRequest = () => {
     let request = { renew_contracts: [] };
-    if (contract) {
+    selectedContracts.forEach((contract) => {
       request.renew_contracts.push({
         id: contract.id,
         period: contract.renew_for,
       });
-    } else {
-      selectedContracts.forEach((contract) => {
-        request.renew_contracts.push({
-          id: contract.id,
-          period: contract.renew_for,
-        });
-      });
-    }
-    actions.renewContractsDashboard(request, { status: "to_be_renewed" });
+    });
+    console.log(request);
+    // if (request.renew_contracts.length) {
+    //   actions.renewContractsDashboard(request, { status: "to_be_renewed" });
+    // }
   };
 
   const renewContractColumns = [
@@ -132,10 +134,64 @@ const RenewContract = ({ store, actions }) => {
     {
       title: "Action",
       render: (record) => (
-        <Button onClick={() => renewContractsRequest(record)}>Renew</Button>
+        <Button
+          onClick={() => {
+            setSelectedContracts([record]);
+            setisRenewConfirmModalOpen(true);
+          }}
+        >
+          Renew
+        </Button>
       ),
     },
   ];
+
+  const contentStyle = {
+    display: "flex",
+    height: "90%",
+    justifyContent: "center",
+    gap: "20px",
+    fontSize: "18px",
+    alignItems: "center",
+  };
+
+  const buttonStyle = {
+    position: "absolute",
+    bottom: "23px",
+    gap: "10px",
+    display: "flex",
+    right: "20px",
+  };
+
+  const renderConfirmRenew = () => {
+    return (
+      <>
+        <div style={contentStyle}>
+          <CachedIcon style={{ color: primaryColor }} />
+          <div>
+            Are you sure you want to renew?
+            <div style={{ fontSize: "14px" }}>
+              {"You can't undo this action"}
+            </div>
+          </div>
+        </div>
+        <div style={buttonStyle}>
+          <Button deleteModal onClick={() => renewConfirmClose()}>
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              renewContractsRequest();
+              renewConfirmClose();
+            }}
+            type="primary"
+          >
+            Renew
+          </Button>
+        </div>
+      </>
+    );
+  };
 
   const renderTable = (rowCount) => {
     return (
@@ -208,6 +264,16 @@ const RenewContract = ({ store, actions }) => {
           onclose={onclose}
         >
           {renderTable(8)}
+        </ModalLayout>
+      )}
+      {isRenewConfirmModalOpen && (
+        <ModalLayout
+          width={"450px"}
+          height={"225px"}
+          title={"Renew Confirmation"}
+          onclose={renewConfirmClose}
+        >
+          {renderConfirmRenew()}
         </ModalLayout>
       )}
     </>
