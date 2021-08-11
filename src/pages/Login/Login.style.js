@@ -16,6 +16,7 @@ export const Login = styled.div`
   // );
   background-image: url(${bgimg});
   background-repeat: no-repeat;
+  background-size: contain;
   display: flex;
 `;
 
