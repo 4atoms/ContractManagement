@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import RefContext from "Utilities/refContext";
 import "./Login.style.js";
 import { Login, LoginContainer, BTNContainer, ImageWrap } from "./Login.style";
@@ -7,10 +7,12 @@ import logo from "Assets/images/Group35.png";
 const Loginpage = () => {
   const Context = useContext(RefContext);
   const {
-    store: { email, password },
-    actions: { assignToAuthStore, login },
+    actions: { login },
     history,
   } = Context;
+
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   const loginUser = () => {
     const request = { email, password };
@@ -27,14 +29,14 @@ const Loginpage = () => {
           value={email}
           autoFocus
           required
-          onChange={(e) => assignToAuthStore("email", e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <label>Password</label>
         <input
           type="password"
           value={password}
           required
-          onChange={(e) => assignToAuthStore("password", e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         ></input>
         <BTNContainer>
           <button onClick={loginUser}>Log In</button>

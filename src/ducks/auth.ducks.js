@@ -12,8 +12,6 @@ const nw = new Network();
 // STORE
 const initialState = {
   apiError: null,
-  loginRequest: { email: null, password: null },
-  accessToken: null,
   currentUser: null,
 };
 

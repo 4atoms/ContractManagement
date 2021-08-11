@@ -16,8 +16,9 @@ const ConsultantNew = (props) => {
 
   useEffect(() => {
     return () => {
-      propShape.actions.resetSupplierStore();
       propShape.actions.resetConsultantStore();
+      propShape.actions.resetSupplierStore();
+      propShape.actions.resetClientandprojectStore();
       propShape.actions.resetContractStore();
     };
   }, []);
