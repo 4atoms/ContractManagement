@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Button, Table, Form, Space, Input } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -28,10 +28,10 @@ import {
   NameEmail,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
-import RefContext from "Utilities/refContext";
 // import CreateCard from "./createCard";
 const CardRightComp = (props) => {
   const [form] = Form.useForm();
+  const [createform] = Form.useForm();
 
   const intialValue = {
     name: null,
@@ -39,17 +39,17 @@ const CardRightComp = (props) => {
     point_of_contacts: [{ name: null, email: null, phone: null }],
   };
 
-  const context = useContext(RefContext);
-  const {
-    actions: { addSupplier },
-  } = context;
+  useEffect(() => {
+    if (props.detailOfSupplier) {
+      form.setFieldsValue(props.detailOfSupplier);
+    }
+  }, [props.detailOfSupplier]);
 
   const addSupplierTry = (values) => {
     props.addSupplier(values);
   };
   const editSupplierTry = (values) => {
     let request = values;
-    console.log(values);
     request["point_of_contacts"] = request.point_of_contacts.map((poc) => {
       delete poc._id;
       return poc;
@@ -154,12 +154,12 @@ const CardRightComp = (props) => {
             <SupplierName>Create Supplier</SupplierName>
             <Line1 />
             <Form
-              form={form}
+              form={createform}
               name="create-supplier"
               layout="vertical"
               onFinish={addSupplierTry}
               autoComplete="off"
-              initialValues={props.detailOfSupplier || intialValue}
+              initialValues={intialValue}
             >
               <NameEmail>
                 <FlexHalf>
@@ -241,7 +241,7 @@ const CardRightComp = (props) => {
             </Form>
             <ButtonsDiv>
               <SaveButton>
-                <button htmlType="submit" onClick={() => form.submit()}>
+                <button htmlType="submit" onClick={() => createform.submit()}>
                   <div>Save</div>
                 </button>
               </SaveButton>
@@ -266,7 +266,7 @@ const CardRightComp = (props) => {
                 name="dynamic_form_nest_item"
                 onFinish={editSupplierTry}
                 autoComplete="off"
-                initialValues={props.detailOfSupplier}
+                form={form}
               >
                 <Form.Item name="id" label="id" hidden>
                   <Input placeholder="id" />
