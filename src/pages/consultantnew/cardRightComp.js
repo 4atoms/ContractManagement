@@ -350,7 +350,21 @@ const CardRightComp = (props) => {
   const NoExpiredContractButton = (props) => {
     if (props.detailOfConsultant.contracts?.expired?.length == 0) {
       console.log("Expired");
-      return <button>No expired contracts </button>;
+      return (
+        <div>
+          <Button>
+            <div
+              style={{
+                justifyContent: "center",
+                alignContent: "center",
+                display: "flex",
+              }}
+            >
+              No Expired Contracts
+            </div>
+          </Button>
+        </div>
+      );
     } else {
       return (
         <Table
@@ -478,7 +492,21 @@ const CardRightComp = (props) => {
   const NoUpcomingContractButton = (props) => {
     if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
       console.log("Upcoming");
-      return <button>No upcoming contracts</button>;
+      return (
+        <div>
+          <Button>
+            <div
+              style={{
+                justifyContent: "center",
+                alignContent: "center",
+                display: "flex",
+              }}
+            >
+              No Upcoming Contracts
+            </div>
+          </Button>
+        </div>
+      );
     } else {
       return (
         <UpcomingContractParts>
