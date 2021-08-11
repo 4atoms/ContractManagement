@@ -799,7 +799,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Name</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Name"
                 onChange={(e) => setName(e.target.value)}
               />
@@ -807,7 +807,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Email</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -817,7 +817,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Mobile</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Mobile"
                 onChange={(e) => setPhone(e.target.value)}
               />
@@ -827,7 +827,7 @@ const CardRightComp = (props) => {
               <br></br>
               <Select
                 showSearch
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Select a Supplier"
                 optionFilterProp="children"
                 onChange={(value) => setSupplier(value)}
@@ -852,7 +852,7 @@ const CardRightComp = (props) => {
               <br></br>
               <AutoComplete
                 style={{
-                  width: 180,
+                  width: 175,
                 }}
                 optionFilterProp="children"
                 // onSearch={(value) => onClientSearch(value)}
@@ -887,7 +887,7 @@ const CardRightComp = (props) => {
               <br></br>
               <AutoComplete
                 style={{
-                  width: 180,
+                  width: 175,
                 }}
                 optionFilterProp="children"
                 optionLabelProp="title"
@@ -921,7 +921,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Organization ID</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Organization ID"
                 onChange={(e) => setOrganization_no(e.target.value)}
                 disabled={client_name == null}
@@ -931,7 +931,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Role</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Role"
                 onChange={(e) => setRole(e.target.value)}
               />
@@ -940,7 +940,7 @@ const CardRightComp = (props) => {
               <text>Start Date</text>
               <Space direction="vertical" size={18}>
                 <DatePicker
-                  style={{ width: 180 }}
+                  style={{ width: 175 }}
                   // defaultValue={moment("01/01/2015", dateFormat)}
                   //onChange={(value) => setStart_date(value)}
                   format={dateFormat}
@@ -952,7 +952,7 @@ const CardRightComp = (props) => {
               <text>Period</text>
               <Select
                 showSearch
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Select Period"
                 optionFilterProp="children"
                 onFocus={onFocus}
@@ -966,7 +966,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Cost Center</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Cost Center"
                 onChange={(e) => setCost_center(e.target.value)}
               />
@@ -975,7 +975,7 @@ const CardRightComp = (props) => {
               <text>Currency</text>
               <Select
                 showSearch
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Select Currency"
                 optionFilterProp="children"
                 onFocus={onFocus}
@@ -989,7 +989,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Cost/hr</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Cost/hr"
                 onChange={(e) => setCost_per_hour(e.target.value)}
               />
@@ -1047,7 +1047,7 @@ const CardRightComp = (props) => {
               <br></br>
               <AutoComplete
                 style={{
-                  width: 180,
+                  width: 175,
                 }}
                 optionFilterProp="children"
                 onChange={(value) => clientSelection(value)}
@@ -1081,7 +1081,7 @@ const CardRightComp = (props) => {
               <br></br>
               <AutoComplete
                 style={{
-                  width: 180,
+                  width: 175,
                 }}
                 optionFilterProp="children"
                 optionLabelProp="title"
@@ -1115,7 +1115,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Organization ID</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Organization ID"
                 onChange={(e) => setOrganization_no(e.target.value)}
                 disabled={client_name == null}
@@ -1125,7 +1125,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Role</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Role"
                 onChange={(e) => setRole(e.target.value)}
               />
@@ -1134,7 +1134,7 @@ const CardRightComp = (props) => {
               <text>Start Date</text>
               <Space direction="vertical" size={18}>
                 <DatePicker
-                  style={{ width: 180 }}
+                  style={{ width: 175 }}
                   // defaultValue={moment("01/01/2015", dateFormat)}
                   //onChange={(value) => setStart_date(value)}
                   format={dateFormat}
@@ -1146,7 +1146,7 @@ const CardRightComp = (props) => {
               <text>Period</text>
               <Select
                 showSearch
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Select Period"
                 optionFilterProp="children"
                 onFocus={onFocus}
@@ -1160,7 +1160,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Cost Center</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Cost Center"
                 onChange={(e) => setCost_center(e.target.value)}
               />
@@ -1169,7 +1169,7 @@ const CardRightComp = (props) => {
               <text>Currency</text>
               <Select
                 showSearch
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Select Currency"
                 optionFilterProp="children"
                 onFocus={onFocus}
@@ -1183,7 +1183,7 @@ const CardRightComp = (props) => {
             <Flex50>
               <text>Cost/hr</text>
               <Input
-                style={{ width: 180 }}
+                style={{ width: 175 }}
                 placeholder="Cost/hr"
                 onChange={(e) => setCost_per_hour(e.target.value)}
               />
