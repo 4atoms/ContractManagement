@@ -166,15 +166,12 @@ export const SpaceBar = styled.div`
 
 export const DisplayCardRight = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayDetails ? "block" : "none")};
 `;
 export const CreateCardComp = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayCreateSupplier ? "block" : "none")};
 `;
 export const EditCardComp = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayEditSupplier ? "block" : "none")};
 `;
 export const DisplayCardRight3 = styled.div`
   height: 100%;
@@ -528,6 +525,11 @@ export const Flex50 = styled.div`
   font-size: 12px;
   height: 46px;
 `;
+export const FlexHalf = styled.div`
+  flex: 40%;
+  font-size: 12px;
+  height: 46px;
+`;
 
 export const CommonButton = styled.button`
   cursor: pointer;
@@ -626,23 +628,4 @@ export const TextDiv = styled.div`
   }
 `;
 export const AddBox = styled.div`
-  width: 367px;
-  height: 30px;
-
-  border: 1px solid #9e9e9e;
-  box-sizing: border-box;
-  border-radius: 5px;
-  & > div {
-    width: 186px;
-    height: 14px;
-
-    font-family: Varela Round;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
-    letter-spacing: -0.02em;
-
-    color: #3c3c3c;
-  }
 `;

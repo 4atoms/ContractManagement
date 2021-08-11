@@ -71,6 +71,7 @@ const addSupplier = (supplierInfo) => (dispatch) => {
     .post(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
+      getSupplierData()(dispatch);
     })
     .catch((error) => {
       setApiError(dispatch, assignToSupplierStore, error);
