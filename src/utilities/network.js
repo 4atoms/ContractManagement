@@ -11,7 +11,6 @@ const headers = {
 
 let interceptorCallback = () => {};
 
-
 function Network() {
   this.endpoints = getAllEndpoints();
   this.baseURL = getBaseURL();
@@ -41,7 +40,8 @@ function Network() {
     },
     function (error) {
       if (error.response.status == 401) {
-        window.location.assign("/login");
+        // window.location.assign("/login");
+        console.log("STATUS 401");
       } else {
         interceptorCallback(false);
       }

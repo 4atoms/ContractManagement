@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { shape } from "prop-types";
 import { notification } from "antd";
-// import { useErrorHandler } from "react-error-boundary";
+import { useErrorHandler } from "react-error-boundary";
 
 const ApiErrorHandler = ({ store }) => {
-  // const handleError = useErrorHandler();
+  const handleError = useErrorHandler();
 
   const mapApiErrors = () => {
     return Object.values(store).map((x) => x.apiError);
@@ -29,9 +29,9 @@ const ApiErrorHandler = ({ store }) => {
         description: getErrorMessage(errorData) || "",
       });
 
-      // if (errorData.status !== 400) {
-      //   handleError(errorData);
-      // }
+      if (errorData.status !== 400) {
+        handleError(errorData);
+      }
     }
   }, [...mapApiErrors()]);
 

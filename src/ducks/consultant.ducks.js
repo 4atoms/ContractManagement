@@ -44,7 +44,8 @@ const setId = (num) => (dispatch) => {
 };
 
 const getConsultantsData = () => (dispatch) => {
-  return nw.api("consultantList")
+  return nw
+    .api("consultantList")
     .get()
     .then((resp) => {
       console.log(resp.data.data);
@@ -72,7 +73,8 @@ const getConsultantsData = () => (dispatch) => {
 // };
 
 const getDetailOfConsultant = (consultant_id) => (dispatch) => {
-  return nw.apiWithPath("consultantList", [consultant_id])
+  return nw
+    .apiWithPath("consultantList", [consultant_id])
     .get()
     .then((resp) => {
       console.log(resp.data.data);
@@ -84,7 +86,8 @@ const getDetailOfConsultant = (consultant_id) => (dispatch) => {
 };
 
 const addConsultant = (consultantInfo) => (dispatch) => {
-  return nw.api("consultantList")
+  return nw
+    .api("consultantList")
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
@@ -95,7 +98,8 @@ const addConsultant = (consultantInfo) => (dispatch) => {
 };
 
 const addConsultantwithContract = (consultantInfo) => (dispatch) => {
-  return nw.api("createContractWithConsultant")
+  return nw
+    .api("createContractWithConsultant")
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
@@ -114,15 +118,13 @@ const updateConsultant = (consultantInfo, consultantId) => (dispatch) => {
       getDetailOfConsultant(consultantId)(dispatch);
     })
     .catch((error) => {
-      console.log(error.response);
-    })
-    .catch((error) => {
       setApiError(dispatch, assignToConsultantStore, error);
     });
 };
 
 const deleteConsultant = (consultantInfo) => (dispatch) => {
-  return nw.apiWithPath("consultantList", [consultantInfo])
+  return nw
+    .apiWithPath("consultantList", [consultantInfo])
     .delete(consultantInfo)
     .then((resp) => {
       console.log(resp.data);

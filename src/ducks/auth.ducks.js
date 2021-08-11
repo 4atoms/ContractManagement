@@ -58,6 +58,9 @@ const login = (request, history) => (dispatch) => {
       history.push("/home");
     })
     .catch((error) => {
+      if (error.response.status == 401) {
+        error.response["status"] = 400;
+      }
       setApiError(dispatch, assignToAuthStore, error);
     });
 };

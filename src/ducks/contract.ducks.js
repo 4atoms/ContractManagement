@@ -79,9 +79,6 @@ const getContractsDataWithQuery = (query) => (dispatch) => {
       dispatch(assignToContractStore("contractListDraft", response.data.data));
     })
     .catch((error) => {
-      console.log(error);
-    })
-    .catch((error) => {
       setApiError(dispatch, assignToContractStore, error);
     });
 };
@@ -107,9 +104,6 @@ const updateContract = (request) => (dispatch) => {
       console.log(resp.data.data);
     })
     .catch((error) => {
-      console.log(error);
-    })
-    .catch((error) => {
       setApiError(dispatch, assignToContractStore, error);
     });
 };
@@ -121,9 +115,6 @@ const renewContracts = (request) => (dispatch) => {
     .then((resp) => {
       console.log(resp.data.data);
       getContractsData()(dispatch);
-    })
-    .catch((error) => {
-      console.log(error);
     })
     .catch((error) => {
       setApiError(dispatch, assignToContractStore, error);
