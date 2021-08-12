@@ -5,8 +5,12 @@ import {
   CollectionName,
   Button,
 } from "./../dashboard.style";
-import { Input, Table, Select } from "antd";
-import { dateFormat, dateDifference } from "Utilities/helpers";
+import { Input, Table, Select, DatePicker } from "antd";
+import {
+  dateFormat,
+  dateDifference,
+  dateFormatStandard2,
+} from "Utilities/helpers";
 import ModalLayout from "Components/modalLayout";
 
 import CachedIcon from "@material-ui/icons/Cached";
@@ -14,12 +18,17 @@ import LaunchIcon from "@material-ui/icons/Launch";
 
 import { primaryColor, themeColors } from "Theme";
 
+import moment from "moment";
+
 const RenewContract = ({ store, actions }) => {
   const { renewContractDashboard } = store;
   const { Search } = Input;
   const { Option } = Select;
 
   const [listContract, setListContract] = useState(
+    renewContractDashboard?.ongoing || null
+  );
+  const [dataSetSource, setDataSetSource] = useState(
     renewContractDashboard?.ongoing || null
   );
 
@@ -31,6 +40,8 @@ const RenewContract = ({ store, actions }) => {
 
   const [isRenewConfirmModalOpen, setisRenewConfirmModalOpen] = useState(false);
 
+  const dateFormatShow = "DD/MM/YYYY";
+
   useEffect(() => {
     if (!renewContractDashboard) {
       actions.getContractsWithQueryDashboard({ status: "to_be_renewed" });
@@ -39,17 +50,37 @@ const RenewContract = ({ store, actions }) => {
 
   useEffect(() => {
     setListContract(renewContractDashboard?.ongoing);
+    setDataSetSource(renewContractDashboard?.ongoing);
   }, [renewContractDashboard]);
 
   useEffect(() => {
     setListContract(renewContractDashboard?.ongoing);
+    console.log(listContract);
     setSelectedContracts([]);
     setSelectedRowsArrayID([]);
     setSearchInput("");
   }, [isModalOpen]);
 
+  useEffect(() => {
+    setListContract(dataSetSource);
+  }, [dataSetSource]);
+
+  useEffect(() => {
+    console.log("changingg", listContract, dataSetSource);
+  }, [listContract]);
+
+  const replaceWithSourcedata = (record) => {
+    let data = dataSetSource;
+    data.forEach((contract, index) => {
+      if (record.id == contract.id) {
+        data[index] = record;
+      }
+    });
+    setDataSetSource(data);
+  };
+
   const filterList = (value) => {
-    const list = renewContractDashboard.ongoing.filter((contract) => {
+    const list = dataSetSource.filter((contract) => {
       return (
         contract.consultant.name.toLowerCase().includes(value.toLowerCase()) ||
         contract.supplier.name.toLowerCase().includes(value.toLowerCase()) ||
@@ -70,13 +101,23 @@ const RenewContract = ({ store, actions }) => {
     setSelectedRowsArrayID([]);
   };
 
+  const disabledDate = (current, end_date) => {
+    return current < new Date(end_date);
+  };
+
   const renewContractsRequest = () => {
     let request = { renew_contracts: [] };
     selectedContracts.forEach((contract) => {
-      request.renew_contracts.push({
-        id: contract.id,
-        period: contract.renew_for,
-      });
+      let obj = {};
+      obj["id"] = contract.id;
+      if (contract.choosen == "endDate") {
+        obj["end_date"] = dateFormatStandard2(contract.renew_for_endDate);
+      } else {
+        obj["period"] = contract.renew_for_period;
+      }
+      if (Object.keys(obj).length == 2) {
+        request.renew_contracts.push(obj);
+      }
     });
     console.log(request);
     if (request.renew_contracts.length) {
@@ -101,6 +142,7 @@ const RenewContract = ({ store, actions }) => {
       title: "Project",
       dataIndex: ["project", "project_name"],
       key: "project",
+      width: "80px",
     },
     {
       title: "Renew Within",
@@ -115,28 +157,81 @@ const RenewContract = ({ store, actions }) => {
         </div>
       ),
     },
-
     {
       title: "Renew For",
-      key: "renew_for",
-      render: (record) => {
-        if (!record.renew_for) {
-          record["renew_for"] = 6;
-        }
-        return (
-          <Select
-            defaultValue={6}
-            style={{ width: 120 }}
-            onChange={(e) => (record["renew_for"] = e)}
-          >
-            <Option value={6}>6 months</Option>
-            <Option value={3}>3 months</Option>
-            <Option value={2}>2 months</Option>
-            <Option value={1}>1 month</Option>
-          </Select>
-        );
-      },
+      children: [
+        {
+          title: "Period",
+          key: "renew_for_period",
+          width: "80px",
+          render: (record) => {
+            console.log(record.choosen);
+            if (!record.renew_for_period) {
+              record["renew_for_period"] = 1;
+              record["choosen"] = "period";
+              replaceWithSourcedata(record);
+            }
+            return (
+              <Select
+                defaultValue={record.renew_for_period}
+                style={{
+                  width: 80,
+                  opacity: record.choosen == "period" ? 1 : 0.5,
+                }}
+                onFocus={() => {
+                  record["choosen"] = "period";
+                  replaceWithSourcedata(record);
+                }}
+                onChange={(e) => {
+                  record["renew_for_period"] = e;
+                  replaceWithSourcedata(record);
+                }}
+              >
+                <Option value={6}>6</Option>
+                <Option value={3}>3</Option>
+                <Option value={2}>2</Option>
+                <Option value={1}>1</Option>
+              </Select>
+            );
+          },
+        },
+
+        {
+          title: "(or) End Date",
+          key: "renew_for_endDate",
+          render: (record) => {
+            let end_date = new Date(record.end_date);
+            end_date.setDate(end_date.getDate() + 30);
+            if (!record.renew_for_endDate) {
+              record["renew_for_endDate"] = end_date;
+              replaceWithSourcedata(record);
+            }
+            let defaultDate = new Date(record["renew_for_endDate"]);
+            return (
+              <DatePicker
+                defaultValue={moment(defaultDate, dateFormatShow)}
+                format={dateFormatShow}
+                disabledDate={(current) => disabledDate(current, end_date)}
+                style={{
+                  width: 100,
+                  opacity: record.choosen == "endDate" ? 1 : 0.5,
+                }}
+                onFocus={() => {
+                  record["choosen"] = "endDate";
+                  replaceWithSourcedata(record);
+                }}
+                onChange={(e) => {
+                  record["renew_for_endDate"] = e;
+                  replaceWithSourcedata(record);
+                }}
+                allowClear={false}
+              />
+            );
+          },
+        },
+      ],
     },
+
     {
       title: "Action",
       render: (record) => (
@@ -210,7 +305,7 @@ const RenewContract = ({ store, actions }) => {
             position: ["bottomLeft"],
             simple: true,
           }}
-          //   loading = {listContract === null}
+          loading={listContract == null}
           rowSelection={{
             type: "checkbox",
             selectedRowKeys: selectedRowsArrayID,
@@ -225,7 +320,7 @@ const RenewContract = ({ store, actions }) => {
         ></Table>
         <Button
           type="primary"
-          style={{ position: "absolute", right: "50px", bottom: "20px" }}
+          style={{ position: "absolute", right: "50px", bottom: "11px" }}
           disabled={!selectedContracts.length}
           onClick={() => setisRenewConfirmModalOpen(true)}
         >
@@ -259,7 +354,7 @@ const RenewContract = ({ store, actions }) => {
             </div>
           </CardTitle>
         </div>
-        <div style={{ height: "88%" }}>{renderTable(3)}</div>
+        <div style={{ height: "88%" }}>{renderTable(2)}</div>
       </RenewableCard>
     );
   };

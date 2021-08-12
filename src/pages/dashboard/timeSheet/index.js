@@ -110,7 +110,7 @@ const TimeSheet = ({ store, actions }) => {
           position: ["bottomLeft"],
           simple: true,
         }}
-        //   loading = {listContract === null}
+        loading={listContract == null}
         //   rowSelection={{
         //     type: "checkbox",
         //   }}
