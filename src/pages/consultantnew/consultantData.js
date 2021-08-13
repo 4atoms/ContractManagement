@@ -87,6 +87,9 @@ const ConsultantData = () => {
 
   const [consulantNullToData, setConsulantNullToData] = useState(false);
 
+  const [contractwithexistingconsultant, setcontractwithexistingconsultant] =
+    useState(false);
+
   useEffect(() => {
     getConsultantsData();
     getSupplierData();
@@ -114,6 +117,7 @@ const ConsultantData = () => {
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(false);
     setdisplayCreateContract(false);
+    setcontractwithexistingconsultant(false);
   };
 
   const showCreate = () => {
@@ -121,6 +125,7 @@ const ConsultantData = () => {
     setDisplayCreateConsultant(true);
     setdisplayEditConsultant(false);
     setdisplayCreateContract(false);
+    setcontractwithexistingconsultant(false);
   };
 
   const showEdit = (num) => {
@@ -130,6 +135,7 @@ const ConsultantData = () => {
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(true);
     setdisplayCreateContract(false);
+    setcontractwithexistingconsultant(false);
   };
 
   //Used for create contract Card
@@ -554,6 +560,10 @@ const ConsultantData = () => {
             setRenewContractDetail={setRenewContractDetail}
             setContractCancelledModalOpen={setContractCancelledModalOpen}
             setDeleteContractDetail={setDeleteContractDetail}
+            setcontractwithexistingconsultant={
+              setcontractwithexistingconsultant
+            }
+            contractwithexistingconsultant={contractwithexistingconsultant}
           />
         </CardRightWrapper>
       </WrapperCard>

@@ -70,8 +70,6 @@ const CardRightComp = (props) => {
   const [end_date, setEnd_date] = useState(null);
   const [choosen, setChoosen] = useState("period");
   // const [companyId, setCompanyId] = useState("");
-  const [contractwithexistingconsultant, setcontractwithexistingconsultant] =
-    useState(false);
 
   const ResetAllStates = () => {
     setName(null);
@@ -115,47 +113,50 @@ const CardRightComp = (props) => {
     FormForAdd.phone = phone;
     FormForAdd.supplier = supplier;
 
-    FormForAdd2.supplier = supplier;
-    FormForAdd2.consultant.name = name;
-    FormForAdd2.consultant.email = email;
-    FormForAdd2.consultant.phone = phone;
-    FormForAdd2.client = client;
-    FormForAdd2.project = project;
-    FormForAdd2.cost_center = cost_center;
-    FormForAdd2.start_date = start_date;
-    FormForAdd2.end_date = dateFormatStandard2(end_date);
-    FormForAdd2.period = period;
-    FormForAdd2.role = role;
-    FormForAdd2.cost_per_hour = cost_per_hour;
+    FormForAdd2.supplier = supplier || "";
+    FormForAdd2["consultant"] = {};
+    FormForAdd2["consultant"]["name"] = name || "";
+    FormForAdd2["consultant"]["email"] = email || "";
+    FormForAdd2["consultant"]["phone"] = phone || "";
+    FormForAdd2.client = client || "";
+    FormForAdd2.project = project || "";
+    FormForAdd2.cost_center = cost_center || "";
+    FormForAdd2.start_date = start_date || "";
+    FormForAdd2.end_date = dateFormatStandard2(end_date) || "";
+    FormForAdd2.period = period || "";
+    FormForAdd2.role = role || "";
+    FormForAdd2.cost_per_hour = cost_per_hour || "";
 
-    FormForAdd3.supplier = supplier;
-    FormForAdd3.consultant.name = name;
-    FormForAdd3.consultant.email = email;
-    FormForAdd3.consultant.phone = phone;
-    FormForAdd3.client.name = client_name;
-    FormForAdd3.client.organization_no = organization_no;
-    FormForAdd3.project.project_name = project_name;
-    FormForAdd3.project.project_number = project_number;
-    FormForAdd3.cost_center = cost_center;
-    FormForAdd3.start_date = start_date;
-    FormForAdd3.end_date = dateFormatStandard2(end_date);
-    FormForAdd3.period = period;
-    FormForAdd3.role = role;
-    FormForAdd3.cost_per_hour = cost_per_hour;
+    FormForAdd3.supplier = supplier || "";
+    FormForAdd3["consultant"] = {};
+    FormForAdd3["consultant"]["name"] = name || "";
+    FormForAdd3["consultant"]["email"] = email || "";
+    FormForAdd3["consultant"]["phone"] = phone || "";
+    FormForAdd3.client.name = client_name || "";
+    FormForAdd3.client.organization_no = organization_no || "";
+    FormForAdd3.project.project_name = project_name || "";
+    FormForAdd3.project.project_number = project_number || "";
+    FormForAdd3.cost_center = cost_center || "";
+    FormForAdd3.start_date = start_date || "";
+    FormForAdd3.end_date = dateFormatStandard2(end_date) || "";
+    FormForAdd3.period = period || "";
+    FormForAdd3.role = role || "";
+    FormForAdd3.cost_per_hour = cost_per_hour || "";
 
-    FormForAdd4.supplier = supplier;
-    FormForAdd4.consultant.name = name;
-    FormForAdd4.consultant.email = email;
-    FormForAdd4.consultant.phone = phone;
-    FormForAdd4.client = client;
-    FormForAdd4.project.project_name = project_name;
-    FormForAdd4.project.project_number = project_number;
-    FormForAdd4.cost_center = cost_center;
-    FormForAdd4.start_date = start_date;
-    FormForAdd4.end_date = dateFormatStandard2(end_date);
-    FormForAdd4.period = period;
-    FormForAdd4.role = role;
-    FormForAdd4.cost_per_hour = cost_per_hour;
+    FormForAdd4.supplier = supplier || "";
+    FormForAdd4["consultant"] = {};
+    FormForAdd4["consultant"]["name"] = name || "";
+    FormForAdd4["consultant"]["email"] = email || "";
+    FormForAdd4["consultant"]["phone"] = phone || "";
+    FormForAdd4.client = client || "";
+    FormForAdd4.project.project_name = project_name || "";
+    FormForAdd4.project.project_number = project_number || "";
+    FormForAdd4.cost_center = cost_center || "";
+    FormForAdd4.start_date = start_date || "";
+    FormForAdd4.end_date = dateFormatStandard2(end_date) || "";
+    FormForAdd4.period = period || "";
+    FormForAdd4.role = role || "";
+    FormForAdd4.cost_per_hour = cost_per_hour || "";
 
     console.log(
       supplier,
@@ -186,9 +187,9 @@ const CardRightComp = (props) => {
       role,
       cost_per_hour,
       "Checking",
-      contractwithexistingconsultant
+      props.contractwithexistingconsultant
     );
-    if (contractwithexistingconsultant) {
+    if (props.contractwithexistingconsultant) {
       FormForAdd4.consultant = props.detailOfConsultant.id;
       FormForAdd3.consultant = props.detailOfConsultant.id;
       FormForAdd2.consultant = props.detailOfConsultant.id;
@@ -444,7 +445,7 @@ const CardRightComp = (props) => {
           onClick={() => {
             props.showCreateContract();
             console.log("State", props.displayConsultDetails);
-            setcontractwithexistingconsultant(true);
+            props.contractwithexistingconsultant(true);
           }}
         >
           Click here to add new contract
@@ -1095,7 +1096,12 @@ const CardRightComp = (props) => {
                       >
                         Save
                       </CommonButton>
-                      <CommonButton style={{ width: 90 }}>Cancel</CommonButton>
+                      <CommonButton
+                        style={{ width: 90 }}
+                        onClick={() => props.showDetails()}
+                      >
+                        Cancel
+                      </CommonButton>
                     </div>
                   </>
                 </SplitFormLayout>
@@ -1319,7 +1325,12 @@ const CardRightComp = (props) => {
                   >
                     Save
                   </CommonButton>
-                  <CommonButton style={{ width: 90 }}>Cancel</CommonButton>
+                  <CommonButton
+                    style={{ width: 90 }}
+                    onClick={() => props.showDetails()}
+                  >
+                    Cancel
+                  </CommonButton>
                 </Flex50>
               </MobileSupplier>
             </RightCardContent>
