@@ -445,7 +445,7 @@ const CardRightComp = (props) => {
           onClick={() => {
             props.showCreateContract();
             console.log("State", props.displayConsultDetails);
-            props.contractwithexistingconsultant(true);
+            props.setcontractwithexistingconsultant(true);
           }}
         >
           Click here to add new contract
@@ -456,79 +456,79 @@ const CardRightComp = (props) => {
         <ActiveContractParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Client</text>
+              <span>Client</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {props.detailOfConsultant.contracts?.active?.[0]?.client?.name}
-              </text>
+              </span>
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Project</text>
+              <span>Project</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {
                   props.detailOfConsultant.contracts?.active?.[0]?.project
                     ?.project_name
                 }
-              </text>
+              </span>
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Role</text>
+              <span>Role</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {props.detailOfConsultant.contracts?.active?.[0]?.role}
-              </text>
+              </span>
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Cost Center</text>
+              <span>Cost Center</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {props.detailOfConsultant.contracts?.active?.[0]?.cost_center}
-              </text>
+              </span>
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Start Date</text>
+              <span>Start Date</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {dateFormatStandard(
                   props.detailOfConsultant.contracts?.active?.[0]?.start_date
                 )}
-              </text>
+              </span>
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>End Date</text>
+              <span>End Date</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {dateFormatStandard(
                   props.detailOfConsultant.contracts?.active?.[0]?.end_date
                 )}
-              </text>
+              </span>
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
             <LightColor>
-              <text>Cost/hr</text>
+              <span>Cost/hr</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {props.detailOfConsultant.contracts?.active?.[0]?.cost_per_hour}
-              </text>
+              </span>
             </div>
           </ActiveContractSubParts>
           <ActiveContractSubParts>
@@ -572,85 +572,85 @@ const CardRightComp = (props) => {
         <UpcomingContractParts>
           <UpcomingContractSubParts>
             <LightColor>
-              <text>Client</text>
+              <span>Client</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {
                   props.detailOfConsultant.contracts?.upcoming?.[0]?.client
                     ?.name
                 }
-              </text>
+              </span>
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
             <LightColor>
-              <text>Project</text>
+              <span>Project</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {
                   props.detailOfConsultant.contracts?.upcoming?.[0]?.project
                     ?.project_name
                 }
-              </text>
+              </span>
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
             <LightColor>
-              <text>Role</text>
+              <span>Role</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {props.detailOfConsultant.contracts?.upcoming?.[0]?.role}
-              </text>
+              </span>
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
             <LightColor>
-              <text>Cost Center</text>
+              <span>Cost Center</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {props.detailOfConsultant.contracts?.upcoming?.[0]?.cost_center}
-              </text>
+              </span>
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
             <LightColor>
-              <text>Start Date</text>
+              <span>Start Date</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {dateFormatStandard(
                   props.detailOfConsultant.contracts?.upcoming?.[0]?.start_date
                 )}
-              </text>
+              </span>
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
             <LightColor>
-              <text>End Date</text>
+              <span>End Date</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {dateFormatStandard(
                   props.detailOfConsultant.contracts?.upcoming?.[0]?.end_date
                 )}
-              </text>
+              </span>
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
             <LightColor>
-              <text>Cost/hr</text>
+              <span>Cost/hr</span>
             </LightColor>
             <div>
-              <text>
+              <span>
                 {
                   props.detailOfConsultant.contracts?.upcoming?.[0]
                     ?.cost_per_hour
                 }
-              </text>
+              </span>
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
@@ -807,26 +807,26 @@ const CardRightComp = (props) => {
             <EmailMobileSupplier>
               <Email>
                 <LightColor>
-                  <text>Email</text>
+                  <span>Email</span>
                 </LightColor>
                 <div>
-                  <text>{props.detailOfConsultant.email}</text>
+                  <span>{props.detailOfConsultant.email}</span>
                 </div>
               </Email>
               <Mobile>
                 <LightColor>
-                  <text>Mobile</text>
+                  <span>Mobile</span>
                 </LightColor>
                 <div>
-                  <text>{props.detailOfConsultant.phone}</text>
+                  <span>{props.detailOfConsultant.phone}</span>
                 </div>
               </Mobile>
               <Supplier>
                 <LightColor>
-                  <text>Supplier</text>
+                  <span>Supplier</span>
                 </LightColor>
                 <div>
-                  <text>{props.detailOfConsultant?.supplier?.name}</text>
+                  <span>{props.detailOfConsultant?.supplier?.name}</span>
                 </div>
               </Supplier>
             </EmailMobileSupplier>
@@ -835,7 +835,7 @@ const CardRightComp = (props) => {
             {/* Active Contracts */}
             <ActiveUpcomingExpiredContract>
               <Badge status="success" />
-              <text>Active Contract</text>
+              <span>Active Contract</span>
               <div>{NoActiveContractButton()}</div>
             </ActiveUpcomingExpiredContract>
             <Line1 />
@@ -843,7 +843,7 @@ const CardRightComp = (props) => {
             {/* Upcoming Contracts */}
             <ActiveUpcomingExpiredContract>
               <Badge status="processing" />
-              <text>Upcoming Contract</text>
+              <span>Upcoming Contract</span>
               <div>{NoUpcomingContractButton(props)}</div>
             </ActiveUpcomingExpiredContract>
             <Line1 />
@@ -851,7 +851,7 @@ const CardRightComp = (props) => {
             {/* Expired Contracts */}
             <ActiveUpcomingExpiredContract>
               <Badge status="error" />
-              <text>Expired Contract</text>
+              <span>Expired Contract</span>
               <div>{NoExpiredContractButton(props)}</div>
             </ActiveUpcomingExpiredContract>
           </RightCardContent>
@@ -878,7 +878,7 @@ const CardRightComp = (props) => {
                 <SplitFormLayout>
                   <>
                     <div>
-                      <text>Name</text>
+                      <span>Name</span>
                       <Input
                         style={{ width: "100%" }}
                         placeholder="Name"
@@ -887,7 +887,7 @@ const CardRightComp = (props) => {
                       />
                     </div>
                     <div>
-                      <text>Mobile</text>
+                      <span>Mobile</span>
                       <Input
                         style={{ width: "100%" }}
                         placeholder="Mobile"
@@ -967,7 +967,7 @@ const CardRightComp = (props) => {
                       </AutoComplete>
                     </div>
                     <div>
-                      <text>Organization ID</text>
+                      <span>Organization ID</span>
                       <Input
                         style={{ width: "100%" }}
                         placeholder="Organization ID"
@@ -1150,14 +1150,14 @@ const CardRightComp = (props) => {
           <DisplayContractCardComp>
             <RightCardContent>
               <ConsultantName>
-                <text>
+                <span>
                   Create Contract for {props.detailOfConsultant?.name}
-                </text>
+                </span>
               </ConsultantName>
               <Line1></Line1>
               <MobileSupplier>
                 <Flex50>
-                  <text>Client</text>
+                  <span>Client</span>
                   <br></br>
                   <AutoComplete
                     style={{
@@ -1191,7 +1191,7 @@ const CardRightComp = (props) => {
                   </AutoComplete>
                 </Flex50>
                 <Flex50>
-                  <text>Project</text>
+                  <span>Project</span>
                   <br></br>
                   <AutoComplete
                     style={{
@@ -1227,7 +1227,7 @@ const CardRightComp = (props) => {
                   </AutoComplete>
                 </Flex50>
                 <Flex50>
-                  <text>Organization ID</text>
+                  <span>Organization ID</span>
                   <Input
                     style={{ width: 175 }}
                     placeholder="Organization ID"
@@ -1237,7 +1237,7 @@ const CardRightComp = (props) => {
                   />
                 </Flex50>
                 <Flex50>
-                  <text>Role</text>
+                  <span>Role</span>
                   <Input
                     style={{ width: 175 }}
                     placeholder="Role"
@@ -1245,7 +1245,7 @@ const CardRightComp = (props) => {
                   />
                 </Flex50>
                 <Flex50>
-                  <text>Start Date</text>
+                  <span>Start Date</span>
                   <Space direction="vertical" size={18}>
                     <DatePicker
                       style={{ width: 175 }}
@@ -1263,7 +1263,7 @@ const CardRightComp = (props) => {
                   </Space>
                 </Flex50>
                 <Flex50>
-                  <text>Period</text>
+                  <span>Period</span>
                   <Select
                     showSearch
                     style={{
@@ -1283,7 +1283,7 @@ const CardRightComp = (props) => {
                   </Select>
                 </Flex50>
                 <Flex50>
-                  <text>Cost Center</text>
+                  <span>Cost Center</span>
                   <Input
                     style={{ width: 175 }}
                     placeholder="Cost Center"
@@ -1291,7 +1291,7 @@ const CardRightComp = (props) => {
                   />
                 </Flex50>
                 <Flex50>
-                  <text>End Date</text>
+                  <span>End Date</span>
                   <Space direction="vertical" size={18}>
                     <DatePicker
                       style={{
@@ -1309,7 +1309,7 @@ const CardRightComp = (props) => {
                   </Space>
                 </Flex50>
                 <Flex50>
-                  <text>Cost/hr</text>
+                  <span>Cost/hr</span>
                   <Input
                     style={{ width: 175 }}
                     placeholder="Cost/hr"
