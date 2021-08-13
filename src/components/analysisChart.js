@@ -5,7 +5,7 @@ import { Bar } from "react-chartjs-2";
 
 import ContentLoading from "Components/contentLoading";
 
-const AnalysisChart = ({ title, dataSet, setTotalAmount, keyName }) => {
+const AnalysisChart = ({ xTitle, dataSet, setTotalAmount, keyName }) => {
   const [label, setLable] = useState(null);
   const [cost, setCost] = useState(null);
   const [backgroundColors, setBackground] = useState(null);
@@ -69,7 +69,7 @@ const AnalysisChart = ({ title, dataSet, setTotalAmount, keyName }) => {
         {
           scaleLabel: {
             display: true,
-            labelString: { title },
+            labelString: xTitle,
           },
           barPercentage: 0.4,
         },
