@@ -72,6 +72,34 @@ const CardRightComp = (props) => {
   const [contractwithexistingconsultant, setcontractwithexistingconsultant] =
     useState(false);
 
+  const ResetAllStates = () => {
+    setName(null);
+    setEmail(null);
+    setPhone(null);
+    setSupplier(null);
+    setStart_date(null);
+    setEnd_date(null);
+    setChoosen(null);
+    setClient(null);
+    setProject(null);
+    setCost_center(null);
+    setPeriod(null);
+    setRole(null);
+    setCost_per_hour(null);
+    setPeriod(null);
+    setRole(null);
+    setCost_per_hour(null);
+    setOrganization_no(null);
+  };
+  useEffect(() => {
+    ResetAllStates();
+    console.log("ABC");
+  }, [
+    props.displayConsultDetails,
+    props.displayCreateConsultant,
+    props.displayEditConsultant,
+    props.displayCreateContract,
+  ]);
   const FormForAdd = {
     name: "",
     email: "",
@@ -97,7 +125,6 @@ const CardRightComp = (props) => {
     FormForAdd2.end_date = dateFormatStandard2(end_date);
     FormForAdd2.period = period;
     FormForAdd2.role = role;
-    FormForAdd2.currency = currency;
     FormForAdd2.cost_per_hour = cost_per_hour;
 
     FormForAdd3.supplier = supplier;
@@ -113,7 +140,6 @@ const CardRightComp = (props) => {
     FormForAdd3.end_date = dateFormatStandard2(end_date);
     FormForAdd3.period = period;
     FormForAdd3.role = role;
-    FormForAdd3.currency = currency;
     FormForAdd3.cost_per_hour = cost_per_hour;
 
     FormForAdd4.supplier = supplier;
@@ -128,7 +154,6 @@ const CardRightComp = (props) => {
     FormForAdd4.end_date = dateFormatStandard2(end_date);
     FormForAdd4.period = period;
     FormForAdd4.role = role;
-    FormForAdd4.currency = currency;
     FormForAdd4.cost_per_hour = cost_per_hour;
 
     console.log(
@@ -142,7 +167,6 @@ const CardRightComp = (props) => {
       start_date,
       period,
       role,
-      currency,
       cost_per_hour,
       client_name,
       project_name,
@@ -159,7 +183,6 @@ const CardRightComp = (props) => {
       start_date,
       period,
       role,
-      currency,
       cost_per_hour,
       "Checking",
       contractwithexistingconsultant
@@ -180,7 +203,6 @@ const CardRightComp = (props) => {
         ((choosen == "period" && period) ||
           (choosen == "end_date" && end_date)) &&
         role &&
-        currency &&
         cost_per_hour
       ) {
         if (choosen == "period") {
@@ -199,7 +221,6 @@ const CardRightComp = (props) => {
         ((choosen == "period" && period) ||
           (choosen == "end_date" && end_date)) &&
         role &&
-        currency &&
         cost_per_hour
       ) {
         if (choosen == "period") {
@@ -217,7 +238,6 @@ const CardRightComp = (props) => {
         ((choosen == "period" && period) ||
           (choosen == "end_date" && end_date)) &&
         role &&
-        currency &&
         cost_per_hour
       ) {
         if (choosen == "period") {
@@ -242,7 +262,6 @@ const CardRightComp = (props) => {
         ((choosen == "period" && period) ||
           (choosen == "end_date" && end_date)) &&
         role &&
-        currency &&
         cost_per_hour
       ) {
         if (choosen == "period") {
@@ -264,7 +283,6 @@ const CardRightComp = (props) => {
         ((choosen == "period" && period) ||
           (choosen == "end_date" && end_date)) &&
         role &&
-        currency &&
         cost_per_hour
       ) {
         if (choosen == "period") {
@@ -286,7 +304,6 @@ const CardRightComp = (props) => {
         ((choosen == "period" && period) ||
           (choosen == "end_date" && end_date)) &&
         role &&
-        currency &&
         cost_per_hour
       ) {
         if (choosen == "period") {
@@ -317,7 +334,6 @@ const CardRightComp = (props) => {
     start_date: "",
     period: "",
     role: "",
-    currency: "",
     cost_per_hour: "",
   };
 
@@ -326,7 +342,6 @@ const CardRightComp = (props) => {
   const [cost_center, setCost_center] = useState("");
   const [period, setPeriod] = useState("");
   const [role, setRole] = useState("");
-  const [currency, setCurrency] = useState("SEK");
   const [cost_per_hour, setCost_per_hour] = useState("");
 
   const [projectList, setProjectList] = useState([]);
@@ -351,7 +366,6 @@ const CardRightComp = (props) => {
     start_date: "",
     period: "",
     role: "",
-    currency: "",
     cost_per_hour: "",
   };
   const [client_name, setClient_name] = useState("");
@@ -375,7 +389,6 @@ const CardRightComp = (props) => {
     start_date: "",
     period: "",
     role: "",
-    currency: "",
     cost_per_hour: "",
   };
 
@@ -840,238 +853,241 @@ const CardRightComp = (props) => {
       </DisplayCardRight3>
 
       {/* Create Consultant Card */}
-      <CreateConsultantCardComp
-        displayCreateConsultant={props.displayCreateConsultant}
-      >
-        <RightCardContent>
-          <SupplierName>Create Consultant</SupplierName>
-          <Line1 />
-          <SplitFormLayout>
-            <>
-              <div>
-                <text>Name</text>
-                <Input
-                  style={{ width: "100%" }}
-                  placeholder="Name"
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </div>
-              <div>
-                <text>Mobile</text>
-                <Input
-                  style={{ width: "100%" }}
-                  placeholder="Mobile"
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-            </>
-            <>
-              <div>
-                <div>Email</div>
-                <Input
-                  style={{ width: "100%" }}
-                  placeholder="Email"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <div>Supplier</div>
-                <Select
-                  showSearch
-                  style={{ width: "100%" }}
-                  placeholder="Select a Supplier"
-                  optionFilterProp="children"
-                  onChange={(value) => setSupplier(value)}
-                  onFocus={onFocus}
-                  onSearch={onSearch}
-                >
-                  {props.suppliersList.map((element) => {
-                    return (
-                      <Option key={element.id} value={element.id}>
-                        {element.name}
-                      </Option>
-                    );
-                  })}
-                  {/* <Option value="lucy">Lucy</Option> */}
-                </Select>
-              </div>
-            </>
-          </SplitFormLayout>
-          <div style={{ margin: "10px 0 5px 0" }}>
-            Create Contract(Optional)
-          </div>
-          <SplitFormLayout>
-            <>
-              <div>
-                <div>Client</div>
-                <AutoComplete
-                  style={{
-                    width: "100%",
-                  }}
-                  optionFilterProp="children"
-                  // onSearch={(value) => onClientSearch(value)}
-                  onChange={(value) => clientSelection(value)}
-                  onSelect={(value, options) =>
-                    clientSelection({ id: options.id, value })
-                  }
-                  placeholder="Enter Client"
-                  filterOption={(inputValue, option) => {
-                    return (
-                      option.key
-                        .toUpperCase()
-                        .indexOf(inputValue.toUpperCase()) !== -1
-                    );
-                  }}
-                >
-                  {props.clientsList.map((element) => {
-                    return (
-                      <Option
-                        key={element.name}
-                        id={element.id}
-                        value={element.name}
-                      >
-                        {element.name}
-                      </Option>
-                    );
-                  })}
-                </AutoComplete>
-              </div>
-              <div>
-                <text>Organization ID</text>
-                <Input
-                  style={{ width: "100%" }}
-                  placeholder="Organization ID"
-                  onChange={(e) => setOrganization_no(e.target.value)}
-                  disabled={client_name == null}
-                  value={organization_no}
-                />
-              </div>
-              <div>
-                <div>Start Date</div>
-                <DatePicker
-                  style={{ width: "100%" }}
-                  allowClear={false}
-                  format={dateFormat}
-                  onChange={(e) => {
-                    setStart_date(dateFormatStandard2(e));
-                    let end_date_start = new Date(e);
-                    end_date_start.setDate(end_date_start.getDate() + 30);
-                    setEnd_date(end_date_start);
-                  }}
-                />
-              </div>
-              <div>
-                <div>Cost Center</div>
-                <Input
-                  style={{ width: "100%" }}
-                  placeholder="Cost Center"
-                  onChange={(e) => setCost_center(e.target.value)}
-                />
-              </div>
-              <div>
-                <div>Cost/hr</div>
-                <Input
-                  style={{ width: "100%" }}
-                  placeholder="Cost/hr"
-                  onChange={(e) => setCost_per_hour(e.target.value)}
-                />
-              </div>
-            </>
-            <>
-              <div>
-                <div>Project</div>
-                <AutoComplete
-                  style={{
-                    width: "100%",
-                  }}
-                  optionFilterProp="children"
-                  optionLabelProp="title"
-                  onChange={(value) => ProjectSelection(value)}
-                  onSelect={(value, options) =>
-                    ProjectSelection({ id: options.id, value })
-                  }
-                  placeholder="Select Project Demo"
-                  onSearch={onSearch}
-                  filterOption={(inputValue, option) => {
-                    return (
-                      option.key
-                        .toUpperCase()
-                        .indexOf(inputValue.toUpperCase()) !== -1
-                    );
-                  }}
-                >
-                  {projectList.map((element) => {
-                    return (
-                      <Option
-                        key={element.id}
-                        id={element.id}
-                        value={element.project_name}
-                      >
-                        {element.project_name}
-                      </Option>
-                    );
-                  })}
-                </AutoComplete>
-              </div>
-              <div>
-                <div>Role</div>
-                <Input
-                  style={{ width: "100%" }}
-                  placeholder="Role"
-                  onChange={(e) => setRole(e.target.value)}
-                />
-              </div>
-              <div>
-                <div>Period</div>
-                <Select
-                  showSearch
-                  style={{
-                    width: "100%",
-                    opacity: choosen == "period" ? 1 : 0.4,
-                  }}
-                  disabled={start_date == null || start_date == ""}
-                  placeholder="Select Period"
-                  optionFilterProp="children"
-                  onClick={() => setChoosen("period")}
-                  onFocus={onFocus}
-                  onSearch={onSearch}
-                  onChange={(value) => setPeriod(value)}
-                >
-                  <Option value={6}>6</Option>
-                  <Option value={12}>12</Option>
-                </Select>
-              </div>
-              <div>
-                <div>End Date</div>
-                <DatePicker
-                  style={{
-                    width: "100%",
-                    opacity: choosen == "end_date" ? 1 : 0.4,
-                  }}
-                  disabledDate={disabledDate}
-                  disabled={start_date == null || start_date == ""}
-                  value={end_date ? moment(end_date, dateFormat) : null}
-                  allowClear={false}
-                  onClick={() => setChoosen("end_date")}
-                  format={dateFormat}
-                  onChange={(e) => setEnd_date(e)}
-                />
-              </div>
-              <div>
-                <br></br>
-                <CommonButton
-                  style={{ width: 90 }}
-                  onClick={() => addConsultantTry()}
-                  type="primary"
-                >
-                  Save
-                </CommonButton>
-                <CommonButton style={{ width: 90 }}>Cancel</CommonButton>
-              </div>
-            </>
-          </SplitFormLayout>
-        </RightCardContent>
-      </CreateConsultantCardComp>
+      {props.displayCreateConsultant && (
+        <CreateConsultantCardComp
+        // displayCreateConsultant={props.displayCreateConsultant}
+        >
+          <RightCardContent>
+            <SupplierName>Create Consultant</SupplierName>
+            <Line1 />
+            <SplitFormLayout>
+              <>
+                <div>
+                  <text>Name</text>
+                  <Input
+                    style={{ width: "100%" }}
+                    placeholder="Name"
+                    onChange={(e) => setName(e.target.value)}
+                    // value={name}
+                  />
+                </div>
+                <div>
+                  <text>Mobile</text>
+                  <Input
+                    style={{ width: "100%" }}
+                    placeholder="Mobile"
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+              </>
+              <>
+                <div>
+                  <div>Email</div>
+                  <Input
+                    style={{ width: "100%" }}
+                    placeholder="Email"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <div>Supplier</div>
+                  <Select
+                    showSearch
+                    style={{ width: "100%" }}
+                    placeholder="Select a Supplier"
+                    optionFilterProp="children"
+                    onChange={(value) => setSupplier(value)}
+                    onFocus={onFocus}
+                    onSearch={onSearch}
+                  >
+                    {props.suppliersList.map((element) => {
+                      return (
+                        <Option key={element.id} value={element.id}>
+                          {element.name}
+                        </Option>
+                      );
+                    })}
+                    {/* <Option value="lucy">Lucy</Option> */}
+                  </Select>
+                </div>
+              </>
+            </SplitFormLayout>
+            <div style={{ margin: "10px 0 5px 0" }}>
+              Create Contract(Optional)
+            </div>
+            <SplitFormLayout>
+              <>
+                <div>
+                  <div>Client</div>
+                  <AutoComplete
+                    style={{
+                      width: "100%",
+                    }}
+                    optionFilterProp="children"
+                    // onSearch={(value) => onClientSearch(value)}
+                    onChange={(value) => clientSelection(value)}
+                    onSelect={(value, options) =>
+                      clientSelection({ id: options.id, value })
+                    }
+                    placeholder="Enter Client"
+                    filterOption={(inputValue, option) => {
+                      return (
+                        option.key
+                          .toUpperCase()
+                          .indexOf(inputValue.toUpperCase()) !== -1
+                      );
+                    }}
+                  >
+                    {props.clientsList.map((element) => {
+                      return (
+                        <Option
+                          key={element.name}
+                          id={element.id}
+                          value={element.name}
+                        >
+                          {element.name}
+                        </Option>
+                      );
+                    })}
+                  </AutoComplete>
+                </div>
+                <div>
+                  <text>Organization ID</text>
+                  <Input
+                    style={{ width: "100%" }}
+                    placeholder="Organization ID"
+                    onChange={(e) => setOrganization_no(e.target.value)}
+                    disabled={client_name == null}
+                    value={organization_no}
+                  />
+                </div>
+                <div>
+                  <div>Start Date</div>
+                  <DatePicker
+                    style={{ width: "100%" }}
+                    allowClear={false}
+                    format={dateFormat}
+                    onChange={(e) => {
+                      setStart_date(dateFormatStandard2(e));
+                      let end_date_start = new Date(e);
+                      end_date_start.setDate(end_date_start.getDate() + 30);
+                      setEnd_date(end_date_start);
+                    }}
+                  />
+                </div>
+                <div>
+                  <div>Cost Center</div>
+                  <Input
+                    style={{ width: "100%" }}
+                    placeholder="Cost Center"
+                    onChange={(e) => setCost_center(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <div>Cost/hr</div>
+                  <Input
+                    style={{ width: "100%" }}
+                    placeholder="Cost/hr"
+                    onChange={(e) => setCost_per_hour(e.target.value)}
+                  />
+                </div>
+              </>
+              <>
+                <div>
+                  <div>Project</div>
+                  <AutoComplete
+                    style={{
+                      width: "100%",
+                    }}
+                    optionFilterProp="children"
+                    optionLabelProp="title"
+                    onChange={(value) => ProjectSelection(value)}
+                    onSelect={(value, options) =>
+                      ProjectSelection({ id: options.id, value })
+                    }
+                    placeholder="Select Project Demo"
+                    onSearch={onSearch}
+                    filterOption={(inputValue, option) => {
+                      return (
+                        option.key
+                          .toUpperCase()
+                          .indexOf(inputValue.toUpperCase()) !== -1
+                      );
+                    }}
+                  >
+                    {projectList.map((element) => {
+                      return (
+                        <Option
+                          key={element.id}
+                          id={element.id}
+                          value={element.project_name}
+                        >
+                          {element.project_name}
+                        </Option>
+                      );
+                    })}
+                  </AutoComplete>
+                </div>
+                <div>
+                  <div>Role</div>
+                  <Input
+                    style={{ width: "100%" }}
+                    placeholder="Role"
+                    onChange={(e) => setRole(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <div>Period</div>
+                  <Select
+                    showSearch
+                    style={{
+                      width: "100%",
+                      opacity: choosen == "period" ? 1 : 0.4,
+                    }}
+                    disabled={start_date == null || start_date == ""}
+                    placeholder="Select Period"
+                    optionFilterProp="children"
+                    onClick={() => setChoosen("period")}
+                    onFocus={onFocus}
+                    onSearch={onSearch}
+                    onChange={(value) => setPeriod(value)}
+                  >
+                    <Option value={6}>6</Option>
+                    <Option value={12}>12</Option>
+                  </Select>
+                </div>
+                <div>
+                  <div>End Date</div>
+                  <DatePicker
+                    style={{
+                      width: "100%",
+                      opacity: choosen == "end_date" ? 1 : 0.4,
+                    }}
+                    disabledDate={disabledDate}
+                    disabled={start_date == null || start_date == ""}
+                    value={end_date ? moment(end_date, dateFormat) : null}
+                    allowClear={false}
+                    onClick={() => setChoosen("end_date")}
+                    format={dateFormat}
+                    onChange={(e) => setEnd_date(e)}
+                  />
+                </div>
+                <div>
+                  <br></br>
+                  <CommonButton
+                    style={{ width: 90 }}
+                    onClick={() => addConsultantTry()}
+                    type="primary"
+                  >
+                    Save
+                  </CommonButton>
+                  <CommonButton style={{ width: 90 }}>Cancel</CommonButton>
+                </div>
+              </>
+            </SplitFormLayout>
+          </RightCardContent>
+        </CreateConsultantCardComp>
+      )}
 
       {/* Edit Consultant Card */}
       <EditConsultantCardComp
@@ -1254,19 +1270,6 @@ const CardRightComp = (props) => {
                   onChange={(e) => setEnd_date(e)}
                 />
               </Space>
-              <text>Currency</text>
-              <Select
-                showSearch
-                style={{ width: 175 }}
-                placeholder="Select Currency"
-                optionFilterProp="children"
-                onFocus={onFocus}
-                onSearch={onSearch}
-                onChange={(value) => setCurrency(value)}
-              >
-                <Option value="EURO">EURO</Option>
-                <Option value="INR">INR</Option>
-              </Select>
             </Flex50>
             <Flex50>
               <text>Cost/hr</text>
