@@ -44,6 +44,7 @@ import {
 } from "../../utilities/helpers";
 
 import SplitFormLayout from "Components/splitFormLayout";
+import ContentLoading from "Components/contentLoading";
 
 const dateFormat = "DD/MM/YYYY";
 
@@ -344,7 +345,7 @@ const CardRightComp = (props) => {
   const [role, setRole] = useState("");
   const [cost_per_hour, setCost_per_hour] = useState("");
 
-  const [projectList, setProjectList] = useState([]);
+  const [projectList, setProjectList] = useState(null);
 
   //Client and Project Simultaneous Creation API
   const FormForAdd3 = {
@@ -707,7 +708,7 @@ const CardRightComp = (props) => {
       console.log("Projectlist", projectList);
     });
     if (!client) {
-      setProjectList([]);
+      setProjectList(null);
       setOrganization_no(null);
     }
   }, [client]);
@@ -757,7 +758,7 @@ const CardRightComp = (props) => {
 
   const renderEditForm = () => {
     return (
-      <Form onFinish={editAndUpdateConsultant} form={form}>
+      <Form onFinish={editAndUpdateConsultant} form={form} layout={"vertical"}>
         <Form.Item name={["name"]} label="Name">
           <Input placeholder="Name" />
         </Form.Item>
@@ -774,157 +775,389 @@ const CardRightComp = (props) => {
     );
   };
 
-  return (
-    <CardRight>
-      <DisplayCardRight3 displayConsultDetails={props.displayConsultDetails}>
-        <RightCardContent>
-          <ConsultantName>
-            {props.detailOfConsultant.name}
-            <span style={{ position: "absolute", right: "20px", top: "20px" }}>
-              <EditIcon
-                className="cursorPointer"
-                onClick={() => {
-                  props.showEdit(props.detailOfConsultant.id);
-                }}
-                style={{ height: "18px" }}
-              />
-              <DeleteForeverIcon
-                className="cursorPointer"
-                style={{ fill: "red", height: "18px" }}
-                onClick={() => {
-                  props.setDeleteConsultantDetail(props.detailOfConsultant);
-                  props.setDeleteModalOpen(true);
-                }}
-              />
-            </span>
-          </ConsultantName>
-          {/* <Consultants></Consultants> */}
-          <EmailMobileSupplier>
-            <Email>
-              <LightColor>
-                <text>Email</text>
-              </LightColor>
-              <div>
-                <text>{props.detailOfConsultant.email}</text>
-              </div>
-            </Email>
-            <Mobile>
-              <LightColor>
-                <text>Mobile</text>
-              </LightColor>
-              <div>
-                <text>{props.detailOfConsultant.phone}</text>
-              </div>
-            </Mobile>
-            <Supplier>
-              <LightColor>
-                <text>Supplier</text>
-              </LightColor>
-              <div>
-                <text>{props.detailOfConsultant?.supplier?.name}</text>
-              </div>
-            </Supplier>
-          </EmailMobileSupplier>
-          <Line1 />
-
-          {/* Active Contracts */}
-          <ActiveUpcomingExpiredContract>
-            <Badge status="success" />
-            <text>Active Contract</text>
-            <div>{NoActiveContractButton()}</div>
-          </ActiveUpcomingExpiredContract>
-          <Line1 />
-
-          {/* Upcoming Contracts */}
-          <ActiveUpcomingExpiredContract>
-            <Badge status="processing" />
-            <text>Upcoming Contract</text>
-            <div>{NoUpcomingContractButton(props)}</div>
-          </ActiveUpcomingExpiredContract>
-          <Line1 />
-
-          {/* Expired Contracts */}
-          <ActiveUpcomingExpiredContract>
-            <Badge status="error" />
-            <text>Expired Contract</text>
-            <div>{NoExpiredContractButton(props)}</div>
-          </ActiveUpcomingExpiredContract>
-        </RightCardContent>
-      </DisplayCardRight3>
-
-      {/* Create Consultant Card */}
-      {props.displayCreateConsultant && (
-        <CreateConsultantCardComp
-        // displayCreateConsultant={props.displayCreateConsultant}
-        >
+  const renderDisplayCard = () => {
+    if (props.displayConsultDetails && props.detailOfConsultant) {
+      return (
+        <DisplayCardRight3>
           <RightCardContent>
-            <SupplierName>Create Consultant</SupplierName>
-            <Line1 />
-            <SplitFormLayout>
-              <>
+            <ConsultantName>
+              {props.detailOfConsultant.name}
+              <span
+                style={{ position: "absolute", right: "20px", top: "20px" }}
+              >
+                <EditIcon
+                  className="cursorPointer"
+                  onClick={() => {
+                    props.showEdit(props.detailOfConsultant.id);
+                  }}
+                  style={{ height: "18px" }}
+                />
+                <DeleteForeverIcon
+                  className="cursorPointer"
+                  style={{ fill: "red", height: "18px" }}
+                  onClick={() => {
+                    props.setDeleteConsultantDetail(props.detailOfConsultant);
+                    props.setDeleteModalOpen(true);
+                  }}
+                />
+              </span>
+            </ConsultantName>
+            {/* <Consultants></Consultants> */}
+            <EmailMobileSupplier>
+              <Email>
+                <LightColor>
+                  <text>Email</text>
+                </LightColor>
                 <div>
-                  <text>Name</text>
-                  <Input
-                    style={{ width: "100%" }}
-                    placeholder="Name"
-                    onChange={(e) => setName(e.target.value)}
-                    // value={name}
-                  />
+                  <text>{props.detailOfConsultant.email}</text>
                 </div>
-                <div>
+              </Email>
+              <Mobile>
+                <LightColor>
                   <text>Mobile</text>
-                  <Input
-                    style={{ width: "100%" }}
-                    placeholder="Mobile"
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </div>
-              </>
-              <>
+                </LightColor>
                 <div>
-                  <div>Email</div>
-                  <Input
-                    style={{ width: "100%" }}
-                    placeholder="Email"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+                  <text>{props.detailOfConsultant.phone}</text>
                 </div>
+              </Mobile>
+              <Supplier>
+                <LightColor>
+                  <text>Supplier</text>
+                </LightColor>
                 <div>
-                  <div>Supplier</div>
-                  <Select
-                    showSearch
-                    style={{ width: "100%" }}
-                    placeholder="Select a Supplier"
-                    optionFilterProp="children"
-                    onChange={(value) => setSupplier(value)}
-                    onFocus={onFocus}
-                    onSearch={onSearch}
-                  >
-                    {props.suppliersList.map((element) => {
-                      return (
-                        <Option key={element.id} value={element.id}>
-                          {element.name}
-                        </Option>
-                      );
-                    })}
-                    {/* <Option value="lucy">Lucy</Option> */}
-                  </Select>
+                  <text>{props.detailOfConsultant?.supplier?.name}</text>
                 </div>
-              </>
-            </SplitFormLayout>
-            <div style={{ margin: "10px 0 5px 0" }}>
-              Create Contract(Optional)
-            </div>
-            <SplitFormLayout>
-              <>
-                <div>
-                  <div>Client</div>
+              </Supplier>
+            </EmailMobileSupplier>
+            <Line1 />
+
+            {/* Active Contracts */}
+            <ActiveUpcomingExpiredContract>
+              <Badge status="success" />
+              <text>Active Contract</text>
+              <div>{NoActiveContractButton()}</div>
+            </ActiveUpcomingExpiredContract>
+            <Line1 />
+
+            {/* Upcoming Contracts */}
+            <ActiveUpcomingExpiredContract>
+              <Badge status="processing" />
+              <text>Upcoming Contract</text>
+              <div>{NoUpcomingContractButton(props)}</div>
+            </ActiveUpcomingExpiredContract>
+            <Line1 />
+
+            {/* Expired Contracts */}
+            <ActiveUpcomingExpiredContract>
+              <Badge status="error" />
+              <text>Expired Contract</text>
+              <div>{NoExpiredContractButton(props)}</div>
+            </ActiveUpcomingExpiredContract>
+          </RightCardContent>
+        </DisplayCardRight3>
+      );
+    } else return null;
+  };
+
+  const renderCreateConsultantCard = () => {
+    if (
+      props.displayCreateConsultant &&
+      props.clientsList &&
+      props.suppliersList
+    ) {
+      return (
+        <>
+          {props.displayCreateConsultant && (
+            <CreateConsultantCardComp
+            // displayCreateConsultant={props.displayCreateConsultant}
+            >
+              <RightCardContent>
+                <SupplierName>Create Consultant</SupplierName>
+                <Line1 />
+                <SplitFormLayout>
+                  <>
+                    <div>
+                      <text>Name</text>
+                      <Input
+                        style={{ width: "100%" }}
+                        placeholder="Name"
+                        onChange={(e) => setName(e.target.value)}
+                        // value={name}
+                      />
+                    </div>
+                    <div>
+                      <text>Mobile</text>
+                      <Input
+                        style={{ width: "100%" }}
+                        placeholder="Mobile"
+                        onChange={(e) => setPhone(e.target.value)}
+                      />
+                    </div>
+                  </>
+                  <>
+                    <div>
+                      <div>Email</div>
+                      <Input
+                        style={{ width: "100%" }}
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <div>Supplier</div>
+                      <Select
+                        showSearch
+                        style={{ width: "100%" }}
+                        placeholder="Select a Supplier"
+                        optionFilterProp="children"
+                        onChange={(value) => setSupplier(value)}
+                        onFocus={onFocus}
+                        onSearch={onSearch}
+                      >
+                        {props.suppliersList.map((element) => {
+                          return (
+                            <Option key={element.id} value={element.id}>
+                              {element.name}
+                            </Option>
+                          );
+                        })}
+                        {/* <Option value="lucy">Lucy</Option> */}
+                      </Select>
+                    </div>
+                  </>
+                </SplitFormLayout>
+                <div style={{ margin: "10px 0 5px 0" }}>
+                  Create Contract(Optional)
+                </div>
+                <SplitFormLayout>
+                  <>
+                    <div>
+                      <div>Client</div>
+                      <AutoComplete
+                        style={{
+                          width: "100%",
+                        }}
+                        optionFilterProp="children"
+                        // onSearch={(value) => onClientSearch(value)}
+                        onChange={(value) => clientSelection(value)}
+                        onSelect={(value, options) =>
+                          clientSelection({ id: options.id, value })
+                        }
+                        placeholder="Enter Client"
+                        filterOption={(inputValue, option) => {
+                          return (
+                            option.key
+                              .toUpperCase()
+                              .indexOf(inputValue.toUpperCase()) !== -1
+                          );
+                        }}
+                      >
+                        {props.clientsList.map((element) => {
+                          return (
+                            <Option
+                              key={element.name}
+                              id={element.id}
+                              value={element.name}
+                            >
+                              {element.name}
+                            </Option>
+                          );
+                        })}
+                      </AutoComplete>
+                    </div>
+                    <div>
+                      <text>Organization ID</text>
+                      <Input
+                        style={{ width: "100%" }}
+                        placeholder="Organization ID"
+                        onChange={(e) => setOrganization_no(e.target.value)}
+                        disabled={client_name == null}
+                        value={organization_no}
+                      />
+                    </div>
+                    <div>
+                      <div>Start Date</div>
+                      <DatePicker
+                        style={{ width: "100%" }}
+                        allowClear={false}
+                        format={dateFormat}
+                        onChange={(e) => {
+                          setStart_date(dateFormatStandard2(e));
+                          let end_date_start = new Date(e);
+                          end_date_start.setDate(end_date_start.getDate() + 30);
+                          setEnd_date(end_date_start);
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <div>Cost Center</div>
+                      <Input
+                        style={{ width: "100%" }}
+                        placeholder="Cost Center"
+                        onChange={(e) => setCost_center(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <div>Cost/hr</div>
+                      <Input
+                        style={{ width: "100%" }}
+                        placeholder="Cost/hr"
+                        onChange={(e) => setCost_per_hour(e.target.value)}
+                      />
+                    </div>
+                  </>
+                  <>
+                    <div>
+                      <div>Project</div>
+                      <AutoComplete
+                        style={{
+                          width: "100%",
+                        }}
+                        optionFilterProp="children"
+                        optionLabelProp="title"
+                        onChange={(value) => ProjectSelection(value)}
+                        onSelect={(value, options) =>
+                          ProjectSelection({ id: options.id, value })
+                        }
+                        placeholder="Select Project Demo"
+                        onSearch={onSearch}
+                        filterOption={(inputValue, option) => {
+                          return (
+                            option.key
+                              .toUpperCase()
+                              .indexOf(inputValue.toUpperCase()) !== -1
+                          );
+                        }}
+                      >
+                        {(projectList || []).map((element) => {
+                          return (
+                            <Option
+                              key={element.id}
+                              id={element.id}
+                              value={element.project_name}
+                            >
+                              {element.project_name}
+                            </Option>
+                          );
+                        })}
+                      </AutoComplete>
+                    </div>
+                    <div>
+                      <div>Role</div>
+                      <Input
+                        style={{ width: "100%" }}
+                        placeholder="Role"
+                        onChange={(e) => setRole(e.target.value)}
+                      />
+                    </div>
+                    <div>
+                      <div>Period</div>
+                      <Select
+                        showSearch
+                        style={{
+                          width: "100%",
+                          opacity: choosen == "period" ? 1 : 0.4,
+                        }}
+                        disabled={start_date == null || start_date == ""}
+                        placeholder="Select Period"
+                        optionFilterProp="children"
+                        onClick={() => setChoosen("period")}
+                        onFocus={onFocus}
+                        onSearch={onSearch}
+                        onChange={(value) => setPeriod(value)}
+                      >
+                        <Option value={6}>6</Option>
+                        <Option value={12}>12</Option>
+                      </Select>
+                    </div>
+                    <div>
+                      <div>End Date</div>
+                      <DatePicker
+                        style={{
+                          width: "100%",
+                          opacity: choosen == "end_date" ? 1 : 0.4,
+                        }}
+                        disabledDate={disabledDate}
+                        disabled={start_date == null || start_date == ""}
+                        value={end_date ? moment(end_date, dateFormat) : null}
+                        allowClear={false}
+                        onClick={() => setChoosen("end_date")}
+                        format={dateFormat}
+                        onChange={(e) => setEnd_date(e)}
+                      />
+                    </div>
+                    <div>
+                      <br></br>
+                      <CommonButton
+                        style={{ width: 90 }}
+                        onClick={() => addConsultantTry()}
+                        type="primary"
+                      >
+                        Save
+                      </CommonButton>
+                      <CommonButton style={{ width: 90 }}>Cancel</CommonButton>
+                    </div>
+                  </>
+                </SplitFormLayout>
+              </RightCardContent>
+            </CreateConsultantCardComp>
+          )}
+        </>
+      );
+    } else return null;
+  };
+
+  const renderEditConsultantCard = () => {
+    if (props.displayEditConsultant && props.detailOfConsultant) {
+      return (
+        <>
+          <EditConsultantCardComp
+          // displayEditConsultant={props.displayEditConsultant}
+          // detailOfConsultant={props.detailOfConsultant}
+          >
+            <RightCardContent>
+              <ConsultantName>
+                Edit Consultant: {props.detailOfConsultant.name}
+              </ConsultantName>
+              <Line1 />
+              {renderEditForm(props.detailOfConsultant)}
+
+              <ButtonsDiv>
+                <CommonButton onClick={() => form.submit()} type="primary">
+                  Update
+                </CommonButton>
+                <CommonButton onClick={() => props.showDetails()}>
+                  Cancel
+                </CommonButton>
+              </ButtonsDiv>
+            </RightCardContent>
+          </EditConsultantCardComp>
+        </>
+      );
+    } else return null;
+  };
+
+  const renderCreateContractCard = () => {
+    if (props.displayCreateContract && props.clientsList) {
+      return (
+        <>
+          <DisplayContractCardComp>
+            <RightCardContent>
+              <ConsultantName>
+                <text>
+                  Create Contract for {props.detailOfConsultant?.name}
+                </text>
+              </ConsultantName>
+              <Line1></Line1>
+              <MobileSupplier>
+                <Flex50>
+                  <text>Client</text>
+                  <br></br>
                   <AutoComplete
                     style={{
-                      width: "100%",
+                      width: 175,
                     }}
                     optionFilterProp="children"
-                    // onSearch={(value) => onClientSearch(value)}
                     onChange={(value) => clientSelection(value)}
                     onSelect={(value, options) =>
                       clientSelection({ id: options.id, value })
@@ -950,54 +1183,13 @@ const CardRightComp = (props) => {
                       );
                     })}
                   </AutoComplete>
-                </div>
-                <div>
-                  <text>Organization ID</text>
-                  <Input
-                    style={{ width: "100%" }}
-                    placeholder="Organization ID"
-                    onChange={(e) => setOrganization_no(e.target.value)}
-                    disabled={client_name == null}
-                    value={organization_no}
-                  />
-                </div>
-                <div>
-                  <div>Start Date</div>
-                  <DatePicker
-                    style={{ width: "100%" }}
-                    allowClear={false}
-                    format={dateFormat}
-                    onChange={(e) => {
-                      setStart_date(dateFormatStandard2(e));
-                      let end_date_start = new Date(e);
-                      end_date_start.setDate(end_date_start.getDate() + 30);
-                      setEnd_date(end_date_start);
-                    }}
-                  />
-                </div>
-                <div>
-                  <div>Cost Center</div>
-                  <Input
-                    style={{ width: "100%" }}
-                    placeholder="Cost Center"
-                    onChange={(e) => setCost_center(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <div>Cost/hr</div>
-                  <Input
-                    style={{ width: "100%" }}
-                    placeholder="Cost/hr"
-                    onChange={(e) => setCost_per_hour(e.target.value)}
-                  />
-                </div>
-              </>
-              <>
-                <div>
-                  <div>Project</div>
+                </Flex50>
+                <Flex50>
+                  <text>Project</text>
+                  <br></br>
                   <AutoComplete
                     style={{
-                      width: "100%",
+                      width: 175,
                     }}
                     optionFilterProp="children"
                     optionLabelProp="title"
@@ -1015,7 +1207,7 @@ const CardRightComp = (props) => {
                       );
                     }}
                   >
-                    {projectList.map((element) => {
+                    {(projectList || []).map((element) => {
                       return (
                         <Option
                           key={element.id}
@@ -1027,52 +1219,98 @@ const CardRightComp = (props) => {
                       );
                     })}
                   </AutoComplete>
-                </div>
-                <div>
-                  <div>Role</div>
+                </Flex50>
+                <Flex50>
+                  <text>Organization ID</text>
                   <Input
-                    style={{ width: "100%" }}
+                    style={{ width: 175 }}
+                    placeholder="Organization ID"
+                    onChange={(e) => setOrganization_no(e.target.value)}
+                    disabled={client_name == null}
+                    value={organization_no}
+                  />
+                </Flex50>
+                <Flex50>
+                  <text>Role</text>
+                  <Input
+                    style={{ width: 175 }}
                     placeholder="Role"
                     onChange={(e) => setRole(e.target.value)}
                   />
-                </div>
-                <div>
-                  <div>Period</div>
+                </Flex50>
+                <Flex50>
+                  <text>Start Date</text>
+                  <Space direction="vertical" size={18}>
+                    <DatePicker
+                      style={{ width: 175 }}
+                      // defaultValue={moment("01/01/2015", dateFormat)}
+                      //onChange={(value) => setStart_date(value)}
+                      allowClear={false}
+                      format={dateFormat}
+                      onChange={(e) => {
+                        setStart_date(dateFormatStandard2(e));
+                        let end_date_start = new Date(e);
+                        end_date_start.setDate(end_date_start.getDate() + 30);
+                        setEnd_date(end_date_start);
+                      }}
+                    />
+                  </Space>
+                </Flex50>
+                <Flex50>
+                  <text>Period</text>
                   <Select
                     showSearch
                     style={{
-                      width: "100%",
+                      width: 180,
                       opacity: choosen == "period" ? 1 : 0.4,
                     }}
                     disabled={start_date == null || start_date == ""}
                     placeholder="Select Period"
                     optionFilterProp="children"
-                    onClick={() => setChoosen("period")}
                     onFocus={onFocus}
+                    onClick={() => setChoosen("period")}
                     onSearch={onSearch}
                     onChange={(value) => setPeriod(value)}
                   >
                     <Option value={6}>6</Option>
                     <Option value={12}>12</Option>
                   </Select>
-                </div>
-                <div>
-                  <div>End Date</div>
-                  <DatePicker
-                    style={{
-                      width: "100%",
-                      opacity: choosen == "end_date" ? 1 : 0.4,
-                    }}
-                    disabledDate={disabledDate}
-                    disabled={start_date == null || start_date == ""}
-                    value={end_date ? moment(end_date, dateFormat) : null}
-                    allowClear={false}
-                    onClick={() => setChoosen("end_date")}
-                    format={dateFormat}
-                    onChange={(e) => setEnd_date(e)}
+                </Flex50>
+                <Flex50>
+                  <text>Cost Center</text>
+                  <Input
+                    style={{ width: 175 }}
+                    placeholder="Cost Center"
+                    onChange={(e) => setCost_center(e.target.value)}
                   />
-                </div>
-                <div>
+                </Flex50>
+                <Flex50>
+                  <text>End Date</text>
+                  <Space direction="vertical" size={18}>
+                    <DatePicker
+                      style={{
+                        width: 180,
+                        opacity: choosen == "end_date" ? 1 : 0.4,
+                      }}
+                      disabledDate={disabledDate}
+                      disabled={start_date == null || start_date == ""}
+                      value={end_date ? moment(end_date, dateFormat) : null}
+                      allowClear={false}
+                      onClick={() => setChoosen("end_date")}
+                      format={dateFormat}
+                      onChange={(e) => setEnd_date(e)}
+                    />
+                  </Space>
+                </Flex50>
+                <Flex50>
+                  <text>Cost/hr</text>
+                  <Input
+                    style={{ width: 175 }}
+                    placeholder="Cost/hr"
+                    onChange={(e) => setCost_per_hour(e.target.value)}
+                  />
+                </Flex50>
+                <Flex50>
                   <br></br>
                   <CommonButton
                     style={{ width: 90 }}
@@ -1082,221 +1320,51 @@ const CardRightComp = (props) => {
                     Save
                   </CommonButton>
                   <CommonButton style={{ width: 90 }}>Cancel</CommonButton>
-                </div>
-              </>
-            </SplitFormLayout>
-          </RightCardContent>
-        </CreateConsultantCardComp>
-      )}
+                </Flex50>
+              </MobileSupplier>
+            </RightCardContent>
+          </DisplayContractCardComp>
+        </>
+      );
+    } else return null;
+  };
 
-      {/* Edit Consultant Card */}
-      {props.displayEditConsultant && props.detailOfConsultant && (
-        <EditConsultantCardComp
-        // displayEditConsultant={props.displayEditConsultant}
-        // detailOfConsultant={props.detailOfConsultant}
-        >
-          <RightCardContent>
-            <ConsultantName>
-              Edit Consultant: {props.detailOfConsultant.name}
-            </ConsultantName>
-            <Line1 />
-            {renderEditForm(props.detailOfConsultant)}
+  const contentLoading = () => {
+    {
+      /* Display Consultant */
+    }
+    if (props.displayConsultDetails) {
+      return (
+        <ContentLoading
+          dependencies={[props.detailOfConsultant]}
+          dom={renderDisplayCard}
+        />
+      );
+    } else if (props.displayCreateConsultant) {
+      return (
+        <ContentLoading
+          dependencies={[props.clientsList, props.suppliersList]}
+          dom={renderCreateConsultantCard}
+        />
+      );
+    } else if (props.displayEditConsultant) {
+      return (
+        <ContentLoading
+          dependencies={[props.detailOfConsultant]}
+          dom={renderEditConsultantCard}
+        />
+      );
+    } else if (props.displayCreateContract) {
+      return (
+        <ContentLoading
+          dependencies={[props.clientsList]}
+          dom={renderCreateContractCard}
+        />
+      );
+    } else return null;
+  };
 
-            <ButtonsDiv>
-              <CommonButton onClick={() => form.submit()} type="primary">
-                Update
-              </CommonButton>
-              <CommonButton onClick={() => props.showDetails()}>
-                Cancel
-              </CommonButton>
-            </ButtonsDiv>
-          </RightCardContent>
-        </EditConsultantCardComp>
-      )}
-
-      {/* Create Contract Card */}
-      {props.displayCreateContract && (
-        <DisplayContractCardComp>
-          <RightCardContent>
-            <ConsultantName>
-              <text>Create Contract for {props.detailOfConsultant?.name} </text>
-            </ConsultantName>
-            <Line1></Line1>
-            <MobileSupplier>
-              <Flex50>
-                <text>Client</text>
-                <br></br>
-                <AutoComplete
-                  style={{
-                    width: 175,
-                  }}
-                  optionFilterProp="children"
-                  onChange={(value) => clientSelection(value)}
-                  onSelect={(value, options) =>
-                    clientSelection({ id: options.id, value })
-                  }
-                  placeholder="Enter Client"
-                  filterOption={(inputValue, option) => {
-                    return (
-                      option.key
-                        .toUpperCase()
-                        .indexOf(inputValue.toUpperCase()) !== -1
-                    );
-                  }}
-                >
-                  {props.clientsList.map((element) => {
-                    return (
-                      <Option
-                        key={element.name}
-                        id={element.id}
-                        value={element.name}
-                      >
-                        {element.name}
-                      </Option>
-                    );
-                  })}
-                </AutoComplete>
-              </Flex50>
-              <Flex50>
-                <text>Project</text>
-                <br></br>
-                <AutoComplete
-                  style={{
-                    width: 175,
-                  }}
-                  optionFilterProp="children"
-                  optionLabelProp="title"
-                  onChange={(value) => ProjectSelection(value)}
-                  onSelect={(value, options) =>
-                    ProjectSelection({ id: options.id, value })
-                  }
-                  placeholder="Select Project Demo"
-                  onSearch={onSearch}
-                  filterOption={(inputValue, option) => {
-                    return (
-                      option.key
-                        .toUpperCase()
-                        .indexOf(inputValue.toUpperCase()) !== -1
-                    );
-                  }}
-                >
-                  {projectList.map((element) => {
-                    return (
-                      <Option
-                        key={element.id}
-                        id={element.id}
-                        value={element.project_name}
-                      >
-                        {element.project_name}
-                      </Option>
-                    );
-                  })}
-                </AutoComplete>
-              </Flex50>
-              <Flex50>
-                <text>Organization ID</text>
-                <Input
-                  style={{ width: 175 }}
-                  placeholder="Organization ID"
-                  onChange={(e) => setOrganization_no(e.target.value)}
-                  disabled={client_name == null}
-                  value={organization_no}
-                />
-              </Flex50>
-              <Flex50>
-                <text>Role</text>
-                <Input
-                  style={{ width: 175 }}
-                  placeholder="Role"
-                  onChange={(e) => setRole(e.target.value)}
-                />
-              </Flex50>
-              <Flex50>
-                <text>Start Date</text>
-                <Space direction="vertical" size={18}>
-                  <DatePicker
-                    style={{ width: 175 }}
-                    // defaultValue={moment("01/01/2015", dateFormat)}
-                    //onChange={(value) => setStart_date(value)}
-                    allowClear={false}
-                    format={dateFormat}
-                    onChange={(e) => {
-                      setStart_date(dateFormatStandard2(e));
-                      let end_date_start = new Date(e);
-                      end_date_start.setDate(end_date_start.getDate() + 30);
-                      setEnd_date(end_date_start);
-                    }}
-                  />
-                </Space>
-              </Flex50>
-              <Flex50>
-                <text>Period</text>
-                <Select
-                  showSearch
-                  style={{ width: 180, opacity: choosen == "period" ? 1 : 0.4 }}
-                  disabled={start_date == null || start_date == ""}
-                  placeholder="Select Period"
-                  optionFilterProp="children"
-                  onFocus={onFocus}
-                  onClick={() => setChoosen("period")}
-                  onSearch={onSearch}
-                  onChange={(value) => setPeriod(value)}
-                >
-                  <Option value={6}>6</Option>
-                  <Option value={12}>12</Option>
-                </Select>
-              </Flex50>
-              <Flex50>
-                <text>Cost Center</text>
-                <Input
-                  style={{ width: 175 }}
-                  placeholder="Cost Center"
-                  onChange={(e) => setCost_center(e.target.value)}
-                />
-              </Flex50>
-              <Flex50>
-                <text>End Date</text>
-                <Space direction="vertical" size={18}>
-                  <DatePicker
-                    style={{
-                      width: 180,
-                      opacity: choosen == "end_date" ? 1 : 0.4,
-                    }}
-                    disabledDate={disabledDate}
-                    disabled={start_date == null || start_date == ""}
-                    value={end_date ? moment(end_date, dateFormat) : null}
-                    allowClear={false}
-                    onClick={() => setChoosen("end_date")}
-                    format={dateFormat}
-                    onChange={(e) => setEnd_date(e)}
-                  />
-                </Space>
-              </Flex50>
-              <Flex50>
-                <text>Cost/hr</text>
-                <Input
-                  style={{ width: 175 }}
-                  placeholder="Cost/hr"
-                  onChange={(e) => setCost_per_hour(e.target.value)}
-                />
-              </Flex50>
-              <Flex50>
-                <br></br>
-                <CommonButton
-                  style={{ width: 90 }}
-                  onClick={() => addConsultantTry()}
-                  type="primary"
-                >
-                  Save
-                </CommonButton>
-                <CommonButton style={{ width: 90 }}>Cancel</CommonButton>
-              </Flex50>
-            </MobileSupplier>
-          </RightCardContent>
-        </DisplayContractCardComp>
-      )}
-    </CardRight>
-  );
+  return <CardRight>{contentLoading()}</CardRight>;
 };
 
 export default CardRightComp;

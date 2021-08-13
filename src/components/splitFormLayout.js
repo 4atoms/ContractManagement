@@ -4,18 +4,30 @@ import { arrayOf, node, shape } from "prop-types";
 
 const SplitFormLayout = ({ children, rowCss = {} }) => {
   const totalGrid = 24;
-  const padding = { paddingRight: "15px" };
+  const firstColPadding = { paddingRight: "7px" };
+  const otherColPadding = { paddingLeft: "7px", paddingRight: "7px" };
+  const lastColPadding = { paddingLeft: "7px" };
 
   const getLayout = () => {
     return Math.floor(totalGrid / children.length);
   };
 
-  const [layout, setLayout] = useState(getLayout());
+  const [layout, setLayout] = useState(null);
 
   useEffect(() => {
     const l = getLayout();
     const elements = React.Children.toArray(children).map((x, idx) => {
-      const style = idx < children.length - 1 ? padding : null;
+      let style;
+      switch (idx) {
+        case 0:
+          style = firstColPadding;
+          break;
+        case children.length - 1:
+          style = lastColPadding;
+          break;
+        default:
+          style = otherColPadding;
+      }
       return (
         <Col key={idx} span={l} style={style}>
           {x}
