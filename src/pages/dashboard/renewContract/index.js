@@ -55,7 +55,6 @@ const RenewContract = ({ store, actions }) => {
 
   useEffect(() => {
     setListContract(renewContractDashboard?.ongoing);
-    console.log(listContract);
     setSelectedContracts([]);
     setSelectedRowsArrayID([]);
     setSearchInput("");
@@ -64,10 +63,6 @@ const RenewContract = ({ store, actions }) => {
   useEffect(() => {
     setListContract(dataSetSource);
   }, [dataSetSource]);
-
-  useEffect(() => {
-    console.log("changingg", listContract, dataSetSource);
-  }, [listContract]);
 
   const replaceWithSourcedata = (record) => {
     let data = dataSetSource;
@@ -142,7 +137,7 @@ const RenewContract = ({ store, actions }) => {
       title: "Project",
       dataIndex: ["project", "project_name"],
       key: "project",
-      width: "80px",
+      width: "90px",
     },
     {
       title: "Renew Within",
