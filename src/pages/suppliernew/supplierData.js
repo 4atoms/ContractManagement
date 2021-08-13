@@ -48,10 +48,10 @@ const SupplierData = () => {
     getSupplierData();
   }, []);
   useEffect(() => {
-    if (supplierChart) {
-      showChart(detailOfSupplier.id);
+    if (supplierAnalysis) {
+      mapValues(supplierAnalysis);
     }
-  }, [supplierAnalysis, supplierChart]);
+  }, [supplierAnalysis]);
   useEffect(() => {
     setListSupplier(suppliersList);
   }, [suppliersList]);
@@ -134,9 +134,10 @@ const SupplierData = () => {
       ],
     },
   };
-  const showChart = (num) => {
-    getSupplierAnalysis(num);
-    mapValues(supplierAnalysis);
+  const showChart = (num, query) => {
+    query = { month: 8, year: 2021 };
+    getSupplierAnalysis(num, query);
+    // mapValues(supplierAnalysis);
     setSupplierChart(true);
   };
 

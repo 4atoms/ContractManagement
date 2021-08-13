@@ -54,9 +54,6 @@ const CardRightComp = (props) => {
   const addSupplierTry = (values) => {
     props.addSupplier(values);
   };
-  const showBar = () => {
-    return <Bar data={props.supplierAnalysis} />;
-  };
   const onclose = () => {
     props.setSupplierChart(false);
   };
