@@ -10,6 +10,7 @@ import {
   Form,
   AutoComplete,
 } from "antd";
+import moment from "moment";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
@@ -59,20 +60,24 @@ const CardRightComp = (props) => {
 
   const [form] = Form.useForm();
 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [supplier, setSupplier] = useState("");
+  const [start_date, setStart_date] = useState("");
+  const [end_date, setEnd_date] = useState(null);
+  const [choosen, setChoosen] = useState("period");
+  // const [companyId, setCompanyId] = useState("");
+  const [contractwithexistingconsultant, setcontractwithexistingconsultant] =
+    useState(false);
+
   const FormForAdd = {
     name: "",
     email: "",
     phone: "",
     supplier: "",
   };
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [start_date, setStart_date] = useState("");
-  const [supplier, setSupplier] = useState("");
-  // const [companyId, setCompanyId] = useState("");
-  const [contractwithexistingconsultant, setcontractwithexistingconsultant] =
-    useState(false);
+
   const addConsultantTry = () => {
     let project_number = project_name?.toUpperCase();
     FormForAdd.name = name;
@@ -88,6 +93,7 @@ const CardRightComp = (props) => {
     FormForAdd2.project = project;
     FormForAdd2.cost_center = cost_center;
     FormForAdd2.start_date = start_date;
+    FormForAdd2.end_date = dateFormatStandard2(end_date);
     FormForAdd2.period = period;
     FormForAdd2.role = role;
     FormForAdd2.currency = currency;
@@ -103,6 +109,7 @@ const CardRightComp = (props) => {
     FormForAdd3.project.project_number = project_number;
     FormForAdd3.cost_center = cost_center;
     FormForAdd3.start_date = start_date;
+    FormForAdd3.end_date = dateFormatStandard2(end_date);
     FormForAdd3.period = period;
     FormForAdd3.role = role;
     FormForAdd3.currency = currency;
@@ -117,6 +124,7 @@ const CardRightComp = (props) => {
     FormForAdd4.project.project_number = project_number;
     FormForAdd4.cost_center = cost_center;
     FormForAdd4.start_date = start_date;
+    FormForAdd4.end_date = dateFormatStandard2(end_date);
     FormForAdd4.period = period;
     FormForAdd4.role = role;
     FormForAdd4.currency = currency;
@@ -168,11 +176,17 @@ const CardRightComp = (props) => {
         !client_name &&
         cost_center &&
         start_date &&
-        period &&
+        ((choosen == "period" && period) ||
+          (choosen == "end_date" && end_date)) &&
         role &&
         currency &&
         cost_per_hour
       ) {
+        if (choosen == "period") {
+          delete FormForAdd4.end_date;
+        } else {
+          delete FormForAdd4.period;
+        }
         console.log("Form For Add4", FormForAdd4);
         props.addConsultantwithContract(FormForAdd4);
       } else if (
@@ -181,11 +195,17 @@ const CardRightComp = (props) => {
         organization_no &&
         cost_center &&
         start_date &&
-        period &&
+        ((choosen == "period" && period) ||
+          (choosen == "end_date" && end_date)) &&
         role &&
         currency &&
         cost_per_hour
       ) {
+        if (choosen == "period") {
+          delete FormForAdd3.end_date;
+        } else {
+          delete FormForAdd3.period;
+        }
         console.log("Form For Add3", FormForAdd3);
         props.addConsultantwithContract(FormForAdd3);
       } else if (
@@ -193,11 +213,17 @@ const CardRightComp = (props) => {
         project &&
         cost_center &&
         start_date &&
-        period &&
+        ((choosen == "period" && period) ||
+          (choosen == "end_date" && end_date)) &&
         role &&
         currency &&
         cost_per_hour
       ) {
+        if (choosen == "period") {
+          delete FormForAdd2.end_date;
+        } else {
+          delete FormForAdd2.period;
+        }
         console.log("Form For Add2", FormForAdd2);
         props.addConsultantwithContract(FormForAdd2);
       }
@@ -212,11 +238,17 @@ const CardRightComp = (props) => {
         phone &&
         cost_center &&
         start_date &&
-        period &&
+        ((choosen == "period" && period) ||
+          (choosen == "end_date" && end_date)) &&
         role &&
         currency &&
         cost_per_hour
       ) {
+        if (choosen == "period") {
+          delete FormForAdd4.end_date;
+        } else {
+          delete FormForAdd4.period;
+        }
         console.log("Form For Add4", FormForAdd4);
         props.addConsultantwithContract(FormForAdd4);
       } else if (
@@ -228,11 +260,17 @@ const CardRightComp = (props) => {
         email &&
         phone &&
         cost_center &&
-        period &&
+        ((choosen == "period" && period) ||
+          (choosen == "end_date" && end_date)) &&
         role &&
         currency &&
         cost_per_hour
       ) {
+        if (choosen == "period") {
+          delete FormForAdd3.end_date;
+        } else {
+          delete FormForAdd3.period;
+        }
         console.log("Form For Add3", FormForAdd3);
         props.addConsultantwithContract(FormForAdd3);
       } else if (
@@ -244,11 +282,17 @@ const CardRightComp = (props) => {
         project &&
         cost_center &&
         start_date &&
-        period &&
+        ((choosen == "period" && period) ||
+          (choosen == "end_date" && end_date)) &&
         role &&
         currency &&
         cost_per_hour
       ) {
+        if (choosen == "period") {
+          delete FormForAdd2.end_date;
+        } else {
+          delete FormForAdd2.period;
+        }
         console.log("Form For Add2", FormForAdd2);
         props.addConsultantwithContract(FormForAdd2);
       } else if (name && email && phone && supplier) {
@@ -281,7 +325,7 @@ const CardRightComp = (props) => {
   const [cost_center, setCost_center] = useState("");
   const [period, setPeriod] = useState("");
   const [role, setRole] = useState("");
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("SEK");
   const [cost_per_hour, setCost_per_hour] = useState("");
 
   const [projectList, setProjectList] = useState([]);
@@ -608,6 +652,12 @@ const CardRightComp = (props) => {
         </UpcomingContractParts>
       );
     }
+  };
+
+  const disabledDate = (current) => {
+    let end_date_start = new Date(start_date);
+    end_date_start.setDate(end_date_start.getDate() + 30);
+    return current < end_date_start;
   };
 
   const clientSelection = (value) => {
@@ -941,10 +991,14 @@ const CardRightComp = (props) => {
               <Space direction="vertical" size={18}>
                 <DatePicker
                   style={{ width: 180 }}
-                  // defaultValue={moment("01/01/2015", dateFormat)}
-                  //onChange={(value) => setStart_date(value)}
+                  allowClear={false}
                   format={dateFormat}
-                  onChange={(e) => setStart_date(dateFormatStandard2(e))}
+                  onChange={(e) => {
+                    setStart_date(dateFormatStandard2(e));
+                    let end_date_start = new Date(e);
+                    end_date_start.setDate(end_date_start.getDate() + 30);
+                    setEnd_date(end_date_start);
+                  }}
                 />
               </Space>
             </Flex50>
@@ -952,9 +1006,11 @@ const CardRightComp = (props) => {
               <text>Period</text>
               <Select
                 showSearch
-                style={{ width: 180 }}
+                style={{ width: 180, opacity: choosen == "period" ? 1 : 0.4 }}
+                disabled={start_date == null || start_date == ""}
                 placeholder="Select Period"
                 optionFilterProp="children"
+                onClick={() => setChoosen("period")}
                 onFocus={onFocus}
                 onSearch={onSearch}
                 onChange={(value) => setPeriod(value)}
@@ -972,19 +1028,22 @@ const CardRightComp = (props) => {
               />
             </Flex50>
             <Flex50>
-              <text>Currency</text>
-              <Select
-                showSearch
-                style={{ width: 180 }}
-                placeholder="Select Currency"
-                optionFilterProp="children"
-                onFocus={onFocus}
-                onSearch={onSearch}
-                onChange={(value) => setCurrency(value)}
-              >
-                <Option value="EURO">EURO</Option>
-                <Option value="INR">INR</Option>
-              </Select>
+              <text>End Date</text>
+              <Space direction="vertical" size={18}>
+                <DatePicker
+                  style={{
+                    width: 180,
+                    opacity: choosen == "end_date" ? 1 : 0.4,
+                  }}
+                  disabledDate={disabledDate}
+                  disabled={start_date == null || start_date == ""}
+                  value={end_date ? moment(end_date, dateFormat) : null}
+                  allowClear={false}
+                  onClick={() => setChoosen("end_date")}
+                  format={dateFormat}
+                  onChange={(e) => setEnd_date(e)}
+                />
+              </Space>
             </Flex50>
             <Flex50>
               <text>Cost/hr</text>
@@ -1137,8 +1196,14 @@ const CardRightComp = (props) => {
                   style={{ width: 180 }}
                   // defaultValue={moment("01/01/2015", dateFormat)}
                   //onChange={(value) => setStart_date(value)}
+                  allowClear={false}
                   format={dateFormat}
-                  onChange={(e) => setStart_date(dateFormatStandard2(e))}
+                  onChange={(e) => {
+                    setStart_date(dateFormatStandard2(e));
+                    let end_date_start = new Date(e);
+                    end_date_start.setDate(end_date_start.getDate() + 30);
+                    setEnd_date(end_date_start);
+                  }}
                 />
               </Space>
             </Flex50>
@@ -1146,10 +1211,12 @@ const CardRightComp = (props) => {
               <text>Period</text>
               <Select
                 showSearch
-                style={{ width: 180 }}
+                style={{ width: 180, opacity: choosen == "period" ? 1 : 0.4 }}
+                disabled={start_date == null || start_date == ""}
                 placeholder="Select Period"
                 optionFilterProp="children"
                 onFocus={onFocus}
+                onClick={() => setChoosen("period")}
                 onSearch={onSearch}
                 onChange={(value) => setPeriod(value)}
               >
@@ -1166,19 +1233,22 @@ const CardRightComp = (props) => {
               />
             </Flex50>
             <Flex50>
-              <text>Currency</text>
-              <Select
-                showSearch
-                style={{ width: 180 }}
-                placeholder="Select Currency"
-                optionFilterProp="children"
-                onFocus={onFocus}
-                onSearch={onSearch}
-                onChange={(value) => setCurrency(value)}
-              >
-                <Option value="EURO">EURO</Option>
-                <Option value="INR">INR</Option>
-              </Select>
+              <text>End Date</text>
+              <Space direction="vertical" size={18}>
+                <DatePicker
+                  style={{
+                    width: 180,
+                    opacity: choosen == "end_date" ? 1 : 0.4,
+                  }}
+                  disabledDate={disabledDate}
+                  disabled={start_date == null || start_date == ""}
+                  value={end_date ? moment(end_date, dateFormat) : null}
+                  allowClear={false}
+                  onClick={() => setChoosen("end_date")}
+                  format={dateFormat}
+                  onChange={(e) => setEnd_date(e)}
+                />
+              </Space>
             </Flex50>
             <Flex50>
               <text>Cost/hr</text>

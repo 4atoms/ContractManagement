@@ -91,6 +91,7 @@ const addConsultant = (consultantInfo) => (dispatch) => {
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+      getConsultantsData()(dispatch);
     })
     .catch((error) => {
       setApiError(dispatch, assignToConsultantStore, error);
@@ -103,6 +104,7 @@ const addConsultantwithContract = (consultantInfo) => (dispatch) => {
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+      getConsultantsData()(dispatch);
     })
     .catch((error) => {
       setApiError(dispatch, assignToConsultantStore, error);
