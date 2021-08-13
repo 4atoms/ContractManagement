@@ -134,9 +134,9 @@ const SupplierData = () => {
       ],
     },
   };
-  const showChart = (num, query) => {
-    query = { month: 8, year: 2021 };
-    getSupplierAnalysis(num, query);
+  const showChart = (num) => {
+    // query = { month: 8, year: 2021 };
+    getSupplierAnalysis(num);
     // mapValues(supplierAnalysis);
     setSupplierChart(true);
   };

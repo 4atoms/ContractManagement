@@ -66,9 +66,9 @@ const getAllProjectsAnalysis = (request) => (dispatch) => {
     });
 };
 
-const getSupplierAnalysis = (request, query) => (dispatch) => {
+const getSupplierAnalysis = (request) => (dispatch) => {
   return nw
-    .apiWithPathAndQuery("suppliersChart", [request], [query])
+    .apiWithPath("suppliersChart", [request])
     .get()
     .then((response) => {
       console.log(response.data.data);
