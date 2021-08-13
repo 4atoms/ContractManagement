@@ -11,6 +11,7 @@ const initialState = {
   apiError: null,
   allSuppliersAnalysis: null,
   allProjectsAnalysis: null,
+  supplierAnalysis: null,
 };
 
 // ACTIONS
@@ -65,6 +66,18 @@ const getAllProjectsAnalysis = (request) => (dispatch) => {
     });
 };
 
+const getSupplierAnalysis = (request) => (dispatch) => {
+  return nw
+    .apiWithPath("suppliersChart", [request])
+    .get()
+    .then((response) => {
+      console.log(response.data.data);
+      dispatch(assignToAnalysisStore("supplierAnalysis", response.data.data));
+    })
+    .catch((error) => {
+      setApiError(dispatch, assignToAnalysisStore, error);
+    });
+};
 // Routing
 
 // Reducers
@@ -91,5 +104,6 @@ export default {
     resetAnalysisStore,
     getAllSuppliersAnalysis,
     getAllProjectsAnalysis,
+    getSupplierAnalysis,
   },
 };

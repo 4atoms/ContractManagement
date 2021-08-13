@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table, Form, Space, Input } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
@@ -27,9 +27,16 @@ import {
   FormTop,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
-// import CreateCard from "./createCard";
+import InsertChartIcon from "@material-ui/icons/InsertChart";
+import { Bar } from "react-chartjs-2";
+import ModalLayout from "Components/modalLayout/index";
+
 const CardRightComp = (props) => {
   const [form] = Form.useForm();
+  const [label, setLable] = useState([]);
+  const [cost, setCost] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [backgroundColors, setBackground] = useState(0);
   const [createform] = Form.useForm();
 
   const intialValue = {
@@ -46,6 +53,12 @@ const CardRightComp = (props) => {
 
   const addSupplierTry = (values) => {
     props.addSupplier(values);
+  };
+  const showBar = () => {
+    return <Bar data={props.supplierAnalysis} />;
+  };
+  const onclose = () => {
+    props.setSupplierChart(false);
   };
   const editSupplierTry = (values) => {
     let request = values;
@@ -83,6 +96,21 @@ const CardRightComp = (props) => {
               <span
                 style={{ position: "absolute", right: "20px", top: "20px" }}
               >
+                <InsertChartIcon
+                  onClick={() => {
+                    props.showChart(props.detailOfSupplier.id);
+                  }}
+                />
+                {props.supplierChart && (
+                  <ModalLayout
+                    width={"654px"}
+                    height={"364px"}
+                    title={`Cost Estimate ${props.detailOfSupplier.name}`}
+                    onclose={onclose}
+                  >
+                    <Bar data={props.state} options={props.options} />
+                  </ModalLayout>
+                )}
                 <EditIcon
                   className="cursorPointer"
                   style={{ height: "18px" }}
