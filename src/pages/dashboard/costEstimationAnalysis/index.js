@@ -3,7 +3,7 @@ import { CardTitle, ChartCard } from "./../dashboard.style";
 import { Select, Form } from "antd";
 import { themeColors } from "Theme";
 
-import { Bar } from "react-chartjs-2";
+import AnalysisChart from "Components/analysisChart";
 
 const CostEstimation = ({ store, actions }) => {
   const { allSuppliersAnalysisDashboard, allProjectsAnalysisDashboard } = store;
@@ -13,10 +13,7 @@ const CostEstimation = ({ store, actions }) => {
 
   let today = new Date();
 
-  const [label, setLable] = useState([]);
-  const [cost, setCost] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [backgroundColors, setBackground] = useState(0);
   const [requestParams, setRequestParams] = useState({
     month: today.getMonth() + 1,
     year: today.getFullYear(),
@@ -31,21 +28,6 @@ const CostEstimation = ({ store, actions }) => {
       actions.getAllSuppliersAnalysisDashboard(requestParams);
     }
   }, [requestParams]);
-
-  useEffect(() => {
-    if (requestParams.type == "suppliers" && allSuppliersAnalysisDashboard) {
-      mapValues(allSuppliersAnalysisDashboard);
-    } else if (
-      requestParams.type == "projects" &&
-      allProjectsAnalysisDashboard
-    ) {
-      mapValues(allProjectsAnalysisDashboard);
-    }
-  }, [
-    allSuppliersAnalysisDashboard,
-    allProjectsAnalysisDashboard,
-    requestParams,
-  ]);
 
   const months = [
     { label: "Jan", value: 1 },
@@ -69,70 +51,8 @@ const CostEstimation = ({ store, actions }) => {
     { label: today.getFullYear(), value: today.getFullYear() },
   ];
 
-  const mapValues = (analysisArray) => {
-    let labelArray = [];
-    let costArray = [];
-    let backgroundArray = [];
-    let totalCost = 0;
-    analysisArray.forEach((element, index) => {
-      labelArray.push(element?.supplier?.name || element.project?.name);
-      costArray.push(element.cost);
-      totalCost = totalCost + element.cost;
-      if (index % 2) {
-        backgroundArray.push(themeColors.chartBarEvenColor);
-      } else {
-        backgroundArray.push(themeColors.chartBarOddColor);
-      }
-    });
-    setLable(labelArray);
-    setCost(costArray);
-    setBackground(backgroundArray);
-    setTotalAmount(totalCost);
-  };
-
-  const state = {
-    labels: label,
-    datasets: [
-      {
-        data: cost,
-        backgroundColor: backgroundColors,
-      },
-    ],
-  };
-
   const formValuesChanged = (allValues) => {
     setRequestParams(allValues);
-  };
-
-  const options = {
-    legend: {
-      display: false,
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: "Cost",
-          },
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
-      xAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString:
-              requestParams.type == "suppliers" ? "Suppliers" : "Projects",
-          },
-          barPercentage: 0.4,
-        },
-      ],
-    },
   };
 
   return (
@@ -163,11 +83,23 @@ const CostEstimation = ({ store, actions }) => {
               </Form.Item>
             </Form>
           </div>
-          <div>Total Amount {totalAmount}</div>
+          <div>
+            <span style={{ color: themeColors.black }}>Total</span> SEK{" "}
+            {totalAmount}
+          </div>
         </CardTitle>
       </div>
       <div style={{ height: "85%" }}>
-        <Bar data={state} options={options} />
+        <AnalysisChart
+          title={requestParams.type == "suppliers" ? "Suppliers" : "Projects"}
+          dataSet={
+            requestParams.type == "suppliers"
+              ? allSuppliersAnalysisDashboard
+              : allProjectsAnalysisDashboard
+          }
+          keyName={requestParams.type == "suppliers" ? "supplier" : "project"}
+          setTotalAmount={setTotalAmount}
+        />
       </div>
     </ChartCard>
   );

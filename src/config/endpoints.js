@@ -20,6 +20,7 @@ const development = {
   projectsAnalysis: "/analysis/projects?month=&year=", // for all projects
   projectList: "/projects",
   clientList: "/clients",
+  suppliersChart: "/analysis/suppliers", // chart for specific supplier analysis
 };
 
 export function getAllEndpoints() {

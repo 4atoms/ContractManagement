@@ -7,7 +7,7 @@ import { formStoreData } from "Utilities/helpers";
 import SupplierData from "./supplierData";
 
 const SupplierNew = (props) => {
-  const propShape = formStoreData(props, ["supplier"]);
+  const propShape = formStoreData(props, ["supplier", "analysis"]);
 
   useEffect(() => {
     return () => {
