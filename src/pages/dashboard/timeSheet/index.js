@@ -13,6 +13,9 @@ const TimeSheet = ({ store, actions }) => {
   const [listContract, setListContract] = useState(
     activeContractDashboard?.ongoing
   );
+
+  const [searchInput, setSearchInput] = useState("");
+
   const [isModalOpen, setisModalOpen] = useState(false);
 
   useEffect(() => {
@@ -24,6 +27,11 @@ const TimeSheet = ({ store, actions }) => {
   useEffect(() => {
     setListContract(activeContractDashboard?.ongoing);
   }, [activeContractDashboard]);
+
+  useEffect(() => {
+    setListContract(activeContractDashboard?.ongoing);
+    setSearchInput("");
+  }, [isModalOpen]);
 
   const updateLogTime = (id, logTime) => {
     if (logTime != null && logTime >= 0) {
@@ -44,7 +52,7 @@ const TimeSheet = ({ store, actions }) => {
     );
   };
   const filterList = (value) => {
-    const list = activeContractDashboard.filter((contract) => {
+    const list = activeContractDashboard?.ongoing.filter((contract) => {
       return (
         contract.consultant.name.toLowerCase().includes(value.toLowerCase()) ||
         contract.project.project_name
@@ -78,6 +86,7 @@ const TimeSheet = ({ store, actions }) => {
       title: "Cost / hr",
       dataIndex: "cost_per_hour",
       key: "cost_per_hour",
+      render: (text) => <div>SEK {text}</div>,
     },
     {
       title: "Log Time",
@@ -94,15 +103,15 @@ const TimeSheet = ({ store, actions }) => {
     setisModalOpen(false);
   };
 
-  const renderTable = () => {
+  const renderTable = (rowCount) => {
     return (
       <Table
         pagination={{
-          pageSize: 4,
+          pageSize: rowCount,
           position: ["bottomLeft"],
           simple: true,
         }}
-        //   loading = {listContract === null}
+        loading={listContract == null}
         //   rowSelection={{
         //     type: "checkbox",
         //   }}
@@ -120,10 +129,14 @@ const TimeSheet = ({ store, actions }) => {
             <div>Timesheet</div>
             <div>
               <Search
+                value={searchInput}
                 placeholder="search"
                 style={{ width: 200 }}
                 allowClear
-                onChange={(e) => filterList(e.target.value)}
+                onChange={(e) => {
+                  setSearchInput(e.target.value);
+                  filterList(e.target.value);
+                }}
               />
               <LaunchIcon
                 className="cursorPointer"
@@ -133,7 +146,7 @@ const TimeSheet = ({ store, actions }) => {
             </div>
           </CardTitle>
         </div>
-        <div style={{ height: "88%" }}>{renderTable()}</div>
+        <div style={{ height: "88%" }}>{renderTable(4)}</div>
       </TimeSheetCard>
     );
   };
@@ -146,9 +159,10 @@ const TimeSheet = ({ store, actions }) => {
           width={"700px"}
           height={"550px"}
           title={"Timesheet"}
+          searchedValue={filterList}
           onclose={onclose}
         >
-          {renderTable()}
+          {renderTable(8)}
         </ModalLayout>
       )}
     </>

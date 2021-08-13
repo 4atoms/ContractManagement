@@ -5,6 +5,8 @@ import { themeColors } from "Theme";
 
 import { Bar } from "react-chartjs-2";
 
+import ContentLoading from "Components/contentLoading";
+
 const CostEstimation = ({ store, actions }) => {
   const { allSuppliersAnalysisDashboard, allProjectsAnalysisDashboard } = store;
   const { Option } = Select;
@@ -13,7 +15,7 @@ const CostEstimation = ({ store, actions }) => {
 
   let today = new Date();
 
-  const [label, setLable] = useState([]);
+  const [label, setLable] = useState(null);
   const [cost, setCost] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [backgroundColors, setBackground] = useState(0);
@@ -115,7 +117,7 @@ const CostEstimation = ({ store, actions }) => {
         {
           scaleLabel: {
             display: true,
-            labelString: "Cost",
+            labelString: "Amount (SEK)",
           },
           ticks: {
             beginAtZero: true,
@@ -135,40 +137,54 @@ const CostEstimation = ({ store, actions }) => {
     },
   };
 
+  const renderContent = () => {
+    return (
+      <>
+        <div style={{ height: "12%" }}>
+          <CardTitle style={{ margin: "0px 0px 4px 0px" }}>
+            <div>Cost Estimation</div>
+            <div>
+              <Form
+                layout={"inline"}
+                form={form}
+                onValuesChange={(value, allValues) =>
+                  formValuesChanged(allValues)
+                }
+                initialValues={requestParams}
+              >
+                <Form.Item name={["month"]}>
+                  <Select style={{ width: 80 }} options={months}></Select>
+                </Form.Item>
+                <Form.Item name={["year"]}>
+                  <Select style={{ width: 80 }} options={year}></Select>
+                </Form.Item>
+                <Form.Item name={["type"]}>
+                  <Select style={{ width: 105 }}>
+                    <Option value="projects">Projects</Option>
+                    <Option value="suppliers">Suppliers</Option>
+                  </Select>
+                </Form.Item>
+              </Form>
+            </div>
+            <div>
+              <span style={{ color: themeColors.black }}>Total</span> SEK{" "}
+              {totalAmount}
+            </div>
+          </CardTitle>
+        </div>
+        <div style={{ height: "85%" }}>
+          <Bar data={state} options={options} />
+        </div>
+      </>
+    );
+  };
+
   return (
     <ChartCard style={{ position: "relative" }}>
-      <div style={{ height: "12%" }}>
-        <CardTitle style={{ margin: "0px 0px 4px 0px" }}>
-          <div>Cost Estimation</div>
-          <div>
-            <Form
-              layout={"inline"}
-              form={form}
-              onValuesChange={(value, allValues) =>
-                formValuesChanged(allValues)
-              }
-              initialValues={requestParams}
-            >
-              <Form.Item name={["month"]}>
-                <Select style={{ width: 80 }} options={months}></Select>
-              </Form.Item>
-              <Form.Item name={["year"]}>
-                <Select style={{ width: 80 }} options={year}></Select>
-              </Form.Item>
-              <Form.Item name={["type"]}>
-                <Select style={{ width: 105 }}>
-                  <Option value="projects">Projects</Option>
-                  <Option value="suppliers">Suppliers</Option>
-                </Select>
-              </Form.Item>
-            </Form>
-          </div>
-          <div>Total Amount {totalAmount}</div>
-        </CardTitle>
-      </div>
-      <div style={{ height: "85%" }}>
-        <Bar data={state} options={options} />
-      </div>
+      <ContentLoading
+        dependencies={[allProjectsAnalysisDashboard, setLable]}
+        dom={renderContent}
+      />
     </ChartCard>
   );
 };
