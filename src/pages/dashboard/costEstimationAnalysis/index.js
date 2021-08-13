@@ -91,7 +91,7 @@ const CostEstimation = ({ store, actions }) => {
       </div>
       <div style={{ height: "85%" }}>
         <AnalysisChart
-          title={requestParams.type == "suppliers" ? "Suppliers" : "Projects"}
+          xTitle={requestParams.type == "suppliers" ? "Suppliers" : "Projects"}
           dataSet={
             requestParams.type == "suppliers"
               ? allSuppliersAnalysisDashboard
