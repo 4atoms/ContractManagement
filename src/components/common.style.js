@@ -179,15 +179,12 @@ export const DisplayCardRight3 = styled.div`
 `;
 export const CreateConsultantCardComp = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayCreateConsultant ? "block" : "none")};
 `;
 export const EditConsultantCardComp = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayEditConsultant ? "block" : "none")};
 `;
 export const DisplayContractCardComp = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayCreateContract ? "block" : "none")};
 `;
 export const Consultants = styled.div`
   // padding-top: 40px;
