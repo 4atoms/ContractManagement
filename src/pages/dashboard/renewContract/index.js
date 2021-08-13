@@ -54,15 +54,15 @@ const RenewContract = ({ store, actions }) => {
   }, [renewContractDashboard]);
 
   useEffect(() => {
-    setListContract(dataSetSource);
+    setListContract(renewContractDashboard?.ongoing);
     setSelectedContracts([]);
     setSelectedRowsArrayID([]);
     setSearchInput("");
   }, [isModalOpen]);
 
-  useEffect(() => {
-    setListContract(dataSetSource);
-  }, [dataSetSource]);
+  // useEffect(() => {
+  //   setListContract(dataSetSource);
+  // }, [dataSetSource]);
 
   const replaceWithSourcedata = (record) => {
     let data = dataSetSource;
@@ -75,7 +75,7 @@ const RenewContract = ({ store, actions }) => {
   };
 
   const filterList = (value) => {
-    const list = dataSetSource.filter((contract) => {
+    const list = renewContractDashboard?.ongoing.filter((contract) => {
       return (
         contract.consultant.name.toLowerCase().includes(value.toLowerCase()) ||
         contract.supplier.name.toLowerCase().includes(value.toLowerCase()) ||
