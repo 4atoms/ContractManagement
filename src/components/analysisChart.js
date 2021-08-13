@@ -3,13 +3,17 @@ import { themeColors } from "Theme";
 
 import { Bar } from "react-chartjs-2";
 
-const AnalysisChart = ({ title, dataSet, setTotalAmount, key }) => {
+import ContentLoading from "Components/contentLoading";
+
+const AnalysisChart = ({ title, dataSet, setTotalAmount, keyName }) => {
   const [label, setLable] = useState(null);
-  const [cost, setCost] = useState([]);
-  const [backgroundColors, setBackground] = useState(0);
+  const [cost, setCost] = useState(null);
+  const [backgroundColors, setBackground] = useState(null);
 
   useEffect(() => {
-    mapValues(dataSet);
+    if (dataSet) {
+      mapValues(dataSet);
+    }
   }, [dataSet]);
 
   const mapValues = (analysisArray) => {
@@ -18,7 +22,7 @@ const AnalysisChart = ({ title, dataSet, setTotalAmount, key }) => {
     let backgroundArray = [];
     let totalCost = 0;
     analysisArray.forEach((element, index) => {
-      labelArray.push(element?.[key]?.name);
+      labelArray.push(element[keyName]?.name);
       costArray.push(element.cost);
       totalCost = totalCost + element.cost;
       if (index % 2) {
@@ -83,7 +87,7 @@ const AnalysisChart = ({ title, dataSet, setTotalAmount, key }) => {
     );
   };
 
-  return <>{renderContent()}</>;
+  return <ContentLoading dependencies={[dataSet]} dom={renderContent} />;
 };
 
 export default AnalysisChart;
