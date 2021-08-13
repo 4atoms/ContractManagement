@@ -54,7 +54,7 @@ const RenewContract = ({ store, actions }) => {
   }, [renewContractDashboard]);
 
   useEffect(() => {
-    setListContract(renewContractDashboard?.ongoing);
+    setListContract(dataSetSource);
     setSelectedContracts([]);
     setSelectedRowsArrayID([]);
     setSearchInput("");
@@ -94,6 +94,15 @@ const RenewContract = ({ store, actions }) => {
     setisRenewConfirmModalOpen(false);
     setSelectedContracts([]);
     setSelectedRowsArrayID([]);
+  };
+
+  const setOpacityforPeriod = (e) => {
+    e.target.parentElement.parentElement.parentElement.style.opacity = 1;
+    e.target.parentElement.parentElement.parentElement.parentElement.nextElementSibling.children[0].style.opacity = 0.5;
+  };
+  const setOpacityforEndDate = (e) => {
+    e.target.parentElement.parentElement.style.opacity = 1;
+    e.target.parentElement.parentElement.parentElement.previousElementSibling.children[0].style.opacity = 0.5;
   };
 
   const disabledDate = (current, end_date) => {
@@ -160,7 +169,6 @@ const RenewContract = ({ store, actions }) => {
           key: "renew_for_period",
           width: "80px",
           render: (record) => {
-            console.log(record.choosen);
             if (!record.renew_for_period) {
               record["renew_for_period"] = 1;
               record["choosen"] = "period";
@@ -173,9 +181,10 @@ const RenewContract = ({ store, actions }) => {
                   width: 80,
                   opacity: record.choosen == "period" ? 1 : 0.5,
                 }}
-                onFocus={() => {
+                onFocus={(e) => {
                   record["choosen"] = "period";
                   replaceWithSourcedata(record);
+                  setOpacityforPeriod(e);
                 }}
                 onChange={(e) => {
                   record["renew_for_period"] = e;
@@ -211,9 +220,10 @@ const RenewContract = ({ store, actions }) => {
                   width: 100,
                   opacity: record.choosen == "endDate" ? 1 : 0.5,
                 }}
-                onFocus={() => {
+                onFocus={(e) => {
                   record["choosen"] = "endDate";
                   replaceWithSourcedata(record);
+                  setOpacityforEndDate(e);
                 }}
                 onChange={(e) => {
                   record["renew_for_endDate"] = e;
