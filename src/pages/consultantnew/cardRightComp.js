@@ -401,9 +401,9 @@ const CardRightComp = (props) => {
       console.log(request);
       props
         .updateConsultant(request, props.detailOfConsultant.id)
-        .then(() => props.showDetails());
+        .then(() => props.showDetails(props.detailOfConsultant.id));
     } else {
-      props.showDetails();
+      props.showDetails(props.detailOfConsultant.id);
     }
   };
 
@@ -1132,7 +1132,9 @@ const CardRightComp = (props) => {
                 <CommonButton onClick={() => form.submit()} type="primary">
                   Update
                 </CommonButton>
-                <CommonButton onClick={() => props.showDetails()}>
+                <CommonButton
+                  onClick={() => props.showDetails(props.detailOfConsultant.id)}
+                >
                   Cancel
                 </CommonButton>
               </ButtonsDiv>
@@ -1327,7 +1329,9 @@ const CardRightComp = (props) => {
                   </CommonButton>
                   <CommonButton
                     style={{ width: 90 }}
-                    onClick={() => props.showDetails()}
+                    onClick={() =>
+                      props.showDetails(props.detailOfConsultant.id)
+                    }
                   >
                     Cancel
                   </CommonButton>
