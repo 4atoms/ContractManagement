@@ -102,6 +102,15 @@ export const CardLeft = styled.div`
   background: #ffffff;
   box-shadow: 1px 2px 8px 1px rgba(0, 0, 0, 0.25);
   border-radius: 15px;
+  & .ant-table-wrapper {
+    height: 100%;
+  }
+  & .ant-spin-nested-loading {
+    height: 100%;
+  }
+  & .ant-table-cell {
+    padding: 10px;
+  }
 `;
 
 export const CardRight = styled.div`
@@ -175,7 +184,6 @@ export const EditCardComp = styled.div`
 `;
 export const DisplayCardRight3 = styled.div`
   height: 100%;
-  display: ${(props) => (props.displayConsultDetails ? "block" : "none")};
 `;
 export const CreateConsultantCardComp = styled.div`
   height: 100%;
@@ -298,7 +306,7 @@ export const PointOfContacts = styled.div`
 
 export const RightCardContent = styled.div`
   height: 100%;
-  padding: 5px 31px;
+  padding: 5px 20px;
   position: relative;
 `;
 

@@ -58,6 +58,7 @@ const ConsultantData = () => {
       renewContracts,
       deleteContract,
       updateConsultant,
+      assignToConsultantStore,
     },
   } = context;
 
@@ -83,17 +84,31 @@ const ConsultantData = () => {
   const [displayCreateContract, setdisplayCreateContract] = useState(false);
 
   const [listConsultant, setListConsultant] = useState(consultantsList);
+
+  const [consulantNullToData, setConsulantNullToData] = useState(false);
+
   useEffect(() => {
     getConsultantsData();
     getSupplierData();
     getClientData();
     getProjectData();
+    showDetails();
   }, []);
 
   useEffect(() => {
     setListConsultant(consultantsList);
+    if (consultantsList) {
+      setConsulantNullToData(true);
+    }
   }, [consultantsList]);
 
+  useEffect(() => {
+    if (consulantNullToData) {
+      if (consultantsList.length) {
+        getDetailOfConsultant(consultantsList[0].id);
+      } else setDisplayConsultDetails(false);
+    }
+  }, [consulantNullToData]);
   const showDetails = () => {
     setDisplayConsultDetails(true);
     setDisplayCreateConsultant(false);
@@ -109,6 +124,7 @@ const ConsultantData = () => {
   };
 
   const showEdit = (num) => {
+    assignToConsultantStore("detailOfConsultant", null);
     getDetailOfConsultant(num);
     setDisplayConsultDetails(false);
     setDisplayCreateConsultant(false);
@@ -125,6 +141,7 @@ const ConsultantData = () => {
   };
 
   const handleClick = (num) => {
+    assignToConsultantStore("detailOfConsultant", null);
     getDetailOfConsultant(num);
     showDetails();
   };
@@ -502,6 +519,7 @@ const ConsultantData = () => {
             <Table
               dataSource={listConsultant}
               columns={columns}
+              loading={consultantsList == null}
               pagination={{ pageSize: 4 }}
               // onRow={(record, rowIndex) => {
               //   return {
