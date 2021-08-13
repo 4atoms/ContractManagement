@@ -86,6 +86,7 @@ const TimeSheet = ({ store, actions }) => {
       title: "Cost / hr",
       dataIndex: "cost_per_hour",
       key: "cost_per_hour",
+      render: (text) => <div>SEK {text}</div>,
     },
     {
       title: "Log Time",
@@ -110,7 +111,7 @@ const TimeSheet = ({ store, actions }) => {
           position: ["bottomLeft"],
           simple: true,
         }}
-        //   loading = {listContract === null}
+        loading={listContract == null}
         //   rowSelection={{
         //     type: "checkbox",
         //   }}

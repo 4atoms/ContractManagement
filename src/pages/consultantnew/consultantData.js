@@ -1,5 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Table, Space, Button, Select, Row, Col, Input } from "antd";
+import {
+  Table,
+  Space,
+  Button,
+  Select,
+  Row,
+  Col,
+  Input,
+  DatePicker,
+} from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
@@ -16,9 +25,15 @@ import {
 } from "Components/common.style";
 import { themeColors, tertiaryColor, primaryColor } from "Config/theme";
 import CardRightComp from "./cardRightComp";
-import { dateFormatStandard, dateDifference } from "../../utilities/helpers";
+import {
+  dateFormatStandard,
+  dateDifference,
+  dateFormatStandard2,
+} from "../../utilities/helpers";
 import ModalLayout from "Components/modalLayout";
 import ConfirmDelete from "Components/confirmDelete";
+
+import moment from "moment";
 
 const ConsultantData = () => {
   const { Search } = Input;
@@ -47,6 +62,7 @@ const ConsultantData = () => {
   } = context;
 
   const { Option } = Select;
+  const dateFormat = "DD/MM/YYYY";
 
   const [displayConsultDetails, setDisplayConsultDetails] = useState(false);
   const [displayCreateConsultant, setDisplayCreateConsultant] = useState(false);
@@ -60,7 +76,9 @@ const ConsultantData = () => {
   const [renewContractDetail, setRenewContractDetail] = useState(null);
   const [deleteConsultantDetail, setDeleteConsultantDetail] = useState(null);
   const [deleteContractDetail, setDeleteContractDetail] = useState(null);
-  const [period, setPeriod] = useState(6);
+  const [period, setPeriod] = useState(1);
+  const [endDate, setEndDate] = useState(null);
+  const [choosen, setChoosen] = useState("period");
 
   const [displayCreateContract, setdisplayCreateContract] = useState(false);
 
@@ -113,12 +131,14 @@ const ConsultantData = () => {
 
   const onclose = () => {
     setRenewModalOpen(false);
-    setPeriod(6);
+    setPeriod(1);
     setRenewContractDetail(null);
     setDeleteModalOpen(false);
     setDeleteConsultantDetail(null);
     setContractCancelledModalOpen(false);
     setDeleteContractDetail(null);
+    setChoosen("period");
+    setEndDate(null);
   };
 
   const renewContractsRequest = () => {
@@ -126,11 +146,19 @@ const ConsultantData = () => {
     let contractDetail =
       renewContractDetail?.contracts?.ongoing?.[0] ||
       renewContractDetail?.contracts?.active?.[0];
-    if (period && renewContractDetail) {
-      request.renew_contracts.push({
-        id: contractDetail.id,
-        period: period,
-      });
+    console.log(choosen, endDate, period);
+    if (
+      renewContractDetail &&
+      ((choosen == "period" && period) || (choosen == "date" && endDate))
+    ) {
+      let obj = {};
+      obj["id"] = contractDetail.id;
+      if (choosen == "date") {
+        obj["end_date"] = endDate;
+      } else {
+        obj["period"] = period;
+      }
+      request.renew_contracts.push(obj);
       console.log(request);
       renewContracts(request);
       onclose();
@@ -366,10 +394,16 @@ const ConsultantData = () => {
     padding: "0px 10px",
   };
 
+  const disabledDate = (current, end_date) => {
+    return current < moment(end_date);
+  };
+
   const renderRenewContent = () => {
     let renewableContract =
       renewContractDetail?.contracts?.ongoing?.[0] ||
       renewContractDetail?.contracts?.active?.[0];
+    let end_date = new Date(renewableContract.end_date);
+    end_date.setDate(end_date.getDate() + 30);
     return (
       <>
         <Row style={{ padding: "20px 10px" }}>
@@ -389,11 +423,12 @@ const ConsultantData = () => {
               <span style={valueStyle}>{renewableContract.role}</span>
             </div>
             <div>
-              <span>Select Period: </span>
+              <div>Select Period: </div>
               <Select
-                defaultValue={6}
-                style={{ width: 120 }}
+                defaultValue={1}
                 onChange={(e) => setPeriod(e)}
+                onFocus={() => setChoosen("period")}
+                style={{ width: 120, opacity: choosen == "period" ? 1 : 0.5 }}
               >
                 <Option value={6}>6 months</Option>
                 <Option value={3}>3 months</Option>
@@ -415,7 +450,24 @@ const ConsultantData = () => {
             </div>
             <div>
               Cost / hour:
-              <span style={valueStyle}>{renewableContract?.cost_per_hour}</span>
+              <span style={valueStyle}>
+                SEK {renewableContract?.cost_per_hour}
+              </span>
+            </div>
+            <div>
+              <div>Or Select End Date</div>
+              <DatePicker
+                style={{ opacity: choosen == "date" ? 1 : 0.5 }}
+                defaultValue={moment(end_date, dateFormat)}
+                onFocus={() => {
+                  setChoosen("date");
+                  if (!endDate) setEndDate(dateFormatStandard2(end_date));
+                }}
+                format={dateFormat}
+                disabledDate={(current) => disabledDate(current, end_date)}
+                onChange={(e) => setEndDate(dateFormatStandard2(e))}
+                allowClear={false}
+              />
             </div>
           </Col>
         </Row>
