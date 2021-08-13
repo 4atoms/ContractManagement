@@ -17,19 +17,20 @@ import {
 import CardRightComp from "./cardRightComp";
 import ModalLayout from "Components/modalLayout";
 import ConfirmDelete from "Components/confirmDelete";
-// import { themeColors } from "Config/theme";
+import { themeColors } from "Config/theme";
 // import RightCardComp from "./rightCardComp";
 const SupplierData = () => {
   const { Search } = Input;
   const context = useContext(RefContext);
   const {
-    store: { suppliersList, detailOfSupplier },
+    store: { suppliersList, detailOfSupplier, supplierAnalysis },
     actions: {
       getSupplierData,
       getDetailOfSupplier,
       addSupplier,
       deleteSupplier,
       editSupplier,
+      getSupplierAnalysis,
     },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
@@ -38,9 +39,19 @@ const SupplierData = () => {
   const [listSupplier, setListSupplier] = useState(suppliersList);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteSupplierDetail, setDeleteSupplierDetail] = useState(null);
+  const [supplierChart, setSupplierChart] = useState(false);
+  const [label, setLable] = useState([]);
+  const [cost, setCost] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [backgroundColors, setBackground] = useState(0);
   useEffect(() => {
     getSupplierData();
   }, []);
+  useEffect(() => {
+    if (supplierAnalysis) {
+      mapValues(supplierAnalysis);
+    }
+  }, [supplierAnalysis]);
   useEffect(() => {
     setListSupplier(suppliersList);
   }, [suppliersList]);
@@ -61,6 +72,73 @@ const SupplierData = () => {
     setDisplayDetails(false);
     setDisplayCreateSupplier(false);
     setDisplayEditSupplier(true);
+  };
+
+  const mapValues = (analysisArray) => {
+    let labelArray = [];
+    let costArray = [];
+    let backgroundArray = [];
+    let totalCost = 0;
+    analysisArray.forEach((element, index) => {
+      labelArray.push(element?.consultant?.name);
+      costArray.push(element.cost);
+      totalCost = totalCost + element.cost;
+      if (index % 2) {
+        backgroundArray.push(themeColors.chartBarEvenColor);
+      } else {
+        backgroundArray.push(themeColors.chartBarOddColor);
+      }
+    });
+    setLable(labelArray);
+    setCost(costArray);
+    setBackground(backgroundArray);
+    setTotalAmount(totalCost);
+  };
+
+  const state = {
+    labels: label,
+    datasets: [
+      {
+        data: cost,
+        backgroundColor: backgroundColors,
+      },
+    ],
+  };
+
+  const options = {
+    legend: {
+      display: false,
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Cost",
+          },
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Consultants",
+          },
+          barPercentage: 0.4,
+        },
+      ],
+    },
+  };
+  const showChart = (num, query) => {
+    query = { month: 8, year: 2021 };
+    getSupplierAnalysis(num, query);
+    // mapValues(supplierAnalysis);
+    setSupplierChart(true);
   };
 
   const handleClick = (num) => {
@@ -218,10 +296,17 @@ const SupplierData = () => {
               addSupplier={addSupplier}
               editSupplier={editSupplier}
               displayEditSupplier={displayEditSupplier}
+              supplierChart={supplierChart}
+              setSupplierChart={setSupplierChart}
               showDetails={showDetails}
               showEdit={showEdit}
+              showChart={showChart}
               setDeleteModalOpen={setDeleteModalOpen}
               setDeleteSupplierDetail={setDeleteSupplierDetail}
+              supplierAnalysis={supplierAnalysis}
+              getSupplierAnalysis={getSupplierAnalysis}
+              state={state}
+              options={options}
             />
           </CardRightWrapper>
         </WrapperCard>

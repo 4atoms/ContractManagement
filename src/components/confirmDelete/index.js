@@ -6,10 +6,10 @@ import { CommonButton } from "Components/common.style";
 const contentStyle = {
   display: "flex",
   height: "90%",
-  justifyContent: "center",
   gap: "20px",
   fontSize: "18px",
   alignItems: "center",
+  marginLeft: "40px",
 };
 
 const buttonStyle = {

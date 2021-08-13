@@ -14,12 +14,13 @@ const development = {
   renewContract: "consultants/renew_contract", // to renew a contract
 
   //chart analysis
-  suppliersAnalysis: "/analysis/suppliers?month=&year=", // for all supplier, and also for specfic supplier -> /id
+  suppliersAnalysis: "/analysis/suppliers/?month=&year=", // for all supplier, and also for specfic supplier -> /id
   consultantAnalysis: "/analysis/consultants?month=&year=", // for specific consultant -> /id
   clientAnalysis: "/analysis/clients/path?query=&month=&year=", // fro specific client -> /id
   projectsAnalysis: "/analysis/projects?month=&year=", // for all projects
   projectList: "/projects",
   clientList: "/clients",
+  suppliersChart: "/analysis/suppliers/path?month=&year=", // for specific supplier analysis
 };
 
 export function getAllEndpoints() {

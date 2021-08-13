@@ -2,7 +2,7 @@ import React from "react";
 import { any, func, string } from "prop-types";
 import styled from "styled-components";
 import { themeColors, primaryColor } from "Config/theme";
-
+import { Input } from "antd";
 import Modal from "@material-ui/core/Modal";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -37,7 +37,7 @@ const Title = styled.div`
 
 const ContentWrapper = styled.div`
   width: 100%;
-  height: 85%;
+  height: 88%;
   padding: 0px 5px 10px;
   position: relative;
   & .ant-table-cell {
@@ -55,7 +55,24 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const ModalLayout = ({ children, onclose, title, width, height, type }) => {
+const SearchWrapper = styled.div`
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ModalLayout = ({
+  children,
+  onclose,
+  title,
+  width,
+  height,
+  type,
+  searchedValue,
+}) => {
+  const { Search } = Input;
+
   const renderContainer = () => {
     return (
       <div className="fullWidth fullHeight flex">
@@ -63,11 +80,21 @@ const ModalLayout = ({ children, onclose, title, width, height, type }) => {
           <Container>
             <Header type={type}>
               <Title>{title}</Title>
-              <CloseIcon
-                className="cursorPointer"
-                style={{ color: themeColors.white }}
-                onClick={() => onclose()}
-              />
+              <SearchWrapper>
+                {searchedValue && (
+                  <Search
+                    placeholder="search"
+                    style={{ width: 200 }}
+                    allowClear
+                    onChange={(e) => searchedValue(e.target.value)}
+                  />
+                )}
+                <CloseIcon
+                  className="cursorPointer"
+                  style={{ color: themeColors.white }}
+                  onClick={() => onclose()}
+                />
+              </SearchWrapper>
             </Header>
             <ContentWrapper>{children}</ContentWrapper>
           </Container>
@@ -85,6 +112,7 @@ const ModalLayout = ({ children, onclose, title, width, height, type }) => {
 ModalLayout.defaultProps = {
   title: "",
   type: "normal",
+  searchedValue: null,
 };
 
 ModalLayout.propTypes = {
@@ -93,6 +121,7 @@ ModalLayout.propTypes = {
   title: string,
   width: string.isRequries,
   height: string.isRequries,
+  searchedValue: func,
 };
 
 export default ModalLayout;

@@ -38,6 +38,11 @@ const TodayDate = () => {
   return moment().format("D MMM  YYYY");
 };
 
+const datePickerDateFormat = (date) => {
+  let array = date.split("-");
+  return array[0] + "/" + array[1] + "/" + array[2];
+};
+
 // make the first letter caps
 const capitalizeFirstChar = (text) => {
   return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
@@ -51,7 +56,7 @@ const capitalizeEveryFirstChar = (text) => {
 
 // make the code based on name
 const makeCode = (text) => {
-  return text.split(" ").join("").toLowerCase();
+  return text.split(" ").join("").toUpperCase();
 };
 
 const sanitaizeDOM = (tag) => {
@@ -106,4 +111,5 @@ export {
   dateFormatStandard2,
   TodayDate,
   dateDifference,
+  datePickerDateFormat,
 };
