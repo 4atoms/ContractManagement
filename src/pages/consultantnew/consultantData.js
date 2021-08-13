@@ -450,7 +450,9 @@ const ConsultantData = () => {
             </div>
             <div>
               Cost / hour:
-              <span style={valueStyle}>{renewableContract?.cost_per_hour}</span>
+              <span style={valueStyle}>
+                SEK {renewableContract?.cost_per_hour}
+              </span>
             </div>
             <div>
               <div>Or Select End Date</div>

@@ -117,7 +117,7 @@ const CostEstimation = ({ store, actions }) => {
         {
           scaleLabel: {
             display: true,
-            labelString: "Cost",
+            labelString: "Amount (SEK)",
           },
           ticks: {
             beginAtZero: true,
@@ -166,7 +166,10 @@ const CostEstimation = ({ store, actions }) => {
                 </Form.Item>
               </Form>
             </div>
-            <div>Total Amount {totalAmount}</div>
+            <div>
+              <span style={{ color: themeColors.black }}>Total</span> SEK{" "}
+              {totalAmount}
+            </div>
           </CardTitle>
         </div>
         <div style={{ height: "85%" }}>
