@@ -16,6 +16,12 @@ const ApiErrorHandler = ({ store }) => {
         return errorData.error?.message;
       } else if (typeof errorData.error === "string") {
         return errorData.error;
+      } else if (errorData?.error?.keyPattern) {
+        return (
+          "This " +
+          Object.keys(errorData.error.keyPattern)[0] +
+          " already available"
+        );
       }
     }
     return "";
