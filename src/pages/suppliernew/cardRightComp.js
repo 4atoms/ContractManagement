@@ -50,9 +50,11 @@ const CardRightComp = (props) => {
     year: today.getFullYear(),
   });
 
-  // useEffect(() => {
-  //   props.showChart(props.detailOfSupplier?.id, requestParams);
-  // }, [requestParams]);
+  useEffect(() => {
+    if (props.supplierChart) {
+      props.getSupplierAnalysis(props.detailOfSupplier?.id, requestParams);
+    }
+  }, [requestParams]);
 
   const months = [
     { label: "Jan", value: 1 },
@@ -77,6 +79,7 @@ const CardRightComp = (props) => {
   ];
 
   const formValuesChanged = (allValues) => {
+    console.log(allValues);
     setRequestParams(allValues);
   };
 
@@ -130,7 +133,7 @@ const CardRightComp = (props) => {
               >
                 <InsertChartIcon
                   onClick={() => {
-                    props.showChart(props.detailOfSupplier.id);
+                    props.showChart(props.detailOfSupplier.id, requestParams);
                   }}
                 />
                 {props.supplierChart && (
@@ -141,22 +144,25 @@ const CardRightComp = (props) => {
                     onclose={onclose}
                   >
                     <div>
-            <Form
-              layout={"inline"}
-              form={form}
-              onValuesChange={(value, allValues) =>
-                formValuesChanged(allValues)
-              }
-              initialValues={requestParams}
-            >
-              <Form.Item name={["month"]}>
-                <Select style={{ width: 80 }} options={months}></Select>
-              </Form.Item>
-              <Form.Item name={["year"]}>
-                <Select style={{ width: 80 }} options={year}></Select>
-              </Form.Item>
-            </Form>
-          </div>
+                      <Form
+                        layout={"inline"}
+                        form={form}
+                        onValuesChange={(value, allValues) =>
+                          formValuesChanged(allValues)
+                        }
+                        initialValues={requestParams}
+                      >
+                        <Form.Item name={["month"]}>
+                          <Select
+                            style={{ width: 80 }}
+                            options={months}
+                          ></Select>
+                        </Form.Item>
+                        <Form.Item name={["year"]}>
+                          <Select style={{ width: 80 }} options={year}></Select>
+                        </Form.Item>
+                      </Form>
+                    </div>
                     <div style={{ height: "85%" }}>
                       <Bar data={props.state} options={props.options} />
                     </div>

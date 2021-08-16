@@ -153,9 +153,7 @@ const SupplierData = () => {
     },
   };
   const showChart = (num, query) => {
-    // query = { month: 8, year: 2021 };
     getSupplierAnalysis(num, query);
-    // mapValues(supplierAnalysis);
     setSupplierChart(true);
   };
 
@@ -301,7 +299,7 @@ const SupplierData = () => {
               <Table
                 dataSource={listSupplier}
                 columns={columns}
-                pagination={{ pageSize: 4 }}
+                pagination={{ pageSize: 6 }}
               ></Table>
             </CardLeft>
           </CardLeftWrapper>
