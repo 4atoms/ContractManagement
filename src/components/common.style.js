@@ -4,6 +4,7 @@ import {
   lgResStyles,
   themeColors,
   primaryColor,
+  tertiaryColor,
 } from "Config/theme";
 
 export const TableWrap = styled.div`
@@ -554,6 +555,7 @@ export const CommonButton = styled.button`
     ${(props) => (props.deleteModal ? themeColors.redDanger : primaryColor)};
   border-radius: 5px;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+  padding: 3px 6px;
 `;
 
 export const DeleteBox = styled.div`
@@ -638,4 +640,13 @@ export const FormTop = styled.div`
   width: 400px;
   gap: 25px;
   max-width: 90%;
+`;
+
+export const NoContractBox = styled.div`
+  padding: 7px 0px;
+  border: 1px solid ${tertiaryColor};
+  margin: 10px 0px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  text-align: center;
 `;
