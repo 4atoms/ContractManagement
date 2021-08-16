@@ -33,8 +33,8 @@ const SupplierData = () => {
       getSupplierAnalysis,
     },
   } = context;
-  const [displayDetails, setDisplayDetails] = useState(false);
-  const [displayCreateSupplier, setDisplayCreateSupplier] = useState(true);
+  const [displayDetails, setDisplayDetails] = useState(true);
+  const [displayCreateSupplier, setDisplayCreateSupplier] = useState(false);
   const [displayEditSupplier, setDisplayEditSupplier] = useState(false);
   const [listSupplier, setListSupplier] = useState(suppliersList);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -54,6 +54,14 @@ const SupplierData = () => {
   }, [supplierAnalysis]);
   useEffect(() => {
     setListSupplier(suppliersList);
+    if (suppliersList != null) {
+      if (suppliersList.length) {
+        getDetailOfSupplier(suppliersList[0].id);
+        showDetails();
+      } else {
+        showCreate();
+      }
+    }
   }, [suppliersList]);
 
   const showDetails = () => {
@@ -134,9 +142,9 @@ const SupplierData = () => {
       ],
     },
   };
-  const showChart = (num) => {
+  const showChart = (num, query) => {
     // query = { month: 8, year: 2021 };
-    getSupplierAnalysis(num);
+    getSupplierAnalysis(num, query);
     // mapValues(supplierAnalysis);
     setSupplierChart(true);
   };
@@ -290,6 +298,7 @@ const SupplierData = () => {
 
           <CardRightWrapper>
             <CardRightComp
+              suppliersList={listSupplier}
               detailOfSupplier={detailOfSupplier}
               displayDetails={displayDetails}
               displayCreateSupplier={displayCreateSupplier}
