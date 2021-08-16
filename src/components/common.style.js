@@ -554,6 +554,7 @@ export const CommonButton = styled.button`
     ${(props) => (props.deleteModal ? themeColors.redDanger : primaryColor)};
   border-radius: 5px;
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
+  padding: 3px 6px;
 `;
 
 export const DeleteBox = styled.div`
