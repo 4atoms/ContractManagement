@@ -9,9 +9,9 @@ const nw = new Network();
 // STORE
 const initialState = {
   apiError: null,
-  consultantsList: [],
-  detailOfConsultant: [],
-  detailOfContract: [],
+  consultantsList: null,
+  detailOfConsultant: null,
+  detailOfContract: null,
   id: null,
 };
 
@@ -91,6 +91,7 @@ const addConsultant = (consultantInfo) => (dispatch) => {
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+      getConsultantsData()(dispatch);
     })
     .catch((error) => {
       setApiError(dispatch, assignToConsultantStore, error);
@@ -103,6 +104,7 @@ const addConsultantwithContract = (consultantInfo) => (dispatch) => {
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+      getConsultantsData()(dispatch);
     })
     .catch((error) => {
       setApiError(dispatch, assignToConsultantStore, error);
@@ -114,6 +116,7 @@ const updateConsultant = (consultantInfo, consultantId) => (dispatch) => {
     .put(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+      dispatch(assignToConsultantStore("detailOfConsultant", null));
       getConsultantsData()(dispatch);
       getDetailOfConsultant(consultantId)(dispatch);
     })

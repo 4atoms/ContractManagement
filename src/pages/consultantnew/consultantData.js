@@ -58,6 +58,7 @@ const ConsultantData = () => {
       renewContracts,
       deleteContract,
       updateConsultant,
+      assignToConsultantStore,
     },
   } = context;
 
@@ -83,22 +84,46 @@ const ConsultantData = () => {
   const [displayCreateContract, setdisplayCreateContract] = useState(false);
 
   const [listConsultant, setListConsultant] = useState(consultantsList);
+
+  const [renderFirstData, setrenderFirstData] = useState(false);
+
+  const [contractwithexistingconsultant, setcontractwithexistingconsultant] =
+    useState(false);
+
   useEffect(() => {
     getConsultantsData();
     getSupplierData();
     getClientData();
     getProjectData();
+    showDetails();
   }, []);
 
   useEffect(() => {
     setListConsultant(consultantsList);
+    if (consultantsList && !renderFirstData) {
+      setrenderFirstData(true);
+    }
   }, [consultantsList]);
 
-  const showDetails = () => {
+  useEffect(() => {
+    if (consultantsList && renderFirstData) {
+      if (consultantsList.length) {
+        getDetailOfConsultant(consultantsList[0].id);
+      } else setDisplayConsultDetails(false);
+    }
+  }, [renderFirstData]);
+  const showDetails = (num = null) => {
+    assignToConsultantStore("detailOfConsultant", null);
+    if (num) {
+      getDetailOfConsultant(num);
+    } else if (consultantsList?.[0]) {
+      getDetailOfConsultant(consultantsList?.[0]?.id);
+    }
     setDisplayConsultDetails(true);
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(false);
     setdisplayCreateContract(false);
+    setcontractwithexistingconsultant(false);
   };
 
   const showCreate = () => {
@@ -106,14 +131,17 @@ const ConsultantData = () => {
     setDisplayCreateConsultant(true);
     setdisplayEditConsultant(false);
     setdisplayCreateContract(false);
+    setcontractwithexistingconsultant(false);
   };
 
   const showEdit = (num) => {
+    assignToConsultantStore("detailOfConsultant", null);
     getDetailOfConsultant(num);
     setDisplayConsultDetails(false);
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(true);
     setdisplayCreateContract(false);
+    setcontractwithexistingconsultant(false);
   };
 
   //Used for create contract Card
@@ -125,8 +153,7 @@ const ConsultantData = () => {
   };
 
   const handleClick = (num) => {
-    getDetailOfConsultant(num);
-    showDetails();
+    showDetails(num);
   };
 
   const onclose = () => {
@@ -160,7 +187,11 @@ const ConsultantData = () => {
       }
       request.renew_contracts.push(obj);
       console.log(request);
-      renewContracts(request);
+      renewContracts(request).then(() => {
+        getConsultantsData();
+        if (contractDetail.id == detailOfConsultant.contracts?.active?.[0].id)
+          showDetails(detailOfConsultant.id);
+      });
       onclose();
     }
   };
@@ -502,6 +533,7 @@ const ConsultantData = () => {
             <Table
               dataSource={listConsultant}
               columns={columns}
+              loading={consultantsList == null}
               pagination={{ pageSize: 4 }}
               // onRow={(record, rowIndex) => {
               //   return {
@@ -536,6 +568,10 @@ const ConsultantData = () => {
             setRenewContractDetail={setRenewContractDetail}
             setContractCancelledModalOpen={setContractCancelledModalOpen}
             setDeleteContractDetail={setDeleteContractDetail}
+            setcontractwithexistingconsultant={
+              setcontractwithexistingconsultant
+            }
+            contractwithexistingconsultant={contractwithexistingconsultant}
           />
         </CardRightWrapper>
       </WrapperCard>
@@ -565,7 +601,9 @@ const ConsultantData = () => {
           {isDeleteModalOpen && (
             <ConfirmDelete
               deleteIt={() => {
-                deleteConsultant(deleteConsultantDetail.id);
+                deleteConsultant(deleteConsultantDetail.id).then(() =>
+                  setrenderFirstData(false)
+                );
                 onclose();
               }}
               cancelIt={onclose}
@@ -574,7 +612,10 @@ const ConsultantData = () => {
           {isContractCancelledModalOpen && (
             <ConfirmDelete
               deleteIt={() => {
-                deleteContract(deleteContractDetail);
+                deleteContract(deleteContractDetail).then(() => {
+                  getConsultantsData();
+                  showDetails(detailOfConsultant.id);
+                });
                 onclose();
               }}
               cancelIt={onclose}
