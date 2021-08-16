@@ -6,13 +6,13 @@ import {
   Select,
   DatePicker,
   Space,
-  Button,
   Form,
   AutoComplete,
 } from "antd";
 import moment from "moment";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import {
   CardRight,
   DisplayCardRight3,
@@ -37,6 +37,7 @@ import {
   ButtonsDiv,
   EditConsultantCardComp,
   DisplayContractCardComp,
+  NoContractBox,
 } from "Components/common.style";
 import {
   dateFormatStandard,
@@ -410,21 +411,7 @@ const CardRightComp = (props) => {
   const NoExpiredContractButton = (props) => {
     if (props.detailOfConsultant.contracts?.expired?.length == 0) {
       console.log("Expired");
-      return (
-        <div>
-          <Button>
-            <div
-              style={{
-                justifyContent: "center",
-                alignContent: "center",
-                display: "flex",
-              }}
-            >
-              No Expired Contracts
-            </div>
-          </Button>
-        </div>
-      );
+      return <NoContractBox>No Expired Contracts</NoContractBox>;
     } else {
       return (
         <Table
@@ -441,15 +428,23 @@ const CardRightComp = (props) => {
     if (props.detailOfConsultant.contracts?.active?.length == 0) {
       console.log("No Active Contracts");
       return (
-        <button
+        <NoContractBox
+          className="cursorPointer"
+          style={{ padding: "4px 0px" }}
           onClick={() => {
             props.showCreateContract();
             console.log("State", props.displayConsultDetails);
             props.setcontractwithexistingconsultant(true);
           }}
         >
-          Click here to add new contract
-        </button>
+          <div
+            className="flex"
+            style={{ alignItems: "center", justifyContent: "center" }}
+          >
+            <AddCircleIcon />
+            Click here to add new contract
+          </div>
+        </NoContractBox>
       );
     } else {
       return (
@@ -553,21 +548,7 @@ const CardRightComp = (props) => {
   const NoUpcomingContractButton = (props) => {
     if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
       console.log("Upcoming");
-      return (
-        <div>
-          <Button>
-            <div
-              style={{
-                justifyContent: "center",
-                alignContent: "center",
-                display: "flex",
-              }}
-            >
-              No Upcoming Contracts
-            </div>
-          </Button>
-        </div>
-      );
+      return <NoContractBox>No Upcoming Contracts</NoContractBox>;
     } else {
       return (
         <UpcomingContractParts>
