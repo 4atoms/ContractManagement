@@ -72,8 +72,6 @@ const ConsultantData = () => {
   const [endDate, setEndDate] = useState(null);
   const [choosen, setChoosen] = useState("period");
 
-  const [displayCreateContract, setdisplayCreateContract] = useState(false);
-
   const [listConsultant, setListConsultant] = useState(consultantsList);
 
   const [renderFirstData, setrenderFirstData] = useState(false);
@@ -103,17 +101,16 @@ const ConsultantData = () => {
       } else setDisplayConsultDetails(false);
     }
   }, [renderFirstData]);
-  const showDetails = (num = null) => {
+  const showDetails = (num = null, apicall = true) => {
     assignToConsultantStore("detailOfConsultant", null);
     if (num) {
       getDetailOfConsultant(num);
-    } else if (consultantsList?.[0]) {
+    } else if (consultantsList?.[0] && apicall) {
       getDetailOfConsultant(consultantsList?.[0]?.id);
     }
     setDisplayConsultDetails(true);
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(false);
-    setdisplayCreateContract(false);
     setcontractwithexistingconsultant(false);
   };
 
@@ -121,7 +118,6 @@ const ConsultantData = () => {
     setDisplayConsultDetails(false);
     setDisplayCreateConsultant(true);
     setdisplayEditConsultant(false);
-    setdisplayCreateContract(false);
     setcontractwithexistingconsultant(false);
   };
 
@@ -131,16 +127,7 @@ const ConsultantData = () => {
     setDisplayConsultDetails(false);
     setDisplayCreateConsultant(false);
     setdisplayEditConsultant(true);
-    setdisplayCreateContract(false);
     setcontractwithexistingconsultant(false);
-  };
-
-  //Used for create contract Card
-  const showCreateContract = () => {
-    setDisplayConsultDetails(false);
-    setDisplayCreateConsultant(false);
-    setdisplayEditConsultant(false);
-    setdisplayCreateContract(true);
   };
 
   const handleClick = (num) => {
@@ -548,8 +535,7 @@ const ConsultantData = () => {
             clientsList={clientsList}
             projectsList={projectsList}
             addConsultantwithContract={addConsultantwithContract}
-            displayCreateContract={displayCreateContract}
-            showCreateContract={showCreateContract}
+            showCreate={showCreate}
             updateConsultant={updateConsultant}
             showDetails={showDetails}
             showEdit={showEdit}

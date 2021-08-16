@@ -32,11 +32,8 @@ import {
   UpcomingContractSubParts,
   LightColor,
   CreateConsultantCardComp,
-  MobileSupplier,
-  Flex50,
   ButtonsDiv,
   EditConsultantCardComp,
-  DisplayContractCardComp,
   NoContractBox,
 } from "Components/common.style";
 import {
@@ -191,6 +188,7 @@ const CardRightComp = (props) => {
       props.contractwithexistingconsultant
     );
     if (props.contractwithexistingconsultant) {
+      //Create Contract with existing consultant
       FormForAdd4.consultant = props.detailOfConsultant.id;
       FormForAdd3.consultant = props.detailOfConsultant.id;
       FormForAdd2.consultant = props.detailOfConsultant.id;
@@ -214,7 +212,9 @@ const CardRightComp = (props) => {
           delete FormForAdd4.period;
         }
         console.log("Form For Add4", FormForAdd4);
-        props.addConsultantwithContract(FormForAdd4);
+        props
+          .addConsultantwithContract(FormForAdd4)
+          .then(() => props.showDetails(null, false));
       } else if (
         client_name &&
         project_name &&
@@ -232,7 +232,9 @@ const CardRightComp = (props) => {
           delete FormForAdd3.period;
         }
         console.log("Form For Add3", FormForAdd3);
-        props.addConsultantwithContract(FormForAdd3);
+        props
+          .addConsultantwithContract(FormForAdd3)
+          .then(() => props.showDetails(null, false));
       } else if (
         client &&
         project &&
@@ -249,9 +251,12 @@ const CardRightComp = (props) => {
           delete FormForAdd2.period;
         }
         console.log("Form For Add2", FormForAdd2);
-        props.addConsultantwithContract(FormForAdd2);
+        props
+          .addConsultantwithContract(FormForAdd2)
+          .then(() => props.showDetails(null, false));
       }
     } else {
+      // Contract With Newly Created Consultant
       if (
         client &&
         project_name &&
@@ -273,7 +278,9 @@ const CardRightComp = (props) => {
           delete FormForAdd4.period;
         }
         console.log("Form For Add4", FormForAdd4);
-        props.addConsultantwithContract(FormForAdd4);
+        props
+          .addConsultantwithContract(FormForAdd4)
+          .then(() => props.showDetails(null, false));
       } else if (
         client_name &&
         project_name &&
@@ -294,7 +301,9 @@ const CardRightComp = (props) => {
           delete FormForAdd3.period;
         }
         console.log("Form For Add3", FormForAdd3);
-        props.addConsultantwithContract(FormForAdd3);
+        props
+          .addConsultantwithContract(FormForAdd3)
+          .then(() => props.showDetails(null, false));
       } else if (
         supplier &&
         name &&
@@ -315,10 +324,14 @@ const CardRightComp = (props) => {
           delete FormForAdd2.period;
         }
         console.log("Form For Add2", FormForAdd2);
-        props.addConsultantwithContract(FormForAdd2);
+        props
+          .addConsultantwithContract(FormForAdd2)
+          .then(() => props.showDetails(null, false));
       } else if (name && email && phone && supplier) {
         console.log("Form for Add", FormForAdd);
-        props.addConsultant(FormForAdd);
+        props
+          .addConsultant(FormForAdd)
+          .then(() => props.showDetails(null, false));
       }
     }
   };
@@ -432,7 +445,7 @@ const CardRightComp = (props) => {
           className="cursorPointer"
           style={{ padding: "4px 0px" }}
           onClick={() => {
-            props.showCreateContract();
+            props.showCreate();
             console.log("State", props.displayConsultDetails);
             props.setcontractwithexistingconsultant(true);
           }}
@@ -855,63 +868,77 @@ const CardRightComp = (props) => {
             // displayCreateConsultant={props.displayCreateConsultant}
             >
               <RightCardContent>
-                <SupplierName>Create Consultant</SupplierName>
-                <Line1 />
-                <SplitFormLayout>
+                {!props.contractwithexistingconsultant && (
                   <>
-                    <div>
-                      <span>Name</span>
-                      <Input
-                        style={{ width: "100%" }}
-                        placeholder="Name"
-                        onChange={(e) => setName(e.target.value)}
-                        // value={name}
-                      />
-                    </div>
-                    <div>
-                      <span>Mobile</span>
-                      <Input
-                        style={{ width: "100%" }}
-                        placeholder="Mobile"
-                        onChange={(e) => setPhone(e.target.value)}
-                      />
+                    <SupplierName>Create Consultant</SupplierName>
+                    <Line1 />
+                    <SplitFormLayout>
+                      <>
+                        <div>
+                          <span>Name</span>
+                          <Input
+                            style={{ width: "100%" }}
+                            placeholder="Name"
+                            onChange={(e) => setName(e.target.value)}
+                            // value={name}
+                          />
+                        </div>
+                        <div>
+                          <span>Mobile</span>
+                          <Input
+                            style={{ width: "100%" }}
+                            placeholder="Mobile"
+                            onChange={(e) => setPhone(e.target.value)}
+                          />
+                        </div>
+                      </>
+                      <>
+                        <div>
+                          <div>Email</div>
+                          <Input
+                            style={{ width: "100%" }}
+                            placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
+                        </div>
+                        <div>
+                          <div>Supplier</div>
+                          <Select
+                            showSearch
+                            style={{ width: "100%" }}
+                            placeholder="Select a Supplier"
+                            optionFilterProp="children"
+                            onChange={(value) => setSupplier(value)}
+                            onFocus={onFocus}
+                            onSearch={onSearch}
+                          >
+                            {props.suppliersList.map((element) => {
+                              return (
+                                <Option key={element.id} value={element.id}>
+                                  {element.name}
+                                </Option>
+                              );
+                            })}
+                            {/* <Option value="lucy">Lucy</Option> */}
+                          </Select>
+                        </div>
+                      </>
+                    </SplitFormLayout>
+                    <div style={{ margin: "10px 0 5px 0" }}>
+                      Create Contract(Optional)
                     </div>
                   </>
+                )}
+                {props.contractwithexistingconsultant && (
                   <>
-                    <div>
-                      <div>Email</div>
-                      <Input
-                        style={{ width: "100%" }}
-                        placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <div>Supplier</div>
-                      <Select
-                        showSearch
-                        style={{ width: "100%" }}
-                        placeholder="Select a Supplier"
-                        optionFilterProp="children"
-                        onChange={(value) => setSupplier(value)}
-                        onFocus={onFocus}
-                        onSearch={onSearch}
-                      >
-                        {props.suppliersList.map((element) => {
-                          return (
-                            <Option key={element.id} value={element.id}>
-                              {element.name}
-                            </Option>
-                          );
-                        })}
-                        {/* <Option value="lucy">Lucy</Option> */}
-                      </Select>
-                    </div>
+                    <ConsultantName>
+                      <span>
+                        Create Contract for {props.detailOfConsultant?.name}
+                      </span>
+                    </ConsultantName>
+                    <Line1></Line1>
                   </>
-                </SplitFormLayout>
-                <div style={{ margin: "10px 0 5px 0" }}>
-                  Create Contract(Optional)
-                </div>
+                )}
                 <SplitFormLayout>
                   <>
                     <div>
@@ -1127,205 +1154,6 @@ const CardRightComp = (props) => {
     } else return null;
   };
 
-  const renderCreateContractCard = () => {
-    if (props.displayCreateContract && props.clientsList) {
-      return (
-        <>
-          <DisplayContractCardComp>
-            <RightCardContent>
-              <ConsultantName>
-                <span>
-                  Create Contract for {props.detailOfConsultant?.name}
-                </span>
-              </ConsultantName>
-              <Line1></Line1>
-              <MobileSupplier>
-                <Flex50>
-                  <span>Client</span>
-                  <br></br>
-                  <AutoComplete
-                    style={{
-                      width: 175,
-                    }}
-                    optionFilterProp="children"
-                    onChange={(value) => clientSelection(value)}
-                    onSelect={(value, options) =>
-                      clientSelection({ id: options.id, value })
-                    }
-                    placeholder="Enter Client"
-                    filterOption={(inputValue, option) => {
-                      return (
-                        option.key
-                          .toUpperCase()
-                          .indexOf(inputValue.toUpperCase()) !== -1
-                      );
-                    }}
-                  >
-                    {props.clientsList.map((element) => {
-                      return (
-                        <Option
-                          key={element.name}
-                          id={element.id}
-                          value={element.name}
-                        >
-                          {element.name}
-                        </Option>
-                      );
-                    })}
-                  </AutoComplete>
-                </Flex50>
-                <Flex50>
-                  <span>Project</span>
-                  <br></br>
-                  <AutoComplete
-                    style={{
-                      width: 175,
-                    }}
-                    optionFilterProp="children"
-                    optionLabelProp="title"
-                    onChange={(value) => ProjectSelection(value)}
-                    onSelect={(value, options) =>
-                      ProjectSelection({ id: options.id, value })
-                    }
-                    placeholder="Select Project Demo"
-                    onSearch={onSearch}
-                    filterOption={(inputValue, option) => {
-                      return (
-                        option.key
-                          .toUpperCase()
-                          .indexOf(inputValue.toUpperCase()) !== -1
-                      );
-                    }}
-                  >
-                    {(projectList || []).map((element) => {
-                      return (
-                        <Option
-                          key={element.id}
-                          id={element.id}
-                          value={element.project_name}
-                        >
-                          {element.project_name}
-                        </Option>
-                      );
-                    })}
-                  </AutoComplete>
-                </Flex50>
-                <Flex50>
-                  <span>Organization ID</span>
-                  <Input
-                    style={{ width: 175 }}
-                    placeholder="Organization ID"
-                    onChange={(e) => setOrganization_no(e.target.value)}
-                    disabled={client_name == null}
-                    value={organization_no}
-                  />
-                </Flex50>
-                <Flex50>
-                  <span>Role</span>
-                  <Input
-                    style={{ width: 175 }}
-                    placeholder="Role"
-                    onChange={(e) => setRole(e.target.value)}
-                  />
-                </Flex50>
-                <Flex50>
-                  <span>Start Date</span>
-                  <Space direction="vertical" size={18}>
-                    <DatePicker
-                      style={{ width: 175 }}
-                      // defaultValue={moment("01/01/2015", dateFormat)}
-                      //onChange={(value) => setStart_date(value)}
-                      allowClear={false}
-                      format={dateFormat}
-                      onChange={(e) => {
-                        setStart_date(dateFormatStandard2(e));
-                        let end_date_start = new Date(e);
-                        end_date_start.setDate(end_date_start.getDate() + 30);
-                        setEnd_date(end_date_start);
-                      }}
-                    />
-                  </Space>
-                </Flex50>
-                <Flex50>
-                  <span>Period</span>
-                  <Select
-                    showSearch
-                    style={{
-                      width: 180,
-                      opacity: choosen == "period" ? 1 : 0.4,
-                    }}
-                    disabled={start_date == null || start_date == ""}
-                    placeholder="Select Period"
-                    optionFilterProp="children"
-                    onFocus={onFocus}
-                    onClick={() => setChoosen("period")}
-                    onSearch={onSearch}
-                    onChange={(value) => setPeriod(value)}
-                  >
-                    <Option value={6}>6</Option>
-                    <Option value={12}>12</Option>
-                  </Select>
-                </Flex50>
-                <Flex50>
-                  <span>Cost Center</span>
-                  <Input
-                    style={{ width: 175 }}
-                    placeholder="Cost Center"
-                    onChange={(e) => setCost_center(e.target.value)}
-                  />
-                </Flex50>
-                <Flex50>
-                  <span>End Date</span>
-                  <Space direction="vertical" size={18}>
-                    <DatePicker
-                      style={{
-                        width: 180,
-                        opacity: choosen == "end_date" ? 1 : 0.4,
-                      }}
-                      disabledDate={disabledDate}
-                      disabled={start_date == null || start_date == ""}
-                      value={end_date ? moment(end_date, dateFormat) : null}
-                      allowClear={false}
-                      onClick={() => setChoosen("end_date")}
-                      format={dateFormat}
-                      onChange={(e) => setEnd_date(e)}
-                    />
-                  </Space>
-                </Flex50>
-                <Flex50>
-                  <span>Cost/hr</span>
-                  <Input
-                    style={{ width: 175 }}
-                    placeholder="Cost/hr"
-                    onChange={(e) => setCost_per_hour(e.target.value)}
-                  />
-                </Flex50>
-                <Flex50>
-                  <br></br>
-                  <CommonButton
-                    style={{ width: 90 }}
-                    onClick={() => addConsultantTry()}
-                    type="primary"
-                  >
-                    Save
-                  </CommonButton>
-                  <CommonButton
-                    style={{ width: 90 }}
-                    onClick={() =>
-                      props.showDetails(props.detailOfConsultant.id)
-                    }
-                  >
-                    Cancel
-                  </CommonButton>
-                </Flex50>
-              </MobileSupplier>
-            </RightCardContent>
-          </DisplayContractCardComp>
-        </>
-      );
-    } else return null;
-  };
-
   const contentLoading = () => {
     {
       /* Display Consultant */
@@ -1349,13 +1177,6 @@ const CardRightComp = (props) => {
         <ContentLoading
           dependencies={[props.detailOfConsultant]}
           dom={renderEditConsultantCard}
-        />
-      );
-    } else if (props.displayCreateContract) {
-      return (
-        <ContentLoading
-          dependencies={[props.clientsList]}
-          dom={renderCreateContractCard}
         />
       );
     } else return null;
