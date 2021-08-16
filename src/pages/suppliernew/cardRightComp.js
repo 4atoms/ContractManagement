@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table, Form, Space, Input } from "antd";
+import { Button, Table, Form, Space, Input, Select } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CircleComponent from "Components/circleComponent";
@@ -44,6 +44,41 @@ const CardRightComp = (props) => {
     organisation_no: null,
     point_of_contacts: [{ name: null, email: null, phone: null }],
   };
+  let today = new Date();
+  const [requestParams, setRequestParams] = useState({
+    month: today.getMonth() + 1,
+    year: today.getFullYear(),
+  });
+
+  // useEffect(() => {
+  //   props.showChart(props.detailOfSupplier?.id, requestParams);
+  // }, [requestParams]);
+
+  const months = [
+    { label: "Jan", value: 1 },
+    { label: "Feb", value: 2 },
+    { label: "Mar", value: 3 },
+    { label: "Apr", value: 4 },
+    { label: "May", value: 5 },
+    { label: "June", value: 6 },
+    { label: "July", value: 7 },
+    { label: "Aug", value: 8 },
+    { label: "Sep", value: 9 },
+    { label: "Oct", value: 10 },
+    { label: "Nov", value: 11 },
+    { label: "Dec", value: 12 },
+  ];
+
+  const year = [
+    { label: today.getFullYear() - 3, value: today.getFullYear() - 3 },
+    { label: today.getFullYear() - 2, value: today.getFullYear() - 2 },
+    { label: today.getFullYear() - 1, value: today.getFullYear() - 1 },
+    { label: today.getFullYear(), value: today.getFullYear() },
+  ];
+
+  const formValuesChanged = (allValues) => {
+    setRequestParams(allValues);
+  };
 
   useEffect(() => {
     if (props.detailOfSupplier) {
@@ -52,7 +87,7 @@ const CardRightComp = (props) => {
   }, [props.detailOfSupplier]);
 
   const addSupplierTry = (values) => {
-    props.addSupplier(values);
+    props.addSupplier(values).then(() => props.showDetails());
   };
   const onclose = () => {
     props.setSupplierChart(false);
@@ -85,7 +120,7 @@ const CardRightComp = (props) => {
   ];
   return (
     <CardRight>
-      {props.displayDetails && (
+      {props.displayDetails && props.detailOfSupplier && (
         <DisplayCardRight>
           <RightCardContent>
             <SupplierName>
@@ -105,7 +140,26 @@ const CardRightComp = (props) => {
                     title={`Cost Estimate ${props.detailOfSupplier.name}`}
                     onclose={onclose}
                   >
-                    <Bar data={props.state} options={props.options} />
+                    <div>
+            <Form
+              layout={"inline"}
+              form={form}
+              onValuesChange={(value, allValues) =>
+                formValuesChanged(allValues)
+              }
+              initialValues={requestParams}
+            >
+              <Form.Item name={["month"]}>
+                <Select style={{ width: 80 }} options={months}></Select>
+              </Form.Item>
+              <Form.Item name={["year"]}>
+                <Select style={{ width: 80 }} options={year}></Select>
+              </Form.Item>
+            </Form>
+          </div>
+                    <div style={{ height: "85%" }}>
+                      <Bar data={props.state} options={props.options} />
+                    </div>
                   </ModalLayout>
                 )}
                 <EditIcon
