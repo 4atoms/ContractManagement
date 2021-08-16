@@ -1,14 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import {
-  Table,
-  Space,
-  Button,
-  Select,
-  Row,
-  Col,
-  Input,
-  DatePicker,
-} from "antd";
+import { Table, Space, Select, Row, Col, Input, DatePicker } from "antd";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import RefContext from "Utilities/refContext";
 import EditIcon from "@material-ui/icons/Edit";
@@ -358,14 +349,14 @@ const ConsultantData = () => {
           if (contractDetail.status == "to_be_renewed") {
             return (
               <div className="centerAlign">
-                <Button
+                <CommonButton
                   onClick={() => {
                     setRenewContractDetail(consultantsList);
                     setRenewModalOpen(true);
                   }}
                 >
                   Renew
-                </Button>
+                </CommonButton>
               </div>
             );
           } else if (contractDetail.status == "renewed") {

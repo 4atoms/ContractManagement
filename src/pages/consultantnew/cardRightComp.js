@@ -534,14 +534,15 @@ const CardRightComp = (props) => {
           <ActiveContractSubParts>
             {props.detailOfConsultant.contracts?.active?.[0]?.status ==
               "to_be_renewed" && (
-              <Button
+              <CommonButton
+                type="primary"
                 onClick={() => {
                   props.setRenewContractDetail(props.detailOfConsultant);
                   props.setRenewModalOpen(true);
                 }}
               >
                 Renew
-              </Button>
+              </CommonButton>
             )}
           </ActiveContractSubParts>
         </ActiveContractParts>
@@ -654,7 +655,7 @@ const CardRightComp = (props) => {
             </div>
           </UpcomingContractSubParts>
           <UpcomingContractSubParts>
-            <Button
+            <CommonButton
               onClick={() => {
                 props.setContractCancelledModalOpen(true);
                 props.setDeleteContractDetail(
@@ -663,7 +664,7 @@ const CardRightComp = (props) => {
               }}
             >
               Cancel
-            </Button>
+            </CommonButton>
           </UpcomingContractSubParts>
         </UpcomingContractParts>
       );
