@@ -112,11 +112,12 @@ const ConsultantData = () => {
       } else setDisplayConsultDetails(false);
     }
   }, [renderFirstData]);
-  const showDetails = (num = null) => {
+  const showDetails = (num = null, apicall = true) => {
     assignToConsultantStore("detailOfConsultant", null);
     if (num) {
       getDetailOfConsultant(num);
-    } else if (consultantsList?.[0]) {
+    }
+    else if (consultantsList?.[0] && apicall) {
       getDetailOfConsultant(consultantsList?.[0]?.id);
     }
     setDisplayConsultDetails(true);
@@ -145,12 +146,12 @@ const ConsultantData = () => {
   };
 
   //Used for create contract Card
-  const showCreateContract = () => {
-    setDisplayConsultDetails(false);
-    setDisplayCreateConsultant(false);
-    setdisplayEditConsultant(false);
-    setdisplayCreateContract(true);
-  };
+  // const showCreateContract = () => {
+  //   setDisplayConsultDetails(false);
+  //   setDisplayCreateConsultant(false);
+  //   setdisplayEditConsultant(false);
+  //   setdisplayCreateContract(true);
+  // };
 
   const handleClick = (num) => {
     showDetails(num);
@@ -558,7 +559,8 @@ const ConsultantData = () => {
             projectsList={projectsList}
             addConsultantwithContract={addConsultantwithContract}
             displayCreateContract={displayCreateContract}
-            showCreateContract={showCreateContract}
+            showCreate={showCreate}
+            // showCreateContract={showCreateContract}
             updateConsultant={updateConsultant}
             showDetails={showDetails}
             showEdit={showEdit}

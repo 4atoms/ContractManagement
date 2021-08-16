@@ -190,6 +190,7 @@ const CardRightComp = (props) => {
       props.contractwithexistingconsultant
     );
     if (props.contractwithexistingconsultant) {
+      //Create Contract with existing consultant
       FormForAdd4.consultant = props.detailOfConsultant.id;
       FormForAdd3.consultant = props.detailOfConsultant.id;
       FormForAdd2.consultant = props.detailOfConsultant.id;
@@ -213,7 +214,9 @@ const CardRightComp = (props) => {
           delete FormForAdd4.period;
         }
         console.log("Form For Add4", FormForAdd4);
-        props.addConsultantwithContract(FormForAdd4);
+        props
+          .addConsultantwithContract(FormForAdd4)
+          .then(() => props.showDetails(null, false));
       } else if (
         client_name &&
         project_name &&
@@ -231,7 +234,9 @@ const CardRightComp = (props) => {
           delete FormForAdd3.period;
         }
         console.log("Form For Add3", FormForAdd3);
-        props.addConsultantwithContract(FormForAdd3);
+        props
+          .addConsultantwithContract(FormForAdd3)
+          .then(() => props.showDetails(null, false));
       } else if (
         client &&
         project &&
@@ -248,9 +253,12 @@ const CardRightComp = (props) => {
           delete FormForAdd2.period;
         }
         console.log("Form For Add2", FormForAdd2);
-        props.addConsultantwithContract(FormForAdd2);
+        props
+          .addConsultantwithContract(FormForAdd2)
+          .then(() => props.showDetails(null, false));
       }
     } else {
+      // Contract With Newly Created Consultant
       if (
         client &&
         project_name &&
@@ -272,7 +280,9 @@ const CardRightComp = (props) => {
           delete FormForAdd4.period;
         }
         console.log("Form For Add4", FormForAdd4);
-        props.addConsultantwithContract(FormForAdd4);
+        props
+          .addConsultantwithContract(FormForAdd4)
+          .then(() => props.showDetails(null, false));
       } else if (
         client_name &&
         project_name &&
@@ -293,7 +303,9 @@ const CardRightComp = (props) => {
           delete FormForAdd3.period;
         }
         console.log("Form For Add3", FormForAdd3);
-        props.addConsultantwithContract(FormForAdd3);
+        props
+          .addConsultantwithContract(FormForAdd3)
+          .then(() => props.showDetails(null, false));
       } else if (
         supplier &&
         name &&
@@ -314,10 +326,14 @@ const CardRightComp = (props) => {
           delete FormForAdd2.period;
         }
         console.log("Form For Add2", FormForAdd2);
-        props.addConsultantwithContract(FormForAdd2);
+        props
+          .addConsultantwithContract(FormForAdd2)
+          .then(() => props.showDetails(null, false));
       } else if (name && email && phone && supplier) {
         console.log("Form for Add", FormForAdd);
-        props.addConsultant(FormForAdd);
+        props
+          .addConsultant(FormForAdd)
+          .then(() => props.showDetails(null, false));
       }
     }
   };
@@ -443,7 +459,7 @@ const CardRightComp = (props) => {
       return (
         <button
           onClick={() => {
-            props.showCreateContract();
+            props.showCreate();
             console.log("State", props.displayConsultDetails);
             props.setcontractwithexistingconsultant(true);
           }}
@@ -873,63 +889,67 @@ const CardRightComp = (props) => {
             // displayCreateConsultant={props.displayCreateConsultant}
             >
               <RightCardContent>
-                <SupplierName>Create Consultant</SupplierName>
-                <Line1 />
-                <SplitFormLayout>
+                {!props.contractwithexistingconsultant && (
                   <>
-                    <div>
-                      <span>Name</span>
-                      <Input
-                        style={{ width: "100%" }}
-                        placeholder="Name"
-                        onChange={(e) => setName(e.target.value)}
-                        // value={name}
-                      />
-                    </div>
-                    <div>
-                      <span>Mobile</span>
-                      <Input
-                        style={{ width: "100%" }}
-                        placeholder="Mobile"
-                        onChange={(e) => setPhone(e.target.value)}
-                      />
+                    <SupplierName>Create Consultant</SupplierName>
+                    <Line1 />
+                    <SplitFormLayout>
+                      <>
+                        <div>
+                          <span>Name</span>
+                          <Input
+                            style={{ width: "100%" }}
+                            placeholder="Name"
+                            onChange={(e) => setName(e.target.value)}
+                            // value={name}
+                          />
+                        </div>
+                        <div>
+                          <span>Mobile</span>
+                          <Input
+                            style={{ width: "100%" }}
+                            placeholder="Mobile"
+                            onChange={(e) => setPhone(e.target.value)}
+                          />
+                        </div>
+                      </>
+                      <>
+                        <div>
+                          <div>Email</div>
+                          <Input
+                            style={{ width: "100%" }}
+                            placeholder="Email"
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
+                        </div>
+                        <div>
+                          <div>Supplier</div>
+                          <Select
+                            showSearch
+                            style={{ width: "100%" }}
+                            placeholder="Select a Supplier"
+                            optionFilterProp="children"
+                            onChange={(value) => setSupplier(value)}
+                            onFocus={onFocus}
+                            onSearch={onSearch}
+                          >
+                            {props.suppliersList.map((element) => {
+                              return (
+                                <Option key={element.id} value={element.id}>
+                                  {element.name}
+                                </Option>
+                              );
+                            })}
+                            {/* <Option value="lucy">Lucy</Option> */}
+                          </Select>
+                        </div>
+                      </>
+                    </SplitFormLayout>
+                    <div style={{ margin: "10px 0 5px 0" }}>
+                      Create Contract(Optional)
                     </div>
                   </>
-                  <>
-                    <div>
-                      <div>Email</div>
-                      <Input
-                        style={{ width: "100%" }}
-                        placeholder="Email"
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </div>
-                    <div>
-                      <div>Supplier</div>
-                      <Select
-                        showSearch
-                        style={{ width: "100%" }}
-                        placeholder="Select a Supplier"
-                        optionFilterProp="children"
-                        onChange={(value) => setSupplier(value)}
-                        onFocus={onFocus}
-                        onSearch={onSearch}
-                      >
-                        {props.suppliersList.map((element) => {
-                          return (
-                            <Option key={element.id} value={element.id}>
-                              {element.name}
-                            </Option>
-                          );
-                        })}
-                        {/* <Option value="lucy">Lucy</Option> */}
-                      </Select>
-                    </div>
-                  </>
-                </SplitFormLayout>
-                <div style={{ margin: "10px 0 5px 0" }}>
-                  Create Contract(Optional)
-                </div>
+                )}
                 <SplitFormLayout>
                   <>
                     <div>
