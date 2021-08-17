@@ -30,13 +30,10 @@ import { themeColors } from "Config/theme";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
 import { Bar } from "react-chartjs-2";
 import ModalLayout from "Components/modalLayout/index";
+import ContentLoading from "Components/contentLoading";
 
 const CardRightComp = (props) => {
   const [form] = Form.useForm();
-  const [label, setLable] = useState([]);
-  const [cost, setCost] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [backgroundColors, setBackground] = useState(0);
   const [createform] = Form.useForm();
 
   const intialValue = {
@@ -121,9 +118,9 @@ const CardRightComp = (props) => {
       key: "phone",
     },
   ];
-  return (
-    <CardRight>
-      {props.displayDetails && props.detailOfSupplier && (
+  const renderCardRight = () => {
+    if (props.displayDetails) {
+      return (
         <DisplayCardRight>
           <RightCardContent>
             <SupplierName>
@@ -231,7 +228,133 @@ const CardRightComp = (props) => {
             </PointOfContacts>
           </RightCardContent>
         </DisplayCardRight>
-      )}
+      );
+    }
+  };
+  const renderEditSupplier = () =>{
+    if(props.displayEditSupplier){
+      return(<EditCardComp>
+        <RightCardContent key={props.detailOfSupplier.id}>
+          <SupplierName>
+            Edit Supplier: {props.detailOfSupplier.name}
+          </SupplierName>
+          <Line1 />
+          <PointOfContactsDiv>
+            <Form
+              name="dynamic_form_nest_item"
+              onFinish={editSupplierTry}
+              autoComplete="off"
+              layout="vertical"
+              form={form}
+            >
+              <Form.Item name="id" label="id" hidden>
+                <Input placeholder="id" />
+              </Form.Item>
+              <FormTop>
+                <FlexHalf>
+                  <Form.Item name="name" label="name">
+                    <Input placeholder="Name" />
+                  </Form.Item>
+                </FlexHalf>
+                <FlexHalf>
+                  <Form.Item name="organization_no" label="organization_no">
+                    <Input placeholder="xxyyzz##" />
+                  </Form.Item>
+                </FlexHalf>
+              </FormTop>
+              <div style={{ marginTop: "20px" }}>Point Of Contacts</div>
+
+              <div style={{ maxWidth: "90%" }}>
+                <Form.List name="point_of_contacts">
+                  {(fields, { add, remove }) => (
+                    <>
+                      {fields.map(({ key, name, fieldKey, ...restField }) => (
+                        <Space
+                          key={key}
+                          style={{ display: "flex", marginBottom: 4 }}
+                          align="baseline"
+                        >
+                          <Form.Item
+                            {...restField}
+                            name={[name, "name"]}
+                            fieldKey={[fieldKey, "name"]}
+                            rules={[
+                              { required: true, message: "Missing name" },
+                            ]}
+                          >
+                            <Input placeholder="Name" />
+                          </Form.Item>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "email"]}
+                            fieldKey={[fieldKey, "email"]}
+                            rules={[
+                              { required: true, message: "Missing email" },
+                            ]}
+                          >
+                            <Input placeholder="Email" />
+                          </Form.Item>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "phone"]}
+                            fieldKey={[fieldKey, "phone"]}
+                            rules={[
+                              { required: true, message: "Missing phone" },
+                            ]}
+                          >
+                            <Input placeholder="Phone" />
+                          </Form.Item>
+                          <DeleteForeverIcon
+                            style={{ fill: "red", marginTop: "15px" }}
+                            onClick={() => remove(name)}
+                          />
+                        </Space>
+                      ))}
+                      <Form.Item>
+                        <div
+                          style={{
+                            justifyContent: "center",
+                            alignContent: "center",
+                            display: "flex",
+                          }}
+                        >
+                          <Button onClick={() => add()} block>
+                            <AddCircleIcon />
+                            Click here to add point of contact
+                          </Button>
+                        </div>
+                      </Form.Item>
+                    </>
+                  )}
+                </Form.List>
+              </div>
+            </Form>
+            <ButtonsDiv>
+              <SaveButton>
+                <button htmlType="submit" onClick={() => form.submit()}>
+                  <div>Save</div>
+                </button>
+              </SaveButton>
+              <CancelButton>
+                <button>
+                  <div>Cancel</div>
+                </button>
+              </CancelButton>
+            </ButtonsDiv>
+          </PointOfContactsDiv>
+        </RightCardContent>
+      </EditCardComp>);
+    }
+    
+    return null
+  }
+  return (
+    <CardRight>
+      <ContentLoading
+        dependencies={[props.detailOfSupplier]}
+        dom={renderCardRight}
+      />
+
       {props.displayCreateSupplier && (
         <CreateCardComp>
           <RightCardContent>
@@ -340,119 +463,10 @@ const CardRightComp = (props) => {
           </RightCardContent>
         </CreateCardComp>
       )}
-      {props.displayEditSupplier && (
-        <EditCardComp>
-          <RightCardContent key={props.detailOfSupplier.id}>
-            <SupplierName>
-              Edit Supplier: {props.detailOfSupplier.name}
-            </SupplierName>
-            <Line1 />
-            <PointOfContactsDiv>
-              <Form
-                name="dynamic_form_nest_item"
-                onFinish={editSupplierTry}
-                autoComplete="off"
-                layout="vertical"
-                form={form}
-              >
-                <Form.Item name="id" label="id" hidden>
-                  <Input placeholder="id" />
-                </Form.Item>
-                <FormTop>
-                  <FlexHalf>
-                    <Form.Item name="name" label="name">
-                      <Input placeholder="Name" />
-                    </Form.Item>
-                  </FlexHalf>
-                  <FlexHalf>
-                    <Form.Item name="organization_no" label="organization_no">
-                      <Input placeholder="xxyyzz##" />
-                    </Form.Item>
-                  </FlexHalf>
-                </FormTop>
-                <div style={{ marginTop: "20px" }}>Point Of Contacts</div>
-
-                <div style={{ maxWidth: "90%" }}>
-                  <Form.List name="point_of_contacts">
-                    {(fields, { add, remove }) => (
-                      <>
-                        {fields.map(({ key, name, fieldKey, ...restField }) => (
-                          <Space
-                            key={key}
-                            style={{ display: "flex", marginBottom: 4 }}
-                            align="baseline"
-                          >
-                            <Form.Item
-                              {...restField}
-                              name={[name, "name"]}
-                              fieldKey={[fieldKey, "name"]}
-                              rules={[
-                                { required: true, message: "Missing name" },
-                              ]}
-                            >
-                              <Input placeholder="Name" />
-                            </Form.Item>
-                            <Form.Item
-                              {...restField}
-                              name={[name, "email"]}
-                              fieldKey={[fieldKey, "email"]}
-                              rules={[
-                                { required: true, message: "Missing email" },
-                              ]}
-                            >
-                              <Input placeholder="Email" />
-                            </Form.Item>
-                            <Form.Item
-                              {...restField}
-                              name={[name, "phone"]}
-                              fieldKey={[fieldKey, "phone"]}
-                              rules={[
-                                { required: true, message: "Missing phone" },
-                              ]}
-                            >
-                              <Input placeholder="Phone" />
-                            </Form.Item>
-                            <DeleteForeverIcon
-                              style={{ fill: "red", marginTop: "15px" }}
-                              onClick={() => remove(name)}
-                            />
-                          </Space>
-                        ))}
-                        <Form.Item>
-                          <div
-                            style={{
-                              justifyContent: "center",
-                              alignContent: "center",
-                              display: "flex",
-                            }}
-                          >
-                            <Button onClick={() => add()} block>
-                              <AddCircleIcon />
-                              Click here to add point of contact
-                            </Button>
-                          </div>
-                        </Form.Item>
-                      </>
-                    )}
-                  </Form.List>
-                </div>
-              </Form>
-              <ButtonsDiv>
-                <SaveButton>
-                  <button htmlType="submit" onClick={() => form.submit()}>
-                    <div>Save</div>
-                  </button>
-                </SaveButton>
-                <CancelButton>
-                  <button>
-                    <div>Cancel</div>
-                  </button>
-                </CancelButton>
-              </ButtonsDiv>
-            </PointOfContactsDiv>
-          </RightCardContent>
-        </EditCardComp>
-      )}
+      <ContentLoading
+        dependencies={[props.detailOfSupplier]}
+        dom={renderEditSupplier}
+      />
     </CardRight>
   );
 };

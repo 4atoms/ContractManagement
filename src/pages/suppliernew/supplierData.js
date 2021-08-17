@@ -31,6 +31,7 @@ const SupplierData = () => {
       deleteSupplier,
       editSupplier,
       getSupplierAnalysis,
+      assignToSupplierStore,
     },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
@@ -86,6 +87,7 @@ const SupplierData = () => {
   };
 
   const showEdit = (num) => {
+    assignToSupplierStore("detailOfSupplier", null);
     getDetailOfSupplier(num);
     setDisplayDetails(false);
     setDisplayCreateSupplier(false);
@@ -158,6 +160,7 @@ const SupplierData = () => {
   };
 
   const handleClick = (num) => {
+    assignToSupplierStore("detailOfSupplier", null);
     getDetailOfSupplier(num);
     showDetails();
   };
