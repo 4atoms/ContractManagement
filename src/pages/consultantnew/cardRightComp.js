@@ -77,7 +77,7 @@ const CardRightComp = (props) => {
     setPhone(null);
     setSupplier(null);
     setStart_date(null);
-    setEnd_date(null);
+    setEnd_date("end_date");
     setChoosen(null);
     setClient(null);
     setProject(null);
