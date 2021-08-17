@@ -8,8 +8,8 @@ const nw = new Network();
 // STORE
 const initialState = {
   apiError: null,
-  suppliersList: [],
-  detailOfSupplier: [],
+  suppliersList: null,
+  detailOfSupplier: null,
   id: null,
 };
 
@@ -71,6 +71,7 @@ const addSupplier = (supplierInfo) => (dispatch) => {
     .post(supplierInfo)
     .then((resp) => {
       console.log(resp.data);
+      getDetailOfSupplier(resp.data.data.data.supplier_id)(dispatch);
       getSupplierData()(dispatch);
     })
     .catch((error) => {

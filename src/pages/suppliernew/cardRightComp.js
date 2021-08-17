@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Table, Form, Space, Input } from "antd";
+import { Button, Table, Form, Space, Input, Select } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CircleComponent from "Components/circleComponent";
@@ -30,19 +30,54 @@ import { themeColors } from "Config/theme";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
 import { Bar } from "react-chartjs-2";
 import ModalLayout from "Components/modalLayout/index";
+import ContentLoading from "Components/contentLoading";
 
 const CardRightComp = (props) => {
   const [form] = Form.useForm();
-  const [label, setLable] = useState([]);
-  const [cost, setCost] = useState([]);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [backgroundColors, setBackground] = useState(0);
   const [createform] = Form.useForm();
 
   const intialValue = {
     name: null,
     organisation_no: null,
     point_of_contacts: [{ name: null, email: null, phone: null }],
+  };
+  let today = new Date();
+  const [requestParams, setRequestParams] = useState({
+    month: today.getMonth() + 1,
+    year: today.getFullYear(),
+  });
+
+  useEffect(() => {
+    if (props.supplierChart) {
+      props.getSupplierAnalysis(props.detailOfSupplier?.id, requestParams);
+    }
+  }, [requestParams]);
+
+  const months = [
+    { label: "Jan", value: 1 },
+    { label: "Feb", value: 2 },
+    { label: "Mar", value: 3 },
+    { label: "Apr", value: 4 },
+    { label: "May", value: 5 },
+    { label: "June", value: 6 },
+    { label: "July", value: 7 },
+    { label: "Aug", value: 8 },
+    { label: "Sep", value: 9 },
+    { label: "Oct", value: 10 },
+    { label: "Nov", value: 11 },
+    { label: "Dec", value: 12 },
+  ];
+
+  const year = [
+    { label: today.getFullYear() - 3, value: today.getFullYear() - 3 },
+    { label: today.getFullYear() - 2, value: today.getFullYear() - 2 },
+    { label: today.getFullYear() - 1, value: today.getFullYear() - 1 },
+    { label: today.getFullYear(), value: today.getFullYear() },
+  ];
+
+  const formValuesChanged = (allValues) => {
+    console.log(allValues);
+    setRequestParams(allValues);
   };
 
   useEffect(() => {
@@ -52,7 +87,7 @@ const CardRightComp = (props) => {
   }, [props.detailOfSupplier]);
 
   const addSupplierTry = (values) => {
-    props.addSupplier(values);
+    props.addSupplier(values).then(() => props.showDetails());
   };
   const onclose = () => {
     props.setSupplierChart(false);
@@ -83,9 +118,9 @@ const CardRightComp = (props) => {
       key: "phone",
     },
   ];
-  return (
-    <CardRight>
-      {props.displayDetails && (
+  const renderCardRight = () => {
+    if (props.displayDetails) {
+      return (
         <DisplayCardRight>
           <RightCardContent>
             <SupplierName>
@@ -95,7 +130,7 @@ const CardRightComp = (props) => {
               >
                 <InsertChartIcon
                   onClick={() => {
-                    props.showChart(props.detailOfSupplier.id);
+                    props.showChart(props.detailOfSupplier.id, requestParams);
                   }}
                 />
                 {props.supplierChart && (
@@ -105,7 +140,29 @@ const CardRightComp = (props) => {
                     title={`Cost Estimate ${props.detailOfSupplier.name}`}
                     onclose={onclose}
                   >
-                    <Bar data={props.state} options={props.options} />
+                    <div>
+                      <Form
+                        layout={"inline"}
+                        form={form}
+                        onValuesChange={(value, allValues) =>
+                          formValuesChanged(allValues)
+                        }
+                        initialValues={requestParams}
+                      >
+                        <Form.Item name={["month"]}>
+                          <Select
+                            style={{ width: 80 }}
+                            options={months}
+                          ></Select>
+                        </Form.Item>
+                        <Form.Item name={["year"]}>
+                          <Select style={{ width: 80 }} options={year}></Select>
+                        </Form.Item>
+                      </Form>
+                    </div>
+                    <div style={{ height: "85%" }}>
+                      <Bar data={props.state} options={props.options} />
+                    </div>
                   </ModalLayout>
                 )}
                 <EditIcon
@@ -171,118 +228,12 @@ const CardRightComp = (props) => {
             </PointOfContacts>
           </RightCardContent>
         </DisplayCardRight>
-      )}
-      {props.displayCreateSupplier && (
-        <CreateCardComp>
-          <RightCardContent>
-            <SupplierName>Create Supplier</SupplierName>
-            <Line1 />
-            <Form
-              form={createform}
-              name="create-supplier"
-              layout="vertical"
-              onFinish={addSupplierTry}
-              autoComplete="off"
-              initialValues={intialValue}
-            >
-              <FormTop>
-                <FlexHalf>
-                  <Form.Item name="name" label="name">
-                    <Input placeholder="Name" />
-                  </Form.Item>
-                </FlexHalf>
-                <FlexHalf>
-                  <Form.Item name="organization_no" label="organization_no">
-                    <Input placeholder="xxyyzz##" />
-                  </Form.Item>
-                </FlexHalf>
-              </FormTop>
-              <div style={{ marginTop: "20px" }}>Point Of Contacts</div>
-              <div>
-                <Form.List name="point_of_contacts">
-                  {(fields, { add, remove }) => (
-                    <>
-                      {fields.map(({ key, name, fieldKey, ...restField }) => (
-                        <Space
-                          key={key}
-                          style={{ display: "flex", marginBottom: 4 }}
-                          align="baseline"
-                        >
-                          <Form.Item
-                            {...restField}
-                            name={[name, "name"]}
-                            fieldKey={[fieldKey, "name"]}
-                            rules={[
-                              { required: true, message: "Missing first name" },
-                            ]}
-                          >
-                            <Input placeholder="Name" />
-                          </Form.Item>
-                          <Form.Item
-                            {...restField}
-                            name={[name, "email"]}
-                            fieldKey={[fieldKey, "email"]}
-                            rules={[
-                              { required: true, message: "Missing last name" },
-                            ]}
-                          >
-                            <Input placeholder="Email" />
-                          </Form.Item>
-                          <Form.Item
-                            {...restField}
-                            name={[name, "phone"]}
-                            fieldKey={[fieldKey, "phone"]}
-                            rules={[
-                              { required: true, message: "Missing first name" },
-                            ]}
-                          >
-                            <Input placeholder="Phone" />
-                          </Form.Item>
-                          <DeleteForeverIcon
-                            style={{ fill: "red" }}
-                            onClick={() => remove(name)}
-                          />
-                        </Space>
-                      ))}
-                      {fields.length < 3 ? (
-                        <Form.Item>
-                          <div>
-                            <Button onClick={() => add()} block>
-                              <div
-                                style={{
-                                  justifyContent: "center",
-                                  alignContent: "center",
-                                  display: "flex",
-                                }}
-                              >
-                                <AddCircleIcon />
-                                Click here to add point of contact
-                              </div>
-                            </Button>
-                          </div>
-                        </Form.Item>
-                      ) : null}
-                    </>
-                  )}
-                </Form.List>
-              </div>
-            </Form>
-            <ButtonsDiv>
-              <SaveButton>
-                <button htmlType="submit" onClick={() => createform.submit()}>
-                  <div>Save</div>
-                </button>
-              </SaveButton>
-              <CancelButton>
-                <button>
-                  <div>Cancel</div>
-                </button>
-              </CancelButton>
-            </ButtonsDiv>
-          </RightCardContent>
-        </CreateCardComp>
-      )}
-      {props.displayEditSupplier && (
+      );
+    }
+  };
+  const renderEditSupplier = () => {
+    if (props.displayEditSupplier) {
+      return (
         <EditCardComp>
           <RightCardContent key={props.detailOfSupplier.id}>
             <SupplierName>
@@ -397,7 +348,130 @@ const CardRightComp = (props) => {
             </PointOfContactsDiv>
           </RightCardContent>
         </EditCardComp>
+      );
+    }
+
+    return null;
+  };
+  return (
+    <CardRight>
+      <ContentLoading
+        dependencies={[props.detailOfSupplier]}
+        dom={renderCardRight}
+      />
+
+      {props.displayCreateSupplier && (
+        <CreateCardComp>
+          <RightCardContent>
+            <SupplierName>Create Supplier</SupplierName>
+            <Line1 />
+            <Form
+              form={createform}
+              name="create-supplier"
+              layout="vertical"
+              onFinish={addSupplierTry}
+              autoComplete="off"
+              initialValues={intialValue}
+            >
+              <FormTop>
+                <FlexHalf>
+                  <Form.Item name="name" label="name">
+                    <Input placeholder="Name" />
+                  </Form.Item>
+                </FlexHalf>
+                <FlexHalf>
+                  <Form.Item name="organization_no" label="organization_no">
+                    <Input placeholder="xxyyzz##" />
+                  </Form.Item>
+                </FlexHalf>
+              </FormTop>
+              <div style={{ marginTop: "20px" }}>Point Of Contacts</div>
+              <div>
+                <Form.List name="point_of_contacts">
+                  {(fields, { add, remove }) => (
+                    <>
+                      {fields.map(({ key, name, fieldKey, ...restField }) => (
+                        <Space
+                          key={key}
+                          style={{ display: "flex", marginBottom: 4 }}
+                          align="baseline"
+                        >
+                          <Form.Item
+                            {...restField}
+                            name={[name, "name"]}
+                            fieldKey={[fieldKey, "name"]}
+                            rules={[
+                              { required: true, message: "Missing first name" },
+                            ]}
+                          >
+                            <Input placeholder="Name" />
+                          </Form.Item>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "email"]}
+                            fieldKey={[fieldKey, "email"]}
+                            rules={[
+                              { required: true, message: "Missing last name" },
+                            ]}
+                          >
+                            <Input placeholder="Email" />
+                          </Form.Item>
+                          <Form.Item
+                            {...restField}
+                            name={[name, "phone"]}
+                            fieldKey={[fieldKey, "phone"]}
+                            rules={[
+                              { required: true, message: "Missing first name" },
+                            ]}
+                          >
+                            <Input placeholder="Phone" />
+                          </Form.Item>
+                          <DeleteForeverIcon
+                            style={{ fill: "red" }}
+                            onClick={() => remove(name)}
+                          />
+                        </Space>
+                      ))}
+                      <Form.Item>
+                        <div>
+                          <Button onClick={() => add()} block>
+                            <div
+                              style={{
+                                justifyContent: "center",
+                                alignContent: "center",
+                                display: "flex",
+                              }}
+                            >
+                              <AddCircleIcon />
+                              Click here to add point of contact
+                            </div>
+                          </Button>
+                        </div>
+                      </Form.Item>
+                    </>
+                  )}
+                </Form.List>
+              </div>
+            </Form>
+            <ButtonsDiv>
+              <SaveButton>
+                <button htmlType="submit" onClick={() => createform.submit()}>
+                  <div>Save</div>
+                </button>
+              </SaveButton>
+              <CancelButton>
+                <button>
+                  <div>Cancel</div>
+                </button>
+              </CancelButton>
+            </ButtonsDiv>
+          </RightCardContent>
+        </CreateCardComp>
       )}
+      <ContentLoading
+        dependencies={[props.detailOfSupplier]}
+        dom={renderEditSupplier}
+      />
     </CardRight>
   );
 };

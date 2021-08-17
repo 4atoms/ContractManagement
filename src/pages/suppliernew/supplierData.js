@@ -31,10 +31,11 @@ const SupplierData = () => {
       deleteSupplier,
       editSupplier,
       getSupplierAnalysis,
+      assignToSupplierStore,
     },
   } = context;
   const [displayDetails, setDisplayDetails] = useState(false);
-  const [displayCreateSupplier, setDisplayCreateSupplier] = useState(true);
+  const [displayCreateSupplier, setDisplayCreateSupplier] = useState(false);
   const [displayEditSupplier, setDisplayEditSupplier] = useState(false);
   const [listSupplier, setListSupplier] = useState(suppliersList);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -44,17 +45,35 @@ const SupplierData = () => {
   const [cost, setCost] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [backgroundColors, setBackground] = useState(0);
+  const [renderFirstData, setrenderFirstData] = useState(false);
   useEffect(() => {
     getSupplierData();
   }, []);
+
   useEffect(() => {
     if (supplierAnalysis) {
       mapValues(supplierAnalysis);
     }
   }, [supplierAnalysis]);
+
   useEffect(() => {
     setListSupplier(suppliersList);
+    if (suppliersList && !renderFirstData) {
+      setrenderFirstData(true);
+    }
   }, [suppliersList]);
+
+  useEffect(() => {
+    if (suppliersList && renderFirstData) {
+      console.log(suppliersList, renderFirstData);
+      if (suppliersList.length) {
+        getDetailOfSupplier(suppliersList[0].id);
+        showDetails();
+      } else {
+        showCreate();
+      }
+    }
+  }, [renderFirstData]);
 
   const showDetails = () => {
     setDisplayDetails(true);
@@ -68,6 +87,7 @@ const SupplierData = () => {
   };
 
   const showEdit = (num) => {
+    assignToSupplierStore("detailOfSupplier", null);
     getDetailOfSupplier(num);
     setDisplayDetails(false);
     setDisplayCreateSupplier(false);
@@ -134,14 +154,13 @@ const SupplierData = () => {
       ],
     },
   };
-  const showChart = (num) => {
-    // query = { month: 8, year: 2021 };
-    getSupplierAnalysis(num);
-    // mapValues(supplierAnalysis);
+  const showChart = (num, query) => {
+    getSupplierAnalysis(num, query);
     setSupplierChart(true);
   };
 
   const handleClick = (num) => {
+    assignToSupplierStore("detailOfSupplier", null);
     getDetailOfSupplier(num);
     showDetails();
   };
@@ -283,13 +302,14 @@ const SupplierData = () => {
               <Table
                 dataSource={listSupplier}
                 columns={columns}
-                pagination={{ pageSize: 4 }}
+                pagination={{ pageSize: 6 }}
               ></Table>
             </CardLeft>
           </CardLeftWrapper>
 
           <CardRightWrapper>
             <CardRightComp
+              suppliersList={listSupplier}
               detailOfSupplier={detailOfSupplier}
               displayDetails={displayDetails}
               displayCreateSupplier={displayCreateSupplier}
@@ -327,7 +347,11 @@ const SupplierData = () => {
           {isDeleteModalOpen && (
             <ConfirmDelete
               deleteIt={() => {
-                deleteSupplier(deleteSupplierDetail);
+                deleteSupplier(deleteSupplierDetail).then(() => {
+                  getSupplierData();
+                  setrenderFirstData(false);
+                  showDetails();
+                });
                 onclose();
               }}
               cancelIt={onclose}
