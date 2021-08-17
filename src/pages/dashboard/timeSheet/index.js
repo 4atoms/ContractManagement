@@ -92,7 +92,6 @@ const TimeSheet = ({ store, actions }) => {
       title: "Log Time",
       render: (record) => (
         <InputNumber
-          onBlur={() => console.log("onBlur")}
           onChange={(e) => handleChange(record.id, e, updateLogTime)}
         />
       ),

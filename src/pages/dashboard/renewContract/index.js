@@ -123,7 +123,6 @@ const RenewContract = ({ store, actions }) => {
         request.renew_contracts.push(obj);
       }
     });
-    console.log(request);
     if (request.renew_contracts.length) {
       actions.renewContractsDashboard(request, { status: "to_be_renewed" });
     }

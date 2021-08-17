@@ -47,7 +47,6 @@ const getOverviewData = () => (dispatch) => {
     .api("dashboardOverview")
     .get()
     .then((resp) => {
-      console.log(resp.data.data);
       dispatch(assignToDashboardStore("overviewData", resp.data.data));
     })
     .catch((error) => {
@@ -81,8 +80,7 @@ const updateContractDashboard = (request, query) => (dispatch) => {
   return nw
     .apiWithPath("contractList", [request.id])
     .put(request)
-    .then((resp) => {
-      console.log(resp.data.data);
+    .then(() => {
       if (query) {
         if (query.type == "projects") {
           getAllProjectsAnalysisDashboard(query)(dispatch);
@@ -101,8 +99,7 @@ const renewContractsDashboard = (request) => (dispatch) => {
   return nw
     .api("renewContract")
     .post(request)
-    .then((resp) => {
-      console.log(resp.data.data);
+    .then(() => {
       getContractsWithQueryDashboard({ status: "active" })(dispatch);
       getOverviewData()(dispatch);
       getContractsWithQueryDashboard({ status: "to_be_renewed" })(dispatch);
