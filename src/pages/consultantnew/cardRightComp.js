@@ -71,6 +71,19 @@ const CardRightComp = (props) => {
   const [choosen, setChoosen] = useState("end_date");
   // const [companyId, setCompanyId] = useState("");
 
+  const SettingStartDate = (current) => {
+    let today = dateFormatStandard2(new Date()) + ":00:00";
+    if (
+      props.contractwithexistingconsultant &&
+      props.detailOfConsultant.contracts.active[0]
+    ) {
+      today = dateFormatStandard2(
+        props.detailOfConsultant.contracts.active[0].end_date
+      );
+    }
+    return new Date(today) > current;
+  };
+
   const ResetAllStates = () => {
     setName(null);
     setEmail(null);
@@ -681,7 +694,6 @@ const CardRightComp = (props) => {
       );
     }
   };
-
   const disabledDate = (current) => {
     let end_date_start = new Date(start_date);
     end_date_start.setDate(end_date_start.getDate() + 30);
@@ -1018,6 +1030,7 @@ const CardRightComp = (props) => {
                       <div>Start Date</div>
                       <DatePicker
                         style={{ width: "100%" }}
+                        disabledDate={SettingStartDate}
                         allowClear={false}
                         format={dateFormat}
                         onChange={(e) => {
