@@ -91,6 +91,7 @@ const addConsultant = (consultantInfo) => (dispatch) => {
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+      getDetailOfConsultant(resp.data.data.data.consultant_id)(dispatch);
       getConsultantsData()(dispatch);
     })
     .catch((error) => {
@@ -104,6 +105,7 @@ const addConsultantwithContract = (consultantInfo) => (dispatch) => {
     .post(consultantInfo)
     .then((resp) => {
       console.log(resp.data);
+      getDetailOfConsultant(resp.data.data.data.consultant_id)(dispatch);
       getConsultantsData()(dispatch);
     })
     .catch((error) => {

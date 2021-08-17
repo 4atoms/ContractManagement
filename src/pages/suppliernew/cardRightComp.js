@@ -265,7 +265,7 @@ const CardRightComp = (props) => {
                 </FormTop>
                 <div style={{ marginTop: "20px" }}>Point Of Contacts</div>
 
-                <div style={{ maxWidth: "90%" }}>
+                <div>
                   <Form.List name="point_of_contacts">
                     {(fields, { add, remove }) => (
                       <>
@@ -311,20 +311,23 @@ const CardRightComp = (props) => {
                             />
                           </Space>
                         ))}
-                        <Form.Item>
-                          <div
-                            style={{
-                              justifyContent: "center",
-                              alignContent: "center",
-                              display: "flex",
-                            }}
-                          >
-                            <Button onClick={() => add()} block>
-                              <AddCircleIcon />
-                              Click here to add point of contact
-                            </Button>
-                          </div>
-                        </Form.Item>
+
+                        {fields.length < 3 ? (
+                          <Form.Item>
+                            <div
+                              style={{
+                                justifyContent: "center",
+                                alignContent: "center",
+                                display: "flex",
+                              }}
+                            >
+                              <Button onClick={() => add()} block>
+                                <AddCircleIcon />
+                                Click here to add point of contact
+                              </Button>
+                            </div>
+                          </Form.Item>
+                        ) : null}
                       </>
                     )}
                   </Form.List>
