@@ -21,8 +21,6 @@ import {
   PointOfContactsDiv,
   ButtonsDiv,
   EditCardComp,
-  SaveButton,
-  CancelButton,
   CommonButton,
   FlexHalf,
   FormTop,
