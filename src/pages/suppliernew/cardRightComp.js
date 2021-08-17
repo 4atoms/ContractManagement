@@ -23,6 +23,7 @@ import {
   EditCardComp,
   SaveButton,
   CancelButton,
+  CommonButton,
   FlexHalf,
   FormTop,
 } from "Components/common.style";
@@ -334,16 +335,12 @@ const CardRightComp = (props) => {
                 </div>
               </Form>
               <ButtonsDiv>
-                <SaveButton>
-                  <button htmlType="submit" onClick={() => form.submit()}>
-                    <div>Save</div>
-                  </button>
-                </SaveButton>
-                <CancelButton>
-                  <button>
-                    <div>Cancel</div>
-                  </button>
-                </CancelButton>
+                <CommonButton type="primary" onClick={() => form.submit()}>
+                  Save
+                </CommonButton>
+                <CommonButton onClick={() => props.showDetails()}>
+                  Cancel
+                </CommonButton>
               </ButtonsDiv>
             </PointOfContactsDiv>
           </RightCardContent>
@@ -454,16 +451,16 @@ const CardRightComp = (props) => {
               </div>
             </Form>
             <ButtonsDiv>
-              <SaveButton>
-                <button htmlType="submit" onClick={() => createform.submit()}>
-                  <div>Save</div>
-                </button>
-              </SaveButton>
-              <CancelButton>
-                <button>
-                  <div>Cancel</div>
-                </button>
-              </CancelButton>
+              <CommonButton type="primary" onClick={() => createform.submit()}>
+                Save
+              </CommonButton>
+              <CommonButton
+                onClick={() => {
+                  props.showDetails();
+                }}
+              >
+                Cancel
+              </CommonButton>
             </ButtonsDiv>
           </RightCardContent>
         </CreateCardComp>
