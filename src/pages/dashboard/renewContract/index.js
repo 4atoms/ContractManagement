@@ -28,9 +28,6 @@ const RenewContract = ({ store, actions }) => {
   const [listContract, setListContract] = useState(
     renewContractDashboard?.ongoing || null
   );
-  const [dataSetSource, setDataSetSource] = useState(
-    renewContractDashboard?.ongoing || null
-  );
 
   const [searchInput, setSearchInput] = useState("");
 
@@ -50,7 +47,6 @@ const RenewContract = ({ store, actions }) => {
 
   useEffect(() => {
     setListContract(renewContractDashboard?.ongoing);
-    setDataSetSource(renewContractDashboard?.ongoing);
   }, [renewContractDashboard]);
 
   useEffect(() => {
@@ -59,20 +55,6 @@ const RenewContract = ({ store, actions }) => {
     setSelectedRowsArrayID([]);
     setSearchInput("");
   }, [isModalOpen]);
-
-  // useEffect(() => {
-  //   setListContract(dataSetSource);
-  // }, [dataSetSource]);
-
-  const replaceWithSourcedata = (record) => {
-    let data = dataSetSource;
-    data.forEach((contract, index) => {
-      if (record.id == contract.id) {
-        data[index] = record;
-      }
-    });
-    setDataSetSource(data);
-  };
 
   const filterList = (value) => {
     const list = renewContractDashboard?.ongoing.filter((contract) => {
@@ -171,7 +153,6 @@ const RenewContract = ({ store, actions }) => {
             if (!record.renew_for_period) {
               record["renew_for_period"] = 1;
               record["choosen"] = "period";
-              replaceWithSourcedata(record);
             }
             return (
               <Select
@@ -182,12 +163,10 @@ const RenewContract = ({ store, actions }) => {
                 }}
                 onFocus={(e) => {
                   record["choosen"] = "period";
-                  replaceWithSourcedata(record);
                   setOpacityforPeriod(e);
                 }}
                 onChange={(e) => {
                   record["renew_for_period"] = e;
-                  replaceWithSourcedata(record);
                 }}
               >
                 <Option value={6}>6</Option>
@@ -207,7 +186,6 @@ const RenewContract = ({ store, actions }) => {
             end_date.setDate(end_date.getDate() + 30);
             if (!record.renew_for_endDate) {
               record["renew_for_endDate"] = end_date;
-              replaceWithSourcedata(record);
             }
             let defaultDate = new Date(record["renew_for_endDate"]);
             return (
@@ -221,12 +199,10 @@ const RenewContract = ({ store, actions }) => {
                 }}
                 onFocus={(e) => {
                   record["choosen"] = "endDate";
-                  replaceWithSourcedata(record);
                   setOpacityforEndDate(e);
                 }}
                 onChange={(e) => {
                   record["renew_for_endDate"] = e;
-                  replaceWithSourcedata(record);
                 }}
                 allowClear={false}
               />
