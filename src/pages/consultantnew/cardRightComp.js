@@ -44,6 +44,8 @@ import {
 import SplitFormLayout from "Components/splitFormLayout";
 import ContentLoading from "Components/contentLoading";
 
+import { primaryColor } from "Config/theme";
+
 const dateFormat = "DD/MM/YYYY";
 
 const { Option } = Select;
@@ -66,7 +68,7 @@ const CardRightComp = (props) => {
   const [supplier, setSupplier] = useState("");
   const [start_date, setStart_date] = useState("");
   const [end_date, setEnd_date] = useState(null);
-  const [choosen, setChoosen] = useState("period");
+  const [choosen, setChoosen] = useState("end_date");
   // const [companyId, setCompanyId] = useState("");
 
   const ResetAllStates = () => {
@@ -80,9 +82,6 @@ const CardRightComp = (props) => {
     setClient(null);
     setProject(null);
     setCost_center(null);
-    setPeriod(null);
-    setRole(null);
-    setCost_per_hour(null);
     setPeriod(null);
     setRole(null);
     setCost_per_hour(null);
@@ -454,7 +453,7 @@ const CardRightComp = (props) => {
             className="flex"
             style={{ alignItems: "center", justifyContent: "center" }}
           >
-            <AddCircleIcon />
+            <AddCircleIcon style={{ color: primaryColor }} />
             Click here to add new contract
           </div>
         </NoContractBox>
@@ -561,7 +560,25 @@ const CardRightComp = (props) => {
   const NoUpcomingContractButton = (props) => {
     if (props.detailOfConsultant.contracts?.upcoming?.length == 0) {
       console.log("Upcoming");
-      return <NoContractBox>No Upcoming Contracts</NoContractBox>;
+      return (
+        <NoContractBox
+          className="cursorPointer"
+          style={{ padding: "4px 0px" }}
+          onClick={() => {
+            props.showCreate();
+            console.log("State", props.displayConsultDetails);
+            props.setcontractwithexistingconsultant(true);
+          }}
+        >
+          <div
+            className="flex"
+            style={{ alignItems: "center", justifyContent: "center" }}
+          >
+            <AddCircleIcon style={{ color: primaryColor }} />
+            No Upcoming Contracts
+          </div>
+        </NoContractBox>
+      );
     } else {
       return (
         <UpcomingContractParts>
@@ -856,6 +873,12 @@ const CardRightComp = (props) => {
   };
 
   const renderCreateConsultantCard = () => {
+    const contractStyle = {
+      gap: "35px",
+      display: "flex",
+      flexFlow: "column",
+      marginTop: "10px",
+    };
     if (
       props.displayCreateConsultant &&
       props.clientsList &&
@@ -940,7 +963,13 @@ const CardRightComp = (props) => {
                   </>
                 )}
                 <SplitFormLayout>
-                  <>
+                  <div
+                    style={
+                      props.contractwithexistingconsultant
+                        ? contractStyle
+                        : null
+                    }
+                  >
                     <div>
                       <div>Client</div>
                       <AutoComplete
@@ -1015,8 +1044,14 @@ const CardRightComp = (props) => {
                         onChange={(e) => setCost_per_hour(e.target.value)}
                       />
                     </div>
-                  </>
-                  <>
+                  </div>
+                  <div
+                    style={
+                      props.contractwithexistingconsultant
+                        ? contractStyle
+                        : null
+                    }
+                  >
                     <div>
                       <div>Project</div>
                       <AutoComplete
@@ -1076,8 +1111,13 @@ const CardRightComp = (props) => {
                         onSearch={onSearch}
                         onChange={(value) => setPeriod(value)}
                       >
-                        <Option value={6}>6</Option>
                         <Option value={12}>12</Option>
+                        <Option value={6}>6</Option>
+                        <Option value={5}>5</Option>
+                        <Option value={4}>4</Option>
+                        <Option value={3}>3</Option>
+                        <Option value={2}>2</Option>
+                        <Option value={1}>1</Option>
                       </Select>
                     </div>
                     <div>
@@ -1112,7 +1152,7 @@ const CardRightComp = (props) => {
                         Cancel
                       </CommonButton>
                     </div>
-                  </>
+                  </div>
                 </SplitFormLayout>
               </RightCardContent>
             </CreateConsultantCardComp>
