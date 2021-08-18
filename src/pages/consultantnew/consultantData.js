@@ -30,13 +30,7 @@ const ConsultantData = () => {
   const { Search } = Input;
   const context = useContext(RefContext);
   const {
-    store: {
-      consultantsList,
-      detailOfConsultant,
-      suppliersList,
-      clientsList,
-      projectsList,
-    },
+    store: { consultantsList, detailOfConsultant, suppliersList, clientsList },
     actions: {
       getConsultantsData,
       getDetailOfConsultant,
@@ -533,7 +527,6 @@ const ConsultantData = () => {
             displayEditConsultant={displayEditConsultant}
             suppliersList={suppliersList}
             clientsList={clientsList}
-            projectsList={projectsList}
             addConsultantwithContract={addConsultantwithContract}
             showCreate={showCreate}
             updateConsultant={updateConsultant}

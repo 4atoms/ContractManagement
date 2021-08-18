@@ -10,8 +10,6 @@ const initialState = {
   apiError: null,
   clientsList: [],
   projectsList: [],
-  detailOfSupplier: [],
-  id: null,
 };
 
 // ACTIONS
@@ -41,17 +39,12 @@ const resetClientandprojectStore = () => (dispatch) => {
 };
 
 // METHODS
-// const setId = (num) => (dispatch) => {
-//   dispatch(assignToSupplierStore("id", num));
-//   console.log(num);
-// };
 
 const getClientData = () => (dispatch) => {
   return nw
     .api("clientList")
     .get()
     .then((resp) => {
-      console.log(resp.data.data);
       dispatch(assignToClientandprojectStore("clientsList", resp.data.data));
     })
     .catch((error) => {
@@ -63,56 +56,7 @@ const getProjectData = () => (dispatch) => {
     .api("projectList")
     .get()
     .then((resp) => {
-      console.log(resp.data.data);
       dispatch(assignToClientandprojectStore("projectsList", resp.data.data));
-    });
-};
-const getDetailOfSupplier = (supplier_id) => (dispatch) => {
-  return nw
-    .apiWithPath("supplierList", [supplier_id])
-    .get()
-    .then((resp) => {
-      console.log("test", resp.data.data.point_of_contacts[0].name);
-      dispatch(
-        assignToClientandprojectStore("detailOfSupplier", resp.data.data)
-      );
-    })
-    .catch((error) => {
-      setApiError(dispatch, assignToClientandprojectStore, error);
-    });
-};
-
-const addSupplier = (supplierInfo) => (dispatch) => {
-  return nw
-    .api("supplierList")
-    .post(supplierInfo)
-    .then((resp) => {
-      console.log(resp.data);
-    })
-    .catch((error) => {
-      setApiError(dispatch, assignToClientandprojectStore, error);
-    });
-};
-const editSupplier = (supplierInfo) => (dispatch) => {
-  return nw
-    .api("supplierList")
-    .put(supplierInfo)
-    .then((resp) => {
-      console.log(resp.data);
-    })
-    .catch((error) => {
-      setApiError(dispatch, assignToClientandprojectStore, error);
-    });
-};
-const deleteSupplier = (supplierInfo) => (dispatch) => {
-  return nw
-    .api("supplierList")
-    .del(supplierInfo)
-    .then((resp) => {
-      console.log(resp.data);
-    })
-    .catch((error) => {
-      setApiError(dispatch, assignToClientandprojectStore, error);
     });
 };
 
@@ -142,9 +86,5 @@ export default {
     resetClientandprojectStore,
     getClientData,
     getProjectData,
-    getDetailOfSupplier,
-    addSupplier,
-    editSupplier,
-    deleteSupplier,
   },
 };

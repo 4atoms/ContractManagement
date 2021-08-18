@@ -12,7 +12,6 @@ const initialState = {
   consultantsList: null,
   detailOfConsultant: null,
   detailOfContract: null,
-  id: null,
 };
 
 // ACTIONS
@@ -38,17 +37,12 @@ const resetConsultantStore = () => (dispatch) => {
 };
 
 // METHODS
-const setId = (num) => (dispatch) => {
-  dispatch(assignToConsultantStore("id", num));
-  console.log(num);
-};
 
 const getConsultantsData = () => (dispatch) => {
   return nw
     .api("consultantList")
     .get()
     .then((resp) => {
-      console.log(resp.data.data);
       dispatch(assignToConsultantStore("consultantsList", resp.data.data));
     })
     .catch((error) => {
@@ -77,7 +71,6 @@ const getDetailOfConsultant = (consultant_id) => (dispatch) => {
     .apiWithPath("consultantList", [consultant_id])
     .get()
     .then((resp) => {
-      console.log(resp.data.data);
       dispatch(assignToConsultantStore("detailOfConsultant", resp.data.data));
     })
     .catch((error) => {
@@ -90,7 +83,6 @@ const addConsultant = (consultantInfo) => (dispatch) => {
     .api("consultantList")
     .post(consultantInfo)
     .then((resp) => {
-      console.log(resp.data);
       getDetailOfConsultant(resp.data.data.data.consultant_id)(dispatch);
       getConsultantsData()(dispatch);
     })
@@ -104,7 +96,6 @@ const addConsultantwithContract = (consultantInfo) => (dispatch) => {
     .api("createContractWithConsultant")
     .post(consultantInfo)
     .then((resp) => {
-      console.log(resp.data);
       getDetailOfConsultant(resp.data.data.data.consultant_id)(dispatch);
       getConsultantsData()(dispatch);
     })
@@ -116,8 +107,7 @@ const updateConsultant = (consultantInfo, consultantId) => (dispatch) => {
   return nw
     .apiWithPath("consultantList", [consultantId])
     .put(consultantInfo)
-    .then((resp) => {
-      console.log(resp.data);
+    .then(() => {
       dispatch(assignToConsultantStore("detailOfConsultant", null));
       getConsultantsData()(dispatch);
       getDetailOfConsultant(consultantId)(dispatch);
@@ -131,8 +121,7 @@ const deleteConsultant = (consultantInfo) => (dispatch) => {
   return nw
     .apiWithPath("consultantList", [consultantInfo])
     .delete(consultantInfo)
-    .then((resp) => {
-      console.log(resp.data);
+    .then(() => {
       getConsultantsData()(dispatch);
     })
     .catch((error) => {
@@ -165,7 +154,6 @@ export default {
     resetConsultantStore,
     getConsultantsData,
     getDetailOfConsultant,
-    setId,
     addConsultant,
     deleteConsultant,
     addConsultantwithContract,
