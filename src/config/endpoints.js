@@ -16,7 +16,7 @@ const development = {
   //chart analysis
   suppliersAnalysis: "/analysis/suppliers?month=&year=", // for all supplier, and also for specfic supplier -> /id
   consultantAnalysis: "/analysis/consultants?month=&year=", // for specific consultant -> /id
-  clientAnalysis: "/analysis/clients/path?query=&month=&year=", // fro specific client -> /id
+  clientAnalysis: "/analysis/clients/path1?query=&month=&year=", // fro specific client -> /id
   projectsAnalysis: "/analysis/projects?month=&year=", // for all projects
   projectList: "/projects",
   clientList: "/clients",

@@ -43,6 +43,7 @@ const AnalysisChart = ({ xTitle, dataSet, setTotalAmount, keyName }) => {
       {
         data: cost,
         backgroundColor: backgroundColors,
+        barPercentage: 0.4,
       },
     ],
   };
@@ -71,7 +72,6 @@ const AnalysisChart = ({ xTitle, dataSet, setTotalAmount, keyName }) => {
             display: true,
             labelString: xTitle,
           },
-          barPercentage: 0.4,
         },
       ],
     },

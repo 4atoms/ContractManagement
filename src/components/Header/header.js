@@ -20,6 +20,7 @@ const HeaderBarContent = () => {
   const { currentUser } = store;
 
   useEffect(() => {
+    // console.log(Intl.DateTimeFormat().resolvedOptions().timeZone, Intl);
     if (!currentUser) {
       actions.fetchCurrentUser();
     }

@@ -71,7 +71,6 @@ const getSupplierAnalysis = (request, query) => (dispatch) => {
     .apiWithPathAndQuery("suppliersChart", [request], [query])
     .get()
     .then((response) => {
-      console.log(response.data.data);
       dispatch(assignToAnalysisStore("supplierAnalysis", response.data.data));
     })
     .catch((error) => {

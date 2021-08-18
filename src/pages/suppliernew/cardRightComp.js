@@ -429,18 +429,20 @@ const CardRightComp = (props) => {
                       ))}
                       <Form.Item>
                         <div>
-                          <Button onClick={() => add()} block>
-                            <div
-                              style={{
-                                justifyContent: "center",
-                                alignContent: "center",
-                                display: "flex",
-                              }}
-                            >
-                              <AddCircleIcon />
-                              Click here to add point of contact
-                            </div>
-                          </Button>
+                          {fields.length < 3 ? (
+                            <Button onClick={() => add()} block>
+                              <div
+                                style={{
+                                  justifyContent: "center",
+                                  alignContent: "center",
+                                  display: "flex",
+                                }}
+                              >
+                                <AddCircleIcon />
+                                Click here to add point of contact
+                              </div>
+                            </Button>
+                          ) : null}
                         </div>
                       </Form.Item>
                     </>
