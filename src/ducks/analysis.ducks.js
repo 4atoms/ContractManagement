@@ -68,7 +68,7 @@ const getAllProjectsAnalysis = (request) => (dispatch) => {
 
 const getSupplierAnalysis = (request, query) => (dispatch) => {
   return nw
-    .apiWithPathAndQuery("suppliersChart", [request], [query])
+    .apiWithPathAndQuery("suppliersChart", [request], query)
     .get()
     .then((response) => {
       dispatch(assignToAnalysisStore("supplierAnalysis", response.data.data));
