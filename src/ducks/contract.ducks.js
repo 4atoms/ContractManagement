@@ -112,8 +112,7 @@ const renewContracts = (request) => (dispatch) => {
   return nw
     .api("renewContract")
     .post(request)
-    .then((resp) => {
-      console.log(resp.data.data);
+    .then(() => {
       getContractsData()(dispatch);
     })
     .catch((error) => {
@@ -125,8 +124,7 @@ const deleteContract = (contract_id) => (dispatch) => {
   return nw
     .apiWithPath("contractList", [contract_id])
     .delete()
-    .then((resp) => {
-      console.log(resp.data);
+    .then(() => {
       getContractsData()(dispatch);
     })
     .catch((error) => {

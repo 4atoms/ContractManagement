@@ -10,7 +10,6 @@ const initialState = {
   apiError: null,
   suppliersList: null,
   detailOfSupplier: null,
-  id: null,
 };
 
 // ACTIONS
@@ -36,17 +35,12 @@ const resetSupplierStore = () => (dispatch) => {
 };
 
 // METHODS
-const setId = (num) => (dispatch) => {
-  dispatch(assignToSupplierStore("id", num));
-  console.log(num);
-};
 
 const getSupplierData = () => (dispatch) => {
   return nw
     .api("supplierList")
     .get()
     .then((resp) => {
-      console.log(resp.data.data);
       dispatch(assignToSupplierStore("suppliersList", resp.data.data));
     })
     .catch((error) => {
@@ -70,7 +64,6 @@ const addSupplier = (supplierInfo) => (dispatch) => {
     .api("supplierList")
     .post(supplierInfo)
     .then((resp) => {
-      console.log(resp.data);
       getDetailOfSupplier(resp.data.data.data.supplier_id)(dispatch);
       getSupplierData()(dispatch);
     })
@@ -82,8 +75,7 @@ const editSupplier = (supplierInfo, supplierId) => (dispatch) => {
   return nw
     .apiWithPath("supplierList", [supplierId])
     .put(supplierInfo)
-    .then((resp) => {
-      console.log(resp.data);
+    .then(() => {
       getSupplierData()(dispatch);
       getDetailOfSupplier(supplierId)(dispatch);
     })
@@ -95,8 +87,7 @@ const deleteSupplier = (supplierInfo) => (dispatch) => {
   return nw
     .apiWithPath("supplierList", [supplierInfo])
     .delete(supplierInfo)
-    .then((resp) => {
-      console.log(resp.data);
+    .then(() => {
       getSupplierData()(dispatch);
     })
     .catch((error) => {
@@ -130,7 +121,6 @@ export default {
     resetSupplierStore,
     getSupplierData,
     getDetailOfSupplier,
-    setId,
     addSupplier,
     editSupplier,
     deleteSupplier,
