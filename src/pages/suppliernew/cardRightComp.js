@@ -21,10 +21,9 @@ import {
   PointOfContactsDiv,
   ButtonsDiv,
   EditCardComp,
-  SaveButton,
-  CancelButton,
   FlexHalf,
   FormTop,
+  CommonButton,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
@@ -334,16 +333,16 @@ const CardRightComp = (props) => {
                 </div>
               </Form>
               <ButtonsDiv>
-                <SaveButton>
-                  <button htmlType="submit" onClick={() => form.submit()}>
-                    <div>Save</div>
-                  </button>
-                </SaveButton>
-                <CancelButton>
-                  <button>
-                    <div>Cancel</div>
-                  </button>
-                </CancelButton>
+                <CommonButton
+                  type="primary"
+                  htmlType="submit"
+                  onClick={() => form.submit()}
+                >
+                  Save
+                </CommonButton>
+                <CommonButton onClick={() => props.showDetails()}>
+                  Cancel
+                </CommonButton>
               </ButtonsDiv>
             </PointOfContactsDiv>
           </RightCardContent>
@@ -434,18 +433,20 @@ const CardRightComp = (props) => {
                       ))}
                       <Form.Item>
                         <div>
-                          <Button onClick={() => add()} block>
-                            <div
-                              style={{
-                                justifyContent: "center",
-                                alignContent: "center",
-                                display: "flex",
-                              }}
-                            >
-                              <AddCircleIcon />
-                              Click here to add point of contact
-                            </div>
-                          </Button>
+                          {fields.length < 3 ? (
+                            <Button onClick={() => add()} block>
+                              <div
+                                style={{
+                                  justifyContent: "center",
+                                  alignContent: "center",
+                                  display: "flex",
+                                }}
+                              >
+                                <AddCircleIcon />
+                                Click here to add point of contact
+                              </div>
+                            </Button>
+                          ) : null}
                         </div>
                       </Form.Item>
                     </>
@@ -454,16 +455,16 @@ const CardRightComp = (props) => {
               </div>
             </Form>
             <ButtonsDiv>
-              <SaveButton>
-                <button htmlType="submit" onClick={() => createform.submit()}>
-                  <div>Save</div>
-                </button>
-              </SaveButton>
-              <CancelButton>
-                <button>
-                  <div>Cancel</div>
-                </button>
-              </CancelButton>
+              <CommonButton
+                type="primary"
+                htmlType="submit"
+                onClick={() => createform.submit()}
+              >
+                Save
+              </CommonButton>
+              <CommonButton onClick={() => props.showDetails()}>
+                Cancel
+              </CommonButton>
             </ButtonsDiv>
           </RightCardContent>
         </CreateCardComp>
