@@ -198,7 +198,7 @@ export const DisplayContractCardComp = styled.div`
 export const Consultants = styled.div`
   // padding-top: 40px;
   // padding-bottom: 15px;
-  padding-top: 19.89px;
+  padding-top: 15.89px;
   padding-bottom: 10px;
 `;
 export const CTitle = styled.div`
@@ -212,6 +212,7 @@ export const CTitle = styled.div`
 
 export const Tags = styled.div`
   display: flex;
+  flex-wrap: wrap;
   // padding-top: 15px;
   padding-top: 10px;
   flex-direction: row;
@@ -292,7 +293,7 @@ export const PointOfContacts = styled.div`
       padding-top: 42px;
       padding-bottom: 15px;
       `)}
-    padding-top: 10px;
+    padding-top: 5px;
     padding-bottom: 5px;
     font-family: Varela Round;
     font-style: normal;
@@ -300,8 +301,11 @@ export const PointOfContacts = styled.div`
     font-size: 18px;
     line-height: 22px;
   }
-  .ant-table table {
+  & .ant-table table {
     font-size: 12px;
+  }
+  & .ant-table-cell {
+    padding: 5px;
   }
 `;
 

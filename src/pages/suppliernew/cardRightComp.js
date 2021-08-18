@@ -27,9 +27,9 @@ import {
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
-import { Bar } from "react-chartjs-2";
 import ModalLayout from "Components/modalLayout/index";
 import ContentLoading from "Components/contentLoading";
+import AnalysisChart from "Components/analysisChart";
 
 const CardRightComp = (props) => {
   const [form] = Form.useForm();
@@ -75,7 +75,6 @@ const CardRightComp = (props) => {
   ];
 
   const formValuesChanged = (allValues) => {
-    console.log(allValues);
     setRequestParams(allValues);
   };
 
@@ -97,7 +96,7 @@ const CardRightComp = (props) => {
       delete poc._id;
       return poc;
     });
-    console.log(request, request.id);
+
     props.editSupplier(request, request.id).then(() => props.showDetails());
   };
   const columns2 = [
@@ -160,7 +159,12 @@ const CardRightComp = (props) => {
                       </Form>
                     </div>
                     <div style={{ height: "85%" }}>
-                      <Bar data={props.state} options={props.options} />
+                      <AnalysisChart
+                        xTitle="Supplier"
+                        dataSet={props.supplierAnalysis}
+                        key="supplier"
+                        setTotalAmount={props.setTotalAmount}
+                      />
                     </div>
                   </ModalLayout>
                 )}
@@ -222,6 +226,7 @@ const CardRightComp = (props) => {
               <Table
                 dataSource={props.detailOfSupplier.point_of_contacts}
                 pagination={{ position: ["none", "none"] }}
+                scroll={{ y: 80 }}
                 columns={columns2}
               ></Table>
             </PointOfContacts>
