@@ -21,9 +21,9 @@ import {
   PointOfContactsDiv,
   ButtonsDiv,
   EditCardComp,
+  CommonButton,
   FlexHalf,
   FormTop,
-  CommonButton,
 } from "Components/common.style";
 import { themeColors } from "Config/theme";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
@@ -333,11 +333,7 @@ const CardRightComp = (props) => {
                 </div>
               </Form>
               <ButtonsDiv>
-                <CommonButton
-                  type="primary"
-                  htmlType="submit"
-                  onClick={() => form.submit()}
-                >
+                <CommonButton type="primary" onClick={() => form.submit()}>
                   Save
                 </CommonButton>
                 <CommonButton onClick={() => props.showDetails()}>
@@ -455,14 +451,14 @@ const CardRightComp = (props) => {
               </div>
             </Form>
             <ButtonsDiv>
-              <CommonButton
-                type="primary"
-                htmlType="submit"
-                onClick={() => createform.submit()}
-              >
+              <CommonButton type="primary" onClick={() => createform.submit()}>
                 Save
               </CommonButton>
-              <CommonButton onClick={() => props.showDetails()}>
+              <CommonButton
+                onClick={() => {
+                  props.showDetails();
+                }}
+              >
                 Cancel
               </CommonButton>
             </ButtonsDiv>
