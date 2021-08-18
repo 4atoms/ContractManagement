@@ -71,6 +71,21 @@ const CardRightComp = (props) => {
   const [choosen, setChoosen] = useState("end_date");
   // const [companyId, setCompanyId] = useState("");
 
+  const SettingStartDate = (current) => {
+    let startDate = new Date();
+    if (
+      props.contractwithexistingconsultant &&
+      props.detailOfConsultant.contracts.active[0]
+    ) {
+      startDate = new Date(
+        props.detailOfConsultant.contracts.active[0].end_date
+      );
+      startDate.setDate(startDate.getDate() + 1);
+      if (!start_date || start_date == "") setStart_date(startDate);
+    }
+    return new Date(dateFormatStandard2(startDate) + ":00:00") > current;
+  };
+
   const ResetAllStates = () => {
     setName(null);
     setEmail(null);
@@ -96,6 +111,14 @@ const CardRightComp = (props) => {
     props.displayEditConsultant,
     props.displayCreateContract,
   ]);
+
+  useEffect(() => {
+    if (start_date != "" && start_date) {
+      let end_date_start = new Date(start_date);
+      end_date_start.setDate(end_date_start.getDate() + 30);
+      setEnd_date(end_date_start);
+    }
+  }, [start_date]);
   const FormForAdd = {
     name: "",
     email: "",
@@ -118,7 +141,7 @@ const CardRightComp = (props) => {
     FormForAdd2.client = client || "";
     FormForAdd2.project = project || "";
     FormForAdd2.cost_center = cost_center || "";
-    FormForAdd2.start_date = start_date || "";
+    FormForAdd2.start_date = dateFormatStandard2(start_date) || "";
     FormForAdd2.end_date = dateFormatStandard2(end_date) || "";
     FormForAdd2.period = period || "";
     FormForAdd2.role = role || "";
@@ -134,7 +157,7 @@ const CardRightComp = (props) => {
     FormForAdd3.project.project_name = project_name || "";
     FormForAdd3.project.project_number = project_number || "";
     FormForAdd3.cost_center = cost_center || "";
-    FormForAdd3.start_date = start_date || "";
+    FormForAdd3.start_date = dateFormatStandard2(start_date) || "";
     FormForAdd3.end_date = dateFormatStandard2(end_date) || "";
     FormForAdd3.period = period || "";
     FormForAdd3.role = role || "";
@@ -149,7 +172,7 @@ const CardRightComp = (props) => {
     FormForAdd4.project.project_name = project_name || "";
     FormForAdd4.project.project_number = project_number || "";
     FormForAdd4.cost_center = cost_center || "";
-    FormForAdd4.start_date = start_date || "";
+    FormForAdd4.start_date = dateFormatStandard2(start_date) || "";
     FormForAdd4.end_date = dateFormatStandard2(end_date) || "";
     FormForAdd4.period = period || "";
     FormForAdd4.role = role || "";
@@ -431,6 +454,8 @@ const CardRightComp = (props) => {
           pagination={{ position: ["none", "none"] }}
           showHeader={false}
           columns={columns2}
+          scroll={{ y: 130}}
+          height={{ y: 130}}
         ></Table>
       );
     }
@@ -681,7 +706,6 @@ const CardRightComp = (props) => {
       );
     }
   };
-
   const disabledDate = (current) => {
     let end_date_start = new Date(start_date);
     end_date_start.setDate(end_date_start.getDate() + 30);
@@ -1017,15 +1041,14 @@ const CardRightComp = (props) => {
                     <div>
                       <div>Start Date</div>
                       <DatePicker
+                        value={
+                          start_date ? moment(start_date, dateFormat) : null
+                        }
                         style={{ width: "100%" }}
+                        disabledDate={SettingStartDate}
                         allowClear={false}
                         format={dateFormat}
-                        onChange={(e) => {
-                          setStart_date(dateFormatStandard2(e));
-                          let end_date_start = new Date(e);
-                          end_date_start.setDate(end_date_start.getDate() + 30);
-                          setEnd_date(end_date_start);
-                        }}
+                        onChange={(e) => setStart_date(e)}
                       />
                     </div>
                     <div>
