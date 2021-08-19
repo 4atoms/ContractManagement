@@ -92,7 +92,7 @@ const ConsultantData = () => {
     if (consultantsList && renderFirstData) {
       if (consultantsList.length) {
         getDetailOfConsultant(consultantsList[0].id);
-      } else setDisplayConsultDetails(false);
+      } else showCreate();
     }
   }, [renderFirstData]);
   const showDetails = (num = null, apicall = true) => {

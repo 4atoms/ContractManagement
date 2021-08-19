@@ -13,12 +13,12 @@ import {
   BadgeGreen,
   BadgeOrange,
   BadgeBlue,
+  LinkTag,
 } from "Components/common.style";
 import CardRightComp from "./cardRightComp";
 import ModalLayout from "Components/modalLayout";
 import ConfirmDelete from "Components/confirmDelete";
-import { themeColors } from "Config/theme";
-// import RightCardComp from "./rightCardComp";
+
 const SupplierData = () => {
   const { Search } = Input;
   const context = useContext(RefContext);
@@ -41,20 +41,11 @@ const SupplierData = () => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteSupplierDetail, setDeleteSupplierDetail] = useState(null);
   const [supplierChart, setSupplierChart] = useState(false);
-  const [label, setLable] = useState([]);
-  const [cost, setCost] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [backgroundColors, setBackground] = useState(0);
   const [renderFirstData, setrenderFirstData] = useState(false);
   useEffect(() => {
     getSupplierData();
   }, []);
-
-  useEffect(() => {
-    if (supplierAnalysis) {
-      mapValues(supplierAnalysis);
-    }
-  }, [supplierAnalysis]);
 
   useEffect(() => {
     setListSupplier(suppliersList);
@@ -93,27 +84,6 @@ const SupplierData = () => {
     setDisplayEditSupplier(true);
   };
 
-  const mapValues = (analysisArray) => {
-    let labelArray = [];
-    let costArray = [];
-    let backgroundArray = [];
-    let totalCost = 0;
-    analysisArray.forEach((element, index) => {
-      labelArray.push(element?.consultant?.name);
-      costArray.push(element.cost);
-      totalCost = totalCost + element.cost;
-      if (index % 2) {
-        backgroundArray.push(themeColors.chartBarEvenColor);
-      } else {
-        backgroundArray.push(themeColors.chartBarOddColor);
-      }
-    });
-    setLable(labelArray);
-    setCost(costArray);
-    setBackground(backgroundArray);
-    setTotalAmount(totalCost);
-  };
-
   const showChart = (num, query) => {
     getSupplierAnalysis(num, query);
     setSupplierChart(true);
@@ -144,7 +114,9 @@ const SupplierData = () => {
       key: "name",
       render: (suppliersList, record) => (
         <Space size="middle">
-          <a onClick={() => handleClick(suppliersList.id)}>{record.name}</a>
+          <LinkTag>
+            <a onClick={() => handleClick(suppliersList.id)}>{record.name} </a>
+          </LinkTag>
         </Space>
       ),
     },
@@ -286,6 +258,7 @@ const SupplierData = () => {
               setTotalAmount={setTotalAmount}
               supplierAnalysis={supplierAnalysis}
               getSupplierAnalysis={getSupplierAnalysis}
+              totalAmount={totalAmount}
             />
           </CardRightWrapper>
         </WrapperCard>

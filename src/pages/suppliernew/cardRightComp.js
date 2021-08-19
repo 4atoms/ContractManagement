@@ -495,10 +495,12 @@ const CardRightComp = (props) => {
           </RightCardContent>
         </CreateCardComp>
       )}
-      <ContentLoading
-        dependencies={[props.detailOfSupplier]}
-        dom={renderEditSupplier}
-      />
+      {props.displayEditSupplier && (
+        <ContentLoading
+          dependencies={[props.detailOfSupplier]}
+          dom={renderEditSupplier}
+        />
+      )}
     </CardRight>
   );
 };
