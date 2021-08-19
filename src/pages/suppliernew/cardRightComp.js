@@ -3,6 +3,8 @@ import { Button, Table, Form, Space, Input, Select } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CircleComponent from "Components/circleComponent";
+import { Link } from "react-router-dom";
+import Url from "Config/url";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
@@ -25,11 +27,11 @@ import {
   FlexHalf,
   FormTop,
 } from "Components/common.style";
-import { themeColors } from "Config/theme";
+import { themeColors, primaryColor } from "Config/theme";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
-import { Bar } from "react-chartjs-2";
 import ModalLayout from "Components/modalLayout/index";
 import ContentLoading from "Components/contentLoading";
+import AnalysisChart from "Components/analysisChart";
 
 const CardRightComp = (props) => {
   const [form] = Form.useForm();
@@ -75,7 +77,6 @@ const CardRightComp = (props) => {
   ];
 
   const formValuesChanged = (allValues) => {
-    console.log(allValues);
     setRequestParams(allValues);
   };
 
@@ -97,7 +98,7 @@ const CardRightComp = (props) => {
       delete poc._id;
       return poc;
     });
-    console.log(request, request.id);
+
     props.editSupplier(request, request.id).then(() => props.showDetails());
   };
   const columns2 = [
@@ -160,7 +161,12 @@ const CardRightComp = (props) => {
                       </Form>
                     </div>
                     <div style={{ height: "85%" }}>
-                      <Bar data={props.state} options={props.options} />
+                      <AnalysisChart
+                        xTitle="Supplier"
+                        dataSet={props.supplierAnalysis}
+                        key="supplier"
+                        setTotalAmount={props.setTotalAmount}
+                      />
                     </div>
                   </ModalLayout>
                 )}
@@ -212,9 +218,32 @@ const CardRightComp = (props) => {
                 Consultants ({props.detailOfSupplier.consultants?.length})
               </CTitle>
               <Tags>
-                {props.detailOfSupplier.consultants?.map((x) => {
-                  return <div key={x.id}>{x.name}</div>;
-                })}
+                {props.detailOfSupplier.consultants?.length < 5 && (
+                  <>
+                    {props.detailOfSupplier.consultants?.map((x) => {
+                      return <div key={x.id}>{x.name}</div>;
+                    })}
+                  </>
+                )}
+                {props.detailOfSupplier.consultants?.length > 5 && (
+                  <>
+                    {props.detailOfSupplier.consultants
+                      ?.slice(0, 5)
+                      .map((x) => {
+                        return <div key={x.id}>{x.name}</div>;
+                      })}
+                  </>
+                )}
+                {props.detailOfSupplier.consultants?.length > 5 && (
+                  <div>
+                    <Link
+                      style={{ color: primaryColor }}
+                      to={Url.URL_CONSULTANTS}
+                    >
+                      +{props.detailOfSupplier.consultants.length - 5}more
+                    </Link>
+                  </div>
+                )}
               </Tags>
             </Consultants>
             <PointOfContacts>
@@ -222,6 +251,7 @@ const CardRightComp = (props) => {
               <Table
                 dataSource={props.detailOfSupplier.point_of_contacts}
                 pagination={{ position: ["none", "none"] }}
+                scroll={{ y: 80 }}
                 columns={columns2}
               ></Table>
             </PointOfContacts>
