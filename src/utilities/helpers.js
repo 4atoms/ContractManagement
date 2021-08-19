@@ -1,6 +1,6 @@
 import { ROLES } from "Constants";
 import DOMPurify from "dompurify";
-import moment from "moment";
+import moment from "moment-timezone";
 
 const setNamespace = (namespace) => (constant) => {
   return `${namespace}/${constant}`;
@@ -23,11 +23,11 @@ const setApiError = (dispatch, callback, error) => {
 };
 //get requiered date format
 const dateFormat = (string) => {
-  return moment(string).format("Do MMM  YYYY");
+  return moment(string).tz("Europe/Stockholm").format("Do MMM  YYYY");
 };
 
 const dateFormatStandard = (string) => {
-  return moment(string).format("D MMM  YYYY");
+  return moment(string).tz("Europe/Stockholm").format("D MMM  YYYY");
 };
 const dateFormatStandard2 = (string) => {
   if (string) {

@@ -65,7 +65,6 @@ const SupplierData = () => {
 
   useEffect(() => {
     if (suppliersList && renderFirstData) {
-      console.log(suppliersList, renderFirstData);
       if (suppliersList.length) {
         getDetailOfSupplier(suppliersList[0].id);
         showDetails();
@@ -115,45 +114,6 @@ const SupplierData = () => {
     setTotalAmount(totalCost);
   };
 
-  const state = {
-    labels: label,
-    datasets: [
-      {
-        data: cost,
-        backgroundColor: backgroundColors,
-      },
-    ],
-  };
-
-  const options = {
-    legend: {
-      display: false,
-    },
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: "Cost",
-          },
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
-      xAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: "Consultants",
-          },
-          barPercentage: 0.4,
-        },
-      ],
-    },
-  };
   const showChart = (num, query) => {
     getSupplierAnalysis(num, query);
     setSupplierChart(true);
@@ -323,10 +283,9 @@ const SupplierData = () => {
               showChart={showChart}
               setDeleteModalOpen={setDeleteModalOpen}
               setDeleteSupplierDetail={setDeleteSupplierDetail}
+              setTotalAmount={setTotalAmount}
               supplierAnalysis={supplierAnalysis}
               getSupplierAnalysis={getSupplierAnalysis}
-              state={state}
-              options={options}
             />
           </CardRightWrapper>
         </WrapperCard>
