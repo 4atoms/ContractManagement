@@ -12,6 +12,7 @@ const initialState = {
   consultantsList: null,
   detailOfConsultant: null,
   detailOfContract: null,
+  searchKey: null,
 };
 
 // ACTIONS
