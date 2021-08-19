@@ -162,9 +162,9 @@ const CardRightComp = (props) => {
                     </div>
                     <div style={{ height: "85%" }}>
                       <AnalysisChart
-                        xTitle="Supplier"
+                        xTitle="Consultants"
                         dataSet={props.supplierAnalysis}
-                        key="supplier"
+                        keyName="consultant"
                         setTotalAmount={props.setTotalAmount}
                       />
                     </div>
