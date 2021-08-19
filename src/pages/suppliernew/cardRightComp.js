@@ -3,6 +3,8 @@ import { Button, Table, Form, Space, Input, Select } from "antd";
 import EditIcon from "@material-ui/icons/Edit";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CircleComponent from "Components/circleComponent";
+import { Link } from "react-router-dom";
+import Url from "Config/url";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import {
   CardRight,
@@ -25,7 +27,7 @@ import {
   FlexHalf,
   FormTop,
 } from "Components/common.style";
-import { themeColors } from "Config/theme";
+import { themeColors, primaryColor } from "Config/theme";
 import InsertChartIcon from "@material-ui/icons/InsertChart";
 import ModalLayout from "Components/modalLayout/index";
 import ContentLoading from "Components/contentLoading";
@@ -216,9 +218,32 @@ const CardRightComp = (props) => {
                 Consultants ({props.detailOfSupplier.consultants?.length})
               </CTitle>
               <Tags>
-                {props.detailOfSupplier.consultants?.map((x) => {
-                  return <div key={x.id}>{x.name}</div>;
-                })}
+                {props.detailOfSupplier.consultants?.length < 5 && (
+                  <>
+                    {props.detailOfSupplier.consultants?.map((x) => {
+                      return <div key={x.id}>{x.name}</div>;
+                    })}
+                  </>
+                )}
+                {props.detailOfSupplier.consultants?.length > 5 && (
+                  <>
+                    {props.detailOfSupplier.consultants
+                      ?.slice(0, 5)
+                      .map((x) => {
+                        return <div key={x.id}>{x.name}</div>;
+                      })}
+                  </>
+                )}
+                {props.detailOfSupplier.consultants?.length > 5 && (
+                  <div>
+                    <Link
+                      style={{ color: primaryColor }}
+                      to={Url.URL_CONSULTANTS}
+                    >
+                      +{props.detailOfSupplier.consultants.length - 5}more
+                    </Link>
+                  </div>
+                )}
               </Tags>
             </Consultants>
             <PointOfContacts>
