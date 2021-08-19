@@ -28,6 +28,13 @@ const OverView = ({ store, actions }) => {
         >
           <CardTitle>Overview</CardTitle>
           <div>
+            <span className="font18">
+              {overviewData?.contracts?.active +
+                overviewData?.contracts?.to_be_renewed}
+            </span>
+            <CollectionName>Active Contracts</CollectionName>
+          </div>
+          <div>
             <span className="font18">{overviewData?.suppliers || 0}</span>
             <CollectionName>Suppliers</CollectionName>
           </div>
