@@ -506,7 +506,7 @@ const ConsultantData = () => {
               dataSource={listConsultant}
               columns={columns}
               loading={consultantsList == null}
-              pagination={{ pageSize: 4 }}
+              pagination={{ pageSize: 6 }}
               // onRow={(record, rowIndex) => {
               //   return {
               //     onClick: () => {
