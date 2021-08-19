@@ -110,7 +110,7 @@ export const CardLeft = styled.div`
     height: 100%;
   }
   & .ant-table-cell {
-    padding: 10px;
+    padding: 4px;
   }
 `;
 
@@ -653,4 +653,17 @@ export const NoContractBox = styled.div`
   border-radius: 5px;
   box-sizing: border-box;
   text-align: center;
+`;
+
+export const LinkTag = styled.div`
+  margin: 10px;
+
+  & > a {
+    font-weight: 100px;
+    font-size: 15px;
+    color: ${themeColors.purple};
+    &:hover {
+      color: ${themeColors.gray70};
+    }
+  }
 `;
