@@ -92,7 +92,7 @@ const isAdminLoggedIn = (store) => {
 };
 
 const dateDifference = (first, second) => {
-  return Math.round((second - first) / (1000 * 60 * 60 * 24) + 1);
+  return Math.ceil((second - first) / (1000 * 60 * 60 * 24));
 };
 
 export {

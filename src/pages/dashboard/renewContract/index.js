@@ -134,9 +134,9 @@ const RenewContract = ({ store, actions }) => {
       key: "renew_within",
       dataIndex: ["end_date"],
       render: (endDate) => (
-        <div style={{ fontSize: "12px" }}>
+        <div style={{ fontSize: "12px", textAlign: "center" }}>
           <span style={{ color: themeColors.redDanger }}>
-            {dateDifference(new Date(), new Date(endDate))} Days
+            {dateDifference(new Date(), new Date(endDate))} Day(s)
           </span>
           <CollectionName>{dateFormat(endDate)}</CollectionName>
         </div>
