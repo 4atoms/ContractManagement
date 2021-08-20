@@ -117,10 +117,10 @@ ModalLayout.defaultProps = {
 
 ModalLayout.propTypes = {
   children: any,
-  onclose: func.isRequries,
+  onclose: func.isRequried,
   title: string,
-  width: string.isRequries,
-  height: string.isRequries,
+  width: string.isRequried,
+  height: string.isRequried,
   searchedValue: func,
 };
 

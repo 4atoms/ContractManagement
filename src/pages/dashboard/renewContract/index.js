@@ -298,14 +298,16 @@ const RenewContract = ({ store, actions }) => {
           dataSource={listContract}
           columns={renewContractColumns}
         ></Table>
-        <Button
-          type="primary"
-          style={{ position: "absolute", right: "50px", bottom: "11px" }}
-          disabled={!selectedContracts.length}
-          onClick={() => setisRenewConfirmModalOpen(true)}
-        >
-          Renew Selected
-        </Button>
+        {renewContractDashboard?.ongoing.length && (
+          <Button
+            type="primary"
+            style={{ position: "absolute", right: "50px", bottom: "11px" }}
+            disabled={!selectedContracts.length}
+            onClick={() => setisRenewConfirmModalOpen(true)}
+          >
+            Renew Selected
+          </Button>
+        )}
       </>
     );
   };
