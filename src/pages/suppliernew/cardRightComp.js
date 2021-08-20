@@ -86,8 +86,13 @@ const CardRightComp = (props) => {
     }
   }, [props.detailOfSupplier]);
 
+  const showDetailAndResetFiled = () => {
+    props.showDetails();
+    createform.resetFields();
+  };
+
   const addSupplierTry = (values) => {
-    props.addSupplier(values).then(() => props.showDetails());
+    props.addSupplier(values).then(() => showDetailAndResetFiled());
   };
   const onclose = () => {
     props.setSupplierChart(false);
@@ -99,7 +104,9 @@ const CardRightComp = (props) => {
       return poc;
     });
 
-    props.editSupplier(request, request.id).then(() => props.showDetails());
+    props
+      .editSupplier(request, request.id)
+      .then(() => showDetailAndResetFiled());
   };
   const columns2 = [
     {
@@ -367,7 +374,7 @@ const CardRightComp = (props) => {
                 <CommonButton type="primary" onClick={() => form.submit()}>
                   Save
                 </CommonButton>
-                <CommonButton onClick={() => props.showDetails()}>
+                <CommonButton onClick={() => showDetailAndResetFiled()}>
                   Cancel
                 </CommonButton>
               </ButtonsDiv>
@@ -489,7 +496,7 @@ const CardRightComp = (props) => {
               </CommonButton>
               <CommonButton
                 onClick={() => {
-                  props.showDetails();
+                  showDetailAndResetFiled();
                 }}
               >
                 Cancel
