@@ -381,10 +381,12 @@ const CardRightComp = (props) => {
   };
   return (
     <CardRight>
-      <ContentLoading
-        dependencies={[props.detailOfSupplier]}
-        dom={renderCardRight}
-      />
+      {props.displayDetails && (
+        <ContentLoading
+          dependencies={[props.detailOfSupplier]}
+          dom={renderCardRight}
+        />
+      )}
 
       {props.displayCreateSupplier && (
         <CreateCardComp>
