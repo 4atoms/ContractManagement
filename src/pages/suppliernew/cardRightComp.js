@@ -129,6 +129,7 @@ const CardRightComp = (props) => {
                 style={{ position: "absolute", right: "20px", top: "20px" }}
               >
                 <InsertChartIcon
+                  className="cursorPointer"
                   onClick={() => {
                     props.showChart(props.detailOfSupplier.id, requestParams);
                   }}
