@@ -454,8 +454,8 @@ const CardRightComp = (props) => {
           pagination={{ position: ["none", "none"] }}
           showHeader={false}
           columns={columns2}
-          scroll={{ y: 130}}
-          height={{ y: 130}}
+          scroll={{ y: 130 }}
+          height={{ y: 130 }}
         ></Table>
       );
     }
