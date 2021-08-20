@@ -260,8 +260,8 @@ const ConsultantData = () => {
                   {dateDifference(
                     new Date(),
                     new Date(consultantsList.contracts.ongoing[0].end_date)
-                  )}
-                  days
+                  )}{" "}
+                  Day(s)
                 </div>
                 <div style={{ color: tertiaryColor }}>
                   {dateFormatStandard(
@@ -314,8 +314,8 @@ const ConsultantData = () => {
                   {dateDifference(
                     new Date(),
                     new Date(consultantsList.contracts.upcoming[0].start_date)
-                  )}
-                  days
+                  )}{" "}
+                  Day(s)
                 </div>
                 <div style={{ color: tertiaryColor }}>
                   {dateFormatStandard(
